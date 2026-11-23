@@ -1,0 +1,7 @@
+name: generic
+enabled: false
+capabilities: [read_repository, propose_patch]
+security:
+  allowed_operations: []
+  timeout_seconds: 120
+  require_human_approval_for: [write_repository, create_pull_request, deploy]

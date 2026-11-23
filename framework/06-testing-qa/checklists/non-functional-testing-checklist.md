@@ -1,0 +1,11 @@
+# Non-Functional Testing Checklist
+- [ ] Performance target và workload profile được định nghĩa.
+- [ ] Load/stress/spike/endurance được duyệt và cô lập.
+- [ ] Security check phản ánh threat/risk profile.
+- [ ] Authentication, authorization, sensitive data được test.
+- [ ] Accessibility/usability scope xác định khi cần.
+- [ ] Browser/device/OS compatibility được kiểm tra.
+- [ ] Reliability, timeout, retry, recovery được xem xét.
+- [ ] Resource usage và scalability được đánh giá.
+- [ ] Kết quả ghi environment, tool, workload và limitation.
+- [ ] Finding/accepted risk có owner và decision.

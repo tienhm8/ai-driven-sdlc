@@ -1,0 +1,9 @@
+project:
+  id: CRM
+  name: Project CRM
+framework:
+  version: "1.0.0"
+technology_stack:
+  backend: dotnet
+  frontend: react
+  database: postgresql

@@ -1,0 +1,11 @@
+# Regression Testing Checklist
+- [ ] Impact analysis xác định component ảnh hưởng/liên quan.
+- [ ] Test cho defect cũ và vùng sửa được đưa vào.
+- [ ] Critical end-to-end workflow được cover.
+- [ ] API/database contract và integration được kiểm tra.
+- [ ] Permission/tenant isolation được kiểm tra khi phù hợp.
+- [ ] Migration/data integrity test được thêm khi cần.
+- [ ] Automation suite version và build được ghi nhận.
+- [ ] Flaky test được nhận diện, không âm thầm coi là Pass.
+- [ ] Skipped/Blocked test có lý do.
+- [ ] Regression result được review trước sign-off.

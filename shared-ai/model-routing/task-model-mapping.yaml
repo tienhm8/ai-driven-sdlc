@@ -1,0 +1,12 @@
+schema_version: 1
+tasks:
+  requirement-analysis: {profile: implementation, effort: medium}
+  system-design: {profile: critical-review, effort: high}
+  task-planning: {profile: implementation, effort: medium}
+  code-generation: {profile: implementation, effort: medium}
+  code-review: {profile: critical-review, effort: high}
+  testing: {profile: implementation, effort: medium}
+  deployment-planning: {profile: critical-review, effort: high}
+  incident-analysis: {profile: critical-review, effort: high}
+  documentation: {profile: routine, effort: low}
+unknown_task: require_manual_selection

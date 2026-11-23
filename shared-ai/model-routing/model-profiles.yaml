@@ -1,0 +1,8 @@
+schema_version: 1
+profiles:
+  routine:
+    required_capabilities: [text]
+  implementation:
+    required_capabilities: [text, code]
+  critical-review:
+    required_capabilities: [text, code, deep_reasoning]

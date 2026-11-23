@@ -1,0 +1,11 @@
+# Defect Verification Checklist
+- [ ] Bug report có steps, environment và build.
+- [ ] Expected/actual rõ ràng.
+- [ ] Evidence đính kèm và sensitive data đã redacted.
+- [ ] Severity và priority được đánh giá riêng.
+- [ ] Fix commit/build xác định được.
+- [ ] Scenario tái hiện ban đầu được retest.
+- [ ] Regression liên quan được chạy.
+- [ ] Không có side effect mới trong phạm vi liên quan.
+- [ ] Intermittent issue có evidence lặp lại đủ.
+- [ ] QA xác nhận closure, không chỉ dựa vào author.

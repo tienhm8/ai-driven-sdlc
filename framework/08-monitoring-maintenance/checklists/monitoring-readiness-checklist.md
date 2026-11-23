@@ -1,0 +1,12 @@
+# Monitoring Readiness Checklist
+- [ ] Xác định Service Owner và trách nhiệm on-call.
+- [ ] Tài liệu hóa critical user journeys và dependencies.
+- [ ] Tài liệu hóa SLI/SLO đã duyệt và measurement windows.
+- [ ] Instrument golden signals và business metrics.
+- [ ] Log có cấu trúc, có timestamp và tương quan được.
+- [ ] Trace bao phủ critical paths khi áp dụng.
+- [ ] Dashboard có ngữ cảnh service, dependency và release.
+- [ ] Alert có severity, owner, routing và runbook.
+- [ ] Có alert về sức khỏe telemetry pipeline và dữ liệu bị thiếu.
+- [ ] Áp dụng chính sách access, retention, redaction và audit.
+- [ ] Runbook và danh sách liên hệ escalation đã được kiểm thử.

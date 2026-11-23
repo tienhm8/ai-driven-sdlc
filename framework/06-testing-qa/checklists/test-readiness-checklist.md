@@ -1,0 +1,12 @@
+# Test Readiness Checklist
+- [ ] Requirement/AC đã duyệt và versioned.
+- [ ] Design/API/data references sẵn có.
+- [ ] Scope, exclusions và risks được ghi nhận.
+- [ ] Build/commit SHA xác định được.
+- [ ] Test plan/cases được review.
+- [ ] Environment và dependencies sẵn sàng.
+- [ ] Synthetic/anonymized data có sẵn.
+- [ ] Account/role/permission được chuẩn bị.
+- [ ] Logging/monitoring/evidence capture hoạt động.
+- [ ] Reset/cleanup an toàn.
+- [ ] Entry criteria đạt hoặc exception được duyệt.

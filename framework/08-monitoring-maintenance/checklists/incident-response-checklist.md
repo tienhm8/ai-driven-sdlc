@@ -1,0 +1,12 @@
+# Incident Response Checklist
+- [ ] Ghi nhận Incident ID, service, environment và timezone.
+- [ ] Đánh giá tác động người dùng/nghiệp vụ và blast radius.
+- [ ] Xác nhận severity theo severity matrix đã duyệt.
+- [ ] Phân công IC và các vai trò cần thiết.
+- [ ] Thu thập evidence và timeline.
+- [ ] Kiểm tra thay đổi gần đây: deploy/config/dependency.
+- [ ] Đánh giá mitigation về rủi ro và khả năng đảo ngược.
+- [ ] Có G7 approval cho sự cố nghiêm trọng/hành động rủi ro cao.
+- [ ] Thiết lập owner và nhịp cập nhật truyền thông.
+- [ ] Xác minh khôi phục theo health, SLI và tính toàn vẹn dữ liệu.
+- [ ] Ghi nhận rủi ro còn lại và owner các việc tiếp theo.

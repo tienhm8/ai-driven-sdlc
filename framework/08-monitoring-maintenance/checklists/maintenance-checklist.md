@@ -1,0 +1,12 @@
+# Maintenance Checklist
+- [ ] Ghi nhận phạm vi, mục tiêu, owner và rủi ro.
+- [ ] Xác nhận change approval và maintenance window.
+- [ ] Thông báo stakeholders/on-call.
+- [ ] Ghi nhận baseline health và SLI.
+- [ ] Xác minh sẵn sàng backup/recovery khi cần.
+- [ ] Rà soát dependencies, tính tương thích và capacity.
+- [ ] Có runbook và tiêu chí rollback/abort.
+- [ ] Xác nhận quyền truy cập và độ phủ operator.
+- [ ] Định nghĩa kiểm tra sau thay đổi.
+- [ ] Monitoring hoạt động trong và sau maintenance.
+- [ ] Ghi nhận kết quả, sai lệch và việc tiếp theo.

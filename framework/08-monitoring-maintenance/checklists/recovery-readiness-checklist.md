@@ -1,0 +1,11 @@
+# Recovery Readiness Checklist
+- [ ] RTO/RPO được tài liệu hóa và duyệt bởi owner dịch vụ/nghiệp vụ.
+- [ ] Xác định phạm vi, tần suất và retention của backup.
+- [ ] Theo dõi backup thành công và chuyển tiếp các lỗi backup.
+- [ ] Quy trình restore được tài liệu hóa và kiểm soát truy cập.
+- [ ] Đã thực hiện restore test và lưu evidence.
+- [ ] Bao phủ dependencies, keys, secrets và điều kiện hạ tầng.
+- [ ] Có runbook failover/DR và xác định thẩm quyền quyết định.
+- [ ] Định nghĩa kiểm tra toàn vẹn dữ liệu.
+- [ ] Định nghĩa tiêu chí rollback/quay lại primary.
+- [ ] Theo dõi các khoảng trống khôi phục đến khi đóng.

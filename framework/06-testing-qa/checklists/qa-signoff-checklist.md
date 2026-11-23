@@ -1,0 +1,14 @@
+# QA Sign-off Checklist – G5
+- [ ] Scope và exit criteria đã duyệt.
+- [ ] Test bắt buộc chạy trên build xác định.
+- [ ] Result/evidence truy vết được.
+- [ ] Critical/High defect đáp ứng exit policy.
+- [ ] Defect còn lại có impact, owner, disposition.
+- [ ] Requirement/risk coverage và gaps được báo cáo.
+- [ ] Regression và non-functional test bắt buộc hoàn tất.
+- [ ] Blocked, skipped, not-run, flaky được công khai.
+- [ ] Environment/data limitation được ghi nhận.
+- [ ] QA Lead review và ghi recommendation.
+- [ ] PO xác nhận business acceptance.
+- [ ] G5 approver, timestamp, report version, build SHA được lưu.
+- [ ] AI không tự phê duyệt gate.

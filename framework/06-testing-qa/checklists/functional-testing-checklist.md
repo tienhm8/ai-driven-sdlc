@@ -1,0 +1,11 @@
+# Functional Testing Checklist
+- [ ] Happy path cho requirement quan trọng.
+- [ ] Negative và invalid input.
+- [ ] Empty, null, boundary, min/max.
+- [ ] Business rules, calculation, state transition.
+- [ ] Authentication/role behavior khi liên quan.
+- [ ] Error message và error handling.
+- [ ] Duplicate submission/idempotency khi phù hợp.
+- [ ] Integration contract và persistence.
+- [ ] Timezone, locale, currency khi áp dụng.
+- [ ] Expected result truy về AC đã duyệt.

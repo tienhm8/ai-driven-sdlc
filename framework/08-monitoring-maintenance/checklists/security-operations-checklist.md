@@ -1,0 +1,11 @@
+# Security Operations Checklist
+- [ ] Cảnh báo bảo mật được chuyển đến team chịu trách nhiệm.
+- [ ] Truy cập evidence tuân theo nguyên tắc least privilege.
+- [ ] Secrets, tokens và PII được redact khỏi telemetry.
+- [ ] Biết yêu cầu retention và bảo toàn evidence.
+- [ ] Có tài liệu quy trình escalation sự cố bảo mật.
+- [ ] Containment theo playbook đã duyệt.
+- [ ] Xoay vòng credential/key cần phê duyệt có thẩm quyền.
+- [ ] Bảo toàn forensic evidence với audit trail.
+- [ ] Liên hệ legal/privacy/compliance khi cần.
+- [ ] Quyết định đóng sự cố và thông báo do vai trò có thẩm quyền phê duyệt.

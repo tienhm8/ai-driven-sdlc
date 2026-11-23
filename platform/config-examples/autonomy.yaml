@@ -1,0 +1,5 @@
+autonomy:
+  default_level: L2
+  production_deployment: approval_required
+  security_sensitive_changes: approval_required
+  data_migrations: approval_required

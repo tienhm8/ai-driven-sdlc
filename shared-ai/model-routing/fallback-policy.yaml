@@ -1,0 +1,13 @@
+schema_version: 1
+retryable: [rate_limited, temporarily_unavailable]
+non_retryable: [refusal, permission_denied, invalid_request, budget_exceeded, unknown_error]
+max_retries: 1
+max_fallbacks: 1
+fallbacks:
+  routine: [implementation]
+  implementation: [critical-review]
+  critical-review: []
+require_same_approved_data_policy: true
+require_same_or_higher_effort: true
+require_capability_superset: true
+on_exhausted: require_manual_selection

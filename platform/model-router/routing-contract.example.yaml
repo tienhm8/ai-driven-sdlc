@@ -1,0 +1,8 @@
+tasks:
+  requirement_analysis: reasoning_balanced
+  system_design: reasoning_strong
+  code_generation: coding_balanced
+  code_review: reasoning_strong
+  test_generation: coding_balanced
+  documentation: fast_general
+  default: reasoning_balanced

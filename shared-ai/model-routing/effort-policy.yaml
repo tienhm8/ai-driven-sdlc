@@ -1,0 +1,8 @@
+schema_version: 1
+levels: [low, medium, high]
+risk_floors:
+  low: low
+  medium: medium
+  high: high
+unknown_risk: require_manual_review
+unsupported_effort: require_manual_selection
