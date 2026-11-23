@@ -1,13 +1,13 @@
 # Ma trận truy vết yêu cầu (Requirement Traceability Matrix)
 
-| Mã BR | Mã FR | Mã US | Mã AC | Mã UC | Mã Test Case |
+| Mã BRQ | Mã FR | Mã US | Mã AC | Mã UC | Mã Test Case |
 |---|---|---|---|---|---|
-| BR-001 | FR-001 | US-001 | AC-001 | UC-001 | TBD |
+| BRQ-0001 | FR-001 | US-001 | AC-001 | UC-001 | TBD |
 
 ## Quy tắc truy vết
 
 1. Mỗi yêu cầu PHẢI có mã duy nhất.
-2. Yêu cầu chức năng NÊN tham chiếu đến yêu cầu nghiệp vụ tương ứng.
+2. Yêu cầu chức năng NÊN tham chiếu đến BRQ tương ứng trong BRD nguồn.
 3. User Story NÊN tham chiếu đến các yêu cầu liên quan.
 4. Tiêu chí nghiệm thu PHẢI tham chiếu đến User Story.
 5. Test Case sẽ được liên kết trong giai đoạn Testing & QA.

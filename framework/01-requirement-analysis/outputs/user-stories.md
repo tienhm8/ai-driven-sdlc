@@ -19,7 +19,7 @@
 
 #### Chi tiết
 
-- BR liên quan:
+- BRQ liên quan:
 - FR liên quan:
 - Độ ưu tiên:
 - Phụ thuộc:

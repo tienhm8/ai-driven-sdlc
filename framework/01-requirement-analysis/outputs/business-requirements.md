@@ -1,15 +1,17 @@
-# Yêu cầu nghiệp vụ (Business Requirements)
+# Tài liệu yêu cầu nghiệp vụ (Business Requirements Document – BRD)
 
-## Danh sách yêu cầu nghiệp vụ
+- Mã tài liệu: `BRD-0001`
+
+## Danh sách yêu cầu nghiệp vụ (BRQ)
 
 | Mã | Yêu cầu | Mục tiêu nghiệp vụ | Độ ưu tiên | Nguồn |
 |---|---|---|---|---|
-| BR-001 | | | Cao | |
-| BR-002 | | | Trung bình | |
+| BRQ-0001 | | | Cao | |
+| BRQ-0002 | | | Trung bình | |
 
 ## Chi tiết yêu cầu
 
-### BR-001: Tên yêu cầu
+### BRQ-0001: Tên yêu cầu
 
 - Mô tả:
 - Lý do nghiệp vụ:
@@ -20,11 +22,11 @@
 - Yêu cầu liên quan:
 - Trạng thái: DRAFT
 
-## Quy tắc nghiệp vụ
+## Quy tắc nghiệp vụ (BR)
 
-| Mã | Quy tắc nghiệp vụ | Yêu cầu liên quan |
+| Mã BR | Quy tắc nghiệp vụ | BRQ liên quan |
 |---|---|---|
-| BRULE-001 | | |
+| BR-0001 | | BRQ-0001 |
 
 ## Phạm vi nghiệp vụ
 

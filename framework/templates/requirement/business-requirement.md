@@ -1,7 +1,7 @@
-# Tài liệu Business Requirement (BRD)
+# Tài liệu yêu cầu nghiệp vụ (Business Requirements Document – BRD)
 
 ## Metadata
-- Document ID: `{{BRD-ID}}`
+- Mã tài liệu: `{{BRD-ID}}` (ví dụ: `BRD-0001`)
 - Project: `{{PROJECT}}`
 - Version / Status: `{{VERSION}}` / Draft
 - Owner: `{{BUSINESS-OWNER}}`
@@ -28,13 +28,16 @@
 |---|---|---|
 | {{ROLE}} | {{RESPONSIBILITY}} | {{IMPACT}} |
 
-## 5. Business requirement
-| ID | Requirement | Độ ưu tiên | Lý do | Tham chiếu acceptance |
+## 5. Yêu cầu nghiệp vụ (BRQ)
+| Mã BRQ | Requirement | Độ ưu tiên | Lý do | Tham chiếu acceptance |
 |---|---|---|---|---|
-| `REQ-001` | {{REQUIREMENT}} | Must/Should/Could/Won't | {{WHY}} | {{AC-ID}} |
+| `BRQ-0001` | {{REQUIREMENT}} | Must/Should/Could/Won't | {{WHY}} | {{AC-ID}} |
 
-## 6. Business rule và ràng buộc
-- Business rules:
+## 6. Quy tắc nghiệp vụ (BR) và ràng buộc
+| Mã BR | Quy tắc nghiệp vụ | BRQ liên quan |
+|---|---|---|
+| `BR-0001` | {{RULE}} | `BRQ-0001` |
+
 - Ràng buộc pháp lý/quy định:
 - Ràng buộc vận hành:
 - Giả định:

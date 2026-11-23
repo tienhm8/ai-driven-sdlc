@@ -30,6 +30,8 @@ Sử dụng định dạng:
 
 Ví dụ:
 
+- `BRD-0001`
+- `BRQ-0001`
 - `BR-0001`
 - `US-0001`
 - `AC-0001`
@@ -51,13 +53,14 @@ Nếu nhiều repository hoặc nhiều nhóm cùng sử dụng một namespace 
 
 | Prefix | Loại artifact | Giai đoạn SDLC |
 |---|---|---|
-| BR | Business Requirement (Yêu cầu nghiệp vụ) | Requirement Analysis |
+| BRD | Business Requirements Document (Tài liệu yêu cầu nghiệp vụ) | Requirement Analysis |
+| BRQ | Business Requirement (Một yêu cầu nghiệp vụ trong BRD) | Requirement Analysis |
+| BR | Business Rule (Quy tắc nghiệp vụ) | Requirement Analysis |
 | NFR | Non-Functional Requirement (Yêu cầu phi chức năng) | Requirement Analysis |
 | EPIC | Epic | Requirement Analysis |
 | US | User Story | Requirement Analysis |
 | AC | Acceptance Criteria (Tiêu chí nghiệm thu) | Requirement Analysis |
 | UC | Use Case | Requirement Analysis |
-| RULE | Business Rule (Quy tắc nghiệp vụ) | Requirement Analysis |
 | STK | Stakeholder (Bên liên quan) | Requirement Analysis |
 | DES | Design Document (Tài liệu thiết kế) | System Design |
 | ADR | Architecture Decision Record | System Design |
@@ -88,7 +91,9 @@ Artifact NÊN tham chiếu đến artifact liên quan bằng ID của chúng.
 
 Ví dụ:
 
-- `BR-0001` được phân rã thành `US-0001`.
+- `BRD-0001` chứa yêu cầu nghiệp vụ `BRQ-0001`.
+- Quy tắc nghiệp vụ `BR-0001` áp dụng cho `BRQ-0001`.
+- `BRQ-0001` được phân rã thành `US-0001`.
 - `US-0001` được hỗ trợ bởi `AC-0001`.
 - `AC-0001` được hiện thực bởi `TASK-0001`.
 - `TASK-0001` được kiểm chứng bởi `TC-0001`.
@@ -119,7 +124,7 @@ Khi tham chiếu chéo giữa các dự án, PHẢI kèm định danh dự án:
 
 Ví dụ:
 
-`CRM:BR-0001`
+`CRM:BRQ-0001`
 
 ## 8. Yêu cầu metadata
 

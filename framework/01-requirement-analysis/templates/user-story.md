@@ -20,7 +20,7 @@
 | Mã User Story | US-001 |
 | Tiêu đề | [Tiêu đề ngắn gọn, mô tả rõ] |
 | Mã Epic | EPIC-001 |
-| Yêu cầu nghiệp vụ liên quan | BR-001 |
+| Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
 | Module | [Tên module] |
 | Độ ưu tiên | Phải có |
 | Story Points | [Ước lượng] |
@@ -66,7 +66,7 @@
 
 | Mã quy tắc | Mô tả quy tắc | Yêu cầu liên quan |
 |---|---|---|
-| RULE-001 | [Mô tả] | BR-001 |
+| BR-0001 | [Mô tả] | BRQ-0001 |
 
 ## 5. Phụ thuộc
 
@@ -142,5 +142,5 @@ Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteri
 - Tránh gộp nhiều mục tiêu nghiệp vụ độc lập vào một story.
 - Nhận diện phụ thuộc và thông tin còn thiếu.
 - KHÔNG tạo quy tắc nghiệp vụ mới khi không có bằng chứng.
-- Liên kết mỗi User Story với mã BR nguồn.
+- Liên kết mỗi User Story với mã BRQ nguồn.
 - KHÔNG phê duyệt hoặc ưu tiên story thay mặt Product Owner.

@@ -35,7 +35,7 @@ CI/automation status:
 ## Execution details
 | Test Case ID | Requirement ID | Result | Build | Evidence reference | Notes |
 |---|---|---|---|---|---|
-| TC-001 | REQ-001 | Pass/Fail/... | | | |
+| TC-001 | BRQ-0001 | Pass/Fail/... | | | |
 
 ## Defect summary
 | Defect ID | Severity | Priority | Status | Owner | Retest |

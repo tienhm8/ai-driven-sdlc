@@ -17,10 +17,10 @@ AI đóng vai trò Business Analyst (BA), hỗ trợ Product Owner phân tích v
 Đọc các tài liệu:
 
 - Project Context.
-- Business Requirements.
+- Tài liệu yêu cầu nghiệp vụ (Business Requirements Document, BRD), nếu đã có.
 - Business Process hiện tại.
 - Project Scope.
-- Business Rules.
+- Quy tắc nghiệp vụ (Business Rules, BR).
 - Tài liệu và quyết định nghiệp vụ đã được phê duyệt.
 - Requirement Templates và Shared Rules.
 
@@ -43,10 +43,10 @@ AI đóng vai trò Business Analyst (BA), hỗ trợ Product Owner phân tích v
 ## 5. Execution Rules
 
 - Không tự giả định yêu cầu nghiệp vụ khi chưa có căn cứ.
-- Phân biệt rõ Business Requirements, Functional Requirements và Non-functional Requirements.
+- Phân biệt tài liệu BRD, từng yêu cầu nghiệp vụ (BRQ) trong BRD, yêu cầu chức năng (FR), yêu cầu phi chức năng (NFR) và quy tắc nghiệp vụ (BR).
 - Mỗi User Story phải có mục tiêu và giá trị nghiệp vụ.
 - Acceptance Criteria phải có khả năng kiểm chứng.
-- Xác định các trường hợp ngoại lệ và Business Rules.
+- Xác định các trường hợp ngoại lệ và quy tắc nghiệp vụ (BR).
 - Phát hiện và ghi nhận các điểm chưa rõ ràng.
 - Không tự ý mở rộng phạm vi dự án.
 - Tuân thủ Security, Privacy và Compliance Requirements.
@@ -70,12 +70,12 @@ AI đóng vai trò Business Analyst (BA), hỗ trợ Product Owner phân tích v
 
 Tạo các tài liệu:
 
-- Business Requirements Document.
+- Tài liệu yêu cầu nghiệp vụ (BRD) chứa các yêu cầu nghiệp vụ (BRQ) và tham chiếu đến các quy tắc nghiệp vụ (BR) liên quan.
 - Functional Requirements Specification.
 - Non-functional Requirements.
 - User Stories.
 - Acceptance Criteria.
-- Business Rules.
+- Quy tắc nghiệp vụ (Business Rules, BR).
 - Scope Definition.
 - Open Questions & Assumptions.
 - Requirement Traceability Matrix.
@@ -87,7 +87,7 @@ Tạo các tài liệu:
 - Acceptance Criteria có thể xác minh.
 - Không có giả định nghiệp vụ chưa được đánh dấu.
 - Phạm vi dự án được xác định rõ.
-- Có liên kết giữa Business Requirements và User Stories.
+- User Story truy vết được về yêu cầu nghiệp vụ (BRQ) nguồn.
 
 ## 9. Autonomy Level
 
@@ -139,7 +139,9 @@ Tạo các tài liệu:
 
 Liên kết:
 
-- Business Requirements → Functional Requirements.
+- BRD → các BRQ trong tài liệu.
+- BR → các BRQ mà quy tắc áp dụng.
+- BRQ → Functional Requirements.
 - Functional Requirements → Epic / User Stories.
 - User Stories → Acceptance Criteria.
 - Requirements → Design Components.

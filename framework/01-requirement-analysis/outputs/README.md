@@ -9,7 +9,7 @@ Thư mục này chứa toàn bộ sản phẩm được tạo ra trong giai đo�
 | Artifact | Mô tả |
 |---|---|
 | requirement-analysis-report.md | Báo cáo tổng hợp phân tích |
-| business-requirements.md | Yêu cầu nghiệp vụ |
+| business-requirements.md | Tài liệu yêu cầu nghiệp vụ (BRD) |
 | functional-requirements.md | Yêu cầu chức năng |
 | non-functional-requirements.md | Yêu cầu phi chức năng |
 | user-stories.md | Danh sách User Story |
@@ -55,7 +55,7 @@ Các artifact sử dụng một trong các trạng thái sau:
 outputs/
 ├── README.md                              # Quy tắc đầu ra và trạng thái phê duyệt
 ├── requirement-analysis-report.md         # Nhóm tổng quan: báo cáo phân tích
-├── business-requirements.md               # Nhóm yêu cầu: nghiệp vụ
+├── business-requirements.md               # Tài liệu yêu cầu nghiệp vụ (BRD)
 ├── functional-requirements.md             # Nhóm yêu cầu: chức năng
 ├── non-functional-requirements.md         # Nhóm yêu cầu: phi chức năng
 ├── user-stories.md                        # Nhóm mô tả: User Story
@@ -73,13 +73,13 @@ outputs/
 |---|---|---|---|
 | `README.md` | Quy định cách tạo đầu ra, ID, trạng thái và quyền phê duyệt. | Framework | — |
 | `requirement-analysis-report.md` | Tổng hợp kết quả phân tích, số lượng yêu cầu, rủi ro và mức sẵn sàng G1. Là tài liệu đầu tiên người review đọc. | AI | DRAFT |
-| `business-requirements.md` | Liệt kê yêu cầu nghiệp vụ (BR), mục tiêu, nguồn và quy tắc nghiệp vụ (BRULE). Là gốc của mọi yêu cầu. | AI | DRAFT |
-| `functional-requirements.md` | Mô tả chi tiết yêu cầu chức năng (FR), actor, luồng và liên kết với BR. | AI | DRAFT |
+| `business-requirements.md` | Tài liệu yêu cầu nghiệp vụ (BRD): ghi mục tiêu, nguồn, các yêu cầu nghiệp vụ (BRQ) và quy tắc nghiệp vụ (BR) liên quan. | AI | DRAFT |
+| `functional-requirements.md` | Mô tả chi tiết yêu cầu chức năng (FR), actor, luồng và liên kết với BRQ. | AI | DRAFT |
 | `non-functional-requirements.md` | Mô tả yêu cầu phi chức năng (NFR) với phương pháp đo và mục tiêu đã được xác nhận. | AI | DRAFT |
-| `user-stories.md` | Chuyển FR/BR thành User Story theo định dạng As a / I want / So that. | AI | DRAFT |
+| `user-stories.md` | Chuyển FR/BRQ thành User Story theo định dạng As a / I want / So that. | AI | DRAFT |
 | `acceptance-criteria.md` | Định nghĩa điều kiện nghiệm thu (Given / When / Then) cho từng User Story. | AI | DRAFT |
 | `use-cases.md` | Mô tả luồng chính, luồng thay thế, luồng ngoại lệ và hậu điều kiện. | AI | DRAFT |
 | `open-questions.md` | Sổ câu hỏi chưa được giải đáp, người phụ trách và tác động nếu chưa xử lý. Câu hỏi quan trọng chưa đóng sẽ chặn G1. | AI đề xuất, người xác nhận | OPEN |
 | `assumptions-and-constraints.md` | Tổng hợp giả định (chưa / đã xác nhận), ràng buộc và rủi ro. | AI | Chưa xác nhận |
-| `requirement-traceability-matrix.md` | Liên kết BR → FR → US → AC → UC → Test Case để phát hiện thiếu sót. | AI | — |
+| `requirement-traceability-matrix.md` | Liên kết BRQ → FR → US → AC → UC → Test Case để phát hiện thiếu sót. | AI | — |
 | `G1-approval-record.md` | Hồ sơ phê duyệt G1: artifact đã gửi, kết quả checklist, vấn đề còn mở và quyết định của Product Owner. | AI chuẩn bị; Product Owner quyết định | PENDING |

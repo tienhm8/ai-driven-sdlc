@@ -16,7 +16,7 @@
 |---|---|
 | Mã Use Case | UC-001 |
 | Tên Use Case | [Tên Use Case] |
-| Yêu cầu nghiệp vụ liên quan | BR-001 |
+| Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
 | User Story liên quan | US-001 |
 | Tiêu chí nghiệm thu liên quan | AC-001 |
 | Module | [Tên module] |
@@ -96,7 +96,7 @@ Các điều kiện phải thỏa mãn trước khi Use Case được thực hi�
 
 | Mã quy tắc | Mô tả quy tắc |
 |---|---|
-| RULE-001 | [Quy tắc nghiệp vụ] |
+| BR-0001 | [Quy tắc nghiệp vụ] |
 
 ## 11. Đầu vào / Đầu ra
 
@@ -162,6 +162,6 @@ Các điều kiện phải thỏa mãn trước khi Use Case được thực hi�
 - Mô tả tương tác từ góc nhìn của actor.
 - Tách riêng luồng chính, luồng thay thế và luồng ngoại lệ.
 - KHÔNG trộn chi tiết triển khai vào hành vi nghiệp vụ.
-- Liên kết Use Case với các mã BR, US và AC hiện có.
+- Liên kết Use Case với các mã BRQ, US và AC hiện có.
 - Nhận diện điều kiện tiên quyết còn thiếu và hành vi lỗi chưa được định nghĩa.
 - KHÔNG tự tạo quy tắc nghiệp vụ.

@@ -88,7 +88,7 @@ Ví dụ:
 
 | Trường | Giá trị |
 |---|---|
-| ID | BR-0001 |
+| ID | BRQ-0001 |
 | Title | Customer Registration |
 | Version | v1.2 |
 | Status | Approved |
@@ -112,8 +112,8 @@ Phê duyệt áp dụng cho một phiên bản cụ thể của artifact.
 
 Ví dụ:
 
-- `BR-0001 v1.0` có thể ở trạng thái Approved.
-- `BR-0001 v1.1` có thể đang ở trạng thái Draft hoặc In Review.
+- `BRQ-0001 v1.0` có thể ở trạng thái Approved.
+- `BRQ-0001 v1.1` có thể đang ở trạng thái Draft hoặc In Review.
 
 Việc phê duyệt phiên bản cũ KHÔNG tự động phê duyệt phiên bản mới hơn.
 
