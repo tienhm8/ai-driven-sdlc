@@ -1,10 +1,10 @@
-# Yêu cầu nghiệp vụ (Business Requirements)
+# Tài liệu yêu cầu nghiệp vụ (Business Requirements Document – BRD)
 
 ## 1. Thông tin tài liệu
 
 | Trường | Giá trị |
 |---|---|
-| Mã tài liệu | BRD-[PROJECT]-001 |
+| Mã tài liệu | BRD-0001 |
 | Tên dự án | [Tên dự án] |
 | Phiên bản tài liệu | 1.0 |
 | Trạng thái | Draft |
@@ -57,16 +57,16 @@
 | STK-001 | [Tên/Nhóm] | Product Owner | Quyết định nghiệp vụ | Cao |
 | STK-002 | [Tên/Nhóm] | Người dùng cuối | Sử dụng hệ thống | Cao |
 
-## 6. Yêu cầu nghiệp vụ
+## 6. Yêu cầu nghiệp vụ (BRQ)
 
-| Mã yêu cầu | Tên yêu cầu | Mô tả | Độ ưu tiên | Nguồn |
+| Mã BRQ | Tên yêu cầu | Mô tả | Độ ưu tiên | Nguồn |
 |---|---|---|---|---|
-| BR-001 | [Tên] | [Mô tả] | Phải có | [Bên liên quan] |
-| BR-002 | [Tên] | [Mô tả] | Nên có | [Bên liên quan] |
+| BRQ-0001 | [Tên] | [Mô tả] | Phải có | [Bên liên quan] |
+| BRQ-0002 | [Tên] | [Mô tả] | Nên có | [Bên liên quan] |
 
 ### 6.1 Chi tiết yêu cầu
 
-#### BR-001: [Tên yêu cầu]
+#### BRQ-0001: [Tên yêu cầu]
 
 - Mô tả: [Mô tả chi tiết yêu cầu nghiệp vụ]
 - Lý do nghiệp vụ: [Vì sao cần yêu cầu này?]
@@ -89,11 +89,11 @@
 ### 7.3 Cải tiến quy trình
 [Mô tả các điểm được cải thiện.]
 
-## 8. Quy tắc nghiệp vụ
+## 8. Quy tắc nghiệp vụ (BR)
 
-| Mã quy tắc | Quy tắc nghiệp vụ | Mô tả | Yêu cầu liên quan |
+| Mã BR | Quy tắc nghiệp vụ | Mô tả | BRQ liên quan |
 |---|---|---|---|
-| RULE-001 | [Tên quy tắc] | [Mô tả quy tắc] | BR-001 |
+| BR-0001 | [Tên quy tắc] | [Mô tả quy tắc] | BRQ-0001 |
 
 ## 9. Yêu cầu phi chức năng
 
@@ -150,6 +150,6 @@ Tiêu chí phê duyệt:
 - Không bịa đặt quy tắc nghiệp vụ hoặc giả định.
 - Phân biệt rõ sự kiện đã xác nhận với giả định và khuyến nghị.
 - Nhận diện các yêu cầu thiếu, mơ hồ và mâu thuẫn.
-- Gán mã yêu cầu duy nhất.
+- Gán ID riêng cho BRD, từng BRQ và từng BR theo quy ước định danh; tham chiếu BRQ mà mỗi BR áp dụng.
 - KHÔNG đánh dấu yêu cầu là đã phê duyệt.
 - Yêu cầu Product Owner phê duyệt tại G1.

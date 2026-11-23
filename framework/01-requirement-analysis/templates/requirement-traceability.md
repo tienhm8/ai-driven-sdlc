@@ -16,7 +16,7 @@
 Ma trận truy vết yêu cầu (RTM) đảm bảo rằng:
 
 - Mọi yêu cầu có nguồn gốc có thể nhận diện.
-- Mọi Yêu cầu nghiệp vụ được phân rã thành các User Story liên quan.
+- Mọi yêu cầu nghiệp vụ (BRQ) trong BRD được truy vết tới các User Story liên quan.
 - Mọi User Story có Tiêu chí nghiệm thu có thể đo lường.
 - Mọi yêu cầu liên quan được hỗ trợ bởi Use Case.
 - Yêu cầu được liên kết với các artifact thiết kế, phát triển và kiểm thử.
@@ -28,25 +28,25 @@ Ma trận truy vết yêu cầu (RTM) đảm bảo rằng:
 
 ### 3.1 Truy vết từ đầu đến cuối
 
-| Mã BR | Mã US | Mã AC | Mã UC | Mã thiết kế | Mã Task | Mã Test Case | Trạng thái |
+| Mã BRQ | Mã US | Mã AC | Mã UC | Mã thiết kế | Mã Task | Mã Test Case | Trạng thái |
 |---|---|---|---|---|---|---|---|
-| BR-001 | US-001 | AC-001 | UC-001 | DES-001 | TASK-001 | TC-001 | Đang thực hiện |
-| BR-001 | US-002 | AC-002 | UC-002 | DES-002 | TASK-002 | TC-002 | Đang thực hiện |
-| BR-002 | US-003 | AC-003 | UC-003 | DES-003 | TASK-003 | Chưa bắt đầu |
+| BRQ-0001 | US-001 | AC-001 | UC-001 | DES-001 | TASK-001 | TC-001 | Đang thực hiện |
+| BRQ-0001 | US-002 | AC-002 | UC-002 | DES-002 | TASK-002 | TC-002 | Đang thực hiện |
+| BRQ-0002 | US-003 | AC-003 | UC-003 | DES-003 | TASK-003 | Chưa bắt đầu |
 
 ### 3.2 Độ bao phủ theo Yêu cầu nghiệp vụ
 
-| Mã BR | Tên yêu cầu | Tổng số User Story | Đã bao phủ | Tỷ lệ bao phủ |
+| Mã BRQ | Tên yêu cầu | Tổng số User Story | Đã bao phủ | Tỷ lệ bao phủ |
 |---|---|---:|---:|---:|
-| BR-001 | [Tên] | 3 | 3 | 100% |
-| BR-002 | [Tên] | 2 | 1 | 50% |
+| BRQ-0001 | [Tên] | 3 | 3 | 100% |
+| BRQ-0002 | [Tên] | 2 | 1 | 50% |
 
 ### 3.3 Độ bao phủ theo User Story
 
-| Mã US | BR liên quan | Số AC | Số UC | Số Test Case | Trạng thái bao phủ |
+| Mã US | BRQ liên quan | Số AC | Số UC | Số Test Case | Trạng thái bao phủ |
 |---|---|---:|---:|---:|---|
-| US-001 | BR-001 | 3 | 1 | 5 | Đã bao phủ |
-| US-002 | BR-001 | 2 | 1 | 0 | Chưa kiểm thử |
+| US-001 | BRQ-0001 | 3 | 1 | 5 | Đã bao phủ |
+| US-002 | BRQ-0001 | 2 | 1 | 0 | Chưa kiểm thử |
 
 ## 4. Truy vết xuôi dòng (Downstream Traceability)
 
@@ -54,7 +54,7 @@ Ma trận truy vết yêu cầu (RTM) đảm bảo rằng:
 
 | Mã yêu cầu | Artifact kiến trúc/thiết kế | Tham chiếu thiết kế | Trạng thái |
 |---|---|---|---|
-| BR-001 | [Tài liệu thiết kế] | DES-001 | Đã review |
+| BRQ-0001 | [Tài liệu thiết kế] | DES-001 | Đã review |
 
 ### 4.2 Ánh xạ phát triển
 
@@ -73,7 +73,7 @@ Ma trận truy vết yêu cầu (RTM) đảm bảo rằng:
 
 | Mã yêu cầu | Phiên bản release | Mã triển khai | Môi trường | Trạng thái |
 |---|---|---|---|---|
-| BR-001 | v1.0.0 | REL-001 | Production | Đã triển khai |
+| BRQ-0001 | v1.0.0 | REL-001 | Production | Đã triển khai |
 
 ## 5. Phân tích yêu cầu mồ côi và khoảng trống
 
@@ -83,7 +83,7 @@ Các yêu cầu không có artifact tương ứng ở các giai đoạn phía sa
 
 | Mã yêu cầu | Artifact còn thiếu | Tác động | Cách xử lý |
 |---|---|---|---|
-| BR-003 | User Story | Cao | Tạo User Story |
+| BRQ-0003 | User Story | Cao | Tạo User Story |
 
 ### 5.2 Task phát triển chưa được liên kết
 
@@ -97,13 +97,13 @@ Các task không có tham chiếu đến yêu cầu hợp lệ.
 
 | Mã yêu cầu | AC liên quan | Test Case còn thiếu | Rủi ro |
 |---|---|---|---|
-| BR-002 | AC-003 | TC-003 | Cao |
+| BRQ-0002 | AC-003 | TC-003 | Cao |
 
 ### 5.4 Yêu cầu chưa được triển khai
 
 | Mã yêu cầu | Độ ưu tiên | Trạng thái triển khai | Hành động |
 |---|---|---|---|
-| BR-004 | Phải có | Chưa bắt đầu | Leo thang |
+| BRQ-0004 | Phải có | Chưa bắt đầu | Leo thang |
 
 ## 6. Phân tích tác động thay đổi
 
@@ -111,7 +111,7 @@ Mỗi khi một yêu cầu thay đổi, PHẢI xác định toàn bộ artifact 
 
 | Mã thay đổi | Artifact thay đổi | Yêu cầu liên quan | Artifact bị ảnh hưởng | Mức độ tác động |
 |---|---|---|---|---|
-| CHG-001 | BR-001 | BR-001 | US-001, AC-001, UC-001, DES-001, TC-001 | Cao |
+| CHG-001 | BRQ-0001 | BRQ-0001 | US-001, AC-001, UC-001, DES-001, TC-001 | Cao |
 
 ### 6.1 Đánh giá tác động
 
@@ -134,7 +134,7 @@ Mỗi khi một yêu cầu thay đổi, PHẢI xác định toàn bộ artifact 
 
 | Chỉ số | Cách tính | Mục tiêu |
 |---|---|---|
-| Độ bao phủ từ Yêu cầu đến Story | Số BR có US liên kết / Tổng số BR đã duyệt | 100% |
+| Độ bao phủ từ Yêu cầu đến Story | Số BRQ có US liên kết / Tổng số BRQ đã duyệt | 100% |
 | Độ bao phủ từ Story đến AC | Số US có AC / Tổng số US đã duyệt | 100% |
 | Độ bao phủ kiểm thử yêu cầu | Số yêu cầu đã duyệt có test ánh xạ / Tổng số yêu cầu đã duyệt | 100% |
 | Độ bao phủ triển khai yêu cầu | Số yêu cầu đã duyệt đã triển khai / Tổng số yêu cầu đã duyệt trong phạm vi release | 100% |

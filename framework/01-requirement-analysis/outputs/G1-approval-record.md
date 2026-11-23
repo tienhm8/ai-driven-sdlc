@@ -13,7 +13,7 @@
 | Artifact | Phiên bản | Trạng thái review |
 |---|---|---|
 | Báo cáo phân tích yêu cầu (Requirement Analysis Report) | | |
-| Yêu cầu nghiệp vụ (Business Requirements) | | |
+| Tài liệu yêu cầu nghiệp vụ (BRD) | | |
 | Yêu cầu chức năng (Functional Requirements) | | |
 | Yêu cầu phi chức năng (Non-Functional Requirements) | | |
 | User Stories | | |

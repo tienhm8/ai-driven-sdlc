@@ -26,8 +26,8 @@ Với vai trò `{{PERSONA}}`, tôi muốn `{{CAPABILITY}}`, để `{{BUSINESS-VA
 - When:
 - Then:
 
-## Business rules
-- `BR-01`: {{RULE}}
+## Quy tắc nghiệp vụ (BR)
+- `BR-0001`: {{RULE}}
 
 ## Dữ liệu và validation
 - Input bắt buộc:

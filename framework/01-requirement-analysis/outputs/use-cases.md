@@ -37,7 +37,7 @@
 
 #### Yêu cầu liên quan
 
-- BR:
+- BRQ:
 - FR:
 - US:
 - AC:

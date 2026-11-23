@@ -169,7 +169,8 @@ Tài liệu PHẢI cung cấp khả năng truy vết khi áp dụng được.
 
 Ví dụ:
 
-- Business Requirement → User Story.
+- Business Requirements Document (BRD) → Business Requirement (BRQ) → User Story.
+- Business Rule (BR) → các BRQ mà quy tắc áp dụng.
 - User Story → Acceptance Criteria.
 - Requirement → Thiết kế.
 - Thiết kế → Development Task.

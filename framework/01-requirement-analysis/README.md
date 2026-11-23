@@ -53,7 +53,7 @@ Tôi đề xuất chia thành 3 nhóm logic:
 | Nhóm | File | Mục đích |
 |---|---|---|
 | Phân tích (Analysis) | `requirement-analysis-report.md` | Báo cáo tổng hợp phân tích |
-| Yêu cầu nghiệp vụ (Business Requirements) | `business-requirements.md` | Yêu cầu nghiệp vụ |
+| Tài liệu yêu cầu nghiệp vụ (BRD) | `business-requirements.md` | Tập hợp các yêu cầu nghiệp vụ (BRQ) và quy tắc nghiệp vụ (BR) liên quan |
 | Yêu cầu chức năng (Functional Requirements) | `functional-requirements.md` | Yêu cầu chức năng |
 | Yêu cầu phi chức năng (Non-Functional Requirements) | `non-functional-requirements.md` | Yêu cầu phi chức năng |
 | User Story (User Stories) | `user-stories.md` | Danh sách User Story |

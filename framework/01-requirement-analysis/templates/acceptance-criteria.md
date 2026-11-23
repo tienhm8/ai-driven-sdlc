@@ -16,7 +16,7 @@
 |---|---|
 | Mã tiêu chí nghiệm thu | AC-001 |
 | User Story liên quan | US-001 |
-| Yêu cầu nghiệp vụ liên quan | BR-001 |
+| Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
 | Chức năng / Module | [Tên chức năng] |
 | Độ ưu tiên | Cao |
 | Trạng thái | Draft |
@@ -57,7 +57,7 @@
 
 | Mã quy tắc | Quy tắc nghiệp vụ | Hành vi mong đợi |
 |---|---|---|
-| RULE-001 | [Quy tắc] | [Hành vi mong đợi] |
+| BR-0001 | [Quy tắc] | [Hành vi mong đợi] |
 
 ## 6. Tiêu chí kiểm thử âm tính
 

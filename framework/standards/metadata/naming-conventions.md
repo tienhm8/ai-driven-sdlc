@@ -88,7 +88,9 @@ Artifact chính thức NÊN dùng ID đã được gán trong tên file khi th�
 
 Ví dụ:
 
-- `BR-0001-customer-registration.md`
+- `BRD-0001-customer-onboarding.md`
+- `BRQ-0001-customer-registration.md`
+- `BR-0001-customer-email-uniqueness.md`
 - `US-0001-create-customer.md`
 - `AC-0001-validate-customer-email.md`
 - `TASK-0001-implement-customer-api.md`

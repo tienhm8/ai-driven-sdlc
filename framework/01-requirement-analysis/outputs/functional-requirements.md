@@ -2,10 +2,10 @@
 
 ## Danh sách yêu cầu chức năng
 
-| Mã | Tên | Mô tả | Độ ưu tiên | BR liên quan |
+| Mã | Tên | Mô tả | Độ ưu tiên | BRQ liên quan |
 |---|---|---|---|---|
-| FR-001 | | | Cao | BR-001 |
-| FR-002 | | | Trung bình | BR-002 |
+| FR-001 | | | Cao | BRQ-0001 |
+| FR-002 | | | Trung bình | BRQ-0002 |
 
 ## Chi tiết yêu cầu
 

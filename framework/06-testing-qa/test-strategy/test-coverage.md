@@ -16,7 +16,7 @@
 ## Traceability matrix
 | Requirement/AC | Risk | Test Case IDs | Execution | Defect IDs | Coverage |
 |---|---|---|---|---|---|
-| REQ-001 | High | TC-001, TC-002 | Pass/Fail/... | BUG-001 | Covered/Partial/Missing |
+| BRQ-0001 | High | TC-001, TC-002 | Pass/Fail/... | BUG-001 | Covered/Partial/Missing |
 
 Requirement quan trọng cần liên kết test và kết quả. Ghi rõ không test được, N/A hoặc Blocked.
 
