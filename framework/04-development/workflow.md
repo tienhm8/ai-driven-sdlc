@@ -21,7 +21,7 @@ Local Validation & Automated Tests
         ↓
 Documentation + Evidence
         ↓
-G4 — Development Completion Check
+Development Completion / PR Readiness Check (không phải gate)
         ↓
 Create Pull Request
         ↓
@@ -50,7 +50,7 @@ Handoff to Code Review
 10. **Cập nhật database/API/docs:** tạo migration an toàn, cập nhật contract, changelog và tài liệu kỹ thuật.
 11. **Kiểm tra diff:** xác nhận không có secret, debug code, file ngoài scope, dependency không cần thiết hoặc thay đổi ngoài ý muốn.
 12. **Commit và tạo PR:** commit có ý nghĩa; PR nêu mục tiêu, giải pháp, test evidence, risk và liên kết task/requirement.
-13. **Xác nhận hoàn thành:** cập nhật task, đính kèm kết quả kiểm tra và trình G4.
+13. **Xác nhận sẵn sàng review:** cập nhật task, đính kèm kết quả kiểm tra và bàn giao PR cho Code Review. Không ghi approval G4 ở bước này.
 
 ## 4.5 Input — Đầu vào
 
@@ -103,9 +103,9 @@ Handoff to Code Review
 
 ## 4.10 Human Review Gate — Điểm phê duyệt bắt buộc
 
-**G4 — Development Completion / PR Readiness Check**
+**Development Completion / PR Readiness Check — không phải gate**
 
-Người xác nhận: Developer owner và Tech Lead/maintainer theo policy dự án. Đây là xác nhận sẵn sàng đưa vào Code Review, không thay thế G5.
+Developer owner và Tech Lead/maintainer xác nhận gói bàn giao đủ điều kiện vào Code Review. G4 vẫn do reviewer có thẩm quyền phê duyệt ở giai đoạn 05 trước merge; tác giả không tự duyệt.
 
 Điều kiện:
 - Task implementation hoàn tất theo scope.
@@ -115,7 +115,7 @@ Người xác nhận: Developer owner và Tech Lead/maintainer theo policy dự 
 
 ## 4.11 Exit Criteria — Điều kiện hoàn thành
 
-- G4 được xác nhận.
+- Gói bàn giao và PR được xác nhận sẵn sàng cho Code Review.
 - PR ở trạng thái Ready for Review.
 - Task, commit, PR và requirement có traceability.
 - Không còn lỗi build/test bắt buộc chưa giải thích.

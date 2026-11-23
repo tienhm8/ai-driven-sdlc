@@ -120,9 +120,9 @@ ai-driven-sdlc/
 ├── projects/                                 # PROJECT INSTANCES (hiện đang trống)
 │   │
 │   ├── Project-CRM/                          # Cấu trúc dự kiến cho mỗi dự án
-│   │   ├── .ai-sdlc/                         #   cấu hình dự án, framework-version, shared-resources,
-│   │   │                                     #   project-context, technology-stack, autonomy-config,
-│   │   │                                     #   local-rules/, local-skills/
+│   │   ├── .ai-sdlc/
+│   │   │   └── project.yaml                  #   manifest: project, stack, AI resources, autonomy
+│   │   ├── .claude/                          #   ví dụ: rules/ và skills/ cho công cụ đã chọn
 │   │   ├── docs/                             #   tài liệu SDLC theo 01–08 + project-management/
 │   │   ├── crm-backend/                      # Git Repository riêng
 │   │   ├── crm-frontend/                     # Git Repository riêng
@@ -140,11 +140,11 @@ ai-driven-sdlc/
     │   └── sync-framework.py                 #   Đồng bộ template/tài nguyên theo phiên bản Framework
     │
     ├── tool-adapters/                        # (planned)
-    ├── skill-loader/                         # (planned)
-    ├── rule-loader/                          # (planned)
-    ├── model-router/                         # (planned)
-    ├── workflow-engine/                      # (planned)
-    ├── approval-engine/                      # (planned)
+    ├── skill-loader/                         # Shared and project-local skills
+    ├── rule-loader/                          # Shared and project-local rules
+    ├── model-router/                         # Static v1 routing policy
+    ├── workflow-engine/                      # Local stage state and action gates
+    ├── approval-engine/                      # Local approval enforcement API
     └── validators/                           # (planned)
 ```
 
@@ -153,6 +153,6 @@ ai-driven-sdlc/
 | Thư mục | Vai trò | Trạng thái |
 |---|---|---|
 | `framework/` | Framework chung: 8 giai đoạn SDLC, governance (gồm G1–G7 review gates), standards, templates, project management | Đã có nội dung |
-| [shared-ai/](shared-ai/README.md) | Rules, skills, agents, chính sách model routing, knowledge và hướng dẫn tích hợp công cụ | Có nội dung; tích hợp thủ công khi chưa có loader/router |
+| [shared-ai/](shared-ai/README.md) | Rules, skills, agents, chính sách model routing, knowledge và hướng dẫn tích hợp công cụ | Platform có loader và định tuyến tĩnh; tích hợp với công cụ/provider vẫn cần cấu hình riêng |
 | `projects/` | Các project cụ thể, mỗi project có `.ai-sdlc/`, `docs/` và các Git repository riêng | Chưa có project nào |
-| `platform/` | Công cụ tự động hoá: scripts khởi tạo/kiểm tra/đồng bộ; các loader, router, workflow/approval engine đang chờ phát triển | Scripts đã có, module khác là placeholder |
+| [platform/](platform/README.md) | Scripts khởi tạo/kiểm tra/đồng bộ, loader/router và workflow/approval engine | Có API governance chạy local; chưa tích hợp xác thực, repository hoặc CI/CD production |

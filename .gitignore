@@ -1,2 +1,30 @@
-projects/*
-!projects/.gitkeep
+# Local project instances
+/projects/*
+!/projects/.gitkeep
+
+# Python bytecode, environments, test caches and build outputs
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+/platform/build/
+/platform/dist/
+*.egg-info/
+
+# Local runtime state and secrets
+governance.sqlite3
+governance.sqlite3-*
+.env
+.env.*
+!.env.example
+
+# Local editor and Claude Code state
+.DS_Store
+.claude/settings.local.json
+.claude/worktrees/

@@ -23,14 +23,14 @@ Defect Management & Retest / Regression
         ↓
 Quality Assessment
         ↓
-G6 — QA / Release Candidate Approval
+G5 — QA / Release Candidate Approval
         ↓
 Handoff to Deployment
 ```
 
 ## 6.3 Entry Criteria — Điều kiện bắt đầu
 
-- Thay đổi đã qua G5 và được tích hợp theo quy trình.
+- Thay đổi đã qua G4 và được tích hợp theo quy trình.
 - Có build/version/commit xác định và release scope.
 - Requirement baseline, acceptance criteria, test strategy và test environment sẵn sàng.
 - Test data được chuẩn bị hợp pháp, an toàn và có khả năng tái tạo.
@@ -51,7 +51,7 @@ Handoff to Deployment
 11. **Regression testing:** kiểm tra vùng ảnh hưởng và chức năng liên quan; cập nhật regression suite.
 12. **Đánh giá chất lượng:** tổng hợp pass/fail, defect trend, coverage, residual risk và known limitations.
 13. **Lập QA recommendation:** đề xuất Go/No-Go/Conditional Go theo tiêu chí đã thống nhất.
-14. **Trình G6:** review bằng chứng và phê duyệt release candidate.
+14. **Trình G5:** review bằng chứng và phê duyệt release candidate.
 
 ## 6.5 Input — Đầu vào
 
@@ -90,7 +90,7 @@ Handoff to Deployment
 - Defect log, retest và regression report.
 - Performance/security/accessibility reports khi áp dụng.
 - Known issues, residual risks và QA recommendation.
-- Approved Release Candidate và G6 approval record.
+- Approved Release Candidate và G5 approval record.
 
 ## 6.9 Quality Check — Kiểm tra chất lượng
 
@@ -105,9 +105,9 @@ Handoff to Deployment
 
 ## 6.10 Human Review Gate — Điểm phê duyệt bắt buộc
 
-**G6 — QA & Release Candidate Approval**
+**G5 — QA & Release Candidate Approval**
 
-Người phê duyệt: QA Lead/Quality Owner và Product Owner/Release Owner; Security/Compliance tham gia khi cần.
+Hai người phê duyệt độc lập: QA Lead xác nhận bằng chứng kiểm thử và Product Owner xác nhận nghiệm thu nghiệp vụ trên cùng release candidate. Security/Compliance tham gia khi cần.
 
 Điều kiện:
 - Acceptance criteria và test scope bắt buộc đạt.
@@ -117,7 +117,7 @@ Người phê duyệt: QA Lead/Quality Owner và Product Owner/Release Owner; Se
 
 ## 6.11 Exit Criteria — Điều kiện hoàn thành
 
-- G6 được Approved cho release candidate cụ thể.
+- G5 được Approved cho release candidate cụ thể.
 - Build/version và test report được khóa, truy vết.
 - Defect còn mở có quyết định và owner.
 - Deployment team nhận đủ release notes, configuration và known issues.

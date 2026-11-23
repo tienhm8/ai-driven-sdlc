@@ -23,14 +23,14 @@ Findings & Remediation
         ↓
 Re-review
         ↓
-G5 — Approve Code Review
+G4 — Approve Code Review
         ↓
 Merge / Handoff to QA
 ```
 
 ## 5.3 Entry Criteria — Điều kiện bắt đầu
 
-- PR đã qua G4 và ở trạng thái Ready for Review.
+- PR đã qua kiểm tra bàn giao Development và ở trạng thái Ready for Review; G4 chưa được duyệt.
 - Build, lint và automated checks bắt buộc đã chạy.
 - PR có mô tả, task/requirement links, test evidence và risk notes.
 - Reviewer không có xung đột lợi ích phù hợp với policy; đủ quyền truy cập context.
@@ -49,7 +49,7 @@ Merge / Handoff to QA
 10. **Gửi phản hồi:** dùng comment rõ ràng, phân biệt blocker với suggestion; không chỉ yêu cầu sửa theo cảm tính.
 11. **Remediation:** author sửa, bổ sung test/evidence và phản hồi từng finding.
 12. **Re-review:** reviewer xác nhận sửa đúng, không phát sinh regression hoặc scope ngoài ý muốn.
-13. **Phê duyệt:** xác nhận các rule bắt buộc và trình G5; merge theo branch protection sau khi đủ approval.
+13. **Phê duyệt:** xác nhận các rule bắt buộc và trình G4; merge theo branch protection sau khi đủ approval.
 
 ## 5.5 Input — Đầu vào
 
@@ -85,7 +85,7 @@ Merge / Handoff to QA
 - Approved PR / merge approval hoặc rejection.
 - Code Review Report và security review record khi cần.
 - Updated risk/technical debt register.
-- G5 approval record.
+- G4 approval record.
 
 ## 5.9 Quality Check — Kiểm tra chất lượng
 
@@ -99,7 +99,7 @@ Merge / Handoff to QA
 
 ## 5.10 Human Review Gate — Điểm phê duyệt bắt buộc
 
-**G5 — Code Review Approval**
+**G4 — Code Review Approval**
 
 Người phê duyệt: reviewer/maintainer được chỉ định; thay đổi bảo mật hoặc kiến trúc nhạy cảm cần reviewer chuyên môn.
 
@@ -111,7 +111,7 @@ Người phê duyệt: reviewer/maintainer được chỉ định; thay đổi b
 
 ## 5.11 Exit Criteria — Điều kiện hoàn thành
 
-- G5 được Approved.
+- G4 được Approved.
 - PR được merge hoặc được phép chuyển sang bước tích hợp theo branch policy.
 - Review findings đã đóng/có quyết định.
 - Commit/merge reference được lưu để truy vết.

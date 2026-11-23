@@ -3,7 +3,7 @@
 > **Giai đoạn:** 06 – Testing & QA  
 > **Mục đích:** Bảo đảm kiểm thử đủ phù hợp để đánh giá sản phẩm so với yêu cầu, rủi ro và tiêu chí nghiệm thu; kết quả test trung thực, có thể tái lập và truy vết.  
 > **Review Gate:** G5 – QA / Acceptance Approval  
-> **Người phê duyệt chính:** QA Lead; Product Owner xác nhận nghiệm thu nghiệp vụ theo phạm vi dự án
+> **Người phê duyệt:** QA Lead và Product Owner là hai người riêng biệt; cả hai phê duyệt cùng phiên bản release candidate
 
 ## 1. Nguyên tắc review
 
@@ -19,7 +19,7 @@
 |---|---|
 | QA Lead – **Approver G5** | Phê duyệt chiến lược/phạm vi test, đánh giá chất lượng bằng chứng, residual risk và QA sign-off. |
 | QA Engineer / Test Engineer | Review test case, test data, test execution, defect và độ bao phủ. |
-| Product Owner – nghiệm thu nghiệp vụ | Xác nhận Acceptance Criteria và quyết định chấp nhận sản phẩm về mặt nghiệp vụ. |
+| Product Owner – **Approver G5 cho nghiệm thu nghiệp vụ** | Xác nhận Acceptance Criteria và quyết định chấp nhận sản phẩm về mặt nghiệp vụ. |
 | Developer | Phân tích/sửa defect, cung cấp thông tin kỹ thuật và hỗ trợ kiểm thử; không tự đóng defect nếu chưa đáp ứng quy trình xác nhận. |
 | Security Tester / Performance Tester (khi áp dụng) | Đánh giá bảo mật, tải, hiệu năng và các kiểm thử chuyên sâu. |
 | Release Manager / Tech Lead | Được tham vấn về release risk, known issues và readiness; không thay QA/PO phê duyệt nội dung thuộc thẩm quyền của họ. |
