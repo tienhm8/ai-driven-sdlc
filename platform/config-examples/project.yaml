@@ -7,3 +7,9 @@ technology_stack:
   backend: dotnet
   frontend: react
   database: postgresql
+ai:
+  tools: [claude]
+  default_tool: claude
+  local_resources:
+    rules_path: .claude/rules
+    skills_path: .claude/skills

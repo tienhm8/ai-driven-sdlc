@@ -1,33 +1,57 @@
 from pathlib import Path
-from ..config import load_yaml
+
+from yaml import YAMLError
+
+from ..config import PROJECT_MANIFEST, load_project_manifest, resolve_local_resources
 from ..constants import STAGES
+from ..governance import load_approver_roles
+
 
 def validate_project(project: Path, framework: Path | None = None):
     issues = []
+
+    def report(severity, code, message):
+        issues.append({"severity": severity, "code": code, "message": message})
+
     if not project.is_dir():
-        return [{"severity":"error","code":"PROJECT_NOT_FOUND","message":str(project)}]
-    manifest = project / ".ai-sdlc" / "project.yaml"
-    if not manifest.is_file():
-        issues.append({"severity":"error","code":"MISSING_MANIFEST","message":"Missing .ai-sdlc/project.yaml"})
+        report("error", "PROJECT_NOT_FOUND", str(project))
+        return issues
+
+    try:
+        data = load_project_manifest(project)
+    except FileNotFoundError:
+        message = f"Missing {PROJECT_MANIFEST.as_posix()}"
+        if (project / "config.yml").is_file():
+            message += "; migrate config.yml and rename project.slug to project.id"
+        report("error", "MISSING_MANIFEST", message)
+    except (YAMLError, UnicodeError) as error:
+        report("error", "INVALID_YAML", str(error))
+    except ValueError as error:
+        report("error", "INVALID_METADATA", str(error))
+    except OSError as error:
+        report("error", "UNREADABLE_MANIFEST", str(error))
     else:
+        if not data.get("technology_stack"):
+            report("warning", "STACK_UNDEFINED", "technology_stack is not defined")
         try:
-            data = load_yaml(manifest, required=True)
-            meta = data.get("project", {})
-            if not meta.get("id") or not meta.get("name"):
-                issues.append({"severity":"error","code":"INVALID_METADATA","message":"project.id and project.name are required"})
-            if not data.get("technology_stack"):
-                issues.append({"severity":"warning","code":"STACK_UNDEFINED","message":"technology_stack is not defined"})
-        except Exception as e:
-            issues.append({"severity":"error","code":"INVALID_YAML","message":str(e)})
-    for name in ("local-rules", "local-skills"):
-        if not (project / ".ai-sdlc" / name).exists():
-            issues.append({"severity":"warning","code":"OPTIONAL_DIR_MISSING","message":f".ai-sdlc/{name} is absent"})
-    docs = project / "docs"
+            paths = resolve_local_resources(project, data)
+        except (ValueError, OSError, RuntimeError) as error:
+            report("error", "INVALID_LOCAL_RESOURCES", str(error))
+        else:
+            for path in paths.values():
+                if not path.is_dir():
+                    report("warning", "OPTIONAL_DIR_MISSING", f"{path.relative_to(project.resolve())} is absent")
+
+    try:
+        load_approver_roles(project)
+    except (ValueError, YAMLError, OSError) as error:
+        report("error", "INVALID_APPROVAL_POLICY", str(error))
+
     for stage in STAGES:
-        if not (docs / stage).is_dir():
-            issues.append({"severity":"warning","code":"STAGE_DOCS_MISSING","message":f"docs/{stage}/ is absent"})
-    if framework and not framework.is_dir():
-        issues.append({"severity":"error","code":"FRAMEWORK_NOT_FOUND","message":str(framework)})
-    if not any(x["severity"] == "error" for x in issues):
-        issues.append({"severity":"info","code":"VALIDATION_PASSED","message":"No blocking configuration errors"})
+        if not (project / "docs" / stage).is_dir():
+            report("warning", "STAGE_DOCS_MISSING", f"docs/{stage}/ is absent")
+    if framework is not None and not framework.is_dir():
+        report("error", "FRAMEWORK_NOT_FOUND", str(framework))
+    if not any(issue["severity"] == "error" for issue in issues):
+        report("info", "VALIDATION_PASSED", "No blocking configuration errors")
     return issues

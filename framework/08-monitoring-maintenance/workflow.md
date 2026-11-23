@@ -41,7 +41,7 @@ Operational Review & Feedback to Backlog
 2. **Quan sát hệ thống:** theo dõi metrics, logs, traces, infrastructure, dependency và business signals.
 3. **Quản lý alert:** nhận alert, loại bỏ noise, deduplicate, correlate và xác định mức độ ưu tiên.
 4. **Triage:** xác minh impact, affected users/services, timeline, severity và incident commander.
-5. **Ứng phó incident:** kích hoạt runbook, khoanh vùng, giảm blast radius, thông báo stakeholder và bảo toàn evidence.
+5. **Ứng phó incident:** đối với incident nghiêm trọng, Incident Commander phê duyệt G7 cho đúng phiên bản phương án trước khi thực thi hành động thuộc gate. Thực hiện runbook, khoanh vùng, thông báo stakeholder và bảo toàn evidence theo thẩm quyền đã có.
 6. **Khôi phục dịch vụ:** failover, rollback, scale, disable feature hoặc workaround theo quyền hạn và runbook.
 7. **Xác nhận recovery:** kiểm tra health, data consistency, business transaction và thời gian ổn định.
 8. **Truyền thông và đóng incident:** cập nhật status, impact, resolution và follow-up owner.
@@ -107,9 +107,9 @@ Operational Review & Feedback to Backlog
 
 ## 8.10 Human Review Gate — Điểm phê duyệt bắt buộc
 
-**Operational Approval / Incident Closure Review**
+**G7 — Critical Incident Approval (kích hoạt theo sự kiện)**
 
-Giai đoạn này không mặc định có G8 trong mapping G1–G7. Áp dụng các phê duyệt vận hành theo `governance/human-review-gates/gate-policy.md` và incident policy.
+Incident Commander duyệt phương án ứng phó cho từng incident nghiêm trọng trong luồng incident riêng. Monitoring thường kỳ không cần G7 để hoàn tất bàn giao và không có G8. Các quyết định vận hành hoặc đóng incident khác vẫn theo [gate policy](../governance/human-review-gates/gate-policy.md) và incident policy.
 
 Bắt buộc có người phê duyệt khi:
 - Thực hiện hành động production có rủi ro cao hoặc khó đảo ngược.

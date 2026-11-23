@@ -11,26 +11,26 @@
 ## 7.2 Workflow Overview — Tổng quan luồng xử lý
 
 ```text
-Approved Release Candidate (G6)
+Approved Release Candidate (G5)
         ↓
-Deployment Readiness & Change Approval
+Deployment Readiness & Change Review
         ↓
-Build / Package / Configuration Validation
+Immutable Artifact / Configuration Validation
         ↓
 Pre-deployment Backup & Safety Checks
+        ↓
+G6 — Production Deployment Approval
         ↓
 Deploy (Staged / Canary / Blue-Green / Rolling)
         ↓
 Smoke Test & Health Verification
-        ↓
-G7 — Production Deployment Approval
         ↓
 Handoff to Monitoring & Maintenance
 ```
 
 ## 7.3 Entry Criteria — Điều kiện bắt đầu
 
-- G6 đã phê duyệt đúng release candidate.
+- G5 đã phê duyệt đúng release candidate.
 - Có release plan, deployment runbook, rollback/restore plan.
 - Change window, approver, on-call và stakeholder communication được xác định.
 - CI/CD pipeline, secrets, environment và access control sẵn sàng.
@@ -39,22 +39,22 @@ Handoff to Monitoring & Maintenance
 ## 7.4 Workflow Steps — Các bước thực hiện
 
 1. **Lập deployment request:** ghi release version, scope, mục tiêu, change window, impact và owner.
-2. **Kiểm tra readiness:** xác nhận G6, artifact provenance, approvals, runbook, rollback và support coverage.
-3. **Build/package:** tạo immutable artifact từ source đã duyệt; ghi commit, tag, build ID và checksum khi phù hợp.
+2. **Kiểm tra readiness:** xác nhận G5, artifact provenance, approvals, runbook, rollback và support coverage.
+3. **Xác minh artifact:** dùng đúng immutable artifact đã qua G5; đối chiếu commit, tag, build ID và SHA-256. Nếu cần rebuild trước khi G6 cấp quyền triển khai, ghi lý do, quay lại QA và lấy lại G5/G6 cho candidate mới. Không dùng quyền G6 cũ để triển khai lại.
 4. **Kiểm tra cấu hình:** validate environment variables, secrets reference, feature flags, resource limits và network policy.
 5. **Chuẩn bị dữ liệu:** backup/snapshot theo policy; rehearsal migration; xác nhận backward/forward compatibility và restore path.
 6. **Thông báo:** gửi release notice, expected impact, maintenance window và escalation contact.
 7. **Pre-deployment checks:** kiểm tra health baseline, capacity, dependency, alert status và freeze condition.
-8. **Triển khai theo chiến lược:** rolling/canary/blue-green/staged phù hợp; áp dụng giới hạn blast radius.
+8. **G6 trước khi triển khai production:** Release Manager ghi quyết định Go/No-Go cho đúng artifact đã qua G5. Không chạy rollout hoặc migration trên production nếu chưa đủ điều kiện G6. Sau đó **triển khai theo chiến lược:** rolling/canary/blue-green/staged phù hợp; áp dụng giới hạn blast radius.
 9. **Thực hiện migration:** chạy theo thứ tự, idempotency và kiểm soát lock/downtime; ghi log kết quả.
 10. **Smoke/sanity test:** xác minh critical path, health endpoint, integration và telemetry sau triển khai.
 11. **Theo dõi rollout:** đánh giá error rate, latency, saturation, business metrics và alert trong observation window.
 12. **Quyết định tiếp tục/rollback:** so sánh với deployment success criteria; kích hoạt rollback/mitigation nếu vượt ngưỡng.
-13. **G7 approval/closure:** người có thẩm quyền xác nhận trạng thái production, lưu deployment record và thông báo hoàn tất.
+13. **Closure:** người có thẩm quyền xác nhận trạng thái production sau rollout, lưu deployment record và thông báo hoàn tất. Không dùng bước này thay cho G6 trước rollout.
 
 ## 7.5 Input — Đầu vào
 
-- G6-approved release candidate, artifact và provenance.
+- Release candidate đã qua G5, artifact và provenance.
 - Deployment plan/runbook, change request và approval.
 - Infrastructure/configuration/secrets reference.
 - Database migration, backup/restore và rollback plan.
@@ -88,11 +88,11 @@ Handoff to Monitoring & Maintenance
 - Smoke test/health verification evidence.
 - Rollout metrics, incident/rollback record nếu có.
 - Release notes và stakeholder notification.
-- Production release status và G7 approval record.
+- Production release status và G6 approval record.
 
 ## 7.9 Quality Check — Kiểm tra chất lượng
 
-- Artifact đúng version đã qua G6; provenance có thể truy vết.
+- Artifact triển khai đúng SHA-256 đã qua G5 và được G6 phê duyệt trước rollout; provenance có thể truy vết.
 - Cấu hình/secrets đúng môi trường, không lộ secret.
 - Backup/restore và migration plan được xác nhận.
 - Deployment theo đúng change window và approval.
@@ -102,20 +102,21 @@ Handoff to Monitoring & Maintenance
 
 ## 7.10 Human Review Gate — Điểm phê duyệt bắt buộc
 
-**G7 — Production Deployment Approval**
+**G6 — Production Deployment Approval (trước khi thay đổi production)**
 
-Người phê duyệt: Release/Change Owner hoặc người được ủy quyền theo change policy; SRE/DevOps xác nhận readiness. Các thay đổi dữ liệu hoặc hệ thống trọng yếu cần owner chuyên môn phê duyệt.
+Người phê duyệt: Release Manager. SRE/DevOps và owner chuyên môn xác nhận readiness theo mức rủi ro.
 
 Điều kiện:
-- G6 hợp lệ và đúng artifact.
+- G5 hợp lệ và đúng artifact.
 - Change/deployment plan, rollback/restore và on-call sẵn sàng.
 - Pre-deployment checks đạt.
-- Sau rollout, smoke test và health criteria đạt hoặc trạng thái exception được chấp nhận chính thức.
+
+Smoke test và health criteria được kiểm tra sau rollout để đóng deployment; không phải điều kiện để phê duyệt G6 từ trước.
 
 ## 7.11 Exit Criteria — Điều kiện hoàn thành
 
 - Deployment được xác nhận thành công hoặc rollback được ghi nhận hoàn chỉnh.
-- G7 được Approved/Closed theo policy.
+- Có bản ghi authorization G6 trước khi triển khai đúng artifact lên production.
 - Production version và deployment evidence được cập nhật.
 - Monitoring/alerting ownership và support handoff đã xác nhận.
 

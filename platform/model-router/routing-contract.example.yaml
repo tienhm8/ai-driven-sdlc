@@ -1,8 +1,10 @@
+# Example task-model-mapping.yaml for v1 policies.
+schema_version: 1
 tasks:
-  requirement_analysis: reasoning_balanced
-  system_design: reasoning_strong
-  code_generation: coding_balanced
-  code_review: reasoning_strong
-  test_generation: coding_balanced
-  documentation: fast_general
-  default: reasoning_balanced
+  requirement-analysis: {profile: implementation, effort: medium}
+  system-design: {profile: critical-review, effort: high}
+  code-generation: {profile: implementation, effort: medium}
+  code-review: {profile: critical-review, effort: high}
+  testing: {profile: implementation, effort: medium}
+  documentation: {profile: routine, effort: low}
+unknown_task: require_manual_selection

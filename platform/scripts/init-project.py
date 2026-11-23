@@ -7,17 +7,11 @@ import re
 import shutil
 import sys
 
+import yaml
 
-STAGES = [
-    "01-requirement-analysis",
-    "02-system-design",
-    "03-task-planning",
-    "04-development",
-    "05-code-review",
-    "06-testing-qa",
-    "07-deployment",
-    "08-monitoring-maintenance",
-]
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from ai_sdlc_platform.config import PROJECT_ID_PATTERN, PROJECT_MANIFEST
+from ai_sdlc_platform.constants import STAGES
 
 SYSTEM_DESIGN_OUTPUT_FOLDERS = [
     "architecture",
@@ -115,7 +109,7 @@ def copy_templates(source: Path, destination: Path):
 
 
 def validate_slug(slug: str):
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]*", slug):
+    if not re.fullmatch(PROJECT_ID_PATTERN, slug):
         raise ValueError(
             "Invalid project slug. "
             "Use only letters, numbers, hyphens and underscores."
@@ -130,66 +124,39 @@ def generate_config(
 ):
     default_tool = tools[0]
     tool_dir = AI_TOOLS[default_tool]
-    tool_list = "\n".join(f"    - {tool}" for tool in tools)
-
-    return f"""# ==========================================
-# AI-Driven SDLC - Project Configuration
-# ==========================================
-
-project:
-  name: "{project_name}"
-  slug: "{slug}"
-  version: "1.0.0"
-
-framework:
-  name: "AI-Driven-SDLC"
-  version: "1.0.0"
-
-ai:
-  tools:
-{tool_list}
-  default_tool: "{default_tool}"
-
-  shared_resources:
-    rules:
-      - core
-      - sdlc
-      - engineering
-
-    skills:
-      - architecture
-      - backend
-      - frontend
-      - database
-      - devops
-      - security
-
-  local_resources:
-    rules_path: "{tool_dir}/rules"
-    skills_path: "{tool_dir}/skills"
-
-autonomy:
-  default_level: L2
-
-  stages:
-    requirement_analysis: L3
-    system_design: L3
-    task_planning: L2
-    development: L2
-    code_review: L3
-    testing_qa: L2
-    deployment: L3
-    monitoring_maintenance: L2
-
-project_management:
-  enabled: {str(include_project_management).lower()}
-  path: docs/project-management
-
-governance:
-  require_human_approval: true
-  enforce_review_gates: true
-  allow_project_override_mandatory_rules: false
-"""
+    return yaml.safe_dump({
+        "project": {"id": slug, "name": project_name, "version": "1.0.0"},
+        "framework": {"name": "AI-Driven-SDLC", "version": "1.0.0"},
+        "technology_stack": {},
+        "ai": {
+            "tools": tools,
+            "default_tool": default_tool,
+            "shared_resources": {
+                "rules": ["core", "sdlc", "engineering"],
+                "skills": ["architecture", "backend", "frontend", "database", "devops", "security"],
+            },
+            "local_resources": {"rules_path": f"{tool_dir}/rules", "skills_path": f"{tool_dir}/skills"},
+        },
+        "autonomy": {
+            "default_level": "L2",
+            "stages": {
+                "requirement_analysis": "L3",
+                "system_design": "L3",
+                "task_planning": "L2",
+                "development": "L2",
+                "code_review": "L3",
+                "testing_qa": "L2",
+                "deployment": "L3",
+                "monitoring_maintenance": "L2",
+            },
+        },
+        "project_management": {"enabled": include_project_management, "path": "docs/project-management"},
+        "governance": {
+            "require_human_approval": True,
+            "enforce_review_gates": True,
+            "allow_project_override_mandatory_rules": False,
+        },
+    }, sort_keys=False, allow_unicode=True)
 
 
 def initialize_system_design_outputs(
@@ -442,6 +409,18 @@ def initialize_development_project_docs(
             )
 
 
+def initialize_late_stage_outputs(framework_dir: Path, project_docs_dir: Path):
+    """Seed output guidance and examples, never test or operations evidence."""
+    for stage in ("06-testing-qa", "07-deployment", "08-monitoring-maintenance"):
+        source = framework_dir / stage / "outputs"
+        destination = project_docs_dir / stage / "outputs"
+        create_directory(destination)
+        copy_file_if_missing(source / "README.md", destination / "README.md")
+        for example in sorted(source.glob("*-example.md")):
+            if example.is_file():
+                copy_file_if_missing(example, destination / example.name)
+
+
 def init_project(
     root: Path,
     project_name: str,
@@ -450,6 +429,8 @@ def init_project(
     include_project_management: bool,
 ):
     validate_slug(slug)
+    if not project_name.strip():
+        raise ValueError("Project name must not be blank")
 
     project_dir = root / "projects" / slug
     framework_dir = root / "framework"
@@ -468,7 +449,7 @@ def init_project(
             tools,
             include_project_management,
         )
-        write_if_missing(project_dir / "config.yml", config_content)
+        write_if_missing(project_dir / PROJECT_MANIFEST, config_content)
 
         # 2. AI Tool-specific directories.
         for tool in tools:
@@ -479,8 +460,8 @@ def init_project(
             readme = (
                 f"# {tool.title()} Integration\n\n"
                 f"Project-specific rules and skills for {tool}.\n\n"
-                "Shared project configuration is defined in "
-                "`../config.yml`.\n"
+                f"Shared project configuration is defined in [{PROJECT_MANIFEST.as_posix()}]"
+                f"(../{PROJECT_MANIFEST.as_posix()}).\n"
             )
             write_if_missing(tool_dir / "README.md", readme)
 
@@ -513,7 +494,10 @@ def init_project(
             project_docs_dir=docs_dir,
         )
 
-        # 7. Project management.
+        # 7. QA, Deployment and Monitoring output guidance and examples.
+        initialize_late_stage_outputs(framework_dir, docs_dir)
+
+        # 8. Project management.
         if include_project_management:
             pm_dir = docs_dir / "project-management"
 
@@ -532,12 +516,12 @@ def init_project(
                 "decisions, risks, issues and approvals.\n",
             )
 
-        # 8. Project README.
+        # 9. Project README.
         write_if_missing(
             project_dir / "README.md",
             f"# {project_name}\n\n"
             "AI-Driven SDLC Project Instance.\n\n"
-            "See `config.yml` for project configuration.\n"
+            f"See [{PROJECT_MANIFEST.as_posix()}]({PROJECT_MANIFEST.as_posix()}) for project configuration.\n"
             "See `docs/` for SDLC documentation and deliverables.\n",
         )
 

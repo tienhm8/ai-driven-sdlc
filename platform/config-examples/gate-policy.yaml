@@ -1,8 +1,10 @@
+# Optional project override: .ai-sdlc/approval-policy.yaml.
+# Gates cannot be disabled; only eligible role sets can be narrowed.
 gates:
   G1: {required: true, approver_roles: [product_owner]}
-  G2: {required: true, approver_roles: [architect, tech_lead]}
-  G3: {required: true, approver_roles: [project_manager, tech_lead]}
-  G4: {required: true, approver_roles: [developer, tech_lead]}
-  G5: {required: true, approver_roles: [senior_developer, tech_lead]}
-  G6: {required: true, approver_roles: [qa_engineer]}
-  G7: {required: true, approver_roles: [release_manager, devops]}
+  G2: {required: true, approver_roles: [solution_architect]}
+  G3: {required: true, approver_roles: [tech_lead]}
+  G4: {required: true, approver_roles: [reviewer, senior_developer, tech_lead]}
+  G5: {required: true, approver_roles: [qa_lead, product_owner]}
+  G6: {required: true, approver_roles: [release_manager]}
+  G7: {required: true, approver_roles: [incident_commander]}

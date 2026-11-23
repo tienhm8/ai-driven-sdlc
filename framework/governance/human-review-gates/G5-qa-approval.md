@@ -1,7 +1,7 @@
 # G5 – Testing & QA Approval
 
 **Thời điểm:** Sau Testing & QA, trước nghiệm thu/release handoff.  
-**Approver:** QA Lead xác nhận chất lượng kiểm thử; Product Owner xác nhận đáp ứng nghiệp vụ/nghiệm thu.
+**Approvers (hai người riêng biệt):** QA Lead xác nhận chất lượng kiểm thử; Product Owner xác nhận đáp ứng nghiệp vụ/nghiệm thu. Cả hai duyệt cùng một phiên bản release candidate.
 
 ## AI chuẩn bị
 Test plan/cases, execution results, coverage, defect list, regression evidence, NFR test results và known limitations.
