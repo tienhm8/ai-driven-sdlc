@@ -1,85 +1,86 @@
-# Requirement Analysis - Đầu ra (Outputs)
+# Requirement Analysis — Đầu ra (Outputs)
 
 ## 1. Mục đích
 
-Thư mục này chứa toàn bộ sản phẩm được tạo ra trong giai đoạn Requirement Analysis.
+Thư mục này định nghĩa deliverables chuẩn của Requirement Analysis và vị trí lưu trong project. Danh mục phải nhất quán với mục **1.8 Output — Đầu ra** trong `../workflow.md` và template tương ứng trong `../templates/README.md`.
 
-## 2. Sản phẩm dự kiến
+## 2. Cấu trúc đầu ra chuẩn
 
-| Artifact | Mô tả |
-|---|---|
-| requirement-analysis-report.md | Báo cáo tổng hợp phân tích |
-| business-requirements.md | Tài liệu yêu cầu nghiệp vụ (BRD) |
-| functional-requirements.md | Yêu cầu chức năng |
-| non-functional-requirements.md | Yêu cầu phi chức năng |
-| user-stories.md | Danh sách User Story |
-| acceptance-criteria.md | Tiêu chí nghiệm thu |
-| use-cases.md | Các trường hợp sử dụng |
-| open-questions.md | Câu hỏi chưa được giải đáp |
-| assumptions-and-constraints.md | Giả định và ràng buộc |
-| requirement-traceability-matrix.md | Ma trận truy vết yêu cầu |
-| G1-approval-record.md | Hồ sơ phê duyệt của con người |
-
-## 3. Quy tắc đầu ra
-
-1. Tuân theo template tương ứng.
-2. Gán ID duy nhất cho mỗi yêu cầu.
-3. Tham chiếu đến nguồn đầu vào.
-4. KHÔNG bịa đặt yêu cầu chưa được xác nhận.
-5. Ghi nhận các câu hỏi chưa được giải quyết.
-6. Duy trì tính nhất quán giữa các artifact.
-7. Cập nhật phiên bản và lịch sử thay đổi.
-8. Phân biệt rõ thông tin do AI tạo ra với thông tin đã được con người phê duyệt.
-
-## 4. Trạng thái phê duyệt
-
-Các artifact sử dụng một trong các trạng thái sau:
-
-- DRAFT (Nháp)
-- UNDER_REVIEW (Đang review)
-- APPROVED (Đã phê duyệt)
-- REJECTED (Bị từ chối)
-- SUPERSEDED (Đã được thay thế)
-
-## 5. Quy tắc quan trọng
-
-- Đầu ra do AI tạo ra ban đầu ở trạng thái DRAFT.
-- Chỉ người có thẩm quyền mới được phê duyệt G1.
-- Việc phê duyệt PHẢI được ghi nhận.
-- Mọi thay đổi sau khi phê duyệt PHẢI có thể truy vết.
-- Các artifact đã được phê duyệt trở thành đầu vào cho giai đoạn System Design.
-
-## 6. Kiến trúc
-
-```
+```text
 outputs/
-├── README.md                              # Quy tắc đầu ra và trạng thái phê duyệt
-├── requirement-analysis-report.md         # Nhóm tổng quan: báo cáo phân tích
-├── business-requirements.md               # Tài liệu yêu cầu nghiệp vụ (BRD)
-├── functional-requirements.md             # Nhóm yêu cầu: chức năng
-├── non-functional-requirements.md         # Nhóm yêu cầu: phi chức năng
-├── user-stories.md                        # Nhóm mô tả: User Story
-├── acceptance-criteria.md                 # Nhóm mô tả: tiêu chí nghiệm thu
-├── use-cases.md                           # Nhóm mô tả: Use Case
-├── open-questions.md                      # Nhóm làm rõ: câu hỏi còn mở
-├── assumptions-and-constraints.md         # Nhóm làm rõ: giả định và ràng buộc
-├── requirement-traceability-matrix.md     # Nhóm truy vết
-└── G1-approval-record.md                  # Nhóm phê duyệt: hồ sơ G1
+├── README.md
+├── requirement-analysis-report.md                    # Báo cáo tổng hợp bổ sung
+├── 01-business-requirements/
+│   └── BRD.md
+├── 02-scope-definition/
+│   └── scope-definition.md
+├── 03-functional-requirements/
+│   └── functional-requirements.md
+├── 04-non-functional-requirements/
+│   └── non-functional-requirements.md
+├── 05-user-stories-use-cases/
+│   ├── user-stories.md
+│   └── use-cases.md
+├── 06-acceptance-criteria/
+│   └── acceptance-criteria.md
+├── 07-business-rules/
+│   └── business-rules.md
+├── 08-business-process-model/
+│   └── business-process-model.md                    # Tùy chọn
+├── 09-glossary/
+│   └── glossary.md                                  # Tùy chọn
+├── 10-assumptions-constraints-risks/
+│   ├── assumptions-constraints-dependencies-risks.md
+│   └── open-questions.md
+├── 11-requirement-traceability/
+│   └── requirement-traceability-matrix.md
+└── 12-requirement-review/
+    ├── requirement-review-record.md
+    └── G1-approval.md
 ```
 
-## 7. Vai trò từng file
+Business Process Model và Glossary là đầu ra tùy chọn, nhưng template và thư mục chuẩn được giữ trong framework/project. Nếu không áp dụng, ghi `N/A` và lý do trong review package. Các deliverables khác là bắt buộc.
 
-| File | Vai trò | Người/AI tạo | Trạng thái ban đầu |
-|---|---|---|---|
-| `README.md` | Quy định cách tạo đầu ra, ID, trạng thái và quyền phê duyệt. | Framework | — |
-| `requirement-analysis-report.md` | Tổng hợp kết quả phân tích, số lượng yêu cầu, rủi ro và mức sẵn sàng G1. Là tài liệu đầu tiên người review đọc. | AI | DRAFT |
-| `business-requirements.md` | Tài liệu yêu cầu nghiệp vụ (BRD): ghi mục tiêu, nguồn, các yêu cầu nghiệp vụ (BRQ) và quy tắc nghiệp vụ (BR) liên quan. | AI | DRAFT |
-| `functional-requirements.md` | Mô tả chi tiết yêu cầu chức năng (FR), actor, luồng và liên kết với BRQ. | AI | DRAFT |
-| `non-functional-requirements.md` | Mô tả yêu cầu phi chức năng (NFR) với phương pháp đo và mục tiêu đã được xác nhận. | AI | DRAFT |
-| `user-stories.md` | Chuyển FR/BRQ thành User Story theo định dạng As a / I want / So that. | AI | DRAFT |
-| `acceptance-criteria.md` | Định nghĩa điều kiện nghiệm thu (Given / When / Then) cho từng User Story. | AI | DRAFT |
-| `use-cases.md` | Mô tả luồng chính, luồng thay thế, luồng ngoại lệ và hậu điều kiện. | AI | DRAFT |
-| `open-questions.md` | Sổ câu hỏi chưa được giải đáp, người phụ trách và tác động nếu chưa xử lý. Câu hỏi quan trọng chưa đóng sẽ chặn G1. | AI đề xuất, người xác nhận | OPEN |
-| `assumptions-and-constraints.md` | Tổng hợp giả định (chưa / đã xác nhận), ràng buộc và rủi ro. | AI | Chưa xác nhận |
-| `requirement-traceability-matrix.md` | Liên kết BRQ → FR → US → AC → UC → Test Case để phát hiện thiếu sót. | AI | — |
-| `G1-approval-record.md` | Hồ sơ phê duyệt G1: artifact đã gửi, kết quả checklist, vấn đề còn mở và quyết định của Product Owner. | AI chuẩn bị; Product Owner quyết định | PENDING |
+`requirement-analysis-report.md` là báo cáo tổng hợp bổ sung để review dễ hơn; không thay thế artifact nguồn và không phải một trong 12 deliverable chuẩn.
+
+## 3. Deliverables và nội dung
+
+| # | Deliverable | Artifact chuẩn | Nội dung cốt lõi |
+|---:|---|---|---|
+| 1 | Business Requirements Document (BRD) | `01-business-requirements/BRD.md` | Mục tiêu, nhu cầu nghiệp vụ, yêu cầu stakeholder và BRQ có ID; tham chiếu BR bằng ID. |
+| 2 | Scope Definition | `02-scope-definition/scope-definition.md` | Project/System Scope, in-scope, out-of-scope, ranh giới hệ thống và external dependencies. Đây là nguồn chuẩn duy nhất cho phạm vi. |
+| 3 | Functional Requirements Specification (FRS) | `03-functional-requirements/functional-requirements.md` | FR có ID, mô tả, mức ưu tiên, nguồn, owner, trạng thái và tiêu chí xác minh. |
+| 4 | Non-functional Requirements (NFR) | `04-non-functional-requirements/non-functional-requirements.md` | NFR có ID, hạng mục, mô tả, mức ưu tiên, nguồn, owner, trạng thái và cách đo/kiểm chứng khi phù hợp. |
+| 5 | User Stories & Use Cases | `05-user-stories-use-cases/user-stories.md`; `05-user-stories-use-cases/use-cases.md` | Nhu cầu, actor, mục tiêu và kịch bản; liên kết yêu cầu liên quan. |
+| 6 | Acceptance Criteria | `06-acceptance-criteria/acceptance-criteria.md` | Tiêu chí kiểm thử được cho User Story/Use Case, với điều kiện Pass/Fail. Test Case và kết quả thực thi thuộc Stage 06. |
+| 7 | Business Rules Catalogue | `07-business-rules/business-rules.md` | Nguồn chuẩn duy nhất cho BR: ID, mô tả, điều kiện, kết quả mong đợi và BRQ/FR liên quan. BRD chỉ tham chiếu BR ID. |
+| 8 | Business Process Model (tùy chọn) | `08-business-process-model/business-process-model.md` | Quy trình, sơ đồ/mô tả, actor, hoạt động, quyết định và sự kiện nghiệp vụ khi phù hợp. |
+| 9 | Business Glossary (tùy chọn) | `09-glossary/glossary.md` | Thuật ngữ, định nghĩa và từ viết tắt khi phù hợp. |
+| 10 | Assumptions, Constraints, Dependencies, Risks & Open Questions | `10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md`; `10-assumptions-constraints-risks/open-questions.md` | Các giả định, ràng buộc, phụ thuộc, rủi ro và câu hỏi mở cùng owner/trạng thái xử lý. |
+| 11 | Requirement Traceability Matrix (RTM) | `11-requirement-traceability/requirement-traceability-matrix.md` | Stage 01 truy vết BRQ → FR/NFR → US/UC → AC. Test Case và liên kết downstream được bổ sung ở stage tương ứng. |
+| 12 | Requirement Review Record & G1 Approval Package | `12-requirement-review/requirement-review-record.md`; `12-requirement-review/G1-approval.md` | File review ghi findings/resolution; file G1 ghi quyết định PO, approver, timestamp, bằng chứng và đúng phiên bản baseline/package. |
+
+## 4. Quy tắc đầu ra
+
+1. Tạo các deliverables bắt buộc theo đúng cấu trúc và template trong `../templates/`.
+2. Tạo Business Process Model và Glossary khi phù hợp; nếu không áp dụng, ghi N/A cùng lý do.
+3. Gán và giữ ID theo `../../standards/metadata/id-conventions.md`; không bịa rằng ID đã được cấp phát chính thức.
+4. Tham chiếu nguồn cho yêu cầu; không biến suy luận/giả định thành dữ kiện đã xác nhận.
+5. Cập nhật artifact nguồn thay vì sao chép nội dung khiến các bản trùng lặp có thể lệch nhau.
+6. Duy trì trạng thái, phiên bản, owner và lịch sử thay đổi theo chuẩn framework.
+7. Phân biệt rõ bản nháp do AI tạo với nội dung đã được người có thẩm quyền xác nhận.
+8. G1 Approval chỉ ghi nhận quyết định của Product Owner được ủy quyền; AI không được tự phê duyệt.
+9. Quyết định G1 chỉ áp dụng cho đúng phiên bản artifact và review package được ghi trong hồ sơ.
+
+## 5. Trạng thái
+
+Artifact status dùng các giá trị chuẩn tại `../../standards/metadata/status-conventions.md` (Draft, In Review, Changes Requested, Approved, Rejected, Deprecated). Trạng thái câu hỏi, finding và quyết định gate là các lifecycle riêng, không thay thế Artifact Status.
+
+## 6. Bàn giao và điều kiện G1
+
+Checklist 06 xác nhận điều kiện sẵn sàng và dẫn chiếu kết quả kiểm tra; hồ sơ `12-requirement-review/G1-approval.md` là nơi duy nhất ghi quyết định chính thức. `12-requirement-review/requirement-review-record.md` lưu quá trình review, findings và resolution.
+
+- Requirement baseline được chuyển sang System Design qua các artifact đã duyệt và tham chiếu phiên bản/approval cụ thể.
+- RTM được duy trì ở phạm vi Stage 01; các stage sau bổ sung liên kết downstream theo ID.
+- Không còn câu hỏi critical ngăn cản thiết kế; vấn đề còn lại có owner, hạn và được PO chấp nhận rõ ràng.
+- Chuyển tiếp chỉ sau khi có quyết định G1 hợp lệ là Approved.

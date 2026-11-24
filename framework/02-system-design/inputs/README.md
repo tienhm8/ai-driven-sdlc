@@ -6,13 +6,13 @@
 ## Input baseline
 | Input | Nguồn | Bắt buộc | Kiểm tra |
 |---|---|---:|---|
-| Approved Requirement Baseline | 01 / outputs | Có | G1 Approved, version và approval reference |
-| User Stories & Acceptance Criteria | 01 / outputs | Có | ID rõ, AC kiểm chứng được |
-| Functional Requirements | 01 / outputs | Có | Không mâu thuẫn, có traceability |
-| Non-functional Requirements | 01 / outputs | Có | Có target/định nghĩa đo được khi phù hợp |
-| Business Rules | 01 / outputs | Khi có | Được business owner xác nhận |
-| Scope, assumptions, constraints | 01 / outputs | Có | Phân biệt fact với assumption |
-| Integration requirements | 01 / outputs | Khi áp dụng | Hệ thống liên quan và owner rõ |
+| Approved Requirement Baseline | `01-requirement-analysis/outputs/12-requirement-review/G1-approval.md` và các artifact được tham chiếu | Có | G1 Approved, version/hash và approval reference |
+| User Stories & Acceptance Criteria | `01-requirement-analysis/outputs/05-user-stories-use-cases/`; `06-acceptance-criteria/` | Có | ID rõ, AC kiểm chứng được |
+| Functional Requirements | `01-requirement-analysis/outputs/03-functional-requirements/` | Có | Không mâu thuẫn, có traceability |
+| Non-functional Requirements | `01-requirement-analysis/outputs/04-non-functional-requirements/` | Có | Có target/định nghĩa đo được khi phù hợp |
+| Business Rules | `01-requirement-analysis/outputs/07-business-rules/` | Khi có | Được business owner xác nhận |
+| Scope, assumptions, constraints | `01-requirement-analysis/outputs/02-scope-definition/`; `10-assumptions-constraints-risks/` | Có | Phân biệt fact với assumption |
+| Integration requirements | `01-requirement-analysis/outputs/03-functional-requirements/`; `10-assumptions-constraints-risks/` | Khi áp dụng | Hệ thống liên quan và owner rõ |
 | Data classification/privacy needs | 01 / security owner | Khi áp dụng | Phân loại và hạn chế dữ liệu |
 | Existing architecture | Project docs | Dự án hiện hữu | Có version/tình trạng cập nhật |
 | Technology constraints | Project context / standards | Khi áp dụng | Nguồn có thẩm quyền |

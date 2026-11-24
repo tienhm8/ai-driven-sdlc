@@ -67,7 +67,7 @@ inputs/
 |---|---|
 | `README.md` | Quy định nguồn đầu vào, quy tắc xử lý và người chịu trách nhiệm. |
 | `input-document-register.md` | Ghi nhận từng tài liệu đầu vào, phiên bản và trạng thái (Đã cung cấp, Chờ xử lý, Đã review...). Là điểm kiểm tra đầu tiên của Checklist 01. |
-| `business-context.md` | Cung cấp bối cảnh nghiệp vụ, vấn đề, mục tiêu và tiêu chí thành công. Là nguồn để soạn Tài liệu yêu cầu nghiệp vụ (BRD) trong `business-requirements.md`. |
+| `business-context.md` | Cung cấp bối cảnh nghiệp vụ, vấn đề, mục tiêu và tiêu chí thành công. Là nguồn để soạn BRD tại `outputs/01-business-requirements/BRD.md`. |
 | `stakeholder-information.md` | Xác định ai là bên liên quan và ai có thẩm quyền phê duyệt, giải quyết xung đột, thay đổi phạm vi. Là căn cứ để xác định người phụ trách câu hỏi và G1. |
 | `existing-system-context.md` | Mô tả hệ thống hiện có, công nghệ, tích hợp và yêu cầu di chuyển dữ liệu. Là căn cứ cho yêu cầu tích hợp và phi chức năng. |
-| `constraints-and-assumptions.md` | Ghi nhận ràng buộc và giả định chưa được xác minh. Các giả định này được chuyển sang `outputs/assumptions-and-constraints.md`. |
+| `constraints-and-assumptions.md` | Ghi nhận ràng buộc và giả định chưa được xác minh. Nội dung được phân loại, xác minh và chuyển vào `outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md`. |
