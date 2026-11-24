@@ -68,17 +68,22 @@ AI đóng vai trò Business Analyst (BA), hỗ trợ Product Owner phân tích v
 
 ## 7. Output Requirements
 
-Tạo các tài liệu:
+Tạo và duy trì các đầu ra sau, nhất quán với mục **1.8 Output — Đầu ra** trong `workflow.md` và danh mục trong `outputs/README.md`:
 
-- Tài liệu yêu cầu nghiệp vụ (BRD) chứa các yêu cầu nghiệp vụ (BRQ) và tham chiếu đến các quy tắc nghiệp vụ (BR) liên quan.
-- Functional Requirements Specification.
-- Non-functional Requirements.
-- User Stories.
-- Acceptance Criteria.
-- Quy tắc nghiệp vụ (Business Rules, BR).
-- Scope Definition.
-- Open Questions & Assumptions.
-- Requirement Traceability Matrix.
+- **Business Requirements Document (BRD):** ghi mục tiêu, nhu cầu nghiệp vụ và yêu cầu stakeholder; các Business Requirements (BRQ) có ID và tham chiếu đến Business Rules liên quan.
+- **Scope Definition:** xác định Project/System Scope, In-scope, Out-of-scope, system boundaries và external dependencies.
+- **Functional Requirements Specification (FRS):** các Functional Requirements (FR) có ID, description, priority, source, owner, status và tiêu chí xác minh phù hợp.
+- **Non-functional Requirements (NFR):** các NFR có ID, category, description, priority, source, owner, status và measurable criteria hoặc verification method khi phù hợp.
+- **User Stories & Use Cases:** mô tả nhu cầu, actors, goals và scenarios; liên kết với FR/NFR liên quan khi áp dụng.
+- **Acceptance Criteria:** tiêu chí cho User Story/Use Case liên quan, có thể kiểm thử và xác định kết quả Pass/Fail.
+- **Business Rules Catalogue:** Business Rules (BR) có ID, description, conditions và expected outcomes; tham chiếu đến BRQ/FR liên quan.
+- **Business Process Model (khi áp dụng):** business workflows, process diagrams và process descriptions, gồm actors, activities, decisions và business events.
+- **Business Glossary (khi áp dụng):** thuật ngữ nghiệp vụ, định nghĩa và từ viết tắt.
+- **Assumptions, Constraints, Dependencies, Risks & Open Questions:** ghi nhận nội dung trong `outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md` và câu hỏi mở trong `outputs/10-assumptions-constraints-risks/open-questions.md`, kèm owner và trạng thái xử lý.
+- **Requirement Traceability Matrix (RTM):** truy vết BRQ → FR/NFR → User Story/Use Case → Acceptance Criteria; liên kết Test Cases ở giai đoạn Testing & QA.
+- **Requirement Review Record & G1 Approval Package:** ghi findings và resolution tại `outputs/12-requirement-review/requirement-review-record.md`; ghi ý kiến và quyết định G1, approver, timestamp, bằng chứng cùng phiên bản được duyệt tại `outputs/12-requirement-review/G1-approval.md`.
+
+Business Process Model và Business Glossary chỉ cần tạo khi phù hợp với phạm vi dự án; các đầu ra còn lại là bắt buộc. Lưu artifact theo vị trí và quy ước tại `outputs/README.md`; không tạo bản sao không cần thiết nếu nội dung đã có artifact chuẩn.
 
 ## 8. Quality Criteria
 
@@ -121,7 +126,7 @@ Tạo các tài liệu:
 - Yêu cầu rõ ràng và không mâu thuẫn.
 - Scope được xác nhận.
 - User Stories và Acceptance Criteria được duyệt.
-- Các vấn đề quan trọng đã được giải quyết hoặc có kế hoạch xử lý.
+- Các vấn đề quan trọng đã được giải quyết.
 
 > **AI không được tự phê duyệt G1.**
 

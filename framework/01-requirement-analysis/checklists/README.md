@@ -50,8 +50,8 @@ checklists/
 |---|---|---|---|
 | `README.md` | Quy định cách thực hiện checklist, trạng thái PASS / FAIL / N/A / PENDING và quyền của AI. | Đọc trước khi dùng | — |
 | `01-input-completeness-checklist.md` | Xác nhận đầu vào đủ thông tin cơ bản (mục tiêu, phạm vi, bên liên quan, ràng buộc). | Trước phân tích | `inputs/` |
-| `02-requirement-analysis-checklist.md` | Xác nhận quá trình phân tích đã bao phủ chức năng, phi chức năng, quy tắc, luồng và phụ thuộc. | Trong phân tích | `outputs/` |
-| `03-requirement-quality-checklist.md` | Đánh giá từng yêu cầu theo 10 thuộc tính chất lượng: rõ ràng, đầy đủ, nhất quán, kiểm thử được, khả thi, v.v. | Sau khi tạo yêu cầu | `outputs/` |
-| `04-ambiguity-and-conflict-checklist.md` | Tìm thuật ngữ mơ hồ, mâu thuẫn, quy tắc còn thiếu và giả định chưa xác minh. Mọi vấn đề phải vào `open-questions.md`. | Sau khi tạo yêu cầu | `outputs/open-questions.md` |
-| `05-non-functional-requirement-checklist.md` | Đảm bảo các hạng mục NFR được xem xét và có tiêu chí đo lường. Không tự đặt con số khi chưa có. | Trước khi hoàn tất | `outputs/non-functional-requirements.md` |
-| `06-G1-approval-checklist.md` | Tổng hợp điều kiện để Product Owner xét duyệt G1. AI không được tích điều kiện phê duyệt thay Product Owner. | Trước khi chuyển System Design | `outputs/G1-approval-record.md` |
+| `02-requirement-analysis-checklist.md` | Xác nhận quá trình phân tích đã bao phủ chức năng, phi chức năng, quy tắc, luồng và phụ thuộc. | Trong phân tích | Các artifact trong `outputs/01`–`outputs/10` |
+| `03-requirement-quality-checklist.md` | Đánh giá từng yêu cầu theo 10 thuộc tính chất lượng: rõ ràng, đầy đủ, nhất quán, kiểm thử được, khả thi, v.v. | Sau khi tạo yêu cầu | Các artifact yêu cầu trong `outputs/01`–`outputs/10` |
+| `04-ambiguity-and-conflict-checklist.md` | Tìm thuật ngữ mơ hồ, mâu thuẫn, quy tắc còn thiếu và giả định chưa xác minh. Mọi vấn đề phải vào `outputs/10-assumptions-constraints-risks/open-questions.md`. | Sau khi tạo yêu cầu | `outputs/10-assumptions-constraints-risks/open-questions.md` |
+| `05-non-functional-requirement-checklist.md` | Đảm bảo các hạng mục NFR được xem xét và có tiêu chí đo lường. Không tự đặt con số khi chưa có. | Trước khi hoàn tất | `outputs/04-non-functional-requirements/non-functional-requirements.md` |
+| `06-G1-approval-checklist.md` | Tổng hợp điều kiện để Product Owner xét duyệt G1. AI không được tích điều kiện phê duyệt thay Product Owner. | Trước khi chuyển System Design | `outputs/12-requirement-review/G1-approval.md` |

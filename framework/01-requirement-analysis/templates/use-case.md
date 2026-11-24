@@ -92,11 +92,13 @@ Các điều kiện phải thỏa mãn trước khi Use Case được thực hi�
   3. [Hệ thống trả về phản hồi lỗi mong đợi]
 - Kết quả mong đợi: [Kết quả]
 
-## 10. Quy tắc nghiệp vụ
+## 10. Quy tắc nghiệp vụ liên quan
 
-| Mã quy tắc | Mô tả quy tắc |
+Business Rules là nội dung chuẩn trong `../outputs/07-business-rules/business-rules.md`; Use Case chỉ tham chiếu ID.
+
+| Mã BR | Tên/quy tắc liên quan |
 |---|---|
-| BR-0001 | [Quy tắc nghiệp vụ] |
+| BR-0001 | [Tên quy tắc] |
 
 ## 11. Đầu vào / Đầu ra
 
@@ -120,12 +122,12 @@ Các điều kiện phải thỏa mãn trước khi Use Case được thực hi�
 ### 12.2 Hậu điều kiện khi thất bại
 [Trạng thái hệ thống khi thực hiện thất bại.]
 
-## 13. Yêu cầu phi chức năng
+## 13. Yêu cầu phi chức năng liên quan
 
-- Hiệu năng: [Yêu cầu]
-- Bảo mật: [Yêu cầu]
-- Tính sẵn sàng: [Yêu cầu]
-- Khả năng kiểm toán: [Yêu cầu]
+Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functional-requirements.md`:
+
+- NFR IDs:
+- Điều kiện áp dụng:
 
 ## 14. Use Case liên quan
 
@@ -135,19 +137,22 @@ Các điều kiện phải thỏa mãn trước khi Use Case được thực hi�
 
 ## 15. Ánh xạ tiêu chí nghiệm thu
 
-| Kịch bản Use Case | Tiêu chí nghiệm thu | Test Case |
+| Kịch bản Use Case | Tiêu chí nghiệm thu (AC ID) | Ghi chú |
 |---|---|---|
-| Luồng chính | AC-001 | TC-001 |
-| Luồng thay thế | AC-002 | TC-002 |
-| Luồng ngoại lệ | AC-003 | TC-003 |
+| Luồng chính | AC-0001 | [Điều kiện/kết quả] |
+| Luồng thay thế | AC-0002 | [Điều kiện/kết quả] |
+| Luồng ngoại lệ | AC-0003 | [Điều kiện/kết quả] |
 
-## 16. Review và phê duyệt
+Test Case được liên kết ở Stage 06; không tạo Test Case ID tại Requirement Analysis.
 
-| Vai trò | Họ tên | Quyết định | Ngày |
+## 16. Nguồn và lịch sử thay đổi
+
+- Nguồn:
+- Owner:
+
+| Phiên bản | Ngày | Người cập nhật | Mô tả thay đổi |
 |---|---|---|---|
-| Business Analyst | [Họ tên] | [Quyết định] | [Ngày] |
-| Product Owner | [Họ tên] | [Quyết định] | [Ngày] |
-| Solution Architect | [Họ tên] | [Quyết định] | [Ngày] |
+| 0.1 | [Ngày] | [Owner] | Bản nháp ban đầu |
 
 ## 17. Lịch sử thay đổi
 
