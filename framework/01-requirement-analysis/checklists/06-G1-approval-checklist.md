@@ -32,19 +32,12 @@
 - [ ] Product Owner đã review các artifact.
 - [ ] Product Owner đã phê duyệt G1 một cách tường minh.
 
-## 5. Quyết định cổng (Gate Decision)
+## 5. Ghi nhận kết quả kiểm tra và bàn giao
 
-Trạng thái:
-Người phê duyệt:
-Ngày phê duyệt:
-Ghi chú:
+- Kết quả checklist: [PASS / FAIL / PENDING]
+- Findings/gap còn lại: [Artifact/ID, owner, hạn]
+- Tham chiếu checklist run/evidence:
+- Hồ sơ review: `../outputs/12-requirement-review/requirement-review-record.md`
+- Quyết định G1 chính thức được ghi duy nhất tại: `../outputs/12-requirement-review/G1-approval.md`
 
-Quyết định:
-
-- APPROVED (Đã phê duyệt)
-- REJECTED (Từ chối)
-- CHANGES_REQUESTED (Yêu cầu chỉnh sửa)
-
-Lưu ý:
-
-AI KHÔNG BAO GIỜ được phê duyệt G1 thay mặt Product Owner.
+Checklist này xác nhận điều kiện sẵn sàng trình duyệt, không ghi quyết định thay Product Owner. AI KHÔNG được phê duyệt G1.

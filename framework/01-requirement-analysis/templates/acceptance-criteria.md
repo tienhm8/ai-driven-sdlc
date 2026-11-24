@@ -76,35 +76,15 @@
 | NFR-AC-002 | Bảo mật | [Điều kiện] | [Chỉ số] |
 | NFR-AC-003 | Tính sẵn sàng | [Điều kiện] | [Chỉ số] |
 
-## 8. Ánh xạ kiểm thử nghiệm thu
+## 8. Phương pháp kiểm chứng
 
-| Mã AC | Mã Test Case | Loại kiểm thử | Kết quả mong đợi |
+| Mã AC | Mô tả kiểm chứng | Kết quả mong đợi (Pass/Fail) | Trạng thái xác minh |
 |---|---|---|---|
-| AC-001 | TC-001 | Chức năng | Đạt |
-| AC-001 | TC-002 | Âm tính | Đạt |
+| AC-001 | [Cách kiểm thử/xác minh] | [Điều kiện đạt/không đạt] | Chưa kiểm chứng |
 
-## 9. Trạng thái nghiệm thu
+Test Case cụ thể, lần chạy và bằng chứng thực thi được liên kết ở giai đoạn Testing & QA.
 
-| Mã AC | Kết quả kiểm chứng | Bằng chứng | Trạng thái |
-|---|---|---|---|
-| AC-001 | [Kết quả] | [Báo cáo test] | Chờ xử lý |
-
-Các trạng thái có thể có:
-- Chờ xử lý (Pending)
-- Đạt (Passed)
-- Không đạt (Failed)
-- Bị chặn (Blocked)
-- Không áp dụng (Not Applicable)
-
-## 10. Phê duyệt
-
-| Vai trò | Họ tên | Quyết định | Ngày | Ghi chú |
-|---|---|---|---|---|
-| Business Analyst | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-| Product Owner | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-| QA Lead | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-
-## 11. Lịch sử thay đổi
+## 9. Lịch sử thay đổi
 
 | Phiên bản | Ngày | Mô tả thay đổi |
 |---|---|---|

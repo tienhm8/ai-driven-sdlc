@@ -62,17 +62,15 @@
 1. [Điều kiện lỗi]
 2. [Cách xử lý lỗi mong đợi]
 
-## 4. Quy tắc nghiệp vụ
+## 4. Quy tắc nghiệp vụ và phụ thuộc
 
-| Mã quy tắc | Mô tả quy tắc | Yêu cầu liên quan |
+- Business Rules: tham chiếu BR ID trong `../outputs/07-business-rules/business-rules.md`.
+- Dependencies: tham chiếu DEP ID trong `../outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md`.
+
+| Loại | ID | Mô tả ngắn/ghi chú |
 |---|---|---|
-| BR-0001 | [Mô tả] | BRQ-0001 |
-
-## 5. Phụ thuộc
-
-| Mã phụ thuộc | Mô tả | Loại |
-|---|---|---|
-| DEP-001 | [Phụ thuộc] | Nội bộ / Bên ngoài |
+| BR | BR-0001 | [Tên quy tắc] |
+| DEP | DEP-0001 | [Phụ thuộc] |
 
 ## 6. Tham chiếu tiêu chí nghiệm thu
 
@@ -81,7 +79,7 @@
 | AC-001 | [Tiêu chí nghiệm thu] | Cao |
 | AC-002 | [Tiêu chí nghiệm thu] | Cao |
 
-Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteria.md`.
+Tiêu chí nghiệm thu chi tiết được quản lý trong `../outputs/06-acceptance-criteria/acceptance-criteria.md`.
 
 ## 7. Yêu cầu UX/UI
 
@@ -92,12 +90,12 @@ Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteri
 - Kiểm tra dữ liệu: [Quy tắc kiểm tra]
 - Tham chiếu UI/UX: [Liên kết thiết kế]
 
-## 8. Yêu cầu phi chức năng
+## 8. Yêu cầu phi chức năng liên quan
 
-- Hiệu năng: [Yêu cầu]
-- Bảo mật: [Yêu cầu]
-- Khả năng truy cập: [Yêu cầu]
-- Ghi log kiểm toán: [Yêu cầu]
+Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functional-requirements.md`:
+
+- NFR IDs:
+- Điều kiện áp dụng:
 
 ## 9. Định nghĩa sẵn sàng (Definition of Ready - DoR)
 

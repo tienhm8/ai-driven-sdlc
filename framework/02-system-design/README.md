@@ -50,7 +50,7 @@ Chuyển Requirement Baseline đã được PO phê duyệt ở giai đoạn 01 
 | `outputs/` | Tài liệu thiết kế thực tế của project | Chỉ Approved/Baselined sau G2 |
 
 ## Inputs
-Nguồn chính là `01-requirement-analysis/outputs` hoặc vị trí tài liệu dự án tương ứng: approved requirements, User Stories, Acceptance Criteria, FR/NFR, business rules, scope, assumptions, constraints, dependencies, integration/data requirements. Có thể bổ sung kiến trúc hiện trạng và technology constraints cho dự án đang vận hành.
+Nguồn chính là các deliverable đã duyệt trong `01-requirement-analysis/outputs/` theo danh mục và cấu trúc tại `01-requirement-analysis/outputs/README.md`: BRD, Scope Definition, FRS, NFR, User Stories/Use Cases, Acceptance Criteria, Business Rules, RTM và register assumptions/constraints/dependencies/risks. Dùng manifest/link kèm ID, version và G1 approval reference. Có thể bổ sung kiến trúc hiện trạng và technology constraints cho dự án đang vận hành.
 
 Không cần sao chép toàn bộ tài liệu 01. Ưu tiên manifest/link + ID/version/approval reference. Nếu thiếu yêu cầu ảnh hưởng thiết kế, ghi open question hoặc assumption và yêu cầu BA/PO xác nhận; không tự suy diễn thành yêu cầu chính thức.
 

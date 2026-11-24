@@ -80,13 +80,23 @@ Handoff to System Design
 
 ## 1.8 Output — Đầu ra
 
-- Approved Requirement Specification / Product Requirements Document.
-- FR/NFR catalogue có ID, priority, source, owner và status.
-- User stories/use cases và acceptance criteria.
-- Business process/model, business rules và glossary.
-- Assumptions, constraints, dependencies, risks và open questions.
-- Requirement Traceability Matrix (RTM).
-- Requirement Review Record và quyết định G1.
+Giai đoạn Requirement Analysis tạo ra các đầu ra sau:
+
+- **Tài liệu yêu cầu nghiệp vụ (Business Requirements Document — BRD):** mục tiêu và nhu cầu nghiệp vụ, yêu cầu của stakeholder; các yêu cầu nghiệp vụ (BRQ) có ID và tham chiếu đến quy tắc nghiệp vụ liên quan.
+- **Định nghĩa phạm vi (Scope Definition):** phạm vi dự án/hệ thống, nội dung trong và ngoài phạm vi, ranh giới hệ thống và các phụ thuộc bên ngoài.
+- **Đặc tả yêu cầu chức năng (Functional Requirements Specification — FRS):** các yêu cầu chức năng (FR) có ID, mô tả, mức ưu tiên, nguồn, owner và trạng thái; mỗi yêu cầu có tiêu chí xác minh phù hợp.
+- **Yêu cầu phi chức năng (Non-functional Requirements — NFR):** các NFR có ID, hạng mục, mô tả, mức ưu tiên, nguồn, owner và trạng thái; có tiêu chí đo lường hoặc phương pháp kiểm chứng khi phù hợp.
+- **User Story và Use Case:** mô tả nhu cầu, actor, mục tiêu và kịch bản; liên kết với các FR/NFR liên quan.
+- **Tiêu chí nghiệm thu (Acceptance Criteria):** tiêu chí cho từng User Story/Use Case, có thể kiểm thử và xác định kết quả đạt/không đạt.
+- **Danh mục quy tắc nghiệp vụ (Business Rules Catalogue):** các quy tắc nghiệp vụ (BR) có ID, mô tả, điều kiện và kết quả mong đợi; tham chiếu đến BRQ/FR liên quan.
+- **Mô hình quy trình nghiệp vụ (Business Process Model, khi áp dụng):** quy trình, sơ đồ và mô tả; xác định actor, hoạt động, quyết định và sự kiện nghiệp vụ.
+- **Bảng thuật ngữ nghiệp vụ (Business Glossary, khi áp dụng):** thuật ngữ, định nghĩa và từ viết tắt.
+- **Giả định, ràng buộc, phụ thuộc, rủi ro và câu hỏi mở:** ghi nhận nội dung, owner và trạng thái xử lý.
+- **Ma trận truy vết yêu cầu (Requirement Traceability Matrix — RTM):** truy vết BRQ → FR/NFR → User Story/Use Case → Acceptance Criteria; làm cơ sở liên kết với Test Case ở giai đoạn Testing & QA.
+- **Hồ sơ review yêu cầu và phê duyệt G1:** ghi nhận phát hiện review và cách xử lý, ý kiến của Product Owner, quyết định G1, người phê duyệt, thời điểm, tài liệu và phiên bản được phê duyệt.
+
+Business Process Model và Business Glossary chỉ cần tạo khi phù hợp với phạm vi dự án; các đầu ra còn lại là bắt buộc.
+
 
 ## 1.9 Quality Check — Kiểm tra chất lượng
 
@@ -102,7 +112,7 @@ Handoff to System Design
 
 **G1 — Requirement Baseline Approval**
 
-Người phê duyệt: Product Owner/Business Owner; BA chịu trách nhiệm chuẩn bị. SA, Security/Compliance tham vấn khi có yêu cầu kỹ thuật hoặc tuân thủ liên quan.
+Người phê duyệt: Product Owner; BA chịu trách nhiệm chuẩn bị. SA, Security/Compliance tham vấn khi có yêu cầu kỹ thuật hoặc tuân thủ liên quan.
 
 Điều kiện duyệt:
 - Phạm vi và mục tiêu được thống nhất.
@@ -114,10 +124,12 @@ Bằng chứng: approval record, phiên bản tài liệu, người duyệt, th�
 
 ## 1.11 Exit Criteria — Điều kiện hoàn thành
 
-- G1 được Approved.
-- Requirement baseline được lưu đúng vị trí và có version.
-- RTM và danh sách open issues được cập nhật.
-- Không còn câu hỏi critical ngăn cản thiết kế; các mục còn lại có owner/decision date.
+Giai đoạn chỉ được xem là hoàn thành khi đáp ứng đầy đủ các điều kiện sau:
+
+- Các đầu ra bắt buộc đã được kiểm tra.
+- Các vấn đề trọng yếu đã được xử lý; không còn câu hỏi critical ngăn cản thiết kế. Các mục còn lại có owner và thời hạn xử lý.
+- Requirement baseline được lưu đúng vị trí, có version; RTM và danh sách câu hỏi mở được cập nhật.
+- G1 được Product Owner phê duyệt (Approved).
 
 ## 1.12 Exception Handling — Xử lý ngoại lệ
 
