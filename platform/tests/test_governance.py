@@ -590,10 +590,11 @@ class GovernanceTests(TestCase):
         self.review("G6", self.rev_b)
         self.assertEqual(self.authorize("G6")["status"], "awaiting_approval")
 
-    def grant_action_exception(self, gate):
+    def grant_action_exception(self, gate, *, run=None):
+        run = run or self.run
         expiry = datetime.now(timezone.utc) + timedelta(hours=1)
         return self.engine.approvals.authorize_exception(
-            self.run, gate, "officer", review_id=self.reviews[self.run, gate]["event_id"],
+            run, gate, "officer", review_id=self.reviews[run, gate]["event_id"],
             artifact_sha256=self.rev_a, reason="Approved waiver", risk="Known risk", mitigation="Follow-up",
             owner="Owner", expires_at=expiry, evidence_refs=["ticket:ref"],
         )
@@ -613,6 +614,53 @@ class GovernanceTests(TestCase):
         self.assertEqual(self.complete(4, self.rev_a, result_ref=receipt)["status"], "action_failed")
         self.review("G4")
         self.assertEqual(self.authorize("G4")["status"], "awaiting_approval")
+
+    def test_g7_expired_unclaimed_exception_can_be_reopened_in_same_incident(self):
+        self.engine = self.new_engine(can_authorize_exception=lambda identity, scope: scope.gate == "G7")
+        run = self.engine.start_critical_incident(incident_ref="INC-001")["execution_id"]
+        original = self.review("G7", run=run)
+        exception = self.grant_action_exception("G7", run=run)
+        authorization = self.authorize("G7", run=run)
+        with self.assertRaisesRegex(ValueError, "already authorized"):
+            self.review("G7", run=run)
+        with patch("ai_sdlc_platform.workflow_engine.datetime", wraps=datetime) as clock:
+            clock.now.return_value = datetime.fromisoformat(exception["expires_at"])
+            with self.assertRaisesRegex(PermissionError, "expired"):
+                self.claim("G7")
+            # The expired authorization must not hide metadata under unchanged digests.
+            with self.assertRaisesRegex(ValueError, "without a new review context digest"):
+                self.review("G7", run=run, authors=("different-author",), artifact_refs=("different-evidence",))
+            with self.engine.store.transaction() as connection:
+                events = self.engine.store.read(connection, run)
+            self.assertFalse(any(event["event_type"] == "action_expired" for event in events))
+            replacement = self.review("G7", run=run)
+        self.assertNotEqual(replacement["event_id"], original["event_id"])
+        self.engine = self.new_engine()
+        with self.assertRaisesRegex(PermissionError, "No matching active"):
+            self.claim("G7", authorization)
+        self.assertEqual(self.authorize("G7", run=run)["status"], "awaiting_approval")
+        self.approve("G7", "commander", "incident_commander", run=run)
+        self.assertEqual(self.authorize("G7", run=run)["status"], "authorized")
+        self.claim("G7")
+        with self.engine.store.transaction() as connection:
+            events = self.engine.store.read(connection, run)
+        expired, = [event for event in events if event["event_type"] == "action_expired"]
+        self.assertEqual(expired["authorization_id"], authorization["event_id"])
+        self.assertEqual(expired["review_id"], original["event_id"])
+        self.assertEqual(expired["expires_at"], exception["expires_at"])
+        self.assertEqual(expired["reset_gates"], ["G7"])  # Existing v3 readers honor this reset marker.
+
+    def test_g7_claimed_exception_cannot_be_reopened_on_expiry(self):
+        self.engine = self.new_engine(can_authorize_exception=lambda identity, scope: scope.gate == "G7")
+        run = self.engine.start_critical_incident(incident_ref="INC-001")["execution_id"]
+        self.review("G7", run=run)
+        exception = self.grant_action_exception("G7", run=run)
+        self.authorize("G7", run=run)
+        self.claim("G7")
+        with patch("ai_sdlc_platform.workflow_engine.datetime", wraps=datetime) as clock:
+            clock.now.return_value = datetime.fromisoformat(exception["expires_at"])
+            with self.assertRaisesRegex(ValueError, "already authorized"):
+                self.review("G7", run=run, context=self.context_b)
 
     def test_state_path_rejects_symlinked_project_bucket_and_database(self):
         path = self.engine.store.path
