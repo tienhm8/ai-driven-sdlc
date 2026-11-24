@@ -159,6 +159,33 @@ def generate_config(
     }, sort_keys=False, allow_unicode=True)
 
 
+def initialize_requirement_analysis_outputs(
+    framework_dir: Path,
+    project_docs_dir: Path,
+):
+    """Create the project-level Requirement Analysis deliverable set.
+
+    Copies the framework's standard output structure (README plus the 12
+    numbered deliverable folders with starter documents) into
+    docs/01-requirement-analysis/outputs. Existing project files are
+    never overwritten.
+    """
+    framework_outputs = framework_dir / "01-requirement-analysis" / "outputs"
+    project_outputs = project_docs_dir / "01-requirement-analysis" / "outputs"
+
+    create_directory(project_outputs)
+
+    if not framework_outputs.is_dir():
+        print(f"[WARN] Framework source not found: {framework_outputs}")
+        return
+
+    for source in sorted(framework_outputs.rglob("*")):
+        relative = source.relative_to(framework_outputs)
+        if source.is_dir():
+            create_directory(project_outputs / relative)
+        elif source.is_file():
+            copy_file_if_missing(source, project_outputs / relative)
+
 def initialize_system_design_outputs(
     framework_dir: Path,
     project_docs_dir: Path,
@@ -475,6 +502,12 @@ def init_project(
             source = framework_dir / stage / "templates"
             destination = stage_dir / "_templates"
             copy_templates(source, destination)
+
+        # 3b. Requirement Analysis project outputs.
+        initialize_requirement_analysis_outputs(
+            framework_dir=framework_dir,
+            project_docs_dir=docs_dir,
+        )
 
         # 4. System Design project outputs.
         initialize_system_design_outputs(
