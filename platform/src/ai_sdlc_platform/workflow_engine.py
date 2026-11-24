@@ -70,8 +70,12 @@ class WorkflowEngine:
             self._require_gate_context(events, gate)
             if gate == "G7" and target["incident_ref"] != events[0]["incident_ref"]:
                 raise ValueError("G7 target must match the incident execution")
-            if self._authorized_action(events, gate):
-                raise ValueError(f"The {gate} action is already authorized")
+            authorization = self._authorized_action(events, gate)
+            if authorization:
+                expiry = authorization["expires_at"]
+                if (gate != "G7" or not expiry or datetime.fromisoformat(expiry) > datetime.now(timezone.utc)
+                        or self._action_started(events, authorization["event_id"])):
+                    raise ValueError(f"The {gate} action is already authorized")
             scope = {}
             if gate == "G5":
                 merge = self._completed_gate(events, "G4")
@@ -91,8 +95,16 @@ class WorkflowEngine:
             if prior and all(prior[key] == value for key, value in revision.items()):
                 if any(prior[key] != value for key, value in metadata.items()):
                     raise ValueError("Review metadata cannot change without a new review context digest")
-                return prior
+                if not authorization:
+                    return prior
             allowed_roles = load_approver_roles(self.approvals.project)[gate]
+            if authorization:
+                self.store.append(
+                    conn, execution_id, "action_expired", gate=gate, actor=requester,
+                    authorization_id=authorization["event_id"], review_id=authorization["review_id"],
+                    expires_at=authorization["expires_at"], target=authorization["target"],
+                    reset_gates=[gate],  # Recognized by existing schema-v3 readers.
+                )
             return self.store.append(conn, execution_id, "review_requested", gate=gate,
                                      requester=requester, allowed_roles=sorted(allowed_roles),
                                      **revision, **metadata)

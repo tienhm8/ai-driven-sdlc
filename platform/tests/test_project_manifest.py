@@ -142,6 +142,69 @@ class ProjectManifestTests(TestCase):
         policy.write_text("gates: {G6: {approver_roles: [release_manager]}}", encoding="utf-8")
         self.assertIn("VALIDATION_PASSED", {issue["code"] for issue in validate_project(self.project)})
 
+    def test_validator_reports_malformed_tagged_approval_policy_values(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        for contents, message in (
+            ("gates: !!map [G4]", "expected a mapping node"),
+            ("gates: {G4: {required: !!bool maybe}}", "invalid value for YAML tag"),
+            ("gates: {G4: {required: !!int ''}}", "invalid value for YAML tag"),
+            ("gates: {G4: {required: !!float '+'}}", "invalid value for YAML tag"),
+            ("gates: {G4: {approver_roles: [!!str {=: reviewer, repeated: 1, repeated: 2}]}}",
+             "expected a scalar node"),
+            ("gates: {G4: &gate {<<: *gate}}", "recursive YAML merge"),
+        ):
+            with self.subTest(contents=contents):
+                policy.write_text(contents, encoding="utf-8")
+                issues = validate_project(self.project)
+                invalid = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+                self.assertIn(message, invalid["message"])
+                self.assertIn("line 1, column", invalid["message"])
+                self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
+
+    def test_validator_bounds_policy_nesting_and_merge_expansion(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        anchors = ["&a0 {required: true}"]
+        for index in range(1, 65):
+            anchors.append(f"&a{index} {{<<: *a{index - 1}}}")
+        # The root merge runs before the values holding the earlier anchor definitions are constructed.
+        chain = f"fixtures: [{', '.join(anchors)}]\n<<: *a64\n"
+        for contents, diagnostic in (
+            ("gates: " + "[" * 65 + "0" + "]" * 65, "YAML nesting exceeds"),
+            (chain, "YAML merge depth exceeds"),
+            ("gates: {G4: {<<: [&a {required: true}, " + ", ".join(["*a"] * 256) + "]}}",
+             "too many approval policy mapping entries"),
+        ):
+            with self.subTest(diagnostic=diagnostic):
+                policy.write_text(contents, encoding="utf-8")
+                issue = next(issue for issue in validate_project(self.project)
+                             if issue["code"] == "INVALID_APPROVAL_POLICY")
+                self.assertIn(diagnostic, issue["message"])
+
+    def test_validator_accepts_a_policy_with_disjoint_yaml_merge_entries(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        policy.write_text("gates: {G4: {<<: [{required: true}, {approver_roles: [reviewer]}]}}", encoding="utf-8")
+        self.assertIn("VALIDATION_PASSED", {issue["code"] for issue in validate_project(self.project)})
+
+    def test_validator_rejects_duplicate_approval_policy_keys(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        for contents, key in (
+            ("gates: {}\ngates: {}\n", "gates"),
+            ("gates:\n  G4: {approver_roles: [tech_lead]}\n  G4: {approver_roles: [reviewer]}\n", "G4"),
+            ("gates: {G4: {approver_roles: [tech_lead], approver_roles: [reviewer]}}", "approver_roles"),
+            ("gates: {G4: {<<: {approver_roles: [tech_lead]}, approver_roles: [reviewer]}}", "approver_roles"),
+            ("gates: {G4: {<<: {required: true}, <<: {approver_roles: [reviewer]}}}", "<<"),
+        ):
+            with self.subTest(contents=contents):
+                policy.write_text(contents, encoding="utf-8")
+                issues = validate_project(self.project)
+                invalid = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+                self.assertIn(f"duplicate key {key!r}", invalid["message"])
+                self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
+
     def test_legacy_project_gets_migration_hint(self):
         self.project.mkdir(parents=True)
         (self.project / "config.yml").write_text("project: {slug: demo, name: Demo}", encoding="utf-8")
