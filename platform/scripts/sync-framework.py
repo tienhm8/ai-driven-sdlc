@@ -8,6 +8,7 @@ import os
 from pathlib import Path, PurePosixPath
 import re
 import shutil
+import sys
 from stat import S_IMODE, S_ISGID, S_ISREG
 from tempfile import TemporaryDirectory
 from uuid import uuid4
@@ -185,7 +186,8 @@ class SyncJournal:
                     if file_revision(target.lstat()) != file_revision(info):
                         unresolved[relative] = entry
                         continue
-            except (OSError, SyncConflict):
+            except (OSError, SyncConflict) as error:
+                print(f"Recovery of {relative} left unresolved: {error}", file=sys.stderr)
                 unresolved[relative] = entry
                 continue
             baseline[relative] = entry["installed"]
@@ -230,11 +232,18 @@ class SyncJournal:
             self.entries = {}
         for entry in retired:
             proof = self.proof_path(entry)
-            if proof.resolve() == proof and proof.parent.is_dir():
-                proof.unlink(missing_ok=True)
-                proof.parent.rmdir()
+            try:
+                if proof.resolve() == proof and proof.parent.is_dir():
+                    proof.unlink(missing_ok=True)
+                    proof.parent.rmdir()
+            except OSError as error:
+                # The manifest is already committed; a stale proof is harmless.
+                print(f"Could not remove recovery proof {proof.parent}: {error}", file=sys.stderr)
         if retired:
-            sync_directory(self.proofs)
+            try:
+                sync_directory(self.proofs)
+            except OSError as error:
+                print(f"Could not flush recovery proof directory: {error}", file=sys.stderr)
 
 
 def target_hash(path):

@@ -1,4 +1,6 @@
+import contextlib
 import errno
+import io
 import importlib.util, json, tempfile, unittest
 import os
 from pathlib import Path
@@ -337,6 +339,48 @@ class FrameworkSyncTests(unittest.TestCase):
         self.assertEqual(json.loads(journal.read_text())[REL], entry)
         self.assertEqual(self.files()[REL], self.h("v1"))
         self.assertEqual(self.target.read_text(), "v2")
+
+    def interrupt_after_install(self):
+        self.src.write_text("v1")
+        self.run_sync(apply=True)
+        self.src.write_text("v2")
+        replace = Path.replace
+
+        def fail_manifest(staged, target):
+            if target == self.manifest:
+                raise OSError("manifest rename failed")
+            return replace(staged, target)
+
+        with patch.object(Path, "replace", fail_manifest):
+            with self.assertRaisesRegex(OSError, "manifest rename failed"):
+                self.run_sync(apply=True)
+        return self.manifest.with_name("framework-sync.pending.json")
+
+    def test_recovery_io_error_is_reported_and_left_unresolved(self):
+        journal = self.interrupt_after_install()
+        pending = journal.read_bytes()
+        with patch.object(sf, "target_hash", side_effect=OSError("disk exploded")), \
+                contextlib.redirect_stderr(io.StringIO()) as stderr:
+            self.assertEqual(self.run_sync(), ([], [], [REL]))
+        self.assertIn(REL, stderr.getvalue())
+        self.assertIn("disk exploded", stderr.getvalue())
+        self.assertEqual(journal.read_bytes(), pending)
+
+    def test_proof_cleanup_failure_does_not_fail_committed_sync(self):
+        journal = self.interrupt_after_install()
+        unlink = Path.unlink
+
+        def fail_proof_unlink(path, *args, **kwargs):
+            if path.name == "resource":
+                raise OSError("cleanup denied")
+            return unlink(path, *args, **kwargs)
+
+        with patch.object(Path, "unlink", fail_proof_unlink), \
+                contextlib.redirect_stderr(io.StringIO()) as stderr:
+            self.run_sync(apply=True)
+        self.assertIn("cleanup denied", stderr.getvalue())
+        self.assertEqual(self.files()[REL], self.h("v2"))
+        self.assertFalse(journal.exists())
 
     @unittest.skipUnless(os.name == "posix", "POSIX directory fsync")
     def test_update_does_not_flush_unchanged_project_root(self):
