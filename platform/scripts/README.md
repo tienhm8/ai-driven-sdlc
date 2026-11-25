@@ -85,15 +85,34 @@ python3 platform/scripts/validate-project.py --project projects/Project-CRM --fr
 python3 platform/scripts/sync-framework.py --framework framework --project projects/Project-CRM
 ```
 
-Sync mặc định chỉ xem trước. Manifest hiện có giữ quyền truy cập của đích, bao gồm POSIX access ACL trên Linux. Manifest mới mặc định `0600` và không kế thừa access ACL. Đối với workspace dùng chung, quản trị quyền sở hữu và nhóm ở thư mục cha. Thêm `--apply` để cập nhật tài nguyên dùng chung trong `.ai-sdlc/framework-resources/`; lệnh này không cập nhật các bản template theo stage đã được init chép vào `docs/`. Khi phát hiện file do sync quản lý đã bị chỉnh, sync báo conflict (exit code 2), không chép đè và giữ checksum mốc cũ. Sau khi xử lý conflict, chạy lại. Nếu bản sync cũ đã ghi sai checksum mốc, bản mới không tự suy đoán phiên bản từng được cài; hãy đối chiếu file với nguồn và xử lý conflict thủ công. File khác nội dung chưa từng được sync quản lý không bị chép đè hoặc nhận vào manifest trừ khi dùng `--apply --overwrite`. Chỉ dùng cờ ghi đè sau khi đã xem dry run và sao lưu thay đổi cần giữ. Sync từ chối thay file chỉ đọc, kể cả khi dùng `--overwrite`, và kiểm tra lại đích trước khi thay file. Tài nguyên đã có giữ nguyên quyền đọc/ghi/thực thi của đích; tài nguyên mới lấy các quyền này từ nguồn. Trên Linux, sync cũng giữ POSIX access ACL từ cùng file tham chiếu và giữ chủ sở hữu/nhóm của file đích hiện có. Nếu không thể giữ các quyền đó, sync báo conflict và không thay tài nguyên. Tài nguyên được chép giữ timestamp của nguồn và các thuộc tính `user.*` mà filesystem hỗ trợ, không nhập quyền truy cập của nguồn vào file đích đã có. Hành vi này không áp dụng cho các định dạng ACL khác. Không chạy sync đồng thời với trình sửa file hoặc một lần sync khác: kiểm tra checksum và thay file không phải một thao tác nguyên tử chung.
+### Chế độ đồng bộ
 
-Trước khi thay tài nguyên, sync chuẩn bị file manifest mới và kiểm tra khả năng giữ quyền/ACL. Mỗi lần thay tài nguyên được ghi trước vào `.ai-sdlc/framework-sync.pending.json`. Nếu lần chạy bị gián đoạn hoặc không ghi được manifest cuối, để nguyên nhật ký rồi chạy lại. Sync kiểm tra checksum trong manifest trước khi ghi. Khi phục hồi, sync chỉ nhận mốc mới nếu file đích có cùng inode hiện tại với liên kết cứng trong `.ai-sdlc/framework-sync.proofs/`, và cả checksum nội dung lẫn mốc cũ đều khớp. Không xóa hoặc chỉnh sửa thư mục proof trong khi còn nhật ký. Cơ chế này cần filesystem hỗ trợ hard link giữa khu vực staging và `.ai-sdlc/`; nếu không tạo được proof, sync không thay tài nguyên. Trên POSIX, `--apply` flush thư mục chứa file được đổi tên; thư mục mới được ghi bền vững khi tạo. Mục chưa xác minh được vẫn nằm trong nhật ký và được báo conflict. Dry run chỉ đọc. Nhật ký dùng quyền của manifest hiện có hoặc quyền private khi chưa có manifest. Nếu nhật ký không đọc được, dùng tài khoản đã chạy sync hoặc khôi phục quyền cho nhóm bảo trì; nếu nhật ký không hợp lệ hoặc thiếu proof, đối chiếu thủ công trước khi dọn nhật ký và chạy lại. `--overwrite` không bỏ qua mục recovery chưa xác minh được. Windows chỉ kiểm tra cờ read-only và không có bước flush thư mục này; ACL của thư mục staging dựa vào cấu hình máy.
+| Chế độ | Hành vi |
+|---|---|
+| Dry run (mặc định) | Liệt kê file dự kiến chép, bỏ qua hoặc conflict; không ghi tài nguyên, manifest hay nhật ký. |
+| `--apply` | Ghi thay đổi vào `.ai-sdlc/framework-resources/` và cập nhật manifest. Không cập nhật các bản template theo stage đã được init chép vào `docs/`. |
+| `--overwrite` | Cho phép thay file đích khác nội dung, kể cả file chưa được quản lý. Dùng riêng để xem trước; chỉ ghi khi kèm `--apply`. Không bỏ qua file chỉ đọc hoặc mục recovery chưa xác minh được. |
+
+### Checksum và xử lý conflict
+
+- `.ai-sdlc/framework-sync.json` lưu SHA-256 của tài nguyên do sync quản lý. Nếu file đích khác nguồn và đã khác checksum mốc, sync mặc định giữ nguyên file và checksum mốc, đồng thời báo conflict (exit code `2`). File khác nội dung chưa được quản lý được bỏ qua. Hãy đối chiếu, sao lưu thay đổi cần giữ và xem dry run trước khi quyết định dùng `--apply --overwrite`.
+- Nếu bản sync cũ đã ghi sai checksum mốc, bản mới không tự suy đoán nội dung từng được cài; hãy đối chiếu file với nguồn trước khi xử lý conflict và chạy lại.
+- Sync kiểm tra lại đích trước khi thay file, nhưng kiểm tra checksum và thay file không phải một thao tác nguyên tử chung. Không chạy sync đồng thời với trình sửa file hoặc lần sync khác.
+
+### Quyền file và thư mục staging
+
+- Sync giữ quyền truy cập của manifest và tài nguyên đích đã có; tài nguyên mới lấy quyền từ nguồn, còn manifest mới có quyền `0600` trên POSIX. Trên Linux, sync giữ POSIX access ACL và chủ sở hữu/nhóm của đích đã có; manifest mới không kế thừa access ACL. Nếu không thể giữ quyền cần thiết, sync báo conflict và không thay file. Quản trị quyền sở hữu và nhóm ở thư mục cha của workspace dùng chung.
+- Sync đặt file tạm trong thư mục staging riêng cùng filesystem. File tài nguyên giữ timestamp và các thuộc tính `user.*` của nguồn nếu được hỗ trợ, nhưng không nhập quyền nguồn vào file đích đã có. Trên Windows, kiểm tra quyền dựa vào cờ read-only và ACL của staging phụ thuộc cấu hình máy.
+
+### Khôi phục lần sync bị gián đoạn
+
+- Trước khi thay tài nguyên, sync chuẩn bị manifest và kiểm tra quyền. Mỗi thay đổi được ghi trước vào `.ai-sdlc/framework-sync.pending.json`; nhật ký giữ quyền của manifest hoặc dùng quyền riêng khi chưa có manifest. Trên POSIX, sync flush các thư mục chứa file đổi tên và các thư mục mới tạo.
+- Nếu bị gián đoạn hoặc không ghi được manifest cuối, giữ nguyên nhật ký và `.ai-sdlc/framework-sync.proofs/`, rồi chạy lại. Sync chỉ cập nhật checksum mốc khi inode của file đích trùng liên kết cứng proof và cả checksum nội dung lẫn mốc cũ đều khớp. Nếu filesystem không hỗ trợ liên kết cứng giữa staging và `.ai-sdlc/`, sync không thay tài nguyên.
+- Mục không xác minh được vẫn nằm trong nhật ký và được báo conflict. Nếu không đọc được nhật ký, dùng tài khoản đã chạy sync hoặc khôi phục quyền nhóm bảo trì. Nếu nhật ký không hợp lệ hoặc thiếu proof, đối chiếu thủ công trước khi dọn nhật ký và chạy lại.
 
 ## AI-Driven SDLC Platform
 
-Platform có các thành phần tải cấu hình, skills/rules, model routing và tool adapter. [Workflow Engine](../workflow-engine/README.md) thực thi gate qua API và ghi các sự kiện vào SQLite trong thư mục trạng thái do service bảo vệ, nằm ngoài workspace. Các script init/validate/sync không thực hiện phê duyệt hoặc cấp quyền merge/deploy.
-
-Đây là nền tảng điều phối, không phải tích hợp API của nhà cung cấp. Việc thực thi model/tool, xác thực danh tính, triển khai production và trạng thái multi-user bền vững cần các adapter và biện pháp bảo mật được cấu hình riêng.
+Các script init/validate/sync không thực hiện phê duyệt hoặc cấp quyền merge/deploy. Xem [Platform README](../README.md) để biết phạm vi hiện có và [Architecture](../docs/architecture.md) trước khi nối platform với hệ thống bên ngoài.
 
 ## Guide theo vai trò, giai đoạn và dự án
 

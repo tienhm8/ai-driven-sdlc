@@ -193,6 +193,39 @@ class ProjectManifestTests(TestCase):
         policy.write_text("gates: {G6: {approver_roles: [release_manager]}}", encoding="utf-8")
         self.assertIn("VALIDATION_PASSED", {issue["code"] for issue in validate_project(self.project)})
 
+    def test_validator_rejects_a_dangling_approval_policy(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        try:
+            policy.symlink_to("missing-policy.yaml")
+        except (NotImplementedError, OSError) as error:
+            self.skipTest(f"Cannot create policy symlink: {error}")
+        codes = {issue["code"] for issue in validate_project(self.project)}
+        self.assertIn("INVALID_APPROVAL_POLICY", codes)
+        self.assertNotIn("VALIDATION_PASSED", codes)
+
+    def test_validator_rejects_a_directory_in_place_of_approval_policy(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        policy.mkdir()
+        issues = validate_project(self.project)
+        issue = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+        self.assertEqual(issue["message"], f"Approval policy must be a regular file: {policy}")
+
+    def test_validator_rejects_symlinked_approval_policy_directory(self):
+        self.write_manifest()
+        config_dir = self.project / ".ai-sdlc"
+        target = self.root / "external-config"
+        config_dir.rename(target)
+        try:
+            config_dir.symlink_to(target, target_is_directory=True)
+        except (NotImplementedError, OSError) as error:
+            self.skipTest(f"Cannot create directory symlink: {error}")
+        issues = validate_project(self.project)
+        issue = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+        self.assertIn("Approval policy directory must be a real directory", issue["message"])
+        self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
+
     def test_validator_reports_malformed_tagged_approval_policy_values(self):
         self.write_manifest()
         policy = self.project / ".ai-sdlc/approval-policy.yaml"
