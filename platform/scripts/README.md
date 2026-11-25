@@ -94,3 +94,15 @@ Trước khi thay tài nguyên, sync chuẩn bị file manifest mới và kiểm
 Platform có các thành phần tải cấu hình, skills/rules, model routing và tool adapter. [Workflow Engine](../workflow-engine/README.md) thực thi gate qua API và ghi các sự kiện vào SQLite trong thư mục trạng thái do service bảo vệ, nằm ngoài workspace. Các script init/validate/sync không thực hiện phê duyệt hoặc cấp quyền merge/deploy.
 
 Đây là nền tảng điều phối, không phải tích hợp API của nhà cung cấp. Việc thực thi model/tool, xác thực danh tính, triển khai production và trạng thái multi-user bền vững cần các adapter và biện pháp bảo mật được cấu hình riêng.
+
+## Guide theo vai trò, giai đoạn và dự án
+
+```bash
+python3 platform/scripts/build-guide.py          # nhúng framework/guide/guide-data.yml vào index.html (--check để kiểm tra)
+python3 platform/scripts/guide-server.py         # http://127.0.0.1:8765/framework/guide/index.html, thêm --port và --state-dir nếu cần
+```
+
+- Tab **Theo vai trò** và **Theo giai đoạn** chỉ cần mở `framework/guide/index.html`. Dữ liệu khung nằm ở `framework/guide/guide-data.yml`; sửa file này rồi chạy `build-guide.py`.
+- Link trong guide mở tài liệu `.md` dưới dạng trang đã render (bảng, danh sách, code block) khi xem qua `guide-server.py`; mở `index.html` trực tiếp bằng `file://` thì link hiện Markdown thô. Server chỉ phục vụ `framework/` và `shared-ai/`, và hiển thị HTML nhúng trong Markdown như văn bản.
+- Tab **Theo dự án** cần `guide-server.py`. Mỗi lần chọn dự án, server đọc ngay trạng thái hiện tại. Server chỉ nghe ở `127.0.0.1`, chỉ có API đọc, và không ghi vào dự án hay governance store.
+- Trạng thái workflow và gate lấy từ SQLite của Workflow Engine tại `--state-dir` (mặc định `~/.ai-sdlc/state`), cùng thư mục mà service ghi phê duyệt dùng. Đầu ra bắt buộc được xác định bằng việc file trong `docs/<giai-đoạn>/` có tồn tại và đã khác bản template gốc. Chưa có execution trong store thì dự án hiện là "chưa bắt đầu workflow".

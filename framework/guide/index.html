@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-Driven SDLC Guide</title>
+<style>
+:root{--bg:#f7f8fa;--fg:#1c2330;--muted:#5d6878;--card:#fff;--line:#d9dee6;--accent:#1f6feb;--ok:#1a7f37;--warn:#9a6700;--bad:#cf222e;--chip:#eef1f6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141b;--fg:#e6eaf0;--muted:#99a3b3;--card:#171e28;--line:#2b3442;--accent:#6aa6ff;--ok:#56d364;--warn:#e3b341;--bad:#ff7b72;--chip:#222c3a}}
+:root[data-theme="dark"]{--bg:#0f141b;--fg:#e6eaf0;--muted:#99a3b3;--card:#171e28;--line:#2b3442;--accent:#6aa6ff;--ok:#56d364;--warn:#e3b341;--bad:#ff7b72;--chip:#222c3a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:8px 0 2px}
+h2{font-size:17px;margin:0 0 6px}
+h3{font-size:14px;margin:12px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+a{color:var(--accent)}
+.sub{color:var(--muted);margin:0 0 12px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+button,select{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 10px}
+button{cursor:pointer}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 14px}
+.tabs button[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.chip{display:inline-block;background:var(--chip);border-radius:10px;padding:1px 8px;font-size:12px;margin-right:4px}
+.do{color:var(--accent)}.confirm{color:var(--warn)}.approve{color:var(--ok)}
+.kind{font-weight:600;font-size:12px;margin-right:6px}
+ul{margin:4px 0 4px 18px;padding:0}
+li{margin:2px 0}
+.gate{border-left:3px solid var(--ok);padding-left:10px;margin:8px 0}
+.note{color:var(--muted);font-size:13px}
+.st{font-weight:600}
+.st.completed,.st.approved{color:var(--ok)}
+.st.in_progress,.st.review_requested,.st.awaiting_gate{color:var(--accent)}
+.st.blocked{color:var(--bad)}
+.st.not_started,.st.none,.st.pending{color:var(--muted)}
+.banner{border:1px solid var(--line);border-left:3px solid var(--warn);background:var(--card);border-radius:6px;padding:10px 12px;margin-bottom:12px}
+code{background:var(--chip);padding:1px 5px;border-radius:4px;font-size:13px}
+@media (max-width:480px){main{padding:12px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div>
+    <h1>AI-Driven SDLC Guide</h1>
+    <p class="sub">Chọn vai trò hoặc giai đoạn để biết việc cụ thể. Trang này chỉ tóm tắt; quy định chính thức nằm ở tài liệu được dẫn link.</p>
+  </div>
+  <button id="theme" type="button" aria-label="Đổi giao diện sáng/tối">Sáng/Tối</button>
+</header>
+<div class="tabs" role="tablist">
+  <button role="tab" id="tab-role" aria-selected="true" data-tab="role">Theo vai trò</button>
+  <button role="tab" id="tab-stage" aria-selected="false" data-tab="stage">Theo giai đoạn</button>
+  <button role="tab" id="tab-project" aria-selected="false" data-tab="project">Theo dự án</button>
+</div>
+<section id="view"></section>
+</main>
+
+<script id="guide-data" type="application/json">{"schema_version":"1.0","groups":[{"id":"business","name":"Nghiệp vụ"},{"id":"technical","name":"Kỹ thuật"},{"id":"quality","name":"Chất lượng"},{"id":"operations","name":"Vận hành"}],"roles":[{"id":"product_owner","name":"Product Owner (PO)","group":"business"},{"id":"ba","name":"Business Analyst (BA)","group":"business"},{"id":"sme","name":"Stakeholder / SME","group":"business"},{"id":"pm","name":"Project Manager (PM)","group":"business"},{"id":"solution_architect","name":"Solution Architect","group":"technical"},{"id":"tech_lead","name":"Tech Lead","group":"technical"},{"id":"developer","name":"Developer","group":"technical"},{"id":"reviewer","name":"Reviewer / Senior Developer","group":"technical"},{"id":"security","name":"Security / Data owner","group":"technical"},{"id":"qa_lead","name":"QA Lead","group":"quality"},{"id":"qa_engineer","name":"QA Engineer","group":"quality"},{"id":"devops","name":"DevOps / Platform Engineer","group":"operations"},{"id":"release_manager","name":"Release Manager","group":"operations"},{"id":"sre","name":"SRE / Operations","group":"operations"},{"id":"incident_commander","name":"Incident Commander","group":"operations"}],"stages":[{"id":"01-requirement-analysis","name":"Phân tích yêu cầu","purpose":"Làm rõ vấn đề, phạm vi, yêu cầu và tiêu chí nghiệm thu thành baseline có thể truy vết.","gate":{"id":"G1","name":"Requirement Approval","approvers":["product_owner"],"doc":"governance/human-review-gates/G1-requirement-approval.md"},"guide":"01-requirement-analysis/README.md","inputs":["Mô tả vấn đề hoặc đề xuất dự án","Mục tiêu và phạm vi sơ bộ","Danh sách stakeholder và người quyết định","Bối cảnh hệ thống hiện tại (nếu có)","Ràng buộc đã biết"],"inputs_link":"01-requirement-analysis/inputs/README.md","required_outputs":["outputs/01-business-requirements/BRD.md","outputs/02-scope-definition/scope-definition.md","outputs/03-functional-requirements/functional-requirements.md","outputs/04-non-functional-requirements/non-functional-requirements.md","outputs/05-user-stories-use-cases/user-stories.md","outputs/05-user-stories-use-cases/use-cases.md","outputs/06-acceptance-criteria/acceptance-criteria.md","outputs/07-business-rules/business-rules.md","outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md","outputs/10-assumptions-constraints-risks/open-questions.md","outputs/11-requirement-traceability/requirement-traceability-matrix.md","outputs/12-requirement-review/requirement-review-record.md","outputs/12-requirement-review/G1-approval.md"],"outputs_link":"01-requirement-analysis/outputs/README.md","handoff":"Bộ yêu cầu đã duyệt (G1), ma trận truy vết và hồ sơ G1 cho System Design.","tasks":[{"role":"ba","kind":"do","text":"Tiếp nhận input, phân tích, soạn yêu cầu và tiêu chí nghiệm thu cùng AI; quản lý traceability","link":"01-requirement-analysis/workflow.md"},{"role":"sme","kind":"confirm","text":"Xác nhận quy tắc nghiệp vụ, thuật ngữ và ngoại lệ thuộc chuyên môn","link":"01-requirement-analysis/human-review.md"},{"role":"security","kind":"confirm","text":"Xác nhận yêu cầu bảo mật, quyền riêng tư và tuân thủ khi áp dụng","link":"01-requirement-analysis/checklists/05-non-functional-requirement-checklist.md"},{"role":"ba","kind":"do","text":"Chạy checklist G1 và trình duyệt","link":"01-requirement-analysis/checklists/06-G1-approval-checklist.md"},{"role":"product_owner","kind":"approve","text":"Chốt phạm vi, ưu tiên và duyệt G1 cho đúng phiên bản hồ sơ","link":"governance/human-review-gates/G1-requirement-approval.md"}]},{"id":"02-system-design","name":"Thiết kế hệ thống","purpose":"Thiết kế kiến trúc, dữ liệu, API và bảo mật đáp ứng baseline yêu cầu.","gate":{"id":"G2","name":"Design Approval","approvers":["solution_architect"],"doc":"governance/human-review-gates/G2-design-approval.md"},"guide":"02-system-design/README.md","inputs":["Bộ yêu cầu đã duyệt G1","Ràng buộc kỹ thuật và công nghệ","Hệ thống hiện tại và tích hợp"],"inputs_link":"02-system-design/README.md","required_outputs":["outputs/design-package-index.md"],"outputs_link":"02-system-design/outputs/README.md","handoff":"Design baseline đã duyệt (G2) làm đầu vào cho Task Planning.","tasks":[{"role":"solution_architect","kind":"do","text":"Dẫn dắt thiết kế kiến trúc, ghi ADR và các quyết định công nghệ","link":"02-system-design/workflow.md"},{"role":"ba","kind":"confirm","text":"Xác nhận thiết kế không làm sai lệch yêu cầu","link":"02-system-design/human-review.md"},{"role":"security","kind":"confirm","text":"Review threat model, xác thực, phân quyền, dữ liệu","link":"02-system-design/checklists/security-review-checklist.md"},{"role":"tech_lead","kind":"confirm","text":"Review khả năng triển khai và tác động tới codebase","link":"02-system-design/checklists/architecture-review-checklist.md"},{"role":"devops","kind":"confirm","text":"Review khả năng triển khai, quan sát và phục hồi","link":"02-system-design/human-review.md"},{"role":"solution_architect","kind":"approve","text":"Duyệt G2 sau khi đủ điều kiện","link":"governance/human-review-gates/G2-design-approval.md"}]},{"id":"03-task-planning","name":"Lập kế hoạch phát triển","purpose":"Phân rã yêu cầu và thiết kế thành backlog, task, ước lượng và kế hoạch sẵn sàng để lập trình.","gate":{"id":"G3","name":"Task Approval","approvers":["tech_lead"],"doc":"governance/human-review-gates/G3-task-approval.md"},"guide":"03-task-planning/README.md","inputs":["Requirement baseline (G1)","Design baseline (G2)","Năng lực đội ngũ","Rủi ro và phụ thuộc"],"inputs_link":"03-task-planning/README.md","required_outputs":["product-backlog.md","task-breakdown.md","effort-estimation.md","dependency-matrix.md","definition-of-done.md"],"outputs_link":"03-task-planning/outputs/README.md","handoff":"Kế hoạch đã duyệt (G3) và task sẵn sàng cho Development.","tasks":[{"role":"pm","kind":"do","text":"Lập kế hoạch, milestone, nguồn lực và điều phối phụ thuộc","link":"03-task-planning/workflow.md"},{"role":"tech_lead","kind":"do","text":"Phân rã task, kiểm tra phạm vi kỹ thuật và Definition of Done","link":"03-task-planning/checklists/planning-readiness-checklist.md"},{"role":"developer","kind":"confirm","text":"Review effort, độ phức tạp và task kỹ thuật bị bỏ sót","link":"03-task-planning/checklists/estimation-review-checklist.md"},{"role":"qa_lead","kind":"confirm","text":"Review khả năng kiểm thử, test task và môi trường","link":"03-task-planning/human-review.md"},{"role":"product_owner","kind":"confirm","text":"Xác nhận thứ tự ưu tiên và giá trị nghiệp vụ","link":"03-task-planning/human-review.md"},{"role":"tech_lead","kind":"approve","text":"Duyệt G3 trước khi lập trình","link":"governance/human-review-gates/G3-task-approval.md"}]},{"id":"04-development","name":"Phát triển phần mềm","purpose":"Hiện thực task đã duyệt, kiểm thử và bàn giao Pull Request sang Code Review.","gate":null,"gate_note":"Không có gate. Giai đoạn này chỉ kiểm tra bàn giao trước khi sang Code Review.","guide":"04-development/README.md","inputs":["Task đã duyệt G3","Design baseline","Coding standards","Definition of Done"],"inputs_link":"04-development/README.md","required_outputs":[],"outputs_link":"04-development/outputs/README.md","handoff":"Gói bàn giao (PR, tóm tắt triển khai, bằng chứng test) cho Code Review.","tasks":[{"role":"developer","kind":"do","text":"Nhận task đã duyệt, thực hiện cùng AI, tự review và chạy test trước khi bàn giao","link":"04-development/workflow.md"},{"role":"tech_lead","kind":"confirm","text":"Giải quyết vấn đề vượt phạm vi task và kiểm soát lệch thiết kế","link":"04-development/human-review.md"},{"role":"security","kind":"confirm","text":"Review thay đổi liên quan xác thực, phân quyền, mã hóa, dữ liệu nhạy cảm","link":"04-development/checklists/ai-safety-checklist.md"},{"role":"developer","kind":"do","text":"Hoàn thành checklist bàn giao và mở PR","link":"04-development/checklists/handover-checklist.md"}]},{"id":"05-code-review","name":"Kiểm tra mã nguồn","purpose":"Review Pull Request, xử lý finding và quyết định merge.","gate":{"id":"G4","name":"Code Approval","approvers":["reviewer","tech_lead"],"doc":"governance/human-review-gates/G4-code-approval.md"},"guide":"05-code-review/README.md","inputs":["Pull Request và gói bàn giao từ Development","Kết quả CI","Design baseline"],"inputs_link":"05-code-review/README.md","required_outputs":[],"outputs_link":"05-code-review/outputs/README.md","handoff":"Mã đã merge và hồ sơ review cho Testing & QA.","tasks":[{"role":"reviewer","kind":"do","text":"Review logic, bảo mật, hiệu năng, kiểm tra test và phạm vi PR","link":"05-code-review/workflow.md"},{"role":"security","kind":"confirm","text":"Review thay đổi có rủi ro bảo mật hoặc dữ liệu nhạy cảm","link":"05-code-review/checklists/security-checklist.md"},{"role":"developer","kind":"do","text":"Trả lời comment và sửa theo finding; không tự approve PR của mình","link":"05-code-review/human-review.md"},{"role":"reviewer","kind":"approve","text":"Approve hoặc yêu cầu sửa; quyết định merge theo G4","link":"governance/human-review-gates/G4-code-approval.md"}]},{"id":"06-testing-qa","name":"Kiểm thử và QA","purpose":"Kiểm thử theo yêu cầu và tiêu chí nghiệm thu, xác nhận chất lượng trên một release candidate.","gate":{"id":"G5","name":"QA Approval","approvers":["qa_lead","product_owner"],"all_required":true,"doc":"governance/human-review-gates/G5-qa-approval.md"},"guide":"06-testing-qa/README.md","inputs":["Build từ kết quả merge G4","Acceptance Criteria","Test plan và dữ liệu kiểm thử"],"inputs_link":"06-testing-qa/README.md","required_outputs":[],"outputs_link":"06-testing-qa/outputs/README.md","handoff":"QA sign-off và nghiệm thu nghiệp vụ cho Deployment.","tasks":[{"role":"qa_engineer","kind":"do","text":"Viết và thực thi test case, ghi defect và độ bao phủ","link":"06-testing-qa/workflow.md"},{"role":"developer","kind":"do","text":"Phân tích và sửa defect; không tự đóng defect khi chưa xác minh","link":"06-testing-qa/checklists/defect-verification-checklist.md"},{"role":"qa_lead","kind":"approve","text":"Duyệt G5 về chất lượng kiểm thử và residual risk","link":"06-testing-qa/checklists/qa-signoff-checklist.md"},{"role":"product_owner","kind":"approve","text":"Duyệt G5 về nghiệm thu nghiệp vụ (hai người duyệt riêng biệt)","link":"governance/human-review-gates/G5-qa-approval.md"}]},{"id":"07-deployment","name":"Triển khai","purpose":"Chuẩn bị và phát hành lên production an toàn, có kế hoạch rollback.","gate":{"id":"G6","name":"Production Approval","approvers":["release_manager"],"doc":"governance/human-review-gates/G6-production-approval.md"},"guide":"07-deployment/README.md","inputs":["Release candidate đã qua G5","Deployment plan","Rollback plan","Release note"],"inputs_link":"07-deployment/README.md","required_outputs":[],"outputs_link":"07-deployment/outputs/README.md","handoff":"Bản phát hành đang chạy và báo cáo triển khai cho Monitoring & Maintenance.","tasks":[{"role":"devops","kind":"do","text":"Chuẩn bị pipeline, môi trường, kế hoạch triển khai và rollback","link":"07-deployment/workflow.md"},{"role":"qa_lead","kind":"confirm","text":"Xác nhận bằng chứng test và known issues","link":"07-deployment/checklists/pre-deployment-checklist.md"},{"role":"sre","kind":"confirm","text":"Xác nhận monitoring, alert và sẵn sàng vận hành","link":"07-deployment/checklists/production-readiness-checklist.md"},{"role":"release_manager","kind":"approve","text":"Duyệt G6 trước khi lên production","link":"governance/human-review-gates/G6-production-approval.md"}]},{"id":"08-monitoring-maintenance","name":"Giám sát và bảo trì","purpose":"Giám sát vận hành, xử lý cảnh báo, sự cố và cải tiến liên tục.","gate":{"id":"G7","name":"Incident Approval","approvers":["incident_commander"],"only_when":"Chỉ áp dụng khi xử lý sự cố nghiêm trọng","doc":"governance/human-review-gates/G7-incident-approval.md"},"gate_note":"Giám sát thường kỳ không có gate chặn.","guide":"08-monitoring-maintenance/README.md","inputs":["Log/metric và cảnh báo từ hệ thống","Runbook","Thông tin sự cố"],"inputs_link":"08-monitoring-maintenance/README.md","required_outputs":[],"outputs_link":"08-monitoring-maintenance/outputs/README.md","handoff":"Báo cáo giám sát, báo cáo sự cố, postmortem và backlog cải tiến.","tasks":[{"role":"sre","kind":"do","text":"Giám sát, đánh giá cảnh báo và thực hiện runbook trong phạm vi được ủy quyền","link":"08-monitoring-maintenance/workflow.md"},{"role":"incident_commander","kind":"approve","text":"Điều phối sự cố nghiêm trọng và duyệt G7 cho phương án xử lý","link":"governance/human-review-gates/G7-incident-approval.md"},{"role":"tech_lead","kind":"confirm","text":"Review hotfix, rollback và rủi ro thay đổi","link":"08-monitoring-maintenance/human-review.md"},{"role":"sre","kind":"do","text":"Viết báo cáo sự cố và postmortem, cập nhật backlog cải tiến","link":"08-monitoring-maintenance/checklists/incident-response-checklist.md"}]}]}</script>
+<script>
+"use strict";
+var DATA = JSON.parse(document.getElementById("guide-data").textContent);
+var KIND = {do: "Thực hiện", confirm: "Xác nhận", approve: "Duyệt gate"};
+var STATUS = {not_started: "Chưa bắt đầu", in_progress: "Đang thực hiện", awaiting_gate: "Chờ duyệt gate", blocked: "Bị chặn", completed: "Hoàn thành",
+  none: "Không có gate", pending: "Chưa trình duyệt", review_requested: "Đã trình, chờ duyệt", approved: "Đã duyệt", exception_authorized: "Qua bằng ngoại lệ được phê duyệt"};
+var AI_RULE = "../shared-ai/rules/core/ai-usage-flow.md";
+var state = {tab: "role", role: null, stage: null, project: null};
+
+function h(tag, attrs, kids) {
+  var el = document.createElement(tag);
+  Object.keys(attrs || {}).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+  [].concat(kids === undefined ? [] : kids).forEach(function (k) {
+    if (k === null || k === undefined) return;
+    el.appendChild(typeof k === "string" ? document.createTextNode(k) : k);
+  });
+  return el;
+}
+function link(path, text) { return h("a", {href: "../" + path}, text); }
+function roleName(id) { var r = DATA.roles.filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
+function stageById(id) { return DATA.stages.filter(function (s) { return s.id === id; })[0]; }
+function gateLine(s) {
+  if (!s.gate) return h("div", {class: "note"}, s.gate_note || "Không có gate.");
+  var g = s.gate;
+  var who = g.approvers.map(roleName).join(g.all_required ? " và " : " hoặc ");
+  var parts = [h("strong", {}, g.id + " — " + g.name), ": " + who + (g.all_required ? " (cần đủ cả hai, là hai người riêng biệt)" : " duyệt") + ". ", link(g.doc, "Điều kiện gate")];
+  if (g.only_when) parts.push(h("div", {class: "note"}, g.only_when + "."));
+  if (s.gate_note) parts.push(h("div", {class: "note"}, s.gate_note));
+  return h("div", {class: "gate"}, parts);
+}
+function taskItem(t, showRole) {
+  return h("li", {}, [h("span", {class: "kind " + t.kind}, KIND[t.kind]), showRole ? h("span", {class: "chip"}, roleName(t.role)) : null, link(t.link, t.text)]);
+}
+function aiNote() {
+  return h("p", {class: "note"}, ["AI hỗ trợ ở mọi vai trò nhưng không phê duyệt. Xem ", link(AI_RULE, "quy trình dùng AI"), ": Role → Stage → Task → Context → Execute → Review → Output."]);
+}
+
+function selectRow(label, options, value, onChange) {
+  var sel = h("select", {"aria-label": label});
+  options.forEach(function (o) {
+    if (o.group) { sel.appendChild(h("optgroup", {label: o.group}, o.items.map(function (i) { return h("option", {value: i.value}, i.label); }))); }
+    else sel.appendChild(h("option", {value: o.value}, o.label));
+  });
+  sel.value = value;
+  sel.addEventListener("change", function () { onChange(sel.value); });
+  return h("div", {class: "row"}, [h("label", {}, label + ": "), sel]);
+}
+
+function renderRole(root) {
+  var groups = DATA.groups.map(function (g) {
+    return {group: g.name, items: DATA.roles.filter(function (r) { return r.group === g.id; }).map(function (r) { return {value: r.id, label: r.name}; })};
+  });
+  root.appendChild(selectRow("Vai trò của bạn", groups, state.role, function (v) { state.role = v; render(); }));
+  var any = false;
+  DATA.stages.forEach(function (s) {
+    var mine = s.tasks.filter(function (t) { return t.role === state.role; });
+    var approves = s.gate && s.gate.approvers.indexOf(state.role) >= 0;
+    if (!mine.length && !approves) return;
+    any = true;
+    var card = h("div", {class: "card"}, [h("h2", {}, s.id.slice(0, 2) + " — " + s.name), h("p", {class: "note"}, s.purpose)]);
+    card.appendChild(h("ul", {}, mine.map(function (t) { return taskItem(t, false); })));
+    if (approves) card.appendChild(gateLine(s));
+    card.appendChild(h("p", {class: "note"}, ["Chi tiết giai đoạn: ", link(s.guide, "README " + s.id.slice(0, 2)), " · ", h("a", {href: "#", "data-stage": s.id}, "Xem theo giai đoạn")]));
+    root.appendChild(card);
+  });
+  if (!any) root.appendChild(h("p", {class: "note"}, "Vai trò này chưa có việc được ghi trong guide."));
+  root.appendChild(aiNote());
+}
+
+function renderStage(root) {
+  var opts = DATA.stages.map(function (s) { return {value: s.id, label: s.id.slice(0, 2) + " — " + s.name}; });
+  root.appendChild(selectRow("Giai đoạn", opts, state.stage, function (v) { state.stage = v; render(); }));
+  var s = stageById(state.stage);
+  var card = h("div", {class: "card"}, [h("h2", {}, s.id.slice(0, 2) + " — " + s.name), h("p", {}, s.purpose)]);
+  card.appendChild(h("h3", {}, "Cần gì để bắt đầu"));
+  card.appendChild(h("ul", {}, s.inputs.map(function (i) { return h("li", {}, i); })));
+  card.appendChild(h("p", {class: "note"}, [link(s.inputs_link, "Hướng dẫn chuẩn bị đầu vào")]));
+  card.appendChild(h("h3", {}, "Ai làm gì"));
+  card.appendChild(h("ul", {}, s.tasks.map(function (t) { return taskItem(t, true); })));
+  card.appendChild(h("h3", {}, "Gate"));
+  card.appendChild(gateLine(s));
+  card.appendChild(h("h3", {}, "Bàn giao"));
+  card.appendChild(h("p", {}, s.handoff));
+  card.appendChild(h("p", {class: "note"}, [link(s.outputs_link, "Danh mục đầu ra"), " · ", link(s.guide, "README giai đoạn")]));
+  root.appendChild(card);
+  root.appendChild(aiNote());
+}
+
+function renderProject(root) {
+  if (location.protocol === "file:") {
+    root.appendChild(h("div", {class: "banner"}, ["Tab này cần server. Chạy ", h("code", {}, "python platform/scripts/guide-server.py"), " rồi mở địa chỉ nó in ra. Hai tab còn lại vẫn dùng được khi mở file trực tiếp."]));
+    return;
+  }
+  var box = h("div", {}, "Đang tải danh sách dự án...");
+  root.appendChild(box);
+  fetch("/api/projects").then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(function (d) {
+    box.textContent = "";
+    if (!d.projects.length) {
+      box.appendChild(h("div", {class: "banner"}, ["Chưa có dự án. Tạo dự án bằng ", h("code", {}, 'python platform/scripts/init-project.py --name "<Tên>" --slug <slug>'), ". Phần khung của framework vẫn xem được ở hai tab còn lại."]));
+      return;
+    }
+    if (!state.project || !d.projects.some(function (p) { return p.id === state.project; })) state.project = d.projects[0].id;
+    box.appendChild(selectRow("Dự án", d.projects.map(function (p) { return {value: p.id, label: p.name + " (" + p.id + ")"}; }), state.project, function (v) { state.project = v; render(); }));
+    var out = h("div", {}, "Đang đọc trạng thái...");
+    box.appendChild(out);
+    loadStatus(out);
+  }).catch(function (e) { box.textContent = "Không tải được danh sách dự án: " + e.message; });
+}
+
+function loadStatus(out) {
+  fetch("/api/projects/" + encodeURIComponent(state.project) + "/status").then(function (r) {
+    if (!r.ok) throw new Error("HTTP " + r.status); return r.json();
+  }).then(function (d) {
+    out.textContent = "";
+    var wf = d.workflow;
+    var head = wf.state === "not_started" ? "Dự án chưa bắt đầu workflow." : "Workflow: " + STATUS[wf.state] + (wf.current_stage ? ", đang ở " + wf.current_stage : "") + ".";
+    out.appendChild(h("div", {class: "banner"}, [head, h("div", {class: "note"}, "Đọc lúc " + d.generated_at + ". Trạng thái lấy từ governance store; trang này chỉ đọc.")]));
+    if (d.next_actions.length) {
+      var nc = h("div", {class: "card"}, [h("h2", {}, "Việc tiếp theo")]);
+      nc.appendChild(h("ul", {}, d.next_actions.map(function (a) { return h("li", {}, [h("span", {class: "chip"}, roleName(a.role)), a.text]); })));
+      out.appendChild(nc);
+    }
+    d.stages.forEach(function (s) {
+      var meta = stageById(s.id);
+      var card = h("div", {class: "card"}, [h("h2", {}, [s.id.slice(0, 2) + " — " + (meta ? meta.name : s.id) + " "]), h("span", {class: "st " + s.status}, STATUS[s.status] || s.status)]);
+      if (s.gate && s.gate.id) card.appendChild(h("div", {class: "note"}, "Gate " + s.gate.id + ": " + (STATUS[s.gate.state] || s.gate.state)));
+      var total = s.outputs.present.length + s.outputs.missing.length;
+      if (total) {
+        card.appendChild(h("div", {class: "note"}, "Đầu ra bắt buộc: " + s.outputs.present.length + "/" + total));
+        if (s.outputs.missing.length) card.appendChild(h("ul", {}, s.outputs.missing.map(function (m) { return h("li", {}, "Thiếu: " + m); })));
+      }
+      out.appendChild(card);
+    });
+    if (d.events && d.events.length) {
+      var ec = h("div", {class: "card"}, [h("h2", {}, "Sự kiện đáng chú ý")]);
+      ec.appendChild(h("ul", {}, d.events.map(function (e) { return h("li", {}, e.at + " — " + e.note); })));
+      out.appendChild(ec);
+    }
+  }).catch(function (e) { out.textContent = "Không đọc được trạng thái: " + e.message; });
+}
+
+function render() {
+  var root = document.getElementById("view");
+  root.textContent = "";
+  [].forEach.call(document.querySelectorAll(".tabs button"), function (b) { b.setAttribute("aria-selected", String(b.dataset.tab === state.tab)); });
+  if (state.tab === "role") renderRole(root);
+  else if (state.tab === "stage") renderStage(root);
+  else renderProject(root);
+}
+
+state.role = DATA.roles[0].id;
+state.stage = DATA.stages[0].id;
+document.querySelector(".tabs").addEventListener("click", function (e) {
+  var t = e.target.dataset && e.target.dataset.tab; if (t) { state.tab = t; render(); }
+});
+document.getElementById("view").addEventListener("click", function (e) {
+  var s = e.target.dataset && e.target.dataset.stage;
+  if (s) { e.preventDefault(); state.stage = s; state.tab = "stage"; render(); }
+});
+document.getElementById("theme").addEventListener("click", function () {
+  var r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+  r.dataset.theme = dark ? "light" : "dark";
+});
+render();
+</script>
+</body>
+</html>
