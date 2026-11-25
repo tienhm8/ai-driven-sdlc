@@ -34,7 +34,7 @@ Chỉ tạo thư mục con khi có artifact tương ứng. Thư mục rỗng kh�
 | `data-model/` | Mô hình dữ liệu và data dictionary theo miền. | Draft → In Review → Approved → Superseded |
 | `flows/` | Luồng chính, luồng thay thế và ngoại lệ, kèm sơ đồ tuần tự. | Draft → In Review → Approved → Superseded |
 | `security/` | Thiết kế bảo mật và threat model. | Draft → In Review → Approved → Superseded |
-| `approvals/` | Checklist đã điền, bằng chứng review, hồ sơ blocker và bản ghi G2 (người phê duyệt, thời điểm, phiên bản đã duyệt). | Pending / In Review / Approved / Rejected / Blocked / Changes Requested |
+| `approvals/` | Checklist đã điền, bằng chứng review, hồ sơ blocker và bản ghi G2 (người phê duyệt, thời điểm, phiên bản đã duyệt). | [Trạng thái tổng hợp G2 theo gate policy](../../governance/human-review-gates/gate-policy.md#trạng-thái-tổng-hợp-của-gate) |
 
 ## Bằng chứng review
 

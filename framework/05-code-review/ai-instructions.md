@@ -123,7 +123,7 @@ Nguyên tắc: AI chỉ khuyến nghị; L1/L2 không miễn G4; quyền merge k
 **Điều kiện:**
 
 - PR được review.
-- Không còn Critical/High chưa được xử lý, hoặc chấp nhận rủi ro chính thức; Medium còn lại có disposition.
+- Không còn finding Critical mở; finding High còn mở chỉ được giữ lại theo ngoại lệ hợp lệ của [G4](../governance/human-review-gates/G4-code-approval.md#điều-kiện-thông-qua). Finding Medium còn lại có quyết định xử lý.
 - CI đạt.
 - Reviewer phê duyệt.
 - Các thay đổi quan trọng có đầy đủ Approval Records.

@@ -14,7 +14,7 @@ Ngưỡng defect và coverage phải được quy định trước trong test pl
 
 - **Critical còn mở trong phạm vi phát hành luôn chặn G5:** QA khuyến nghị No-Go; không chấp nhận ngoại lệ. Tối thiểu, xếp Critical khi có bằng chứng về tác động nghiêm trọng như mất/hỏng dữ liệu không thể khôi phục, lỗ hổng có thể bị khai thác gây tác động nghiêm trọng, vi phạm nghĩa vụ pháp lý bắt buộc, hoặc luồng nghiệp vụ cốt lõi không thể sử dụng. Dự án có thể bổ sung tiêu chí Critical theo mức rủi ro, không được hạ chuẩn này.
 - **High còn mở chặn theo mặc định:** chỉ được xem xét nếu release policy của dự án cho phép, người có thẩm quyền do policy chỉ định chấp nhận bằng văn bản và không vi phạm kiểm soát không thể miễn trừ. Các lỗi mức thấp hơn vẫn phải có disposition và đáp ứng ngưỡng release policy.
-- Ngoại lệ/risk acceptance ghi đúng phạm vi, lý do, tác động, biện pháp giảm thiểu, owner, thời hạn và tham chiếu quyết định theo [gate policy](gate-policy.md). Ngoại lệ không thay một trong hai phê duyệt hoặc ghi đè quyết định Reject/Blocked hiện hành.
+- Ngoại lệ/risk acceptance ghi đúng phạm vi, lý do, tác động, biện pháp giảm thiểu, owner, thời hạn và tham chiếu quyết định theo [gate policy](gate-policy.md). Ngoại lệ không thay một trong hai phê duyệt hoặc ghi đè quyết định chặn hiện hành.
 
 ### Cách gỡ chặn đối với Critical
 
@@ -26,6 +26,6 @@ Ngưỡng defect và coverage phải được quy định trước trong test pl
 
 Khuyến nghị QA: **Go / No-Go / Conditional Go / Blocked**. Conditional Go ghi điều kiện, owner, thời hạn và tham chiếu risk acceptance nếu áp dụng. Nếu điều kiện bắt buộc còn thiếu hoặc chưa có risk acceptance cần thiết, G5 chưa được Approve.
 
-**Quyết định G5:** Approve / Reject / Blocked. Chỉ thông qua khi QA Lead và Product Owner (hai người riêng biệt) đều Approve trên cùng artifact và gói review. CI xanh, Conditional Go hoặc risk acceptance không phải phê duyệt G5. G5 chỉ duyệt release candidate; G6 mới cấp quyền triển khai production.
+**Quyết định G5:** Áp dụng [policy chung về quyết định và trạng thái gate](gate-policy.md#reviewer-decision). Chỉ thông qua khi QA Lead và Product Owner (hai người riêng biệt) đều phê duyệt cùng artifact và gói review. CI xanh, Conditional Go hoặc risk acceptance không phải phê duyệt G5. G5 chỉ duyệt release candidate; G6 mới cấp quyền triển khai Production.
 
-**Audit:** Lưu merge reference, artifact URI/version và SHA-256, provenance, gói review và SHA-256, TESTRUN/environment, report, defect disposition, từng approver/decision/timestamp và tham chiếu audit. Đổi artifact digest thì kiểm thử lại và duyệt G5 mới trước G6.
+**Bằng chứng riêng của G5:** Lưu tham chiếu kết quả merge G4, build provenance nối merge commit với URI và SHA-256 của release candidate, lần chạy và môi trường kiểm thử, báo cáo và cách xử lý defect. Đổi artifact digest thì kiểm thử lại và duyệt G5 mới trước G6.

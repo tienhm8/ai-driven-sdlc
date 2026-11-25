@@ -40,9 +40,9 @@ Rationale/follow-up (điều kiện, owner, thời hạn và risk acceptance n�
 ## G5 approval
 - Review ID và tham chiếu/phiên bản gói review:
 - SHA-256 gói review (`review_context_sha256`):
-- Quyết định G5: Approve / Reject / Blocked (để trống khi chưa có quyết định):
+- Trạng thái tổng hợp G5 và tham chiếu trên platform:
 
-QA Lead và Product Owner phải là hai người riêng biệt, duyệt đúng artifact và gói review ở trên. Áp dụng quy tắc G5 trong governance và QA Sign-off Checklist của Stage 06.
+Ghi quyết định riêng của từng approver theo [gate policy](../../governance/human-review-gates/gate-policy.md#lifecycle); không dùng khuyến nghị QA làm trạng thái tổng hợp. QA Lead và Product Owner phải là hai người riêng biệt, duyệt đúng artifact và gói review ở trên. Áp dụng [quy tắc G5](../../governance/human-review-gates/G5-qa-approval.md) và QA Sign-off Checklist của Stage 06.
 
 | Role | Name | Decision | Timestamp | Evidence/reference |
 |---|---|---|---|---|

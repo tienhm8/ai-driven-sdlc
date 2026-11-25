@@ -75,7 +75,7 @@ class ProjectManifestTests(TestCase):
         canonical = (framework / "templates/review/approval-record.md").read_text(encoding="utf-8")
         self.assertNotIn("Nếu dùng cho G3", canonical)
         for field in ("Phạm vi được duyệt / phần ngoài phạm vi", "| Approver |",
-                      "`Approved / Rejected / Changes Requested / Blocked`"):
+                      "`approved`, `rejected`, `changes_requested` hoặc `blocked`"):
             self.assertIn(field, approval)
         expected = canonical.replace("- Gate / subject: G1 / G2 / G3 / G4 / G5 / G6 / G7 / Other\n",
                                      "- Gate / subject: G3\n")

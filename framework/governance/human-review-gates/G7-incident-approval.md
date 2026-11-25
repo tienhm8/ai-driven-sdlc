@@ -23,4 +23,6 @@ Tổng hợp timeline, alerts, logs/metrics được phép truy cập; nêu gi�
 ## Emergency action
 Break-glass phải được tổ chức định nghĩa riêng: người kích hoạt, điều kiện, phạm vi, thời hạn, logging và hậu kiểm. Không suy diễn AI có quyền break-glass. Nếu policy cho phép hành động trước approval, phải có người chịu trách nhiệm và hậu kiểm theo thời hạn tổ chức quy định.
 
-**Audit:** Incident ID, severity, timeline, evidence refs, action, approver, executor, timestamps, outcome và post-incident review.
+**Quyết định:** Áp dụng [policy chung về quyết định và trạng thái gate](gate-policy.md#reviewer-decision).
+
+**Bằng chứng riêng của G7:** Incident ID, severity, timeline ứng phó, hành động, executor, kết quả và post-incident review.

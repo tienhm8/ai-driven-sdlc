@@ -48,9 +48,9 @@
 | L1 | AI có thể tạo release note nháp, kiểm tra cấu hình tĩnh hoặc tổng hợp trạng thái pipeline; không được tự cấp quyền production. |
 | L2 | DevOps/Release Manager giới hạn phạm vi triển khai tự động ở non-production và kiểm tra theo checklist hoặc điều kiện kích hoạt review. Không áp dụng L2 để triển khai Production. |
 | L3 | Bắt buộc review và phê duyệt trước thay đổi production có ảnh hưởng logic, API, schema, quyền, dữ liệu hoặc hạ tầng quan trọng. |
-| L4 | Con người trực tiếp quyết định production release rủi ro cao, migration không thể đảo ngược, security exception hoặc release có blast radius lớn; AI chỉ tư vấn. |
+| L4 | Người có thẩm quyền quyết định và kích hoạt hành động production rủi ro cao, ví dụ release có blast radius lớn hoặc migration không thể đảo ngược. AI chỉ tư vấn, kể cả sau khi có phê duyệt. Xem [quy tắc thực thi L4](../governance/autonomy-levels/L4-human-led.md). |
 
-**Quy tắc:** Mức tự chủ gắn với từng hành động. Tự động hóa pipeline không đồng nghĩa tự động hóa quyền phê duyệt; G6 chỉ áp dụng cho Production và vẫn bắt buộc ở mọi mức rủi ro.
+**Quy tắc:** Mức tự chủ gắn với từng hành động. Review theo checklist hoặc trigger ở L2 không thay thế phê duyệt bắt buộc hay quyền thực thi. G6 chỉ áp dụng cho Production và vẫn bắt buộc ở mọi mức rủi ro; pipeline chỉ được chạy khi có quyền thực thi hợp lệ.
 
 ## 5. Checklist G6
 

@@ -3,7 +3,7 @@
 ## G4 (trước khi merge)
 - [ ] Đúng PR, repository và head commit đã được review.
 - [ ] Requirement, design và task liên quan có thể truy vết.
-- [ ] Không còn Critical/High finding chưa xử lý.
+- [ ] Không còn finding Critical mở; finding High còn mở chỉ được giữ lại theo ngoại lệ hợp lệ của [G4](../../governance/human-review-gates/G4-code-approval.md#điều-kiện-thông-qua).
 - [ ] Medium finding còn lại có quyết định xử lý/accepted risk đúng policy.
 - [ ] Build, test và CI checks bắt buộc đạt.
 - [ ] Security review hoàn tất nếu thuộc phạm vi bắt buộc.

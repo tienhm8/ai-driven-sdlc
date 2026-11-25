@@ -22,7 +22,7 @@ Quan hệ với các thành phần khác:
 | `code-quality-checklist.md` | Kiểm tra scope, logic nghiệp vụ, error handling, naming, coupling, log, test và tài liệu | Mọi PR |
 | `security-checklist.md` | Kiểm tra authentication/authorization, validation, injection, secret, dữ liệu nhạy cảm, error disclosure, dependency | PR chạm input, quyền truy cập, dữ liệu nhạy cảm hoặc dependency mới |
 | `performance-checklist.md` | Kiểm tra N+1 query, pagination, index, blocking I/O, cache, resource leak, timeout/retry | PR chạm truy vấn dữ liệu, critical path hoặc được tuyên bố là tối ưu |
-| `merge-approval-checklist.md` | Xác nhận điều kiện G4: đúng PR/commit, finding Critical/High đã xử lý, CI đạt, approver là người | Trước khi merge; AI không tự đánh dấu hoàn tất G4 |
+| `merge-approval-checklist.md` | Xác nhận điều kiện G4: đúng PR/commit, finding đáp ứng quy tắc chặn merge, CI đạt, approver là người | Trước khi merge; AI không tự đánh dấu hoàn tất G4 |
 
 ## Nguyên tắc sử dụng
 - Đánh dấu Pass / Fail / N/A và ghi bằng chứng (vị trí file, kết quả CI, test).

@@ -7,7 +7,7 @@ Phiếu tham chiếu, không thay thế tài liệu Stage 02 gốc.
 | Design package ID / index URL | |
 | Phiên bản gói đã chốt làm baseline / commit | |
 | Approval record G2 (ID/link) | |
-| G2 status (đối chiếu từ approval record) | `Pending / In Review / Approved / Rejected / Blocked / Changes Requested` |
+| Trạng thái tổng hợp G2 (đối chiếu từ approval record theo [gate policy](../../governance/human-review-gates/gate-policy.md#trạng-thái-tổng-hợp-của-gate)) | |
 | Quyết định, người phê duyệt và thời điểm (đối chiếu từ approval record) | |
 | Waiver hợp lệ (nếu có) và đúng phiên bản gói được phê duyệt | |
 | Architecture / ADR | |

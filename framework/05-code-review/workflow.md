@@ -99,7 +99,7 @@ Stage chỉ hoàn tất sau khi merge đã được xác minh. PR đã G4 Approv
 ## 5.9 Quality Check — Kiểm tra chất lượng
 
 - Review đúng diff cuối cùng, không chỉ phiên bản trước remediation.
-- Critical/High findings đã đóng hoặc có risk acceptance hợp lệ.
+- Không còn finding Critical mở; finding High còn mở chỉ được giữ lại theo ngoại lệ hợp lệ của [G4](../governance/human-review-gates/G4-code-approval.md#điều-kiện-thông-qua).
 - Approval đến từ reviewer đủ thẩm quyền.
 - CI và required checks xanh theo policy.
 - Không có unresolved conversation/blocking comment.
@@ -112,7 +112,7 @@ Stage chỉ hoàn tất sau khi merge đã được xác minh. PR đã G4 Approv
 
 Nguồn quy định: [G4 — Code Review & Merge Approval](../governance/human-review-gates/G4-code-approval.md). Danh sách thao tác: [Merge Approval Checklist](checklists/merge-approval-checklist.md). Phân vai và xử lý bất đồng: [human-review.md](human-review.md).
 
-Tóm tắt: người duyệt G4 là reviewer/Tech Lead có thẩm quyền (cần reviewer chuyên môn với thay đổi bảo mật/kiến trúc nhạy cảm); không còn Critical/High chưa xử lý (ngoại lệ phải có risk acceptance); required checks đạt; approval đúng head SHA. AI chỉ khuyến nghị, không duyệt G4.
+Tóm tắt: Reviewer, Senior Developer hoặc Tech Lead có thẩm quyền và không phải tác giả PR phê duyệt đúng head SHA sau khi các required checks đạt và finding đáp ứng điều kiện G4 ở trên. Thay đổi bảo mật/kiến trúc nhạy cảm cần reviewer có chuyên môn. AI chỉ khuyến nghị, không duyệt G4.
 
 ## 5.11 Exit Criteria — Điều kiện hoàn thành
 
