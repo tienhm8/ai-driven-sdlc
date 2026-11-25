@@ -268,11 +268,15 @@ evidence over copying upstream documents into this folder.
 |---|---|---|---|---|---|---|
 | Requirement Baseline (G1) | Yes | | | Approved | | |
 | User Stories & Acceptance Criteria | Yes | | | Approved / linked to G1 | | |
-| Design Baseline (G2) | Yes | | | Approved | | |
+| Design Baseline (G2) | Yes | | | Pending verification | | |
 | Architecture Decision Records | When applicable | | | | | |
 | Technical constraints / technology stack | Yes | | | | | |
 | Risks, assumptions and dependencies | Yes | | | | | |
 | Team capacity / availability | Yes, for sprint planning | | | | | |
+
+For Design Baseline, record the exact finalized design package version and
+G2 approval evidence for that version. Mark verified only when G2 is Passed
+and the package is the baseline handed off to Stage 03.
 
 ## Readiness decision
 
