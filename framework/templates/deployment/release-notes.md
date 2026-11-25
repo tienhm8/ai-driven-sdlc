@@ -1,41 +1,5 @@
 # Release Notes
 
-## Thông tin phát hành
-- Product / Service:
-- Version:
-- Ngày phát hành:
-- Environment:
-- Owner:
-- Deployment ID:
+Template chuẩn của loại tài liệu này nằm ở Stage 07: [`../../07-deployment/templates/release-note.md`](../../07-deployment/templates/release-note.md).
 
-## Điểm nổi bật
-{{Giá trị chính của bản phát hành}}
-
-## Tính năng mới
-- {{FEATURE}}
-
-## Cải tiến
-- {{IMPROVEMENT}}
-
-## Sửa lỗi
-- {{FIX}}
-
-## Thay đổi gây breaking / tương thích
-- Thay đổi API/schema/cấu hình:
-- Tương thích phía client:
-- Hành động bắt buộc của khách hàng:
-
-## Ghi chú vận hành
-- Migration:
-- Feature flags:
-- Monitoring:
-- Known issues:
-- Tham chiếu rollback/recovery:
-
-## Bảo mật
-{{Chỉ mô tả thông tin được phép công khai; không tiết lộ chi tiết có thể hỗ trợ khai thác}}
-
-## Tham chiếu
-- PR/issue:
-- Tài liệu:
-- Deployment record:
+File này chỉ là liên kết, không chứa template riêng.

@@ -35,7 +35,7 @@
 | Requirement / Story | |
 | Mục đích | |
 | Xác thực | |
-| Phân quyền | |
+| Phân quyền | Quyền/vai trò cần cho endpoint này; tham chiếu `SEC-DES-XXX §…` |
 | Idempotent? | |
 | Rate limit | |
 
@@ -71,7 +71,7 @@
 
 **Bảo mật / quyền riêng tư**
 - Phân loại dữ liệu:
-- Phân quyền mức field:
+- Phân quyền mức field: theo `SEC-DES-XXX §…`; chỉ ghi phần riêng của endpoint.
 - Trường nhạy cảm bị loại bỏ/che:
 
 ## 5. Mô hình lỗi dùng chung của API
@@ -81,6 +81,11 @@
 ## 6. Sự kiện / Webhook (nếu có)
 | Sự kiện | Trigger | Schema payload | Gửi lại / retry | Chữ ký / xác minh |
 |---|---|---|---|---|
+
+**Với tích hợp bất đồng bộ, chốt thêm** (ghi `N/A` kèm lý do nếu không áp dụng):
+| Sự kiện | Ngữ nghĩa giao nhận | Thứ tự (phạm vi bảo đảm) | Xử lý trùng (ID/khóa idempotency) | Phiên bản & thay đổi schema |
+|---|---|---|---|---|
+| | `at-most-once / at-least-once / exactly-once (điều kiện)` | | | |
 
 ## 7. Observability & Hợp đồng
 - Trường log / metric / tracing:

@@ -136,7 +136,8 @@ class ApprovalEngine:
             raise ValueError(f"The {gate} review is closed")
         return review
 
-    def _decision(self, events, review):
+    @staticmethod
+    def _decision(events, review):
         gate_id = review["gate"]
         allowed = set(review["allowed_roles"])
         latest = {}

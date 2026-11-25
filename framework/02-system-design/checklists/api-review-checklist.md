@@ -19,6 +19,7 @@
 | 10 | Trường nhạy cảm được tối thiểu hóa, không lộ trong response/log | | |
 | 11 | Có tham chiếu OpenAPI/schema và contract test | | |
 | 12 | Đã xử lý correlation ID, audit và observability | | |
+| 13 | Sự kiện/webhook (nếu có) chốt ngữ nghĩa giao nhận, thứ tự, xử lý trùng và phiên bản/thay đổi schema; `N/A` nếu không có tích hợp bất đồng bộ | | |
 
 **Phát hiện chặn (blocking):**  
 **Hành động / người phụ trách / hạn xử lý:**  

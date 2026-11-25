@@ -27,20 +27,9 @@ AI đóng vai trò Solution Architect / System Analyst, hỗ trợ thiết kế 
 
 ## 4. Input Requirements
 
-**Bắt buộc:**
+Áp dụng danh mục và kiểm tra trong [input manifest](inputs/README.md). Dùng đúng baseline đã duyệt ở G1, gồm RTM theo phiên bản, FR, NFR và Acceptance Criteria. Giữ mọi yêu cầu đã duyệt, kể cả hiệu năng và bảo mật.
 
-- Requirements đã được phê duyệt.
-- Project Context.
-- Technology Constraints.
-
-**Tùy chọn:**
-
-- Kiến trúc hệ thống hiện tại.
-- Sơ đồ nghiệp vụ.
-- Tài liệu tích hợp.
-- Infrastructure Requirements.
-- Performance Requirements.
-- Security Requirements.
+Dùng bối cảnh dự án, ràng buộc công nghệ và tiêu chuẩn liên quan theo manifest và điều kiện bắt đầu của [Workflow](workflow.md#23-entry-criteria--điều-kiện-bắt-đầu). Tài liệu bổ sung như kiến trúc hiện trạng, sơ đồ nghiệp vụ, tài liệu tích hợp hoặc phân tích hạ tầng/hiệu năng/bảo mật chỉ dùng khi phù hợp; chúng không thay thế yêu cầu đã duyệt.
 
 ## 5. Execution Rules
 
@@ -85,6 +74,7 @@ AI đóng vai trò Solution Architect / System Analyst, hỗ trợ thiết kế 
 - Security Design.
 - Architecture Decision Records.
 - Technical Constraints.
+- [Bảng truy vết thiết kế trong Design Package Index](outputs/design-package-index.md#4-truy-vết-yêu-cầu).
 
 ## 8. Quality Criteria
 
@@ -97,6 +87,8 @@ AI đóng vai trò Solution Architect / System Analyst, hỗ trợ thiết kế 
 - Các quyết định kỹ thuật có lý do và căn cứ.
 
 ## 9. Autonomy Level
+
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 02.
 
 | Level | Phạm vi AI |
 |---|---|
@@ -145,13 +137,6 @@ AI đóng vai trò Solution Architect / System Analyst, hỗ trợ thiết kế 
 
 ## 13. Traceability
 
-Liên kết:
+Ghi truy vết chính thức tại [mục 4 của Design Package Index](outputs/design-package-index.md#4-truy-vết-yêu-cầu): ID FR/NFR và ID AC khi áp dụng → artifact/mục thiết kế → cách kiểm chứng dự kiến. Dùng ID từ đúng baseline G1; không chỉnh sửa RTM đã duyệt để thêm liên kết thiết kế. Nếu phát hiện yêu cầu thiếu hoặc mâu thuẫn, ghi gap và chuyển BA/PO xử lý theo quy trình thay đổi baseline.
 
-- Requirements → Architecture.
-- User Stories → Components.
-- Requirements → Database Design.
-- API → Business Use Cases.
-- Design → Development Tasks.
-- ADR → Technical Decisions.
-
-Lưu phiên bản và kết quả phê duyệt G2.
+Stage 02 ghi các hạng mục cần triển khai hoặc kiểm chứng; Stage 03 mới phân rã, gán người phụ trách và nối task về requirement và mục thiết kế.

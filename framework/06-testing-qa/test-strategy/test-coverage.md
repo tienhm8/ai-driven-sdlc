@@ -16,7 +16,7 @@
 ## Traceability matrix
 | Requirement/AC | Risk | Test Case IDs | Execution | Defect IDs | Coverage |
 |---|---|---|---|---|---|
-| BRQ-0001 | High | TC-001, TC-002 | Pass/Fail/... | BUG-001 | Covered/Partial/Missing |
+| BRQ-0001 | High | TC-0001, TC-0002 | Pass/Fail/... | BUG-0001 | Covered/Partial/Missing |
 
 Requirement quan trọng cần liên kết test và kết quả. Ghi rõ không test được, N/A hoặc Blocked.
 
@@ -28,4 +28,4 @@ Requirement quan trọng cần liên kết test và kết quả. Ghi rõ không 
 - Số liệu phải kèm mẫu số, phạm vi, build, tool và thời điểm.
 
 ## Mục tiêu và gap
-QA Lead/project đặt target theo risk, criticality, tiêu chuẩn và khả năng kỹ thuật; không áp ngưỡng chung. Mỗi gap ghi requirement/risk, lý do, impact, mitigation, owner và due date. Gap ảnh hưởng acceptance phải xử lý hoặc được risk owner có thẩm quyền chấp nhận trước G5.
+QA Lead/project đặt target theo risk, criticality, tiêu chuẩn và khả năng kỹ thuật; không áp ngưỡng chung. Mỗi gap ghi requirement/risk, lý do, impact, mitigation, owner và due date. Gap ảnh hưởng acceptance phải được xử lý trước G5, trừ ngoại lệ được policy cho phép và người có thẩm quyền phê duyệt; không dùng ngoại lệ để bỏ qua tiêu chí bắt buộc.

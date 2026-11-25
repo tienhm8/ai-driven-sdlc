@@ -22,11 +22,32 @@ class ProjectManifestTests(TestCase):
         self.root = Path(temporary.name)
         self.project = self.root / "projects" / "demo"
 
+    def test_project_management_seeds_canonical_approval(self):
+        shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
+        shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))
+        framework = self.root / "framework"
+        shutil.copytree(PLATFORM.parent / "framework", framework)
+        command = [sys.executable, "-B", str(self.root / "platform/scripts/init-project.py"),
+                   "--name", "Demo", "--slug", "demo", "--tools", "claude"]
+        result = run(command, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        target = self.project / "docs/project-management/_templates/approval-record-template.md"
+        source = framework / "templates/review/approval-record.md"
+        self.assertEqual(target.read_bytes(), source.read_bytes())
+        self.assertIn("## Quyết định", target.read_text(encoding="utf-8"))
+
     def test_init_validate_and_load_project_overrides(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
         shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))
         framework = self.root / "framework"
         shutil.copytree(PLATFORM.parent / "framework", framework)
+        ra_stage = framework / "01-requirement-analysis"
+        ra_source = ra_stage / "outputs"
+        rtm_relative = Path("11-requirement-traceability/requirement-traceability-matrix.md")
+        rtm_template = ra_stage / "templates/requirement-traceability.md"
+        self.assertEqual((ra_source / rtm_relative).read_bytes(), rtm_template.read_bytes())
+        # A stale snapshot must never become the starter in a new project.
+        (ra_source / rtm_relative).write_text("stale starter\n", encoding="utf-8")
         stage_examples = {
             "06-testing-qa": {"qa-signoff-example.md", "test-execution-summary-example.md"},
             "07-deployment": {"deployment-report-example.md", "release-note-example.md"},
@@ -43,12 +64,42 @@ class ProjectManifestTests(TestCase):
                     "--name", display_name, "--slug", "demo", "--tools", "cursor,claude",
                     "--no-project-management"], capture_output=True, text=True)
         self.assertEqual(init.returncode, 0, init.stderr)
+        register = (self.project / "docs/03-task-planning/input-register.md").read_text(encoding="utf-8")
+        row = next(line for line in register.splitlines() if line.startswith("| Design Baseline (G2) |"))
+        self.assertEqual([cell.strip() for cell in row.strip("|").split("|")][4], "Pending")
+        self.assertIn("G2 approval evidence for that version", register)
+        self.assertIn("G2 is Approved", register)
+        planning = self.project / "docs/03-task-planning"
+        approval = (planning / "g3-approval.md").read_text(encoding="utf-8")
+        self.assertIn("- Gate / subject: G3", approval.splitlines())
+        canonical = (framework / "templates/review/approval-record.md").read_text(encoding="utf-8")
+        self.assertNotIn("Nếu dùng cho G3", canonical)
+        for field in ("Phạm vi được duyệt / phần ngoài phạm vi", "| Approver |",
+                      "`Approved / Rejected / Changes Requested / Blocked`"):
+            self.assertIn(field, approval)
+        expected = canonical.replace("- Gate / subject: G1 / G2 / G3 / G4 / G5 / G6 / G7 / Other\n",
+                                     "- Gate / subject: G3\n")
+        expected = expected.replace("- Vai trò approver bắt buộc:\n", "- Vai trò approver bắt buộc: Tech Lead\n")
+        self.assertIn("- Vai trò approver bắt buộc: Tech Lead", approval.splitlines())
+        self.assertEqual(approval, expected)
+        self.assertEqual((planning / "planning-change-log.md").read_bytes(),
+                         (framework / "03-task-planning/templates/planning-change-log.md").read_bytes())
+        self.assertFalse((planning / "corrections").exists())
+        self.assertEqual((planning / "definition-of-ready.md").read_bytes(),
+                         (framework / "03-task-planning/templates/definition-of-ready.md").read_bytes())
         for stage, examples in stage_examples.items():
             with self.subTest(stage=stage):
                 outputs = self.project / "docs" / stage / "outputs"
                 self.assertEqual({path.name for path in outputs.iterdir()}, examples | {"README.md"})
                 for name in examples | {"README.md"}:
                     self.assertEqual((outputs / name).read_bytes(), (framework / stage / "outputs" / name).read_bytes())
+        ra_target = self.project / "docs" / "01-requirement-analysis" / "outputs"
+        ra_files = sorted(p.relative_to(ra_source) for p in ra_source.rglob("*") if p.is_file())
+        self.assertIn(Path("01-business-requirements/BRD.md"), ra_files)
+        self.assertIn(Path("12-requirement-review/G1-approval.md"), ra_files)
+        for relative in ra_files:
+            expected = rtm_template if relative == rtm_relative else ra_source / relative
+            self.assertEqual((ra_target / relative).read_bytes(), expected.read_bytes())
         self.assertFalse((self.project / "config.yml").exists())
         manifest = load_project_manifest(self.project)
         self.assertEqual(manifest["project"], {"id": "demo", "name": display_name, "version": "1.0.0"})
@@ -141,6 +192,69 @@ class ProjectManifestTests(TestCase):
                 self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
         policy.write_text("gates: {G6: {approver_roles: [release_manager]}}", encoding="utf-8")
         self.assertIn("VALIDATION_PASSED", {issue["code"] for issue in validate_project(self.project)})
+
+    def test_validator_reports_malformed_tagged_approval_policy_values(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        for contents, message in (
+            ("gates: !!map [G4]", "expected a mapping node"),
+            ("gates: {G4: {required: !!bool maybe}}", "invalid value for YAML tag"),
+            ("gates: {G4: {required: !!int ''}}", "invalid value for YAML tag"),
+            ("gates: {G4: {required: !!float '+'}}", "invalid value for YAML tag"),
+            ("gates: {G4: {approver_roles: [!!str {=: reviewer, repeated: 1, repeated: 2}]}}",
+             "expected a scalar node"),
+            ("gates: {G4: &gate {<<: *gate}}", "recursive YAML merge"),
+        ):
+            with self.subTest(contents=contents):
+                policy.write_text(contents, encoding="utf-8")
+                issues = validate_project(self.project)
+                invalid = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+                self.assertIn(message, invalid["message"])
+                self.assertIn("line 1, column", invalid["message"])
+                self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
+
+    def test_validator_bounds_policy_nesting_and_merge_expansion(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        anchors = ["&a0 {required: true}"]
+        for index in range(1, 65):
+            anchors.append(f"&a{index} {{<<: *a{index - 1}}}")
+        # The root merge runs before the values holding the earlier anchor definitions are constructed.
+        chain = f"fixtures: [{', '.join(anchors)}]\n<<: *a64\n"
+        for contents, diagnostic in (
+            ("gates: " + "[" * 65 + "0" + "]" * 65, "YAML nesting exceeds"),
+            (chain, "YAML merge depth exceeds"),
+            ("gates: {G4: {<<: [&a {required: true}, " + ", ".join(["*a"] * 256) + "]}}",
+             "too many approval policy mapping entries"),
+        ):
+            with self.subTest(diagnostic=diagnostic):
+                policy.write_text(contents, encoding="utf-8")
+                issue = next(issue for issue in validate_project(self.project)
+                             if issue["code"] == "INVALID_APPROVAL_POLICY")
+                self.assertIn(diagnostic, issue["message"])
+
+    def test_validator_accepts_a_policy_with_disjoint_yaml_merge_entries(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        policy.write_text("gates: {G4: {<<: [{required: true}, {approver_roles: [reviewer]}]}}", encoding="utf-8")
+        self.assertIn("VALIDATION_PASSED", {issue["code"] for issue in validate_project(self.project)})
+
+    def test_validator_rejects_duplicate_approval_policy_keys(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        for contents, key in (
+            ("gates: {}\ngates: {}\n", "gates"),
+            ("gates:\n  G4: {approver_roles: [tech_lead]}\n  G4: {approver_roles: [reviewer]}\n", "G4"),
+            ("gates: {G4: {approver_roles: [tech_lead], approver_roles: [reviewer]}}", "approver_roles"),
+            ("gates: {G4: {<<: {approver_roles: [tech_lead]}, approver_roles: [reviewer]}}", "approver_roles"),
+            ("gates: {G4: {<<: {required: true}, <<: {approver_roles: [reviewer]}}}", "<<"),
+        ):
+            with self.subTest(contents=contents):
+                policy.write_text(contents, encoding="utf-8")
+                issues = validate_project(self.project)
+                invalid = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+                self.assertIn(f"duplicate key {key!r}", invalid["message"])
+                self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
 
     def test_legacy_project_gets_migration_hint(self):
         self.project.mkdir(parents=True)

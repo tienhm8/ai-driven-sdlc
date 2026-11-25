@@ -80,13 +80,23 @@ Handoff to System Design
 
 ## 1.8 Output — Đầu ra
 
-- Approved Requirement Specification / Product Requirements Document.
-- FR/NFR catalogue có ID, priority, source, owner và status.
-- User stories/use cases và acceptance criteria.
-- Business process/model, business rules và glossary.
-- Assumptions, constraints, dependencies, risks và open questions.
-- Requirement Traceability Matrix (RTM).
-- Requirement Review Record và quyết định G1.
+Giai đoạn Requirement Analysis tạo ra các đầu ra sau:
+
+- **Tài liệu yêu cầu nghiệp vụ (Business Requirements Document — BRD):** mục tiêu và nhu cầu nghiệp vụ, yêu cầu của stakeholder; các yêu cầu nghiệp vụ (BRQ) có ID và tham chiếu đến quy tắc nghiệp vụ liên quan.
+- **Định nghĩa phạm vi (Scope Definition):** phạm vi dự án/hệ thống, nội dung trong và ngoài phạm vi, ranh giới hệ thống và các phụ thuộc bên ngoài.
+- **Đặc tả yêu cầu chức năng (Functional Requirements Specification — FRS):** các yêu cầu chức năng (FR) có ID, mô tả, mức ưu tiên, nguồn, owner và trạng thái; mỗi yêu cầu có tiêu chí xác minh phù hợp.
+- **Yêu cầu phi chức năng (Non-functional Requirements — NFR):** các NFR có ID, hạng mục, mô tả, mức ưu tiên, nguồn, owner và trạng thái; có tiêu chí đo lường hoặc phương pháp kiểm chứng đủ để xác định đạt/không đạt.
+- **User Story và Use Case (khi áp dụng):** mô tả nhu cầu, actor, mục tiêu và kịch bản; liên kết với các FR/NFR liên quan.
+- **Tiêu chí nghiệm thu (Acceptance Criteria):** tiêu chí kiểm chứng được cho yêu cầu cần nghiệm thu, liên kết qua US/UC hoặc trực tiếp từ FR/NFR nếu không dùng US/UC.
+- **Danh mục quy tắc nghiệp vụ (Business Rules Catalogue):** các quy tắc nghiệp vụ (BR) có ID, mô tả, điều kiện và kết quả mong đợi; tham chiếu đến BRQ/FR liên quan.
+- **Mô hình quy trình nghiệp vụ (Business Process Model, khi áp dụng):** quy trình, sơ đồ và mô tả; xác định actor, hoạt động, quyết định và sự kiện nghiệp vụ.
+- **Bảng thuật ngữ nghiệp vụ (Business Glossary, khi áp dụng):** thuật ngữ, định nghĩa và từ viết tắt.
+- **Giả định, ràng buộc, phụ thuộc, rủi ro và câu hỏi mở:** ghi nhận nội dung, owner và trạng thái xử lý.
+- **Ma trận truy vết yêu cầu (RTM):** dùng [template Stage 01](templates/requirement-traceability.md) để truy vết Nguồn/Mục tiêu → BRQ → FR/NFR đến AC, liên kết BR và US/UC khi áp dụng. Liên kết thiết kế, triển khai, kiểm thử và release được bổ sung ở các stage sau, không kiểm ở G1.
+- **Hồ sơ review yêu cầu và phê duyệt G1:** ghi nhận phát hiện review và cách xử lý, ý kiến của Product Owner, quyết định G1, người phê duyệt, thời điểm, tài liệu và phiên bản được phê duyệt.
+
+Duy trì các đầu ra theo danh mục Stage 01; chỉ tạo nội dung US/UC, BR, AC, Business Process Model và Business Glossary khi áp dụng. Ghi rõ lý do `N/A` cho liên kết không áp dụng theo quy tắc RTM.
+
 
 ## 1.9 Quality Check — Kiểm tra chất lượng
 
@@ -95,29 +105,32 @@ Handoff to System Design
 - FR/NFR không mâu thuẫn; NFR có metric/target hoặc ghi rõ cách xác định.
 - Acceptance criteria bao phủ luồng chính, luồng lỗi và trường hợp biên quan trọng.
 - Phạm vi in-scope/out-of-scope, giả định và phụ thuộc được công khai.
-- Có traceability tới mục tiêu kinh doanh; không có yêu cầu orphan quan trọng.
+- RTM đạt từng chiều theo [checklist G1](checklists/06-G1-approval-checklist.md#4-kiểm-tra-rtm-trước-g1); không còn yêu cầu mồ côi trong baseline.
 - Dữ liệu nhạy cảm và yêu cầu tuân thủ được nhận diện đúng mức.
 
 ## 1.10 Human Review Gate — Điểm phê duyệt bắt buộc
 
 **G1 — Requirement Baseline Approval**
 
-Người phê duyệt: Product Owner/Business Owner; BA chịu trách nhiệm chuẩn bị. SA, Security/Compliance tham vấn khi có yêu cầu kỹ thuật hoặc tuân thủ liên quan.
+Người phê duyệt: Product Owner; BA chịu trách nhiệm chuẩn bị. SA, Security/Compliance tham vấn khi có yêu cầu kỹ thuật hoặc tuân thủ liên quan.
 
 Điều kiện duyệt:
 - Phạm vi và mục tiêu được thống nhất.
 - Các yêu cầu quan trọng và acceptance criteria đủ rõ.
 - NFR, rủi ro, giả định và phụ thuộc đã được xem xét.
+- RTM `PASS` ở từng chiều Stage 01 trên đúng phiên bản baseline trình duyệt.
 - Các open issues còn lại có owner và kế hoạch xử lý; không có vấn đề critical bị che giấu.
 
 Bằng chứng: approval record, phiên bản tài liệu, người duyệt, thời điểm và điều kiện/ngoại lệ.
 
 ## 1.11 Exit Criteria — Điều kiện hoàn thành
 
-- G1 được Approved.
-- Requirement baseline được lưu đúng vị trí và có version.
-- RTM và danh sách open issues được cập nhật.
-- Không còn câu hỏi critical ngăn cản thiết kế; các mục còn lại có owner/decision date.
+Giai đoạn chỉ được xem là hoàn thành khi đáp ứng đầy đủ các điều kiện sau:
+
+- Các đầu ra bắt buộc đã được kiểm tra.
+- Các vấn đề trọng yếu đã được xử lý; không còn câu hỏi critical ngăn cản thiết kế. Các mục còn lại có owner và thời hạn xử lý.
+- Requirement baseline được lưu đúng vị trí, có version; RTM và danh sách câu hỏi mở được cập nhật.
+- G1 được Product Owner phê duyệt (Approved).
 
 ## 1.12 Exception Handling — Xử lý ngoại lệ
 

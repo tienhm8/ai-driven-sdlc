@@ -1,7 +1,7 @@
 # Checklist Sẵn sàng Planning
 ## Inputs
 - [ ] Requirement baseline đã có version, trạng thái Approved và có bằng chứng G1.
-- [ ] Design baseline đã có version, trạng thái Approved và có bằng chứng G2.
+- [ ] Đã đối chiếu đúng phiên bản design package được chốt làm baseline với bằng chứng G2 hợp lệ cho phiên bản đó.
 - [ ] Đã có project context, release target và chính sách estimate.
 - [ ] Open questions/blocker đã được phân loại, có owner và hạn xử lý.
 ## Scope và chất lượng

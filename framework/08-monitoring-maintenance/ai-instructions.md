@@ -103,6 +103,8 @@ AI đóng vai trò SRE / Operations Engineer, hỗ trợ giám sát, phân tích
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 08.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Phân loại Logs, tổng hợp Metrics và cảnh báo. |

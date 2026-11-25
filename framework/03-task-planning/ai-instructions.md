@@ -17,7 +17,7 @@ AI đóng vai trò Technical Project Planner / Scrum Assistant, hỗ trợ phân
 Đọc:
 
 - Approved Requirements.
-- Approved System Design.
+- Design baseline (phiên bản design package đã chốt, G2 Approved).
 - Architecture Decision Records.
 - Project Development Methodology.
 - Team Capacity.
@@ -69,15 +69,7 @@ AI đóng vai trò Technical Project Planner / Scrum Assistant, hỗ trợ phân
 
 ## 7. Output Requirements
 
-- Product Backlog.
-- Technical Backlog.
-- Task Breakdown Structure.
-- Task Dependency Matrix.
-- Effort Estimation.
-- Sprint Plan.
-- Development Roadmap.
-- Milestone Plan.
-- Risk Register.
+Danh mục đầu ra và mức bắt buộc theo [Output Contract](outputs/planning-output-contract.md#danh-mục-đầu-ra). AI chỉ tạo mục bắt buộc và mục "khi áp dụng" mà dự án cần; không tạo file riêng cho milestone, capacity hay risk register nếu đã nằm trong delivery plan hoặc sổ rủi ro dự án.
 
 ## 8. Quality Criteria
 
@@ -90,6 +82,8 @@ AI đóng vai trò Technical Project Planner / Scrum Assistant, hỗ trợ phân
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 03.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Phân loại và cập nhật Task. |
@@ -101,27 +95,19 @@ AI đóng vai trò Technical Project Planner / Scrum Assistant, hỗ trợ phân
 
 ## 10. Human Review
 
-**Người review:** PM / Tech Lead.
+**Người review:** Tech Lead (phê duyệt G3); PM (lịch, nguồn lực); PO (priority).
 
 **Yêu cầu:**
 
 - Xác nhận Priority.
 - Đánh giá Effort.
 - Xác nhận Dependencies.
-- Phê duyệt Sprint Plan.
+- Xác nhận tính khả thi của Sprint Plan (nếu áp dụng); quyết định G3 ghi riêng.
 - Xác nhận nguồn lực và Timeline.
 
 ## 11. Review Gate
 
-**Gate:** G3 – Development Planning Approval.
-
-**Điều kiện:**
-
-- Task có Scope rõ ràng.
-- Dependencies được xác định.
-- Acceptance Criteria rõ ràng.
-- Task được phân công hoặc xác định người chịu trách nhiệm.
-- Kế hoạch phát triển được phê duyệt.
+**Gate:** G3 – Task Planning Approval, do **Tech Lead** phê duyệt một phiên bản kế hoạch với phạm vi task xác định. Điều kiện: xem [checklist G3](checklists/g3-planning-approval-checklist.md).
 
 > **AI không được tự phê duyệt G3.**
 
@@ -142,8 +128,7 @@ Liên kết:
 - Requirements → Backlog.
 - Design Components → Technical Tasks.
 - Tasks → User Stories.
-- Tasks → Pull Requests.
-- Tasks → Test Cases.
+- Tasks → cách kiểm chứng cần thực hiện (PR và test case được liên kết ở các stage thực hiện).
 - Tasks → Sprint và Milestones.
 
 Lưu phiên bản kế hoạch và kết quả phê duyệt G3.

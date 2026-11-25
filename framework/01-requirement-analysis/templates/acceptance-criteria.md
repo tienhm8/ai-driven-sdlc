@@ -15,13 +15,15 @@
 | Trường | Giá trị |
 |---|---|
 | Mã tiêu chí nghiệm thu | AC-001 |
-| User Story liên quan | US-001 |
-| Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
+| User Story / Use Case liên quan (khi áp dụng) | [US/UC ID hoặc N/A theo RTM] |
+| Yêu cầu liên quan | [BRQ ID; FR/NFR ID liên kết trực tiếp nếu không dùng US/UC] |
 | Chức năng / Module | [Tên chức năng] |
 | Độ ưu tiên | Cao |
 | Trạng thái | Draft |
 
 ## 3. Định nghĩa tiêu chí nghiệm thu
+
+**Hướng dẫn:** Mỗi AC phải kiểm chứng độc lập, truy vết về US/UC/FR/NFR, và xác nhận kết quả quan sát được (Pass/Fail) của luồng chính, thay thế, ngoại lệ trong Use Case mà không sao chép các bước của Use Case. AC đủ cụ thể để Stage 06 sinh Test Case; không tạo ID Test Case tại Stage 01.
 
 ### AC-001: [Tên tiêu chí nghiệm thu]
 
@@ -76,35 +78,15 @@
 | NFR-AC-002 | Bảo mật | [Điều kiện] | [Chỉ số] |
 | NFR-AC-003 | Tính sẵn sàng | [Điều kiện] | [Chỉ số] |
 
-## 8. Ánh xạ kiểm thử nghiệm thu
+## 8. Phương pháp kiểm chứng
 
-| Mã AC | Mã Test Case | Loại kiểm thử | Kết quả mong đợi |
+| Mã AC | Mô tả kiểm chứng | Kết quả mong đợi (Pass/Fail) | Trạng thái xác minh |
 |---|---|---|---|
-| AC-001 | TC-001 | Chức năng | Đạt |
-| AC-001 | TC-002 | Âm tính | Đạt |
+| AC-001 | [Cách kiểm thử/xác minh] | [Điều kiện đạt/không đạt] | Chưa kiểm chứng |
 
-## 9. Trạng thái nghiệm thu
+Test Case cụ thể, lần chạy và bằng chứng thực thi được liên kết ở giai đoạn Testing & QA.
 
-| Mã AC | Kết quả kiểm chứng | Bằng chứng | Trạng thái |
-|---|---|---|---|
-| AC-001 | [Kết quả] | [Báo cáo test] | Chờ xử lý |
-
-Các trạng thái có thể có:
-- Chờ xử lý (Pending)
-- Đạt (Passed)
-- Không đạt (Failed)
-- Bị chặn (Blocked)
-- Không áp dụng (Not Applicable)
-
-## 10. Phê duyệt
-
-| Vai trò | Họ tên | Quyết định | Ngày | Ghi chú |
-|---|---|---|---|---|
-| Business Analyst | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-| Product Owner | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-| QA Lead | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-
-## 11. Lịch sử thay đổi
+## 9. Lịch sử thay đổi
 
 | Phiên bản | Ngày | Mô tả thay đổi |
 |---|---|---|

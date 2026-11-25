@@ -17,4 +17,4 @@
 
 Không có mơ hồ hoặc mâu thuẫn quan trọng nào chưa được giải quyết được phép coi là yêu cầu đã phê duyệt.
 
-Mọi vấn đề chưa được giải quyết PHẢI được ghi nhận trong `open-questions.md`.
+Mọi vấn đề chưa được giải quyết PHẢI được ghi nhận trong `outputs/10-assumptions-constraints-risks/open-questions.md`.

@@ -25,8 +25,10 @@ Tổng: ; đơn vị: `[giờ/ngày/points — chọn một]`; velocity lịch s
 Tham chiếu/phiên bản DoD:  
 Rà soát: sprint goal đo lường được; công việc vừa với capacity thực; dependency đã biết; story đạt tiêu chí Ready; team chấp nhận dự báo; quy trình thay đổi scope đã rõ.
 
-| Vai trò phê duyệt | Tên | Quyết định | Ngày | Bằng chứng |
+| Vai trò xác nhận | Nội dung xác nhận | Tên | Ngày | Bằng chứng |
 |---|---|---|---|---|
-| PO | | | | |
-| PM | | | | |
-| Tech Lead/team | | | | |
+| PO | Ưu tiên và trade-off sản phẩm | | | |
+| PM | Lịch và nguồn lực | | | |
+| Tech Lead/team | Tính khả thi kỹ thuật và dự báo thực hiện | | | |
+
+Các xác nhận trên không phải quyết định G3. Nếu sprint plan thuộc gói trình duyệt, dẫn tới bản ghi G3 của Tech Lead cho đúng phiên bản kế hoạch:

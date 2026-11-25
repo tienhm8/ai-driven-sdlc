@@ -4,10 +4,12 @@ Phiếu tham chiếu, không thay thế tài liệu Stage 02 gốc.
 | Trường | Giá trị |
 |---|---|
 | Dự án | |
-| Design ID / URL | |
-| Phiên bản / commit | |
-| Trạng thái | `Approved / Not approved` |
-| Người phê duyệt G2/ngày/bằng chứng | |
+| Design package ID / index URL | |
+| Phiên bản gói đã chốt làm baseline / commit | |
+| Approval record G2 (ID/link) | |
+| G2 status (đối chiếu từ approval record) | `Pending / In Review / Approved / Rejected / Blocked / Changes Requested` |
+| Quyết định, người phê duyệt và thời điểm (đối chiếu từ approval record) | |
+| Waiver hợp lệ (nếu có) và đúng phiên bản gói được phê duyệt | |
 | Architecture / ADR | |
 | Ranh giới component | |
 | API / tích hợp | |

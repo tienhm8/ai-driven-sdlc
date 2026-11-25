@@ -21,16 +21,16 @@ Local Validation & Automated Tests
         ↓
 Documentation + Evidence
         ↓
-Development Completion / PR Readiness Check (không phải gate)
+Create Pull Request (Draft)
         ↓
-Create Pull Request
+PR Readiness Check (không phải gate)
         ↓
 Handoff to Code Review
 ```
 
 ## 4.3 Entry Criteria — Điều kiện bắt đầu
 
-- G3 đã được phê duyệt; task đạt DoR.
+- [Development readiness checklist](checklists/development-readiness.md) = `Ready`: G1/G2/G3 đã `Approved` cho đúng phiên bản, task thuộc phạm vi bản ghi G3 và đạt DoR. Đây là xác minh, không phê duyệt lại; thiếu/mâu thuẫn → `Blocked` trừ ngoại lệ hợp lệ.
 - Có design/API/data contract và coding guidelines.
 - Repository, branch strategy, CI checks và môi trường phát triển sẵn sàng.
 - Developer/AI agent được cấp quyền tối thiểu cần thiết.
@@ -49,8 +49,8 @@ Handoff to Code Review
 9. **Chạy validation:** formatter, linter, static analysis, type check, build, unit tests và security checks theo pipeline.
 10. **Cập nhật database/API/docs:** tạo migration an toàn, cập nhật contract, changelog và tài liệu kỹ thuật.
 11. **Kiểm tra diff:** xác nhận không có secret, debug code, file ngoài scope, dependency không cần thiết hoặc thay đổi ngoài ý muốn.
-12. **Commit và tạo PR:** commit có ý nghĩa; PR nêu mục tiêu, giải pháp, test evidence, risk và liên kết task/requirement.
-13. **Xác nhận sẵn sàng review:** cập nhật task, đính kèm kết quả kiểm tra và bàn giao PR cho Code Review. Không ghi approval G4 ở bước này.
+12. **Commit và tạo PR:** commit có ý nghĩa; PR nêu mục tiêu, giải pháp, test evidence, risk và liên kết task/requirement. Mở PR ở trạng thái `Draft` (hoặc tương đương) cho đến khi PR Readiness Check đạt; không yêu cầu review chính thức trước đó.
+13. **PR Readiness Check:** xác nhận đủ điều kiện ở mục 4.10, cập nhật task và bàn giao PR cho Code Review. Không ghi approval G4 ở bước này.
 
 ## 4.5 Input — Đầu vào
 
@@ -93,7 +93,7 @@ Handoff to Code Review
 ## 4.9 Quality Check — Kiểm tra chất lượng
 
 - Code tuân thủ coding conventions và architecture boundaries.
-- Build, lint, type check và các test bắt buộc đạt.
+- Build, lint, type check và các test bắt buộc đạt, trừ ngoại lệ bàn giao hợp lệ theo mục 4.10.
 - Có test cho logic mới, lỗi và edge cases phù hợp.
 - Không lộ secret, PII hoặc dữ liệu production trong code/log/test fixture.
 - Error handling, validation, authorization và audit phù hợp.
@@ -101,29 +101,29 @@ Handoff to Code Review
 - Diff nằm trong scope; dependency/license được kiểm tra.
 - PR có mô tả, liên kết task và evidence đầy đủ.
 
-## 4.10 Human Review Gate — Điểm phê duyệt bắt buộc
+## 4.10 PR Readiness Check — bàn giao 04 → 05
 
-**Development Completion / PR Readiness Check — không phải gate**
+PR `Draft` dùng để xin phản hồi sớm và chưa phải bàn giao chính thức sang 05.
 
-Developer owner và Tech Lead/maintainer xác nhận gói bàn giao đủ điều kiện vào Code Review. G4 vẫn do reviewer có thẩm quyền phê duyệt ở giai đoạn 05 trước merge; tác giả không tự duyệt.
+Chỉ xác nhận `Ready for Review` khi:
 
-Điều kiện:
-- Task implementation hoàn tất theo scope.
-- Self-review và automated checks bắt buộc đã chạy.
-- PR và evidence đầy đủ.
-- Known limitations và rủi ro được công khai.
+- Developer đã hoàn tất [Implementation DoD](checklists/implementation-dod.md), gồm self-review.
+- Mọi check bắt buộc theo pipeline và kế hoạch triển khai đều `Pass` trên phiên bản bàn giao, hoặc có ngoại lệ còn hiệu lực do người có thẩm quyền theo policy dự án/tổ chức phê duyệt cho đúng check và phiên bản đó. Dẫn bản ghi nêu rõ phạm vi, lý do, rủi ro, giảm thiểu, thời hạn và owner. Giữ nguyên kết quả thực tế `Fail` / `Not run`; giải trình hoặc CI đang chạy không thay thế ngoại lệ đã duyệt.
+- Gói PR, traceability, evidence, quyền truy cập của reviewer và rủi ro còn lại đã được kiểm tra theo [handover checklist](checklists/handover-checklist.md).
+
+Developer xác nhận và ghi `Ready for Review` hoặc `Blocked` trong handover checklist. Tech Lead/maintainer xác nhận thêm nếu policy dự án yêu cầu; nếu thiếu xác nhận bắt buộc hoặc chưa đạt điều kiện thì ghi `Blocked` và chưa bàn giao. Chỉ chuyển PR khỏi `Draft` sau khi xác nhận `Ready for Review`. Khi Base SHA hoặc Head SHA thay đổi, xác minh lại evidence và readiness cho phiên bản mới.
+
+Đây không phải gate. Ngoại lệ chỉ có hiệu lực cho bàn giao, không miễn yêu cầu của G4. Reviewer có thẩm quyền quyết định G4 độc lập ở 05 trước merge; tác giả không tự duyệt.
 
 ## 4.11 Exit Criteria — Điều kiện hoàn thành
 
-- Gói bàn giao và PR được xác nhận sẵn sàng cho Code Review.
-- PR ở trạng thái Ready for Review.
-- Task, commit, PR và requirement có traceability.
-- Không còn lỗi build/test bắt buộc chưa giải thích.
+- [Handover checklist](checklists/handover-checklist.md) ghi `Ready for Review` cho đúng phiên bản PR theo mục 4.10.
+- PR không còn là `Draft` và gói bàn giao đã được gửi sang 05; G4 chưa được duyệt.
 
 ## 4.12 Exception Handling — Xử lý ngoại lệ
 
 - **Design không khả thi:** dừng phần thay đổi liên quan, tạo design question/ADR change và xin SA quyết định.
-- **Test thất bại:** phân loại defect/environment/flaky test; không bỏ qua gate để hợp thức hóa.
+- **Test bắt buộc thất bại hoặc chưa chạy:** ghi kết quả thực tế, phân loại lỗi (defect, môi trường hoặc flaky test) nếu có và xử lý blocker; không bàn giao nếu chưa đạt hoặc chưa có ngoại lệ hợp lệ theo mục 4.10.
 - **Scope creep:** tách task hoặc tạo change request.
 - **Phát hiện secret/PII:** dừng chia sẻ, xử lý theo security incident policy và rotate/revoke credential khi cần.
 - **AI tạo code không hiểu được:** không merge; yêu cầu giải thích, viết lại hoặc loại bỏ.

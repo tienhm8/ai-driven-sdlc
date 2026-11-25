@@ -24,14 +24,14 @@
 |---|---|---|---|---|
 | | | | | |
 
-## Entry criteria
+## Readiness trước execution
 - Approved requirement/AC available.
-- Testable build and version identified.
+- Artifact SHA-256 từ intake đã được xác nhận trong môi trường test.
 - Environment and data ready.
-- Test cases reviewed; dependencies available.
+- Test cases reviewed; dependencies available. Dùng Test Readiness Checklist của Stage 06.
 
 ## Exit criteria
-Định nghĩa project-specific thresholds cho critical test completion, defect severity/status, coverage, CI, non-functional result và approval. Không để tiêu chí ngầm định.
+Định nghĩa project-specific thresholds cho critical test completion, defect severity/status, coverage, CI, non-functional result và approval. Không đặt ngưỡng thấp hơn quy tắc G5 trong governance hoặc để tiêu chí ngầm định.
 
 ## Environment & data
 Tham chiếu environment manifest và test-data specification; ghi access, reset, cleanup.

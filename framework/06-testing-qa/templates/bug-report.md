@@ -1,11 +1,11 @@
 # Bug Report
 
 ## Identification
-- Bug ID/title:
+- Bug ID/title (ví dụ `BUG-0001`):
 - Project/component:
 - Reporter/date/time/timezone:
 - Requirement/test case:
-- Build/commit:
+- Artifact version/SHA-256 (và commit nếu có):
 - Environment:
 
 ## Classification
@@ -14,7 +14,7 @@
 - Status: New / Triaged / In Progress / Fixed / Ready for Retest / Verified / Reopened / Rejected / Deferred
 - Reproducibility: Always / Intermittent / Once / Unable to Reproduce
 
-Severity đo impact; priority đo urgency/thứ tự xử lý. Theo định nghĩa dự án.
+Severity đo impact; priority đo urgency/thứ tự xử lý. Áp dụng định nghĩa dự án và tiêu chí Critical tối thiểu trong quy tắc G5. Nếu triage đổi severity, lưu mức cũ/mới, lý do, bằng chứng và người quyết định.
 
 ## Description
 - Preconditions:
@@ -30,7 +30,7 @@ Severity đo impact; priority đo urgency/thứ tự xử lý. Theo định ngh�
 - Screenshot/video/log/trace reference:
 - Request/response (redacted):
 - Timestamp/correlation ID:
-- Related execution:
+- Related test run (`TESTRUN-0001`):
 
 Che token, credential, PII và payload confidential trước khi đính kèm.
 
@@ -45,7 +45,7 @@ Che token, credential, PII và payload confidential trước khi đính kèm.
 
 ## Resolution & verification
 - Fix version/commit and description:
-- Retest result:
+- Retest run ID, artifact SHA-256 và kết quả:
 - Regression tests:
 - Verified by/date:
 - Closure rationale:

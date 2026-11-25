@@ -17,15 +17,17 @@ Deployment Readiness & Change Review
         ↓
 Immutable Artifact / Configuration Validation
         ↓
-Pre-deployment Backup & Safety Checks
+Pre-deployment Readiness Checks
         ↓
-G6 — Production Deployment Approval
+Production: G6 → authorize_action → check_action_start ngay trước khi chạy
+Non-production: kiểm tra quyền theo policy môi trường; không áp dụng G6
         ↓
-Deploy (Staged / Canary / Blue-Green / Rolling)
+Thực thi migration / rollout / chuyển traffic theo thứ tự trong plan
         ↓
-Smoke Test & Health Verification
-        ↓
-Handoff to Monitoring & Maintenance
+Xác minh kết quả
+        ├─ Production thành công → bàn giao Stage 08
+        ├─ Rollback hoặc thất bại không đổi đích đã xác minh → giữ Stage 07
+        └─ Kết quả chưa rõ → chặn chuyển stage và thử lại
 ```
 
 ## 7.3 Entry Criteria — Điều kiện bắt đầu
@@ -39,27 +41,27 @@ Handoff to Monitoring & Maintenance
 ## 7.4 Workflow Steps — Các bước thực hiện
 
 1. **Lập deployment request:** ghi release version, scope, mục tiêu, change window, impact và owner.
-2. **Kiểm tra readiness:** xác nhận G5, artifact provenance, approvals, runbook, rollback và support coverage.
-3. **Xác minh artifact:** dùng đúng immutable artifact đã qua G5; đối chiếu commit, tag, build ID và SHA-256. Nếu cần rebuild trước khi G6 cấp quyền triển khai, ghi lý do, quay lại QA và lấy lại G5/G6 cho candidate mới. Không dùng quyền G6 cũ để triển khai lại.
+2. **Kiểm tra readiness:** xác nhận hồ sơ G5, các phê duyệt đầu vào, runbook, rollback và support coverage. Chưa yêu cầu quyết định G6 tại bước này.
+3. **Xác minh artifact:** đối chiếu artifact bất biến (URI/version, SHA-256, build ID và provenance liên kết merge G4) với [hồ sơ G5 được bàn giao](inputs/README.md#quy-tắc); không xác nhận lại thay QA. Nếu cần rebuild cùng source, ghi lý do và dùng `return_to_qa` để kiểm thử lại và lấy G5 mới. Nếu phải sửa source, dùng `return_to_development` để quay lại Development → G4 mới → build mới → QA/G5 mới. Sau đó lấy G6 mới nếu triển khai Production. Không quay lại các stage này khi một authorization Production chưa có kết quả kết thúc đã xác minh.
 4. **Kiểm tra cấu hình:** validate environment variables, secrets reference, feature flags, resource limits và network policy.
 5. **Chuẩn bị dữ liệu:** backup/snapshot theo policy; rehearsal migration; xác nhận backward/forward compatibility và restore path.
-6. **Thông báo:** gửi release notice, expected impact, maintenance window và escalation contact.
+6. **Chuẩn bị release notes và thông báo:** Deployment lập release notes từ release scope và gói bàn giao Stage 06; gửi release notice, expected impact, maintenance window và escalation contact.
 7. **Pre-deployment checks:** kiểm tra health baseline, capacity, dependency, alert status và freeze condition.
-8. **G6 trước khi triển khai production:** Release Manager ghi quyết định Go/No-Go cho đúng artifact đã qua G5. Không chạy rollout hoặc migration trên production nếu chưa đủ điều kiện G6. Sau đó **triển khai theo chiến lược:** rolling/canary/blue-green/staged phù hợp; áp dụng giới hạn blast radius.
-9. **Thực hiện migration:** chạy theo thứ tự, idempotency và kiểm soát lock/downtime; ghi log kết quả.
+8. **Phê duyệt và kiểm tra quyền thực thi:** chỉ với Production, Release Manager ghi quyết định G6 sau khi readiness đạt. Adapter tin cậy gọi `authorize_action` cho đúng quyết định G6, SHA-256 của artifact, môi trường đích và SHA-256 của gói review đã chốt. Nếu plan/config hoặc bằng chứng trọng yếu thay đổi, trình review mới dù artifact không đổi; nếu mở rộng phạm vi G5 đã duyệt thì quay lại QA trước. Ngay trước khi gửi lệnh chạy, đối chiếu lại các giá trị hiện tại bằng `check_action_start`; nếu không khớp hoặc authorization không hợp lệ, không chạy. Non-production không dùng G6 nhưng vẫn tuân thủ quyền và policy môi trường.
+9. **Thực thi theo deployment plan đã duyệt:** làm theo thứ tự migration, rollout và chuyển traffic trong plan; không mặc định migration chạy sau rollout. Ghi rõ bước cần hoàn tất trước khi chuyển traffic (ví dụ mở rộng schema), bước sau rollout (ví dụ thu hẹp schema khi đủ điều kiện), và tiêu chí tiếp tục, dừng hoặc khôi phục ở từng mốc. Kiểm soát lock/downtime, giới hạn phạm vi ảnh hưởng và ghi evidence từng bước.
 10. **Smoke/sanity test:** xác minh critical path, health endpoint, integration và telemetry sau triển khai.
 11. **Theo dõi rollout:** đánh giá error rate, latency, saturation, business metrics và alert trong observation window.
 12. **Quyết định tiếp tục/rollback:** so sánh với deployment success criteria; kích hoạt rollback/mitigation nếu vượt ngưỡng.
-13. **Closure:** người có thẩm quyền xác nhận trạng thái production sau rollout, lưu deployment record và thông báo hoàn tất. Không dùng bước này thay cho G6 trước rollout.
+13. **Ghi nhận và xác minh kết quả:** lưu [Deployment Record](../templates/deployment/deployment-record.md), trạng thái thực tế và bằng chứng; với Production, nộp tham chiếu kết quả tin cậy cho Workflow Engine đối chiếu với đúng authorization, lượt bắt đầu, artifact và đích. Xử lý theo các nhánh bên dưới; đóng hồ sơ lần thực thi không đồng nghĩa hoàn thành stage và không thay thế G6.
 
 ## 7.5 Input — Đầu vào
 
-- Release candidate đã qua G5, artifact và provenance.
+- [Gói bàn giao Stage 06](inputs/README.md): artifact đã qua G5, định danh/provenance, hồ sơ G5 và bằng chứng QA.
 - Deployment plan/runbook, change request và approval.
 - Infrastructure/configuration/secrets reference.
 - Database migration, backup/restore và rollback plan.
-- Smoke test, health check và monitoring dashboard.
-- Release notes, stakeholder/on-call contacts và incident procedure.
+- Tiêu chí smoke từ Stage 06; health check và monitoring dashboard.
+- Stakeholder/on-call contacts và incident procedure.
 
 ## 7.6 AI Activities — Hoạt động AI
 
@@ -82,13 +84,13 @@ Handoff to Monitoring & Maintenance
 
 ## 7.8 Output — Đầu ra
 
-- Deployment record: version, artifact, commit, environment, timestamp, actor.
+- [Deployment Record](../templates/deployment/deployment-record.md): phiên bản đích/thực tế, artifact, commit, môi trường, timestamp, người thực thi, kết quả và bàn giao.
 - Change approval và deployment checklist.
 - Backup/snapshot reference và migration execution report.
 - Smoke test/health verification evidence.
 - Rollout metrics, incident/rollback record nếu có.
 - Release notes và stakeholder notification.
-- Production release status và G6 approval record.
+- Trạng thái phát hành Production và hồ sơ G6 (chỉ áp dụng cho Production).
 
 ## 7.9 Quality Check — Kiểm tra chất lượng
 
@@ -115,10 +117,13 @@ Smoke test và health criteria được kiểm tra sau rollout để đóng depl
 
 ## 7.11 Exit Criteria — Điều kiện hoàn thành
 
-- Deployment được xác nhận thành công hoặc rollback được ghi nhận hoàn chỉnh.
-- Có bản ghi authorization G6 trước khi triển khai đúng artifact lên production.
-- Production version và deployment evidence được cập nhật.
-- Monitoring/alerting ownership và support handoff đã xác nhận.
+| Kết quả Production | Đóng hồ sơ và chuyển stage |
+|---|---|
+| **Triển khai thành công đã xác minh** | Cập nhật phiên bản đang chạy và bàn giao cho Operations. Chỉ nhánh này mới hoàn thành Stage 07 và chuyển sang Stage 08. |
+| **Rollback đã xác minh** (`rolled_back`) **hoặc thất bại không thay đổi đích đã xác minh** (`failed_no_changes`) | Đóng hồ sơ lần thực thi, ghi phiên bản thực tế và chuyển thông tin sự cố cho Operations nếu cần. Không ghi release mới là đã triển khai; giữ Stage 07. Muốn thử lại phải mở review G6 mới và được cấp quyền mới. |
+| **Thiếu, sai lệch hoặc chưa đủ bằng chứng** | Giữ hồ sơ mở, chuyển thông tin sự cố nếu cần và tiếp tục xác minh. Không chuyển stage hoặc thử lại khi authorization trước chưa có kết quả kết thúc đã xác minh. |
+
+Triển khai non-production không thay thế kết quả Production và không tự chuyển Stage 07.
 
 ## 7.12 Exception Handling — Xử lý ngoại lệ
 
@@ -127,10 +132,10 @@ Smoke test và health criteria được kiểm tra sau rollout để đóng depl
 - **Migration failure:** không chạy lại tùy tiện; đánh giá trạng thái transaction/data và gọi DBA/Data Owner.
 - **Health metric vượt ngưỡng:** freeze rollout, notify incident/on-call và quyết định rollback.
 - **Artifact/config mismatch:** hủy deployment, xác minh provenance và pipeline.
-- **Emergency deployment:** dùng emergency change process, giới hạn scope, ghi nhận người phê duyệt và retrospective bắt buộc.
+- **Emergency deployment:** dùng emergency change process, giới hạn scope và thực hiện retrospective. Production vẫn cần G6 và kiểm tra quyền ngay trước khi chạy; nếu dùng ngoại lệ, ghi tham chiếu và thời điểm hết hiệu lực trong [hồ sơ G6](templates/production-approval.md).
 
 ## 7.13 Next Stage — Chuyển sang giai đoạn tiếp theo
 
-Bàn giao production version, deployment record, dashboard, alert rules, runbook, known issues và on-call ownership cho **08 — Monitoring & Maintenance**.
+Sau khi xác minh triển khai Production thành công, bàn giao theo [đầu vào Stage 08](../08-monitoring-maintenance/inputs/README.md#intake-record). Ghi phiên bản đang chạy, dashboard/alert, runbook, on-call, rủi ro còn lại, người tiếp nhận và thời điểm trong Deployment Record. Nếu chưa xác minh thành công, chỉ bàn giao thông tin sự cố khi cần, không chuyển stage.
 
 ---

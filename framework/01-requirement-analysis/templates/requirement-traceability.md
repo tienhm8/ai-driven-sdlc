@@ -1,187 +1,86 @@
-# Ma trận truy vết yêu cầu (Requirement Traceability Matrix - RTM)
+# Ma trận truy vết yêu cầu (Requirement Traceability Matrix — RTM)
 
 ## 1. Thông tin tài liệu
 
 | Trường | Giá trị |
 |---|---|
-| Tên dự án | [Tên dự án] |
-| Mã tài liệu | RTM-001 |
-| Phiên bản tài liệu | 1.0 |
+| Mã tài liệu | RTM-0001 |
+| Dự án | [Tên dự án] |
+| Phiên bản | 0.1 |
 | Trạng thái | Draft |
-| Chủ sở hữu | Business Analyst |
-| Cập nhật lần cuối | [YYYY-MM-DD] |
+| Owner | [Business Analyst] |
+| Ngày cập nhật | [YYYY-MM-DD] |
 
-## 2. Mục tiêu truy vết
+## 2. Phạm vi Stage 01
 
-Ma trận truy vết yêu cầu (RTM) đảm bảo rằng:
+Truy vết từ **Nguồn / Mục tiêu nghiệp vụ → BRQ → FR/NFR**, rồi qua **User Story (US) hoặc Use Case (UC)** khi áp dụng, đến **Acceptance Criteria (AC)** cho yêu cầu cần nghiệm thu. Nếu không dùng US/UC, liên kết FR/NFR trực tiếp với AC khi cần nghiệm thu. **BR (Business Rule)** có ID riêng, liên kết với FR/NFR, US/UC hoặc AC mà nó chi phối; không thay cho BRQ và không phải một tầng bắt buộc.
 
-- Mọi yêu cầu có nguồn gốc có thể nhận diện.
-- Mọi yêu cầu nghiệp vụ (BRQ) trong BRD được truy vết tới các User Story liên quan.
-- Mọi User Story có Tiêu chí nghiệm thu có thể đo lường.
-- Mọi yêu cầu liên quan được hỗ trợ bởi Use Case.
-- Yêu cầu được liên kết với các artifact thiết kế, phát triển và kiểm thử.
-- Có thể đánh giá tác động của thay đổi lên các artifact phía sau.
-- Không có yêu cầu nào được triển khai khi thiếu cơ sở nghiệp vụ đã được phê duyệt.
-- Không có yêu cầu quan trọng nào bị bỏ sót khỏi kiểm thử.
+Thiết kế, task, implementation, Test Case, kết quả kiểm thử và release/deployment được nối theo ID ở các stage sau. Không yêu cầu các liên kết này để đạt G1.
 
-## 3. Ma trận truy vết yêu cầu
+## 3. Ma trận truy vết Stage 01
 
-### 3.1 Truy vết từ đầu đến cuối
-
-| Mã BRQ | Mã US | Mã AC | Mã UC | Mã thiết kế | Mã Task | Mã Test Case | Trạng thái |
-|---|---|---|---|---|---|---|---|
-| BRQ-0001 | US-001 | AC-001 | UC-001 | DES-001 | TASK-001 | TC-001 | Đang thực hiện |
-| BRQ-0001 | US-002 | AC-002 | UC-002 | DES-002 | TASK-002 | TC-002 | Đang thực hiện |
-| BRQ-0002 | US-003 | AC-003 | UC-003 | DES-003 | TASK-003 | Chưa bắt đầu |
-
-### 3.2 Độ bao phủ theo Yêu cầu nghiệp vụ
-
-| Mã BRQ | Tên yêu cầu | Tổng số User Story | Đã bao phủ | Tỷ lệ bao phủ |
-|---|---|---:|---:|---:|
-| BRQ-0001 | [Tên] | 3 | 3 | 100% |
-| BRQ-0002 | [Tên] | 2 | 1 | 50% |
-
-### 3.3 Độ bao phủ theo User Story
-
-| Mã US | BRQ liên quan | Số AC | Số UC | Số Test Case | Trạng thái bao phủ |
-|---|---|---:|---:|---:|---|
-| US-001 | BRQ-0001 | 3 | 1 | 5 | Đã bao phủ |
-| US-002 | BRQ-0001 | 2 | 1 | 0 | Chưa kiểm thử |
-
-## 4. Truy vết xuôi dòng (Downstream Traceability)
-
-### 4.1 Ánh xạ thiết kế
-
-| Mã yêu cầu | Artifact kiến trúc/thiết kế | Tham chiếu thiết kế | Trạng thái |
-|---|---|---|---|
-| BRQ-0001 | [Tài liệu thiết kế] | DES-001 | Đã review |
-
-### 4.2 Ánh xạ phát triển
-
-| Mã US | Task phát triển | Tham chiếu mã nguồn | Pull Request | Trạng thái |
+| Chiều kiểm tra | Nguồn (ID/tham chiếu) | Đích (ID) | Trạng thái | Lý do / căn cứ / tham chiếu quyết định |
 |---|---|---|---|---|
-| US-001 | TASK-001 | [File/Module] | PR-001 | Đang thực hiện |
+| | | | | |
 
-### 4.3 Ánh xạ kiểm thử
+- Ghi một dòng cho mỗi liên kết hoặc mỗi kiểm tra không có liên kết; dùng ID ổn định. Với nguồn chưa có ID, dùng tham chiếu cụ thể đến tài liệu/mục, stakeholder hoặc quyết định. Với BRQ phát sinh, đánh dấu là **phát sinh** và tham chiếu căn cứ/quyết định; không dùng `N/A` để thay thế nguồn.
+- Kiểm tra nhánh FR và NFR **riêng** cho từng BRQ. Ví dụ: `BRQ-0001 → FR-0001: Linked`; nhánh NFR có thể là `N/A` nếu đã đánh giá và có lý do được chấp nhận.
+- Với mỗi FR/NFR, chọn US, UC, cả hai hoặc không dùng hình thức nào. Không bắt buộc cả US lẫn UC. Nếu cả hai không áp dụng, ghi `N/A` và lý do; vẫn kiểm tra AC trực tiếp. Nếu không cần AC, ghi `N/A` riêng cho bước nghiệm thu và giải thích; không suy ra `N/A` cho AC từ `N/A` của US/UC.
+- Với mỗi NFR, ghi ở cột căn cứ hoặc tham chiếu đến mục cụ thể trong danh mục NFR có tiêu chí đo (chỉ số, ngưỡng, điều kiện đo khi cần) hoặc phương pháp kiểm chứng với kết quả đạt/không đạt rõ ràng. Ví dụ, “hệ thống phải nhanh” chưa đủ; “P95 dưới 500 ms ở 1.000 requests/phút” có cơ sở kiểm chứng khi đã xác định điều kiện đo cần thiết.
+- Đối chiếu danh mục artifact trong phạm vi với RTM theo cả hai hướng. Không suy ra đủ độ bao phủ chỉ từ các dòng đã có: kiểm tra cả artifact chưa xuất hiện trong ma trận và các ID sai, không tồn tại hoặc không thuộc baseline đang review.
 
-| Mã AC | Mã Test Case | Lần thực thi | Kết quả | Bằng chứng |
-|---|---|---|---|---|
-| AC-001 | TC-001 | [Mã thực thi] | Đạt | [Báo cáo] |
-| AC-002 | TC-002 | [Mã thực thi] | Chờ xử lý | [Báo cáo] |
+## 4. Trạng thái và xử lý khoảng trống
 
-### 4.4 Ánh xạ triển khai
-
-| Mã yêu cầu | Phiên bản release | Mã triển khai | Môi trường | Trạng thái |
-|---|---|---|---|---|
-| BRQ-0001 | v1.0.0 | REL-001 | Production | Đã triển khai |
-
-## 5. Phân tích yêu cầu mồ côi và khoảng trống
-
-### 5.1 Yêu cầu mồ côi
-
-Các yêu cầu không có artifact tương ứng ở các giai đoạn phía sau.
-
-| Mã yêu cầu | Artifact còn thiếu | Tác động | Cách xử lý |
-|---|---|---|---|
-| BRQ-0003 | User Story | Cao | Tạo User Story |
-
-### 5.2 Task phát triển chưa được liên kết
-
-Các task không có tham chiếu đến yêu cầu hợp lệ.
-
-| Mã Task | Mô tả | Yêu cầu liên quan | Hành động |
-|---|---|---|---|
-| TASK-010 | [Mô tả] | Không có | Cần điều tra |
-
-### 5.3 Yêu cầu chưa được kiểm thử
-
-| Mã yêu cầu | AC liên quan | Test Case còn thiếu | Rủi ro |
-|---|---|---|---|
-| BRQ-0002 | AC-003 | TC-003 | Cao |
-
-### 5.4 Yêu cầu chưa được triển khai
-
-| Mã yêu cầu | Độ ưu tiên | Trạng thái triển khai | Hành động |
-|---|---|---|---|
-| BRQ-0004 | Phải có | Chưa bắt đầu | Leo thang |
-
-## 6. Phân tích tác động thay đổi
-
-Mỗi khi một yêu cầu thay đổi, PHẢI xác định toàn bộ artifact phía sau bị ảnh hưởng.
-
-| Mã thay đổi | Artifact thay đổi | Yêu cầu liên quan | Artifact bị ảnh hưởng | Mức độ tác động |
-|---|---|---|---|---|
-| CHG-001 | BRQ-0001 | BRQ-0001 | US-001, AC-001, UC-001, DES-001, TC-001 | Cao |
-
-### 6.1 Đánh giá tác động
-
-- Tác động nghiệp vụ: [Mô tả]
-- Tác động thiết kế: [Mô tả]
-- Tác động phát triển: [Mô tả]
-- Tác động kiểm thử: [Mô tả]
-- Tác động triển khai: [Mô tả]
-- Tác động tài liệu: [Mô tả]
-
-### 6.2 Phê duyệt thay đổi
-
-| Vai trò | Họ tên | Quyết định | Ngày |
-|---|---|---|---|
-| Business Analyst | [Họ tên] | [Quyết định] | [Ngày] |
-| Product Owner | [Họ tên] | [Quyết định] | [Ngày] |
-| Tech Lead | [Họ tên] | [Quyết định] | [Ngày] |
-
-## 7. Chỉ số truy vết
-
-| Chỉ số | Cách tính | Mục tiêu |
+| Trạng thái | Ý nghĩa | Đánh giá |
 |---|---|---|
-| Độ bao phủ từ Yêu cầu đến Story | Số BRQ có US liên kết / Tổng số BRQ đã duyệt | 100% |
-| Độ bao phủ từ Story đến AC | Số US có AC / Tổng số US đã duyệt | 100% |
-| Độ bao phủ kiểm thử yêu cầu | Số yêu cầu đã duyệt có test ánh xạ / Tổng số yêu cầu đã duyệt | 100% |
-| Độ bao phủ triển khai yêu cầu | Số yêu cầu đã duyệt đã triển khai / Tổng số yêu cầu đã duyệt trong phạm vi release | 100% |
-| Tỷ lệ Task mồ côi | Số Task không liên kết / Tổng số Task | 0% |
-| Độ bao phủ đánh giá tác động thay đổi | Số thay đổi có đánh giá tác động / Tổng số thay đổi | 100% |
+| `Linked` | Có liên kết hợp lệ đến đúng artifact trong baseline. | Đạt đối với liên kết đó; vẫn kiểm chất lượng nội dung. |
+| `N/A` | Đã đánh giá và xác định liên kết hoặc hình thức đặc tả không áp dụng. | Chỉ đạt khi có lý do cụ thể và tham chiếu chấp nhận của người review. |
+| `Missing` | Đã biết cần liên kết nhưng chưa có liên kết hợp lệ. | Chưa đạt. |
+| `TBD` | Chưa đủ thông tin để xác định liên kết, tính áp dụng hoặc tiêu chí kiểm chứng. | Chưa đạt đối với mục đó. |
+| `Orphan` | Artifact trong phạm vi không có liên kết nguồn hoặc đích bắt buộc. | Chưa đạt; ghi rõ đầu liên kết còn thiếu. |
 
-*Các chỉ số cần được tính trên phạm vi dự án đã duyệt và baseline release áp dụng.*
+Ô trống không phải `N/A`. Khi review, phân loại ô trống theo các trạng thái trên. Ghi `Missing`, `TBD`, `Orphan` và các đề xuất `N/A` chưa được chấp nhận vào bảng xử lý. Sau khi xử lý, cập nhật cả dòng truy vết lẫn tham chiếu quyết định; không đổi sang `N/A` chỉ để đóng gap.
 
-## 8. Review truy vết
+| Artifact/ID | Liên kết hoặc thông tin thiếu | Trạng thái truy vết | Tác động / chặn G1? | Owner / hạn xử lý | Hành động / tham chiếu quyết định |
+|---|---|---|---|---|---|
+| | | | | | |
 
-### Checklist review
+## 5. Độ bao phủ và điều kiện RTM đạt G1
 
-- [ ] Mọi Yêu cầu nghiệp vụ đã duyệt có mã duy nhất.
-- [ ] Mọi Yêu cầu nghiệp vụ áp dụng được liên kết với User Story.
-- [ ] Mọi User Story đã duyệt có Tiêu chí nghiệm thu.
-- [ ] Mọi yêu cầu áp dụng có Use Case hoặc lý do được ghi nhận khi không cần.
-- [ ] Artifact thiết kế được liên kết với yêu cầu nguồn.
-- [ ] Task phát triển tham chiếu đến yêu cầu đã duyệt hoặc công việc kỹ thuật được ủy quyền.
-- [ ] Test Case bao phủ các Tiêu chí nghiệm thu áp dụng.
-- [ ] Mọi yêu cầu mồ côi quan trọng đã được xử lý.
-- [ ] Các thay đổi yêu cầu đã có đánh giá tác động.
-- [ ] Thông tin truy vết được cập nhật.
+Đánh giá **từng chiều**, trên danh mục artifact thuộc phiên bản baseline trình duyệt. Đơn vị kiểm tra là từng artifact/nhánh nêu dưới đây, không phải số dòng liên kết (một artifact có thể có nhiều liên kết). Ghi kết quả `PASS / FAIL / PENDING` và tham chiếu các ID hoặc gap liên quan cho từng chiều. Nếu đếm, báo riêng số mục đã kiểm tra theo trạng thái; không tính `N/A` là `Linked` và không dùng một tỷ lệ tổng hợp để quyết định G1.
 
-## 9. Phê duyệt
-
-| Vai trò | Họ tên | Quyết định | Ngày | Ghi chú |
-|---|---|---|---|---|
-| Business Analyst | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-| Product Owner | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-| Tech Lead | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-| QA Lead | [Họ tên] | [Quyết định] | [Ngày] | [Ghi chú] |
-
-## 10. Lịch sử thay đổi
-
-| Phiên bản | Ngày | Tác giả | Mô tả thay đổi |
+| Chiều kiểm tra | Điều kiện PASS | Kết quả | Bằng chứng / gap |
 |---|---|---|---|
-| 1.0 | [Ngày] | [Tác giả] | Phiên bản khởi tạo |
+| Nguồn / mục tiêu → BRQ | Mỗi BRQ trong phạm vi có nguồn/mục tiêu tham chiếu được hoặc được ghi là yêu cầu phát sinh kèm căn cứ/quyết định. | | |
+| BRQ → FR | Mỗi BRQ có liên kết FR hợp lệ hoặc `N/A` được chấp nhận cho nhánh FR. | | |
+| BRQ → NFR | Mỗi BRQ có liên kết NFR hợp lệ hoặc `N/A` được chấp nhận cho nhánh NFR. | | |
+| FR/NFR → US/UC | Mỗi FR/NFR có liên kết đến hình thức đặc tả phù hợp hoặc `N/A` được chấp nhận. | | |
+| US/UC → AC hoặc FR/NFR → AC trực tiếp | Mỗi yêu cầu cần nghiệm thu có AC rõ ràng, kiểm chứng được và truy vết được; trường hợp không cần AC có `N/A` được chấp nhận. | | |
+| BR liên quan | Mỗi BR trong phạm vi liên kết với artifact mà nó chi phối; không dùng BR thay cho BRQ. | | |
+| Chất lượng NFR | Mỗi NFR trong phạm vi có tiêu chí đo hoặc cách kiểm chứng đủ để xác định đạt/không đạt. | | |
+| Liên kết thiếu và yêu cầu mồ côi | Không còn `Missing` ở liên kết bắt buộc hoặc `Orphan` chưa xử lý; không còn `N/A` chưa được chấp nhận. | | |
+| Thông tin chưa xác định | Không còn `TBD` ảnh hưởng đến phạm vi, tính đúng đắn, liên kết bắt buộc hoặc khả năng kiểm chứng của yêu cầu. Mục không chặn G1 phải có tác động, owner, hạn và quyết định chấp nhận được ghi lại. | | |
 
----
+**Kết luận RTM:** [PASS / FAIL / PENDING] · **Phiên bản baseline / tham chiếu review:** [Tham chiếu].
 
-**Hướng dẫn cho AI:**
-- Duy trì truy vết xuyên suốt mọi giai đoạn SDLC.
-- KHÔNG tạo mã ID trùng với artifact đã tồn tại.
-- Phát hiện liên kết còn thiếu, yêu cầu mồ côi và yêu cầu chưa được kiểm thử.
-- Xác định tác động xuôi dòng khi yêu cầu thay đổi.
-- KHÔNG đánh dấu artifact là đã duyệt chỉ vì artifact đó tồn tại.
-- Phân biệt liên kết còn thiếu với liên kết không áp dụng hợp lệ.
-- Báo cáo khoảng trống truy vết kèm mức độ nghiêm trọng và hành động đề xuất.
-- Giữ nguyên quan hệ lịch sử khi yêu cầu được thay đổi hoặc loại bỏ.
-- Yêu cầu con người review đối với các thay đổi yêu cầu quan trọng.
+RTM chỉ `PASS` khi từng chiều đều `PASS`. `FAIL` hoặc `PENDING` do còn tiêu chí bắt buộc chưa đạt hoặc chưa được kiểm tra thì chưa sẵn sàng trình G1. RTM đạt không thay thế quyết định phê duyệt G1 của Product Owner.
+
+## 6. Thay đổi và tác động trong Stage 01
+
+| Change/Decision ID | Artifact/ID thay đổi | Artifact/ID bị ảnh hưởng | Tác động | Owner |
+|---|---|---|---|---|
+
+## 7. Bàn giao truy vết cho các stage sau
+
+| Stage | Liên kết bổ sung tại stage tương ứng (không kiểm ở G1) | Owner |
+|---|---|---|
+| System Design | Requirement → design/ADR/API/data artifacts | Solution Architect |
+| Task Planning/Development | Requirement/US → task và implementation | Delivery/Engineering |
+| Testing & QA (Stage 06) | Requirement/AC → Test Case và test evidence | QA |
+| Deployment | Requirement/AC → release/deployment evidence khi áp dụng | Release owner |
+
+## 8. Lịch sử thay đổi
+
+| Phiên bản | Ngày | Người cập nhật | Mô tả | Nguồn/quyết định |
+|---|---|---|---|---|
+| 0.1 | [YYYY-MM-DD] | [Owner] | Bản nháp ban đầu | [Nguồn] |

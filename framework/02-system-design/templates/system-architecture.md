@@ -53,12 +53,24 @@ flowchart LR
 - Tính toán, mở rộng, availability zone:
 - Liên kết sơ đồ hạ tầng:
 
-## 7. Tích hợp & Giao tiếp
+## 7. Vận hành & Độ tin cậy
+| Hạng mục | Phương án / mục tiêu | Tiêu chí đạt và cách kiểm chứng | Bằng chứng / tham chiếu |
+|---|---|---|---|
+| Kịch bản sự cố & failure mode chính | | | |
+| Disaster recovery (DR): kịch bản, cách khôi phục, RTO/RPO | | | |
+| Rollback triển khai: điều kiện kích hoạt, phiên bản quay về, xử lý dữ liệu | | | |
+| Backup/restore (liên kết thiết kế CSDL) | | | |
+| Observability, health check, cảnh báo | | | |
+| Runbook / chủ sở hữu vận hành | | | |
+
+Ghi `N/A` kèm lý do nếu không áp dụng. Có thể dẫn link tới thiết kế CSDL hoặc runbook thay vì chép lại; chốt cách kiểm chứng ở Stage 02, diễn tập thực tế theo yêu cầu của dự án.
+
+## 8. Tích hợp & Giao tiếp
 | Nguồn | Đích | Giao thức / cơ chế | Đồng bộ/Bất đồng bộ | Tham chiếu hợp đồng | Xử lý lỗi |
 |---|---|---|---|---|---|
 
-## 8. Thiết kế xuyên suốt
-- Xác thực / phân quyền:
+## 9. Thiết kế xuyên suốt
+- Xác thực / phân quyền: tóm tắt chính sách ở mức kiến trúc; chi tiết theo `SEC-DES-XXX §…`, không chép lại.
 - Logging, metric, tracing:
 - Xử lý lỗi:
 - Cấu hình và secret:
@@ -66,7 +78,7 @@ flowchart LR
 - Timeout, retry, circuit breaker:
 - Lưu giữ dữ liệu và quyền riêng tư:
 
-## 9. Công nghệ sử dụng
+## 10. Công nghệ sử dụng
 | Lớp | Công nghệ & phiên bản được chọn | Phương án thay thế | Lý do | Ràng buộc |
 |---|---|---|---|---|
 | Frontend | | | | |
@@ -75,11 +87,11 @@ flowchart LR
 | Messaging / cache | | | | |
 | Hạ tầng | | | | |
 
-## 10. Rủi ro & Đánh đổi
+## 11. Rủi ro & Đánh đổi
 | ID | Rủi ro / đánh đổi | Tác động | Giải pháp giảm thiểu | Người phụ trách |
 |---|---|---|---|---|
 
-## 11. Artifact liên quan
+## 12. Artifact liên quan
 | Artifact | ID / phiên bản | Vị trí | Trạng thái |
 |---|---|---|---|
 | ADR | | | |
@@ -89,7 +101,7 @@ flowchart LR
 | Biểu đồ tuần tự | | | |
 | Thiết kế bảo mật | | | |
 
-## 12. Truy vết & Phê duyệt
+## 13. Truy vết & Phê duyệt
 | ID Requirement / NFR | Phần tử kiến trúc | Bằng chứng |
 |---|---|---|
 

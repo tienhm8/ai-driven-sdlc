@@ -1,6 +1,6 @@
 # Code Review Checklist – Template
 
-> Đánh dấu Pass / Fail / N/A và ghi bằng chứng. Checklist không thay thế đánh giá theo ngữ cảnh.
+> Bản một trang để ghi kết quả và bằng chứng (Pass / Fail / N/A + link/vị trí). Không thay thế đánh giá theo ngữ cảnh. Chi tiết từng khía cạnh: [code-quality](../checklists/code-quality-checklist.md), [security](../checklists/security-checklist.md), [performance](../checklists/performance-checklist.md); điều kiện G4: [merge-approval](../checklists/merge-approval-checklist.md).
 
 ## Correctness
 - [ ] Thay đổi đáp ứng User Story và Acceptance Criteria.

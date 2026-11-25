@@ -1,7 +1,7 @@
 # Test Case
 
 ## Metadata
-- Test Case ID/title:
+- Test Case ID/title (ví dụ `TC-0001`):
 - Requirement / Acceptance Criteria ID:
 - Feature/module:
 - Test level/type:
@@ -28,8 +28,8 @@ Tham chiếu data IDs/specification; không đặt secret hoặc dữ liệu cá
 Mô tả final state và cleanup an toàn.
 
 ## Execution record
-- Execution ID/date/executor:
-- Build/commit:
+- Run ID (`TESTRUN-0001`)/date/executor:
+- Artifact version/SHA-256 và environment:
 - Actual result:
 - Status: Pass / Fail / Blocked / Skipped / Not Run
 - Evidence reference:

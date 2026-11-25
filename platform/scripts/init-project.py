@@ -31,8 +31,10 @@ TASK_PLANNING_PROJECT_FILES = {
     "task-breakdown.md": "templates/task-breakdown.md",
     "effort-estimation.md": "templates/effort-estimation.md",
     "dependency-matrix.md": "templates/dependency-matrix.md",
+    "definition-of-ready.md": "templates/definition-of-ready.md",
     "definition-of-done.md": "templates/definition-of-done.md",
     "sprint-plan.md": "templates/sprint-plan.md",
+    "planning-change-log.md": "templates/planning-change-log.md",
 }
 
 PROJECT_MANAGEMENT_FOLDERS = [
@@ -140,7 +142,7 @@ def generate_config(
         "autonomy": {
             "default_level": "L2",
             "stages": {
-                "requirement_analysis": "L3",
+                "requirement_analysis": "L2",
                 "system_design": "L3",
                 "task_planning": "L2",
                 "development": "L2",
@@ -157,6 +159,41 @@ def generate_config(
             "allow_project_override_mandatory_rules": False,
         },
     }, sort_keys=False, allow_unicode=True)
+
+
+def initialize_requirement_analysis_outputs(
+    framework_dir: Path,
+    project_docs_dir: Path,
+):
+    """Create the project-level Requirement Analysis deliverable set.
+
+    Copies the framework's standard output structure into
+    docs/01-requirement-analysis/outputs. The RTM starter is copied from
+    the canonical Stage 01 template, not the framework output snapshot.
+    Existing project files are never overwritten.
+    """
+    framework_stage = framework_dir / "01-requirement-analysis"
+    framework_outputs = framework_stage / "outputs"
+    project_outputs = project_docs_dir / "01-requirement-analysis" / "outputs"
+    rtm_output = Path("11-requirement-traceability/requirement-traceability-matrix.md")
+
+    create_directory(project_outputs)
+
+    if not framework_outputs.is_dir():
+        print(f"[WARN] Framework source not found: {framework_outputs}")
+        return
+
+    for source in sorted(framework_outputs.rglob("*")):
+        relative = source.relative_to(framework_outputs)
+        if source.is_dir():
+            create_directory(project_outputs / relative)
+        elif source.is_file() and relative != rtm_output:
+            copy_file_if_missing(source, project_outputs / relative)
+
+    copy_file_if_missing(
+        framework_stage / "templates" / "requirement-traceability.md",
+        project_outputs / rtm_output,
+    )
 
 
 def initialize_system_design_outputs(
@@ -233,11 +270,16 @@ evidence over copying upstream documents into this folder.
 |---|---|---|---|---|---|---|
 | Requirement Baseline (G1) | Yes | | | Approved | | |
 | User Stories & Acceptance Criteria | Yes | | | Approved / linked to G1 | | |
-| Design Baseline (G2) | Yes | | | Approved | | |
+| Design Baseline (G2) | Yes | | | Pending | | |
 | Architecture Decision Records | When applicable | | | | | |
 | Technical constraints / technology stack | Yes | | | | | |
 | Risks, assumptions and dependencies | Yes | | | | | |
 | Team capacity / availability | Yes, for sprint planning | | | | | |
+
+For Design Baseline, record the exact finalized design package version and
+G2 approval evidence for that version. Set input verification to Verified
+only when G2 is Approved and the package is the baseline handed off to Stage 03;
+otherwise keep it Pending. This input status is distinct from the gate status.
 
 ## Readiness decision
 
@@ -294,61 +336,21 @@ unapproved or inconsistent.
 """,
     )
 
-    write_if_missing(
-        stage_project_dir / "g3-approval.md",
-        """# G3 — Task Planning Approval
-
-> Human approval record. AI-generated checks and recommendations do not
-> constitute approval.
-
-## Approval scope
-
-- Project:
-- Planning baseline / version:
-- Related Requirement Baseline (G1):
-- Related Design Baseline (G2):
-- Planning Review:
-- Approval date:
-
-## Approval checklist
-
-- [ ] Required G1 and G2 inputs are approved and versioned.
-- [ ] Product backlog is reviewed and prioritized.
-- [ ] Task breakdown is sufficiently complete and traceable.
-- [ ] Estimates, assumptions and uncertainty are understood.
-- [ ] Dependencies and blockers have owners and plans.
-- [ ] Definition of Done is agreed.
-- [ ] Sprint plan is feasible against available capacity.
-- [ ] Significant risks and open actions are accepted by the appropriate owners.
-- [ ] Planning outputs are versioned and ready for Development handoff.
-
-## Decision
-
-- [ ] Approved
-- [ ] Changes requested
-- [ ] Rejected
-
-Decision rationale:
-
-Conditions / follow-up actions:
-
-| Action | Owner | Due date |
-|---|---|---|
-| | | |
-
-## Approval record
-
-- Approver name:
-- Role / authority:
-- Decision timestamp:
-- Artifact version / commit:
-- Evidence / reference:
-
-**Rule:** G3 must be approved by an authorized human (normally PM /
-Project Manager and Tech Lead, with Product Owner involvement as
-required). The AI that prepared the planning artifacts cannot approve G3.
-""",
-    )
+    approval_template = framework_dir / "templates" / "review" / "approval-record.md"
+    if approval_template.is_file():
+        approval_record = approval_template.read_text(encoding="utf-8")
+        for field, value in (("Gate / subject", "G3"), ("Vai trò approver bắt buộc", "Tech Lead")):
+            approval_record, count = re.subn(
+                rf"^- {re.escape(field)}:[^\n]*$",
+                f"- {field}: {value}",
+                approval_record,
+                flags=re.MULTILINE,
+            )
+            if count != 1:
+                raise ValueError(f"Expected one {field} field in {approval_template}")
+        write_if_missing(stage_project_dir / "g3-approval.md", approval_record)
+    else:
+        print(f"[WARN] Framework source not found: {approval_template}")
 
 
 def initialize_development_project_docs(
@@ -476,6 +478,12 @@ def init_project(
             destination = stage_dir / "_templates"
             copy_templates(source, destination)
 
+        # 3b. Requirement Analysis project outputs.
+        initialize_requirement_analysis_outputs(
+            framework_dir=framework_dir,
+            project_docs_dir=docs_dir,
+        )
+
         # 4. System Design project outputs.
         initialize_system_design_outputs(
             framework_dir=framework_dir,
@@ -504,6 +512,12 @@ def init_project(
             for folder in PROJECT_MANAGEMENT_FOLDERS:
                 create_directory(pm_dir / folder)
 
+            # Seed the canonical approval template first. The project-management
+            # framework copy is a pointer whose relative links do not survive copying.
+            copy_file_if_missing(
+                framework_dir / "templates" / "review" / "approval-record.md",
+                pm_dir / "_templates" / "approval-record-template.md",
+            )
             copy_templates(
                 framework_dir / "project-management" / "templates",
                 pm_dir / "_templates",

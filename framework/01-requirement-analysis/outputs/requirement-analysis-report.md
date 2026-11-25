@@ -1,66 +1,50 @@
 # Báo cáo phân tích yêu cầu (Requirement Analysis Report)
 
-## 1. Thông tin tài liệu
+> **Báo cáo tổng hợp bổ sung để review dễ hơn.** Không thay thế artifact nguồn và không phải một trong 12 deliverable chuẩn. Mỗi mục dưới đây chỉ tóm tắt và dẫn chiếu bằng ID/link. Nếu nội dung lệch với artifact nguồn, artifact nguồn được ưu tiên và báo cáo phải được cập nhật.
 
-- Dự án:
-- Mã tài liệu: RA-REPORT-001
-- Phiên bản:
-- Trạng thái: DRAFT
-- Ngày tạo:
-- Người tạo: AI Requirement Analyst
+## 1. Thông tin báo cáo
 
-## 2. Tóm tắt điều hành
+| Trường | Giá trị |
+|---|---|
+| Dự án | [Tên dự án / Project ID] |
+| Requirement baseline version/hash | [Version/hash] |
+| Phiên bản báo cáo | 0.1 |
+| Trạng thái | DRAFT |
+| Tác giả/Owner | [Tên] |
+| Ngày cập nhật | [YYYY-MM-DD] |
 
-Tóm tắt vấn đề nghiệp vụ và hệ thống được đề xuất.
+## 2. Tóm tắt phạm vi
 
-## 3. Mục tiêu nghiệp vụ
+[Tóm tắt 3–5 dòng về phạm vi, trong/ngoài phạm vi.]
 
-Liệt kê các mục tiêu nghiệp vụ đã được xác định.
+Nguồn chuẩn: [scope-definition.md](02-scope-definition/scope-definition.md)
 
-## 4. Phạm vi dự án
+## 3. Tóm tắt yêu cầu
 
-### Trong phạm vi
+| Loại | Số lượng | Ghi chú | Nguồn chuẩn |
+|---|---:|---|---|
+| BRQ | | | `01-business-requirements/BRD.md` |
+| FR | | | `03-functional-requirements/functional-requirements.md` |
+| NFR | | | `04-non-functional-requirements/non-functional-requirements.md` |
+| BR | | | `07-business-rules/business-rules.md` |
 
-### Ngoài phạm vi
+## 4. Rủi ro, giả định, ràng buộc và câu hỏi mở chính
 
-## 5. Bên liên quan
+| ID | Loại | Tóm tắt | Tác động | Owner |
+|---|---|---|---|---|
+| | | | | |
 
-Liệt kê các bên liên quan chính và trách nhiệm của từng bên.
+Nguồn chuẩn: [assumptions-constraints-dependencies-risks.md](10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md); [open-questions.md](10-assumptions-constraints-risks/open-questions.md)
 
-## 6. Tóm tắt yêu cầu
+## 5. Tình trạng truy vết và review
 
-| Nhóm | Số lượng | Ghi chú |
-|---|---:|---|
-| Yêu cầu nghiệp vụ | | |
-| Yêu cầu chức năng | | |
-| Yêu cầu phi chức năng | | |
-| User Story | | |
-| Use Case | | |
-| Câu hỏi còn mở | | |
+- Kết quả RTM theo từng chiều: [PASS / FAIL / PENDING] — xem [requirement-traceability-matrix.md](11-requirement-traceability/requirement-traceability-matrix.md)
+- Kết quả checklist sẵn sàng trình G1: [PASS / FAIL / PENDING] — xem [06-G1-approval-checklist.md](../checklists/06-G1-approval-checklist.md)
+- Hồ sơ review: [requirement-review-record.md](12-requirement-review/requirement-review-record.md)
+- Quyết định G1: chỉ dẫn chiếu tại [G1-approval.md](12-requirement-review/G1-approval.md); báo cáo này không ghi quyết định.
 
-## 7. Quy tắc nghiệp vụ chính
+## 6. Lịch sử thay đổi
 
-Liệt kê các quy tắc nghiệp vụ quan trọng.
-
-## 8. Phụ thuộc chính
-
-Liệt kê các hệ thống bên ngoài và phụ thuộc.
-
-## 9. Rủi ro và vấn đề
-
-Liệt kê các rủi ro đã nhận diện và các vấn đề chưa được giải quyết.
-
-## 10. Khuyến nghị
-
-Đưa ra khuyến nghị cho giai đoạn tiếp theo.
-
-## 11. Mức độ sẵn sàng cho G1
-
-- Mức độ đầy đủ của yêu cầu:
-- Chất lượng yêu cầu:
-- Vấn đề quan trọng còn mở:
-- Mức độ sẵn sàng phê duyệt:
-
-## 12. Tài liệu tham chiếu
-
-Liệt kê các tài liệu nguồn.
+| Phiên bản | Ngày | Người cập nhật | Thay đổi |
+|---|---|---|---|
+| 0.1 | | | Bản nháp ban đầu |

@@ -2,7 +2,7 @@
 
 > **Giai đoạn:** 04 – Development  
 > **Mục đích:** Bảo đảm thay đổi mã nguồn đúng yêu cầu và thiết kế, an toàn, có thể kiểm thử, bảo trì được và tuân thủ chuẩn kỹ thuật.  
-> **Review Gate liên quan:** G3 – xác nhận task trước coding; G4 – review/approval trước merge (được thực hiện tại giai đoạn 05).  
+> **Review Gate liên quan:** Stage 04 xác minh G1/G2/G3 trước coding, không phê duyệt lại; G4 được quyết định tại Stage 05 trước merge.  
 > **Người chịu trách nhiệm chính:** Developer thực hiện; Tech Lead chịu trách nhiệm giám sát kỹ thuật
 
 ## 1. Nguyên tắc review
@@ -53,27 +53,23 @@
 
 ## 5. Checklist review trước khi gửi PR
 
-- [ ] Task đã được G3 xác nhận hoặc có phê duyệt ngoại lệ hợp lệ.
+- [ ] [Development readiness checklist](checklists/development-readiness.md) = `Ready`.
 - [ ] Diff nằm trong phạm vi task; thay đổi ngoài phạm vi được tách hoặc giải trình.
 - [ ] Developer hiểu và có thể giải thích code do AI tạo.
 - [ ] Logic nghiệp vụ, edge case và error handling đã được kiểm tra.
 - [ ] Không vi phạm kiến trúc, API contract, schema hoặc coding standards.
-- [ ] Test phù hợp đã được tạo/cập nhật và chạy thành công.
+- [ ] Test phù hợp đã được tạo/cập nhật; kết quả thực thi thực tế đã được ghi vào test evidence.
 - [ ] Không chứa secrets, dữ liệu nhạy cảm hoặc thông tin không được phép.
 - [ ] Dependency, license và security impact đã được xem xét.
 - [ ] Migration và rollback/recovery được xem xét nếu có thay đổi dữ liệu.
 - [ ] Logging/metrics/docs được cập nhật khi cần.
 - [ ] Self-review diff đã hoàn tất; PR mô tả rõ thay đổi và cách test.
 
-## 6. Điều kiện bàn giao sang Code Review
+## 6. PR Readiness Check — bàn giao 04 → 05
 
-Developer chỉ tạo yêu cầu review khi:
-- PR có liên kết task và requirement liên quan.
-- Mô tả thay đổi, phạm vi, rủi ro và hướng dẫn kiểm thử đầy đủ.
-- CI/checks bắt buộc đã chạy hoặc trạng thái chưa chạy được nêu rõ.
-- Không có file sinh tự động, thay đổi ngoài phạm vi hoặc artifact không cần thiết chưa được giải thích.
+Developer có thể mở PR `Draft` để xin phản hồi sớm. Chỉ bàn giao chính thức khi đủ [điều kiện PR Readiness Check](workflow.md#410-pr-readiness-check--bàn-giao-04--05); nêu lý do cho check bắt buộc `Fail` hoặc `Not run` không đủ để bàn giao.
 
-Việc developer tự review không thay thế reviewer độc lập và G4.
+Developer ghi kết quả vào [handover checklist](checklists/handover-checklist.md); Tech Lead/maintainer xác nhận thêm nếu policy dự án yêu cầu. Self-review và kiểm tra bàn giao không thay thế reviewer độc lập và quyết định G4 ở 05.
 
 ## 7. Khi yêu cầu AI làm lại
 

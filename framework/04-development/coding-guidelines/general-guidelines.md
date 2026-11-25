@@ -17,7 +17,7 @@ Security/privacy/pháp lý và governance của framework → kiến trúc và c
 ## Test và hiệu năng
 - Test hành vi: happy path, negative, biên và regression theo mức rủi ro. Test phải deterministic.
 - Không xóa hoặc làm yếu test để che lỗi. Không khẳng định test đã pass khi chưa thực thi.
-- Tránh N+1, query không giới hạn, blocking I/O và rò rỉ tài nguyên. Dùng timeout/cancellation và retry có giới hạn khi phù hợp.
+- Tránh N+1, query không giới hạn, blocking I/O và rò rỉ tài nguyên. Hỗ trợ cancellation khi phù hợp. Với lời gọi dependency, xem [quy tắc retry và timeout](error-handling.md#retry-và-timeout).
 - Cân nhắc concurrency/race condition; đo lường trước khi tối ưu.
 
 ## Vệ sinh thay đổi

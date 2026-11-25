@@ -14,7 +14,9 @@ Trong vận hành:  outputs/<project>/<release-ID>/   (ví dụ: outputs/CRM/REL
 
 Nguyên tắc: không ghi đè lịch sử; khi plan, artifact hoặc kết quả thay đổi thì tạo revision mới.
 
-## Vai trò từng file
+## Biểu mẫu và ví dụ
+
+Dùng [Deployment Record](../../templates/deployment/deployment-record.md) làm biên bản chuẩn cho thực thi, xác minh, sự cố/rollback và bàn giao. Hồ sơ [phê duyệt G6](../templates/production-approval.md) giữ quyết định phê duyệt và chỉ tham chiếu biên bản thực thi; không sao chép kết quả sang hồ sơ G6.
 | File | Vai trò |
 |---|---|
 | `README.md` | Quy định cách tổ chức thư mục theo release, danh sách metadata bắt buộc và cấm lưu secret/dữ liệu production nhạy cảm. |
@@ -25,6 +27,6 @@ Nguyên tắc: không ghi đè lịch sử; khi plan, artifact hoặc kết qu�
 Trong vận hành, tổ chức theo project/service/release ID. Không ghi đè lịch sử; tạo revision mới khi plan, artifact hoặc kết quả thay đổi.
 
 ## Metadata bắt buộc
-Project/service, release ID, environment, commit SHA, artifact digest, pipeline run, plan version, G6 approver, timestamp, execution owner, result, verification evidence và handover status.
+Project/service, release ID, môi trường đích, commit SHA, artifact digest, pipeline run, plan version, timestamp, người thực thi, kết quả và bằng chứng xác minh, phiên bản đang chạy và trạng thái bàn giao. Với Production, ghi tham chiếu hồ sơ G6, authorization và lượt bắt đầu. Phân biệt bàn giao release đã xác minh thành công với bàn giao thông tin sự cố; bàn giao sự cố không chuyển stage.
 
 Không lưu secret, token hoặc dữ liệu production nhạy cảm trong outputs.

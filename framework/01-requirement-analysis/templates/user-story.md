@@ -49,41 +49,29 @@
 ### 3.1 Mô tả
 [Mô tả chi tiết chức năng cần thực hiện.]
 
-### 3.2 Luồng chính
-1. [Bước 1]
-2. [Bước 2]
-3. [Bước 3]
+### 3.2 Use Case liên quan
+- [UC IDs]: luồng chính, thay thế và ngoại lệ chi tiết được quản lý trong Use Case; không sao chép vào User Story.
 
-### 3.3 Luồng thay thế
-1. [Kịch bản thay thế]
-2. [Hành vi mong đợi]
+## 4. Quy tắc nghiệp vụ và phụ thuộc
 
-### 3.4 Luồng ngoại lệ
-1. [Điều kiện lỗi]
-2. [Cách xử lý lỗi mong đợi]
+- Business Rules: tham chiếu BR ID trong `../outputs/07-business-rules/business-rules.md`.
+- Dependencies: tham chiếu DPN ID trong `../outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md`.
 
-## 4. Quy tắc nghiệp vụ
-
-| Mã quy tắc | Mô tả quy tắc | Yêu cầu liên quan |
+| Loại | ID | Mô tả ngắn/ghi chú |
 |---|---|---|
-| BR-0001 | [Mô tả] | BRQ-0001 |
+| BR | BR-0001 | [Tên quy tắc] |
+| DPN | DPN-0001 | [Phụ thuộc] |
 
-## 5. Phụ thuộc
-
-| Mã phụ thuộc | Mô tả | Loại |
-|---|---|---|
-| DEP-001 | [Phụ thuộc] | Nội bộ / Bên ngoài |
-
-## 6. Tham chiếu tiêu chí nghiệm thu
+## 5. Tham chiếu tiêu chí nghiệm thu
 
 | Mã AC | Mô tả | Độ ưu tiên |
 |---|---|---|
 | AC-001 | [Tiêu chí nghiệm thu] | Cao |
 | AC-002 | [Tiêu chí nghiệm thu] | Cao |
 
-Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteria.md`.
+Tiêu chí nghiệm thu chi tiết được quản lý trong `../outputs/06-acceptance-criteria/acceptance-criteria.md`.
 
-## 7. Yêu cầu UX/UI
+## 6. Yêu cầu UX/UI
 
 - Màn hình/Trang: [Tên màn hình]
 - Tương tác người dùng: [Mô tả tương tác]
@@ -92,14 +80,14 @@ Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteri
 - Kiểm tra dữ liệu: [Quy tắc kiểm tra]
 - Tham chiếu UI/UX: [Liên kết thiết kế]
 
-## 8. Yêu cầu phi chức năng
+## 7. Yêu cầu phi chức năng liên quan
 
-- Hiệu năng: [Yêu cầu]
-- Bảo mật: [Yêu cầu]
-- Khả năng truy cập: [Yêu cầu]
-- Ghi log kiểm toán: [Yêu cầu]
+Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functional-requirements.md`:
 
-## 9. Định nghĩa sẵn sàng (Definition of Ready - DoR)
+- NFR IDs:
+- Điều kiện áp dụng:
+
+## 8. Định nghĩa sẵn sàng (Definition of Ready - DoR)
 
 - [ ] Yêu cầu nghiệp vụ đã được xác định.
 - [ ] Vai trò người dùng đã được định nghĩa rõ ràng.
@@ -109,7 +97,7 @@ Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteri
 - [ ] Không còn câu hỏi quan trọng chưa được giải quyết.
 - [ ] Story đủ nhỏ để triển khai.
 
-## 10. Định nghĩa hoàn thành (Definition of Done - DoD)
+## 9. Định nghĩa hoàn thành (Definition of Done - DoD)
 
 - [ ] Đã hoàn thành triển khai.
 - [ ] Unit test đã pass.
@@ -119,7 +107,7 @@ Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteri
 - [ ] Tài liệu đã được cập nhật.
 - [ ] Không còn lỗi nghiêm trọng chưa được xử lý.
 
-## 11. Review và phê duyệt
+## 10. Review và phê duyệt
 
 | Vai trò | Họ tên | Quyết định | Ngày |
 |---|---|---|---|
@@ -127,7 +115,7 @@ Tiêu chí nghiệm thu chi tiết được quản lý trong `acceptance-criteri
 | Product Owner | [Họ tên] | [Quyết định] | [Ngày] |
 | Tech Lead | [Họ tên] | [Quyết định] | [Ngày] |
 
-## 12. Lịch sử thay đổi
+## 11. Lịch sử thay đổi
 
 | Phiên bản | Ngày | Mô tả thay đổi |
 |---|---|---|

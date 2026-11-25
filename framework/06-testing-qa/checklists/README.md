@@ -11,7 +11,7 @@ test-readiness-checklist        → trước khi thực thi (entry)
 functional / non-functional     → trong quá trình thực thi
 defect-verification             → khi retest defect
 regression-testing              → trước sign-off, sau fix
-qa-signoff-checklist            → trước G5
+qa-signoff-checklist            → trước khi trình và đóng G5
 ```
 
 ## Vai trò từng file
@@ -22,7 +22,7 @@ qa-signoff-checklist            → trước G5
 | `non-functional-testing-checklist.md` | Thực thi performance, security, accessibility, compatibility, reliability | QA Engineer, Security/Performance specialist | Workload, threat profile, authz, sensitive data, resource usage, finding và accepted risk |
 | `defect-verification-checklist.md` | Ghi nhận và retest defect | QA Engineer | Bug report đầy đủ, evidence đã redacted, retest scenario gốc, regression liên quan, QA xác nhận closure |
 | `regression-testing-checklist.md` | Sau fix và trước sign-off | QA Engineer, QA Lead | Impact analysis, defect cũ, critical workflow, contract/integration, flaky và skipped test |
-| `qa-signoff-checklist.md` | Trước khi trình G5 | QA Lead, Product Owner | Scope/exit criteria, defect threshold, coverage gap, approver, build SHA; AI không tự phê duyệt |
+| `qa-signoff-checklist.md` | Trước khi trình và đóng G5 | QA Lead, Product Owner | Scope, defect policy, coverage, provenance, artifact/gói review SHA-256, hai phê duyệt; AI không tự phê duyệt |
 
 ## Quy tắc sử dụng
 - Mỗi checklist là danh sách rà soát; mục chưa đạt phải ghi lý do, không tick cho có.

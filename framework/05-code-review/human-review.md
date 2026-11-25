@@ -42,23 +42,34 @@
 
 ## 4. Phân loại finding
 
-| Mức độ | Ý nghĩa | Cách xử lý |
-|---|---|---|
-| Blocker / Critical | Có nguy cơ nghiêm trọng về bảo mật, mất/hỏng dữ liệu, sai nghiệp vụ trọng yếu hoặc làm hệ thống không thể vận hành. | Không approve/merge; yêu cầu sửa và review lại. |
-| Major | Lỗi correctness, reliability, compatibility hoặc chất lượng có ảnh hưởng đáng kể. | Thông thường phải sửa trước merge; ngoại lệ chỉ theo policy và có người đủ thẩm quyền chấp thuận. |
-| Minor | Vấn đề cục bộ, ít ảnh hưởng, có thể xử lý sau nếu policy cho phép. | Sửa trước merge hoặc tạo tracked follow-up có owner/deadline. |
-| Suggestion | Đề xuất cải thiện, không phải lỗi bắt buộc. | Author cân nhắc; ghi rõ không phải blocker. |
+Thang severity chung cho cả stage (ai-instructions, review report, G4 checklist, security review). Ba trường độc lập: **mức độ ảnh hưởng**, **có chặn merge không**, **trạng thái xử lý**.
+
+| Severity | Ý nghĩa | Chặn merge/G4 | Cách xử lý |
+|---|---|---|---|
+| Critical | Nguy cơ nghiêm trọng về bảo mật, mất/hỏng dữ liệu, sai nghiệp vụ trọng yếu hoặc hệ thống không vận hành được. | Có | Không approve/merge; sửa và review lại. |
+| High | Lỗi ảnh hưởng đáng kể tới luồng chính, nhiều người dùng hoặc dữ liệu dùng chung, nhưng chưa đến mức Critical. | Có, trừ ngoại lệ | Sửa trước merge; ngoại lệ chỉ theo policy, có người đủ thẩm quyền và risk acceptance. |
+| Medium | Vấn đề có ảnh hưởng vừa/cục bộ. | Không mặc định | Sửa trước merge, hoặc có quyết định xử lý/accepted risk/follow-up có owner và deadline. |
+| Low | Vấn đề nhỏ, ít ảnh hưởng. | Không | Sửa hoặc tạo tracked follow-up nếu policy cho phép. |
+| Info | Gợi ý cải thiện, không phải lỗi. | Không | Author cân nhắc; ghi rõ không phải blocker. |
+
+Tương ứng với cách gọi cũ: Blocker → Critical, Major → High, Suggestion → Info. Với finding từng gọi là Minor, chọn **Medium** nếu có ảnh hưởng đáng kể trong một phạm vi giới hạn (ví dụ: một luồng phụ cho kết quả sai); chọn **Low** nếu ảnh hưởng không đáng kể, chẳng hạn vấn đề cục bộ về khả năng đọc hoặc bảo trì.
+
+**Trạng thái xử lý:** Open / Addressed / Accepted Risk / Rejected / Need Clarification (xem review report).
+
+**Recommendation của AI** (Approve / Request Changes / Comment / Blocked) chỉ là khuyến nghị; **quyết định G4** do người có thẩm quyền đưa ra và ghi riêng.
 
 Không hạ mức độ finding chỉ để đạt tiến độ. Finding bảo mật, dữ liệu hoặc tuân thủ phải theo quy trình escalation tương ứng.
 
 ## 5. Review theo Autonomy Level
+
+Mức áp dụng theo từng hành động. L1/L2 không miễn G4; quyền merge không đồng nghĩa quyền duyệt G4.
 
 | Level | Cách con người tham gia |
 |---|---|
 | L1 | AI có thể chạy lint, format, static checks và phân loại finding. Kết quả được lưu log; không tự approve hoặc merge. |
 | L2 | AI hỗ trợ review sơ bộ; reviewer lấy mẫu/kiểm tra theo điều kiện đối với thay đổi rủi ro thấp. Required checks vẫn phải đạt. |
 | L3 | Reviewer có thẩm quyền bắt buộc đọc diff, đánh giá finding và approve trước merge. Áp dụng cho thay đổi logic, API, schema, quyền và dữ liệu. |
-| L4 | Tech Lead/owner quyết định đối với thay đổi rủi ro đặc biệt cao, security exception hoặc thay đổi khó đảo ngược; AI chỉ tư vấn. |
+| L4 | Tech Lead/owner (người có thẩm quyền theo policy) quyết định đối với thay đổi rủi ro đặc biệt cao, security exception hoặc thay đổi khó đảo ngược; AI chỉ tư vấn. |
 
 ## 6. Checklist G4
 
@@ -70,7 +81,7 @@ Không hạ mức độ finding chỉ để đạt tiến độ. Finding bảo m
 - [ ] Security/data/privacy impact được xem xét.
 - [ ] Test phù hợp đã chạy và kết quả có thể truy vết.
 - [ ] Required CI checks và policy branch protection đạt.
-- [ ] Không còn blocker/critical hoặc major finding chưa được xử lý theo policy.
+- [ ] Không còn Critical/High finding chưa xử lý; Medium còn lại có quyết định xử lý theo policy.
 - [ ] Comment và thread cần giải quyết đã được xử lý.
 - [ ] Approval được ghi nhận bởi đúng người có quyền.
 - [ ] Thay đổi sau approval đã được review lại nếu ảnh hưởng nội dung được duyệt.
@@ -81,6 +92,8 @@ Không hạ mức độ finding chỉ để đạt tiến độ. Finding bảo m
 
 **Request changes / Reject** khi phát hiện lỗi cần sửa, thiếu bằng chứng test, rủi ro chưa xử lý hoặc thay đổi không đúng phạm vi.
 
+**Phân biệt quyền:** quyền merge không đồng nghĩa quyền duyệt G4; AI chỉ khuyến nghị. Stage 05 hoàn tất khi merge đã được xác minh (merge commit SHA + link bằng chứng), không chỉ khi PR được approve.
+
 **Merge** chỉ được thực hiện bởi người/quy trình có quyền theo repository policy. Approval không tự động cho phép bỏ qua branch protection. Nếu PR có commit mới sau approval, hệ thống phải xác định approval còn hiệu lực hay cần review lại theo policy.
 
 ## 8. Khi yêu cầu AI/author làm lại
@@ -89,7 +102,7 @@ Reviewer ghi finding có vị trí cụ thể, mức độ, tác động, điề
 
 ## 9. Bằng chứng và hồ sơ review
 
-Lưu PR URL/ID, commit SHA được duyệt, reviewer identity, approval timestamp, review comments, finding/severity, CI run/version, exception, merge identity và merge commit SHA.
+Lưu PR URL/ID, commit SHA được duyệt, reviewer identity, approval timestamp, review comments, finding/severity, CI run/version, exception, merge identity, merge commit SHA và link bằng chứng merge (build của G5 phải truy vết về commit này).
 
 ## 10. Trách nhiệm cuối cùng
 
