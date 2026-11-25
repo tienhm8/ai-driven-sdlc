@@ -88,7 +88,7 @@ Handoff to Task Planning
 - Security design và threat model.
 - Deployment/operations design, reliability strategy.
 - ADR set, design risks và updated RTM.
-- Design Review Record và quyết định G2.
+- Design Review Record và tham chiếu approval record G2.
 
 ## 2.9 Quality Check — Kiểm tra chất lượng
 

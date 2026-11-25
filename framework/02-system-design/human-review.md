@@ -74,7 +74,7 @@ Tech Lead và chuyên gia ghi kết luận, phạm vi và bằng chứng review;
 
 **Changes Requested** khi còn điều kiện cần đóng; **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
 
-**Changes requested / Reject** khi thiết kế không đáp ứng yêu cầu, có lỗ hổng/rủi ro không thể chấp nhận, thiếu phương án vận hành hoặc các thành phần thiết kế mâu thuẫn.
+**Rejected** khi thiết kế không đáp ứng yêu cầu, có lỗ hổng/rủi ro không thể chấp nhận, thiếu phương án vận hành hoặc các thành phần thiết kế mâu thuẫn.
 
 Các vấn đề chưa ảnh hưởng đến quyết định có thể được ghi thành action có owner và deadline; không được dùng action mở để che giấu rủi ro nghiêm trọng.
 
@@ -84,7 +84,7 @@ Reviewer chỉ rõ thành phần/ADR liên quan, vấn đề, ràng buộc cần
 
 ## 8. Bằng chứng và hồ sơ review
 
-Lưu design baseline, sơ đồ và spec theo phiên bản; ADR; threat model/risk assessment; comment của reviewer; quyết định G2; danh tính và timestamp người phê duyệt; các ngoại lệ được chấp thuận và ngày hết hạn (nếu có).
+Lưu design baseline, sơ đồ và spec theo phiên bản; ADR; threat model/risk assessment; comment của reviewer; tham chiếu approval record G2 (quyết định, danh tính và timestamp người phê duyệt, ngoại lệ được chấp thuận và ngày hết hạn nếu có).
 
 ## 9. Trách nhiệm cuối cùng
 
