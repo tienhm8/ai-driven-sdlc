@@ -90,6 +90,8 @@ AI đóng vai trò Technical Project Planner / Scrum Assistant, hỗ trợ phân
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 03.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Phân loại và cập nhật Task. |

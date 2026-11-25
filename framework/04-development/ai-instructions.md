@@ -98,6 +98,8 @@ AI đóng vai trò Software Developer / Software Engineer, hỗ trợ triển kh
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 04.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Format, tạo tài liệu nháp và chạy kiểm tra tự động. |
