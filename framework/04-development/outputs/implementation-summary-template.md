@@ -26,4 +26,4 @@ Công cụ/model, artifact được tạo hoặc chỉnh sửa, kiểm tra của
 |---|---|---|---|
 | | | | |
 
-**Trạng thái:** Ready for Review / Blocked
+**Tham chiếu PR Readiness Check (nếu có):**

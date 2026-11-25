@@ -5,7 +5,7 @@ Chuyển requirement, thiết kế và backlog đã duyệt thành code, tests, 
 
 ## Vị trí trong SDLC
 - Inputs: kết quả 01 Requirement Analysis, 02 System Design, 03 Task Planning.
-- Entry: G1, G2, G3 đã được phê duyệt; task đạt Definition of Ready.
+- Entry: [Development readiness checklist](checklists/development-readiness.md) = `Ready` sau khi xác minh G1/G2/G3 và Definition of Ready.
 - Outputs: code changes trong Git, test evidence, implementation summary, tài liệu cập nhật và handover cho 05 Code Review.
 - Development `Done` không đồng nghĩa PR đã merge, QA nghiệm thu hoặc đã deploy.
 
@@ -26,7 +26,7 @@ Chuyển requirement, thiết kế và backlog đã duyệt thành code, tests, 
 3. Hoàn tất `checklists/development-readiness.md` (nguồn kiểm tra duy nhất: xác minh G1/G2/G3 và DoR); thiếu hoặc mâu thuẫn thì Blocked.
 4. Lập plan, triển khai theo guidelines và autonomy policy.
 5. Chạy kiểm tra, ghi evidence, tự review và cập nhật docs.
-6. Hoàn tất DoD/handover checklist và bàn giao sang 05.
+6. Hoàn tất DoD và [PR Readiness Check](workflow.md#410-pr-readiness-check--bàn-giao-04--05) trước khi bàn giao sang 05.
 
 ## Quy tắc
 - Không tự sửa requirement, API, schema, authorization hoặc kiến trúc đã duyệt nếu chưa có change approval.

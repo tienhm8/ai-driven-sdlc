@@ -14,7 +14,7 @@ outputs/
 
 Lưu theo task/release, ví dụ `outputs/TASK-123/`, gồm bản instance của các template trên cùng với tài liệu kỹ thuật được cập nhật.
 
-Luồng bàn giao: `implementation-summary` và `test-evidence` là đầu vào của `development-handover`; cả ba cùng được kiểm tra bởi `checklists/handover-checklist.md` trước khi chuyển sang 05.
+Luồng bàn giao: `implementation-summary` và `test-evidence` là đầu vào của `development-handover`; cả ba cùng được kiểm tra trong [handover checklist](../checklists/handover-checklist.md), nơi ghi kết quả PR Readiness Check trước khi chuyển sang 05.
 
 ## Vai trò từng file
 
@@ -23,7 +23,7 @@ Luồng bàn giao: `implementation-summary` và `test-evidence` là đầu vào 
 | `README.md` | Quy định artifact nào cần có, cách đặt tên/lưu theo task, yêu cầu ghi ID/commit/date/author và nguyên tắc ghi Pass/Fail/Not run. | Developer, AI |
 | `implementation-summary-template.md` | Mô tả thay đổi đã làm, ánh xạ từng AC với bằng chứng, tác động API/DB/config/bảo mật, phần AI hỗ trợ và known issues. | 05 Code Review |
 | `test-evidence-template.md` | Ghi lệnh chính xác, môi trường, phiên bản và kết quả của từng loại test/check. Phân biệt rõ Pass, Fail và Not run; ghi lý do cho mọi kiểm tra bị loại trừ. | 05 Code Review, 06 Testing & QA |
-| `development-handover-template.md` | Gói bàn giao chính: link PR, phạm vi đã giao, trọng tâm review, rủi ro và câu hỏi mở, xác nhận DoD. Không đánh dấu G4 approved. | 05 Code Review |
+| `development-handover-template.md` | Gói bàn giao chính: link PR, phạm vi đã giao, trọng tâm review, rủi ro và câu hỏi mở, Base SHA / Head SHA và liên kết đến kết quả DoD/readiness. Không đánh dấu G4 approved. | 05 Code Review |
 
 Tài liệu kỹ thuật cập nhật (module/API/config docs) được lập theo `templates/code-documentation.md` và dùng bởi 05, 06, 07, 08.
 
