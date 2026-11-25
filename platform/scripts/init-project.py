@@ -140,7 +140,7 @@ def generate_config(
         "autonomy": {
             "default_level": "L2",
             "stages": {
-                "requirement_analysis": "L3",
+                "requirement_analysis": "L2",
                 "system_design": "L3",
                 "task_planning": "L2",
                 "development": "L2",

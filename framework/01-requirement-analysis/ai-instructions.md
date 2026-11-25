@@ -96,6 +96,8 @@ Chỉ tạo nội dung US/UC, BR, AC, Business Process Model và Business Glossa
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 01.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Phân loại và chuẩn hóa tài liệu. |
@@ -103,7 +105,7 @@ Chỉ tạo nội dung US/UC, BR, AC, Business Process Model và Business Glossa
 | **L3** | Đề xuất thay đổi yêu cầu, cần Product Owner review. |
 | **L4** | Product Owner quyết định yêu cầu nghiệp vụ cuối cùng. |
 
-**Mặc định: L2.**
+**Mặc định: L2.** có thể điều chỉnh `autonomy.stages.requirement_analysis` trong cấu hình `.ai-sdlc/` của dự án
 
 ## 10. Human Review
 
