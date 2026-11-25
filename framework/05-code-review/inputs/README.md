@@ -16,7 +16,7 @@
 
 | Mức | Đầu vào | Nếu thiếu |
 |---|---|---|
-| **Tối thiểu để bắt đầu review** | PR/diff gắn base/head SHA; task và Acceptance Criteria; coding standards; [gói bàn giao Development](../../04-development/outputs/development-handover-template.md) | `Blocked` – không review, trả về Development |
+| **Tối thiểu để bắt đầu review** | PR/diff gắn base/head SHA; task và Acceptance Criteria; coding standards; [gói bàn giao Development](../../04-development/outputs/development-handover-template.md) | `Blocked` – chưa bắt đầu review. Nếu gói bàn giao thiếu đầu vào, yêu cầu Development bổ sung; nếu không truy cập được PR/diff do thiếu quyền hoặc lỗi công cụ, báo người điều phối hoặc người quản lý quyền truy cập. |
 | **Bắt buộc theo loại thay đổi** | Thay đổi API → API contract; schema/migration → data model + kế hoạch rollback; bảo mật/quyền/dữ liệu nhạy cảm → security design/decision; thay đổi kiến trúc → ADR/design | Ghi `Missing`, review được phần còn lại nhưng không đề xuất Approve cho phần liên quan |
 | **Bắt buộc trước G4** | Kết quả CI/build/test của required checks trên head SHA hiện tại; security review nếu thuộc phạm vi; xử lý xong finding chặn merge | Không trình/duyệt G4. CI chưa đạt không ngăn đọc diff nhưng chặn G4 và merge nếu là check bắt buộc |
 | **Tùy chọn** | Previous review comments, performance requirements, tài liệu kiến trúc bổ sung khi thay đổi không chạm kiến trúc | Ghi chú nếu liên quan |
