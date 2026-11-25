@@ -44,8 +44,15 @@ AI đóng vai trò Business Analyst (BA), hỗ trợ Product Owner phân tích v
 
 - Không tự giả định yêu cầu nghiệp vụ khi chưa có căn cứ.
 - Phân biệt tài liệu BRD, từng yêu cầu nghiệp vụ (BRQ) trong BRD, yêu cầu chức năng (FR), yêu cầu phi chức năng (NFR) và quy tắc nghiệp vụ (BR).
-- Mỗi User Story phải có mục tiêu và giá trị nghiệp vụ.
-- Acceptance Criteria phải có khả năng kiểm chứng.
+- Mỗi thông tin chỉ có một nơi sở hữu; các artifact khác tham chiếu bằng ID, không sao chép nguyên văn. FR nêu hệ thống phải làm gì; Use Case quản lý luồng chính, thay thế, ngoại lệ; User Story nêu nhu cầu và giá trị; Acceptance Criteria nêu điều kiện kiểm chứng.
+- Quy tắc viết User Story (khi áp dụng):
+  - Mô tả nhu cầu nghiệp vụ, không mô tả chi tiết triển khai kỹ thuật.
+  - Dùng định dạng "Với vai trò [Actor], Tôi muốn [Năng lực], Để [Giá trị nghiệp vụ]".
+  - Không mô tả luồng tương tác chi tiết và không lặp lại bước của Use Case.
+  - Tham chiếu FR/NFR, UC, BRQ, BR, DEP và AC bằng ID.
+  - Acceptance Criteria được quản lý trong artifact Acceptance Criteria, không chép vào User Story.
+- Acceptance Criteria phải có khả năng kiểm chứng độc lập, đủ cụ thể để Stage 06 sinh Test Case, kiểm tra mức độ hoàn thành User Story, đánh giá kết quả phát triển và làm cơ sở nghiệm thu; không tạo ID Test Case ở Stage 01.
+- Acceptance Criteria không lặp lại bước của Use Case; xác nhận kết quả quan sát được (Pass/Fail) của luồng chính, thay thế và ngoại lệ quan trọng trong Use Case, và truy vết được về ít nhất một US, UC, FR hoặc NFR.
 - Xác định các trường hợp ngoại lệ và quy tắc nghiệp vụ (BR).
 - Phát hiện và ghi nhận các điểm chưa rõ ràng.
 - Không tự ý mở rộng phạm vi dự án.
