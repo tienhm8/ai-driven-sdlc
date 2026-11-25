@@ -30,7 +30,7 @@ Reviewer ghi kết luận trong phạm vi của mình; phê duyệt chuyên môn
 | Approver | Vai trò / thẩm quyền | Quyết định | Timestamp / múi giờ | Phiên bản artifact / review | Bằng chứng |
 |---|---|---|---|---|---|
 
-Ghi riêng quyết định của từng approver: `approved`, `rejected`, `changes_requested` hoặc `blocked`. Khi cần sửa để đáp ứng điều kiện bắt buộc, dùng `changes_requested`, không dùng phê duyệt có điều kiện. G5 cần hai người riêng biệt theo vai trò yêu cầu, cùng duyệt một release candidate.
+Ghi riêng quyết định của từng approver: `approved`, `rejected`, `changes_requested` hoặc `blocked`. Khi cần sửa để đáp ứng điều kiện bắt buộc, dùng `changes_requested`, không dùng phê duyệt có điều kiện. G5 cần hai người riêng biệt theo vai trò yêu cầu, cùng duyệt một release candidate (`artifact_sha256`) và cùng gói review đã chốt (`review_context_sha256`). Nếu gói review thay đổi, lấy quyết định mới của cả hai cho gói mới, kể cả khi artifact không đổi.
 
 ## Action không chặn
 Không dùng action mở để che giấu điều kiện gate chưa đáp ứng.

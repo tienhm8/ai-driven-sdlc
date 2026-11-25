@@ -5,7 +5,7 @@ from unicodedata import category
 
 import markdown
 from markdown.extensions import Extension
-from markdown.extensions.toc import get_name, stashedHTML2text
+from markdown.extensions.toc import HTML_PLACEHOLDER_RE, stashedHTML2text
 from markdown.treeprocessors import Treeprocessor
 
 SAFE_SCHEMES = {"http", "https", "mailto"}
@@ -75,6 +75,20 @@ def _heading_slug(text: str) -> str:
         if char in " -_" or category(char)[0] in "LMN"
     )
 
+def _heading_text(element, md) -> str:
+    def decode_stashed(text):
+        return HTML_PLACEHOLDER_RE.sub(
+            lambda match: unescape(stashedHTML2text(match.group(), md, strip_entities=False)),
+            text,
+        )
+
+    if element.tag == "code":
+        # Markdown escapes code text before serialization; undo only that layer.
+        return unescape(element.text or "")
+    return (decode_stashed(element.text or "") + "".join(
+        _heading_text(child, md) + decode_stashed(child.tail or "") for child in element
+    ))
+
 class _HeadingIds(Treeprocessor):
     def run(self, root):
         used = set()
@@ -82,9 +96,7 @@ class _HeadingIds(Treeprocessor):
         for heading in root.iter():
             if heading.tag not in {"h1", "h2", "h3", "h4", "h5", "h6"}:
                 continue
-            # At this point inline Markdown has been expanded into elements.
-            text = stashedHTML2text(get_name(heading), self.md, strip_entities=False)
-            base = _heading_slug(unescape(text))
+            base = _heading_slug(_heading_text(heading, self.md).strip())
             if not base:
                 continue
             slug = base
