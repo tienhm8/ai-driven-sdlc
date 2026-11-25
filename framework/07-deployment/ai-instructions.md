@@ -42,11 +42,11 @@ AI đóng vai trò DevOps Engineer / Release Engineer, hỗ trợ chuẩn bị v
 - Database Migration Scripts.
 - Release Notes.
 - Monitoring Configuration.
-- Previous Deployment Reports.
+- Previous Deployment Records.
 
 ## 5. Execution Rules
 
-- Không triển khai khi chưa qua G6.
+- G6 chỉ áp dụng cho Production. Không thay đổi Production (kể cả migration hoặc chuyển traffic) nếu chưa có phê duyệt và authorization hợp lệ cho đúng artifact SHA-256, môi trường đích và gói review SHA-256. Non-production vẫn tuân thủ quyền và policy của môi trường.
 - Không hardcode Secrets.
 - Không sử dụng Production Credentials ngoài cơ chế đã được phê duyệt.
 - Kiểm tra Environment Configuration.
@@ -68,12 +68,12 @@ AI đóng vai trò DevOps Engineer / Release Engineer, hỗ trợ chuẩn bị v
 8. Xây dựng Deployment Plan.
 9. Xây dựng Rollback Plan.
 10. Chuẩn bị Release Notes.
-11. Thực hiện Pre-deployment Checks.
-12. Trình Release Manager phê duyệt.
-13. Thực thi Deployment trong phạm vi được cấp quyền.
-14. Chạy Smoke Tests.
-15. Kiểm tra Health Checks.
-16. Tổng hợp Deployment Report.
+11. Hoàn thành kiểm tra readiness trước khi trình duyệt.
+12. Chỉ với Production: trình Release Manager phê duyệt G6. Nếu plan, cấu hình hoặc evidence trọng yếu thay đổi, mở review mới dù artifact không đổi.
+13. Với Production, xác nhận adapter tin cậy đã gọi `authorize_action` theo quyết định G6 hợp lệ; AI không tự cấp quyền. Ngay trước khi gửi lệnh chạy, adapter gọi `check_action_start` để đối chiếu authorization với artifact, môi trường đích và gói review hiện tại. Với non-production, kiểm tra quyền theo policy riêng. Dừng nếu kiểm tra không hợp lệ.
+14. Thực thi theo thứ tự migration, rollout và chuyển traffic trong plan đã duyệt; không tự đổi thứ tự hoặc bỏ qua tiêu chí dừng.
+15. Chạy smoke tests và xác minh health/metrics sau rollout.
+16. Lưu Deployment Record và báo đúng trạng thái: thành công đã xác minh, rollback/thất bại đã xác minh, hoặc chưa rõ. Chỉ thành công Production đã xác minh mới chuyển Stage 08.
 
 ## 7. Output Requirements
 
@@ -83,7 +83,7 @@ AI đóng vai trò DevOps Engineer / Release Engineer, hỗ trợ chuẩn bị v
 - Database Migration Plan.
 - Rollback Plan.
 - Release Notes.
-- Deployment Execution Report.
+- [Deployment Record](../templates/deployment/deployment-record.md).
 - Smoke Test Results.
 
 ## 8. Quality Criteria
@@ -99,16 +99,16 @@ AI đóng vai trò DevOps Engineer / Release Engineer, hỗ trợ chuẩn bị v
 
 ## 9. Autonomy Level
 
-Bảng dưới mô tả phạm vi AI ở từng mức của Stage 07.
+[Mức tự chủ](../governance/autonomy-levels/README.md) gắn với từng hành động, không có mặc định cho cả stage. G6 vẫn bắt buộc cho Production ở mọi mức.
 
-| Level | Phạm vi AI |
-|---|---|
-| **L1** | Tạo Release Notes và chạy Pre-deployment Checks. |
-| **L2** | Chuẩn bị Deployment Configuration và đề xuất Rollback. |
-| **L3** | Thay đổi Pipeline và Infrastructure, cần review. |
-| **L4** | Release Manager quyết định triển khai Production có rủi ro cao. |
+| Level | Hành động và giới hạn của AI | Kiểm soát của con người |
+|---|---|---|
+| **L1** | Soạn release notes, tổng hợp pipeline status, chạy kiểm tra read-only được cho phép. | Policy, log và kiểm tra tự động. |
+| **L2** | Chuẩn bị cấu hình hoặc chạy deploy non-production trong phạm vi đã giao. | DevOps/Release Engineer đặt phạm vi và kiểm tra theo checklist hoặc trigger review. |
+| **L3** | Chuẩn bị thay đổi pipeline dùng chung, hạ tầng hoặc cấu hình Production; chỉ áp dụng trong phạm vi được giao sau review/approval. | Owner chuyên môn phê duyệt thay đổi; Release Manager phê duyệt riêng G6 nếu triển khai Production. |
+| **L4** | Chỉ phân tích, mô phỏng và đề xuất cho quyết định Go/No-Go, migration không thể đảo ngược hoặc rollback rủi ro cao. | Release Manager quyết định G6; DBA/Data Owner quyết định phần dữ liệu, người chỉ huy sự cố/on-call quyết định xử lý sự cố theo policy. |
 
-**Mặc định: L3.**
+Nếu chưa rõ mức của hành động, dừng để owner phân loại.
 
 ## 10. Human Review
 

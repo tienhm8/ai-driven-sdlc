@@ -1,6 +1,6 @@
 # Ví dụ – Báo cáo triển khai
 
-> Dữ liệu minh họa; không phải deployment thực tế.
+> Dữ liệu minh họa; không phải deployment thực tế. Dùng [Deployment Record](../../templates/deployment/deployment-record.md) cho biên bản thật.
 
 ## Metadata
 - Service: `sample-api`
@@ -29,6 +29,8 @@
 - Không ghi nhận issue trong ví dụ này.
 
 ## Handover
+- Không chuyển Stage 08: đây chỉ là lần triển khai staging.
+- Phiên bản đang chạy: `v2.4.0` tại staging (minh họa)
 - Dashboard/runbook:
 - On-call owner:
 - Known risks:

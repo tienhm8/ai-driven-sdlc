@@ -4,7 +4,8 @@
 - [ ] Release scope, owner, version và target environment được xác định rõ.
 - [ ] Artifact bất biến và gắn với commit SHA/digest.
 - [ ] Đã xác minh artifact source/provenance và chữ ký bắt buộc.
-- [ ] Phê duyệt G4 và G5 tham chiếu đúng release candidate.
+- [ ] Hồ sơ G5 duyệt đúng artifact SHA-256; provenance liên kết đúng kết quả merge G4.
+- [ ] API/client compatibility và tiêu chí smoke/health đã được xác nhận.
 
 ## Môi trường
 - [ ] Capacity/quota và dependencies ở trạng thái khỏe.
@@ -23,4 +24,5 @@
 - [ ] Monitoring, alerting, dashboards và logs truy cập được.
 - [ ] On-call và escalation contacts đã được gán.
 - [ ] Maintenance window và thông báo cho stakeholder đã sẵn sàng.
-- [ ] G6 approval đã được ghi nhận trước khi thực thi trên Production.
+
+Checklist này chỉ xác nhận readiness, không cấp quyền chạy. Với Production, dùng [kiểm tra quyền thực thi](production-authorization-checklist.md) sau G6.
