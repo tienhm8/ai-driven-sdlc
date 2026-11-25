@@ -35,7 +35,7 @@
 | Requirement / Story | |
 | Mục đích | |
 | Xác thực | |
-| Phân quyền | |
+| Phân quyền | Quyền/vai trò cần cho endpoint này; tham chiếu `SEC-DES-XXX §…` |
 | Idempotent? | |
 | Rate limit | |
 
@@ -71,7 +71,7 @@
 
 **Bảo mật / quyền riêng tư**
 - Phân loại dữ liệu:
-- Phân quyền mức field:
+- Phân quyền mức field: theo `SEC-DES-XXX §…`; chỉ ghi phần riêng của endpoint.
 - Trường nhạy cảm bị loại bỏ/che:
 
 ## 5. Mô hình lỗi dùng chung của API

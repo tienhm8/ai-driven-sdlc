@@ -29,6 +29,8 @@ Tech Lead và chuyên gia ghi kết luận, phạm vi và bằng chứng review;
 
 ## 3. Trách nhiệm review của con người
 
+Các điểm dưới đây cần phán đoán của con người; tiêu chí kiểm tra chi tiết nằm ở checklist (mục 5).
+
 1. **Requirement coverage:** Các yêu cầu chức năng và phi chức năng quan trọng được ánh xạ tới thành phần thiết kế.
 2. **Architecture fitness:** Kiến trúc phù hợp quy mô, tải, độ phức tạp, vòng đời và năng lực đội ngũ; không over-engineer hoặc under-engineer rõ rệt.
 3. **Architecture decisions:** Các lựa chọn quan trọng, phương án thay thế, hệ quả và lý do lựa chọn được ghi trong ADR.
@@ -53,26 +55,20 @@ Tech Lead và chuyên gia ghi kết luận, phạm vi và bằng chứng review;
 
 **Quy tắc:** Không dùng kết quả kiểm tra tự động hoặc đánh giá của AI thay cho G2.
 
-## 5. Checklist review
+## 5. Tiêu chí kiểm tra
 
-- [ ] Thiết kế dựa trên requirement baseline đã duyệt.
-- [ ] Các yêu cầu quan trọng có liên kết tới thành phần thiết kế.
-- [ ] Sơ đồ kiến trúc và ranh giới hệ thống rõ ràng.
-- [ ] ADR ghi nhận các quyết định kiến trúc quan trọng.
-- [ ] Security, privacy và threat model đã được xem xét.
-- [ ] Data model, migration, backup và recovery được review.
-- [ ] API/interface, versioning và compatibility được xác định.
-- [ ] Hiệu năng, khả năng mở rộng, resilience và failure mode được đánh giá.
-- [ ] Logging, monitoring, deployment và rollback có phương án.
-- [ ] Rủi ro, giả định, chi phí và phụ thuộc được ghi nhận.
-- [ ] Các reviewer chuyên môn đã phản hồi.
-- [ ] Tài liệu thiết kế có phiên bản và trạng thái rõ ràng.
+Tiêu chí chất lượng không lặp lại ở đây. Reviewer dùng:
+
+- [Checklist G2](checklists/g2-design-approval-checklist.md): tổng hợp điều kiện trình Solution Architect quyết định.
+- [Checklist chuyên môn](checklists/README.md#vai-trò-từng-file): mỗi vai trò ở mục 2 review theo checklist thuộc phạm vi của mình.
+
+Kết quả checklist là bằng chứng review, không phải quyết định G2. Bản checklist đã điền được lưu theo [quy định đầu ra](outputs/README.md#bằng-chứng-review), không điền vào mẫu dùng chung.
 
 ## 6. Điều kiện quyết định G2
 
 **Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ khi G2 `Approved`, Solution Architect được ủy quyền mới chốt đúng phiên bản design package đã duyệt làm baseline. Approval record ghi ID và phiên bản gói, định danh bất biến của nội dung đã duyệt (digest hoặc commit snapshot), quyết định, người duyệt, thời điểm và waiver hợp lệ nếu có; package index chỉ tham chiếu hồ sơ. Xem [quy định G2](../governance/human-review-gates/G2-design-approval.md).
 
-**Changes Requested** khi phương án có thể sửa và trình lại, nhưng còn điều kiện cần đóng (ví dụ: bổ sung kế hoạch rollback hoặc xử lý mâu thuẫn giữa các thành phần). **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc để ra quyết định. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
+**Changes Requested** khi phương án có thể sửa và trình lại, nhưng còn điều kiện cần đóng (ví dụ: bổ sung kế hoạch rollback hoặc xử lý mâu thuẫn giữa các thành phần). **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc để ra quyết định. Khi thiếu approver có thẩm quyền, người điều phối review ghi nhận `Blocked` trong hồ sơ blocker có ID, gắn với phiên bản gói, owner, lý do, việc cần xử lý và hạn, được liên kết từ checklist G2 và approval record. Đây là ghi nhận blocker, không phải quyết định của approver hay quyền chuyển tiếp. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
 
 **Rejected** khi Solution Architect không chấp nhận phương án và không yêu cầu sửa để trình lại phương án đó, chẳng hạn vì rủi ro không thể chấp nhận.
 
@@ -84,7 +80,7 @@ Reviewer chỉ rõ thành phần/ADR liên quan, vấn đề, ràng buộc cần
 
 ## 8. Bằng chứng và hồ sơ review
 
-Lưu design baseline, sơ đồ và spec theo phiên bản; ADR; threat model/risk assessment; comment của reviewer; tham chiếu approval record G2 (quyết định, danh tính và timestamp người phê duyệt, ngoại lệ được chấp thuận và ngày hết hạn nếu có).
+Người review chịu trách nhiệm để lại đủ bằng chứng cho quyết định: design baseline, sơ đồ và spec theo phiên bản; ADR; threat model/risk assessment; checklist đã điền; comment của reviewer; tham chiếu approval record G2 (quyết định, danh tính và timestamp người phê duyệt, ngoại lệ được chấp thuận và ngày hết hạn nếu có). Vị trí lưu theo [cấu trúc đầu ra](outputs/README.md#cấu-trúc).
 
 ## 9. Trách nhiệm cuối cùng
 
