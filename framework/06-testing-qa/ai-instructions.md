@@ -91,7 +91,7 @@ AI đóng vai trò QA Engineer / Test Engineer, hỗ trợ xây dựng chiến l
 - Test Cases bao phủ Acceptance Criteria.
 - Có Positive, Negative và Boundary Tests.
 - Các Test Results có thể truy vết.
-- Không còn Defect Critical chưa xử lý, hoặc chấp nhận rủi ro chính thức.
+- Critical còn mở trong phạm vi phát hành chặn G5; không đề xuất ngoại lệ thay cho các cách gỡ chặn theo quy tắc G5.
 - Test Coverage đạt ngưỡng do dự án quy định.
 - Có Regression Test.
 - Có đánh giá chất lượng trước nghiệm thu.
@@ -125,13 +125,7 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 06.
 
 **Gate:** G5 – QA & Acceptance Approval.
 
-**Điều kiện:**
-
-- Test Execution đạt yêu cầu.
-- Acceptance Criteria được kiểm chứng.
-- Không còn Defect nghiêm trọng chưa được xử lý hoặc chấp nhận.
-- QA Report được xác nhận.
-- Product Owner xác nhận nghiệm thu.
+Áp dụng [quy tắc G5](../governance/human-review-gates/G5-qa-approval.md) và [checklist sign-off](checklists/qa-signoff-checklist.md). Chuẩn bị evidence và khuyến nghị QA, không ghi quyết định thay QA Lead hay Product Owner. Không trình artifact nếu thiếu SHA-256 hoặc provenance đã xác minh từ merge G4.
 
 > **AI không được tự phê duyệt G5.**
 
@@ -155,5 +149,5 @@ Liên kết:
 - Test Cases → Test Results.
 - Test Results → Defects.
 - Defects → Fix Commits.
-- Test Report → Release Version.
-- QA Approval → G5.
+- Test Report / TESTRUN → Artifact SHA-256 → provenance → merge G4.
+- QA Lead và PO approval → G5 review ID, artifact SHA-256 và SHA-256 gói review.

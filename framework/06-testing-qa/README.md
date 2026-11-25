@@ -7,7 +7,7 @@ Xác minh phần mềm đáp ứng yêu cầu đã phê duyệt, hoạt động 
 - **AI QA Assistant:** phân tích yêu cầu, đề xuất strategy/plan/case, hỗ trợ test data an toàn, thực thi test được cấp quyền, phân tích kết quả và đề xuất defect.
 - **Developer:** cung cấp build/evidence, sửa lỗi và phối hợp xác minh.
 - **QA Engineer:** thiết kế/thực hiện test, xác nhận kết quả, quản lý defect và coverage.
-- **QA Lead:** đánh giá mức sẵn sàng và khuyến nghị G5.
+- **QA Lead:** đánh giá mức sẵn sàng, ghi khuyến nghị QA và quyết định chất lượng tại G5.
 - **Product Owner:** xác nhận Acceptance Criteria và nghiệm thu nghiệp vụ.
 
 ## Cấu trúc
@@ -22,7 +22,7 @@ Xác minh phần mềm đáp ứng yêu cầu đã phê duyệt, hoạt động 
 
 ## Nguyên tắc
 1. Truy vết Requirement/AC → Test Case → Execution → Defect → Sign-off.
-2. Mỗi kết quả gắn với build/version, environment, test data reference và thời điểm.
+2. Mỗi kết quả gắn với artifact SHA-256, TESTRUN, environment, test data reference và thời điểm.
 3. Phân biệt Pass, Fail, Blocked, Skipped, Not Run; không suy diễn test chưa chạy thành Pass.
 4. Coverage không chỉ là code coverage; cần đánh giá requirement, risk, scenario và quality attributes.
 5. Dùng synthetic/anonymized data; không đưa secret, token, PII hoặc production dump vào môi trường không được phép.
@@ -33,12 +33,12 @@ Xác minh phần mềm đáp ứng yêu cầu đã phê duyệt, hoạt động 
 - **L1:** chạy test đã duyệt, lint, tổng hợp kết quả và kiểm tra định dạng.
 - **L2:** sinh test case/script, test data giả lập và đề xuất phân tích defect; con người review theo điều kiện.
 - **L3:** thay đổi liên quan nghiệp vụ, security, dữ liệu hoặc tiêu chí nghiệm thu phải được người review/phê duyệt.
-- **L4:** QA sign-off, chấp nhận rủi ro, miễn trừ test bắt buộc và nghiệm thu thuộc con người.
+- **L4:** QA sign-off, chấp nhận rủi ro, ngoại lệ được policy cho phép và nghiệm thu thuộc con người.
 
 L1 vẫn cần log, kết quả máy đọc được và truy vết.
 
 ## Human Review Gate G5
-Trước nghiệm thu: Acceptance Criteria được xác nhận; test gắn với build cụ thể; có evidence; defect Critical/High được xử lý theo policy; coverage gaps và residual risks được công khai; regression và test bắt buộc hoàn tất; QA Lead đánh giá, Product Owner xác nhận nghiệp vụ. Lưu approver, timestamp, report version, build, environment và quyết định. AI không được tự phê duyệt G5.
+Theo [quy tắc G5](../governance/human-review-gates/G5-qa-approval.md), QA Lead và Product Owner là hai người riêng biệt, phê duyệt cùng release candidate và gói review. Critical còn mở trong phạm vi phát hành chặn G5; High chỉ có ngoại lệ theo policy. Khuyến nghị QA không phải quyết định G5; G5 không cấp quyền production. AI không được tự phê duyệt G5.
 
 ## Đầu ra
-Test plan, test cases, test data specification, execution report, defect reports, coverage matrix, residual-risk list và QA sign-off. Bàn giao known issues và release-blocking risks cho 07-Deployment.
+Test plan, test cases, test data specification, execution report, defect reports, coverage matrix, residual-risk list và QA sign-off. Khi G5 thông qua, [bàn giao cho Deployment](../07-deployment/inputs/README.md) artifact đã duyệt, hồ sơ G5, bằng chứng test, known issues/residual risks và tiêu chí smoke.

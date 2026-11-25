@@ -43,7 +43,7 @@ Handoff to Monitoring & Maintenance
 3. **Xác minh artifact:** dùng đúng immutable artifact đã qua G5; đối chiếu commit, tag, build ID và SHA-256. Nếu cần rebuild trước khi G6 cấp quyền triển khai, ghi lý do, quay lại QA và lấy lại G5/G6 cho candidate mới. Không dùng quyền G6 cũ để triển khai lại.
 4. **Kiểm tra cấu hình:** validate environment variables, secrets reference, feature flags, resource limits và network policy.
 5. **Chuẩn bị dữ liệu:** backup/snapshot theo policy; rehearsal migration; xác nhận backward/forward compatibility và restore path.
-6. **Thông báo:** gửi release notice, expected impact, maintenance window và escalation contact.
+6. **Chuẩn bị release notes và thông báo:** Deployment lập release notes từ release scope và gói bàn giao Stage 06; gửi release notice, expected impact, maintenance window và escalation contact.
 7. **Pre-deployment checks:** kiểm tra health baseline, capacity, dependency, alert status và freeze condition.
 8. **G6 trước khi triển khai production:** Release Manager ghi quyết định Go/No-Go cho đúng artifact đã qua G5. Không chạy rollout hoặc migration trên production nếu chưa đủ điều kiện G6. Sau đó **triển khai theo chiến lược:** rolling/canary/blue-green/staged phù hợp; áp dụng giới hạn blast radius.
 9. **Thực hiện migration:** chạy theo thứ tự, idempotency và kiểm soát lock/downtime; ghi log kết quả.
@@ -54,12 +54,12 @@ Handoff to Monitoring & Maintenance
 
 ## 7.5 Input — Đầu vào
 
-- Release candidate đã qua G5, artifact và provenance.
+- [Gói bàn giao Stage 06](inputs/README.md): artifact đã qua G5, định danh/provenance, hồ sơ G5 và bằng chứng QA.
 - Deployment plan/runbook, change request và approval.
 - Infrastructure/configuration/secrets reference.
 - Database migration, backup/restore và rollback plan.
-- Smoke test, health check và monitoring dashboard.
-- Release notes, stakeholder/on-call contacts và incident procedure.
+- Tiêu chí smoke từ Stage 06; health check và monitoring dashboard.
+- Stakeholder/on-call contacts và incident procedure.
 
 ## 7.6 AI Activities — Hoạt động AI
 

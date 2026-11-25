@@ -10,6 +10,7 @@ Release note, deployment plan, change list, config checklist, migration plan, mo
 - [ ] Artifact/version đúng bản đã qua G4/G5.
 - [ ] CI/CD và security checks bắt buộc đạt.
 - [ ] Environment/config/secrets được quản lý an toàn.
+- [ ] Nếu G5 duyệt phạm vi phát hành giới hạn bằng feature flag, Release Manager đối chiếu cấu hình flag của môi trường production đích với gói review G5 và lưu bằng chứng trước khi cấp quyền. Kiểm tra lại trước rollout. Nếu không xác minh được hoặc cấu hình không khớp, chặn rollout; nếu muốn mở rộng phạm vi, quay lại QA và lấy G5 mới trước G6, kể cả khi artifact SHA-256 không đổi.
 - [ ] Migration có sequencing và recovery strategy phù hợp.
 - [ ] Rollback/mitigation khả thi và có owner.
 - [ ] Monitoring, alerting, health check và on-call sẵn sàng.

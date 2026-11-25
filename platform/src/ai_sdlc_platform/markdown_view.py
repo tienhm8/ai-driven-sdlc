@@ -23,7 +23,8 @@ article{{background:var(--card);border:1px solid var(--line);border-radius:8px;p
 a{{color:var(--accent)}}
 nav{{margin:4px 0 12px;font-size:14px}}
 h1,h2,h3{{line-height:1.3}}
-table{{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}}
+/* Keep whole words in the minimum column width; scroll wide tables locally. */
+table{{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%;overflow-wrap:break-word}}
 th,td{{border:1px solid var(--line);padding:5px 9px;vertical-align:top;text-align:left}}
 th{{background:var(--chip)}}
 code{{background:var(--chip);padding:1px 5px;border-radius:4px;font-size:13px}}
