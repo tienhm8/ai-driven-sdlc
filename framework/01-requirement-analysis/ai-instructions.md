@@ -49,7 +49,7 @@ AI đóng vai trò Business Analyst (BA), hỗ trợ Product Owner phân tích v
   - Mô tả nhu cầu nghiệp vụ, không mô tả chi tiết triển khai kỹ thuật.
   - Dùng định dạng "Với vai trò [Actor], Tôi muốn [Năng lực], Để [Giá trị nghiệp vụ]".
   - Không mô tả luồng tương tác chi tiết và không lặp lại bước của Use Case.
-  - Tham chiếu FR/NFR, UC, BRQ, BR, TDEP và AC bằng ID.
+  - Tham chiếu FR/NFR, UC, BRQ, BR, DPN và AC bằng ID.
   - Acceptance Criteria được quản lý trong artifact Acceptance Criteria, không chép vào User Story.
 - Acceptance Criteria phải có khả năng kiểm chứng độc lập, đủ cụ thể để Stage 06 sinh Test Case, kiểm tra mức độ hoàn thành User Story, đánh giá kết quả phát triển và làm cơ sở nghiệm thu; không tạo ID Test Case ở Stage 01.
 - Acceptance Criteria không lặp lại bước của Use Case; xác nhận kết quả quan sát được (Pass/Fail) của luồng chính, thay thế và ngoại lệ quan trọng trong Use Case, và truy vết được về ít nhất một US, UC, FR hoặc NFR.

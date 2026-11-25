@@ -335,10 +335,19 @@ unapproved or inconsistent.
 """,
     )
 
-    copy_file_if_missing(
-        framework_dir / "templates" / "review" / "approval-record.md",
-        stage_project_dir / "g3-approval.md",
-    )
+    approval_template = framework_dir / "templates" / "review" / "approval-record.md"
+    if approval_template.is_file():
+        approval_record, count = re.subn(
+            r"^- Gate / subject: [^\n]+$",
+            "- Gate / subject: G3",
+            approval_template.read_text(encoding="utf-8"),
+            flags=re.MULTILINE,
+        )
+        if count != 1:
+            raise ValueError(f"Expected one Gate / subject field in {approval_template}")
+        write_if_missing(stage_project_dir / "g3-approval.md", approval_record)
+    else:
+        print(f"[WARN] Framework source not found: {approval_template}")
 
 
 def initialize_development_project_docs(

@@ -26,7 +26,7 @@ Thiếu baseline hoặc blocker thì dừng phần kế hoạch bị ảnh hư�
 9. Bàn giao outputs đã duyệt cho Stage 04.
 
 ## Quy ước
-- ID theo [chuẩn chung](../standards/metadata/id-conventions.md), bốn chữ số: `EPIC-0001`, `US-0001`, `TASK-0001`. Dependency dùng prefix riêng `TDEP-0001` (`DEP` dành cho Deployment Record).
+- ID theo [chuẩn chung](../standards/metadata/id-conventions.md), bốn chữ số: `EPIC-0001`, `US-0001`, `TASK-0001`. Dependency dùng prefix riêng `DPN-0001` (`DEP` dành cho Deployment Record).
 - Không trộn giờ/ngày/story point trong cùng một tổng.
 - Priority khác estimate.
 - Task phải trace về Requirement/Story và Design khi phù hợp.

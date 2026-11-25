@@ -18,6 +18,7 @@ Nguồn kiểm tra duy nhất trước coding. Stage 04 **xác minh**, không ph
 ## Planning — G3
 - [ ] Đã đối chiếu ID/phiên bản baseline kế hoạch trong gói bàn giao với input manifest và bản ghi G3 `Approved` (định danh Tech Lead, timestamp và bằng chứng).
 - [ ] Task thuộc đúng phạm vi đã duyệt; phiên bản kế hoạch chưa bị thay thế và không có thay đổi trọng yếu nào chưa được phê duyệt lại.
+- [ ] Nếu có bản đính chính, xác minh Tech Lead đã ghi nhận là không trọng yếu, dẫn về đúng bản ghi G3 và không dùng bản đính chính thay baseline. Xem [quy tắc thay đổi sau G3](../../03-task-planning/outputs/planning-output-contract.md#thay-đổi-sau-g3).
 - [ ] Task đạt [DoR tối thiểu của framework](../../03-task-planning/templates/definition-of-ready.md) và tiêu chí bổ sung của dự án/tổ chức nếu có; ghi tham chiếu tiêu chí và bằng chứng kiểm tra.
 
 ## Môi trường

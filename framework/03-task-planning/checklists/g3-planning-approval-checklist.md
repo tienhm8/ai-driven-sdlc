@@ -16,6 +16,6 @@ G3 duyệt **một phiên bản kế hoạch với phạm vi task xác định**
 - [ ] Rủi ro, giả định và vấn đề còn mở đều có owner.
 - [ ] Outputs được version hóa và có lịch sử thay đổi.
 
-Lưu checklist đã điền làm bằng chứng; ghi phạm vi, kết luận PO/PM và quyết định trong [bản ghi phê duyệt chung](../../templates/review/approval-record.md), phần dành cho G3. Ghi rõ tên/định danh Tech Lead, vai trò, thời điểm, phiên bản và bằng chứng theo [gate policy](../../governance/human-review-gates/gate-policy.md).
+Lưu checklist đã điền làm bằng chứng; ghi phạm vi, kết luận PO/PM và quyết định trong [bản ghi phê duyệt chung](../../templates/review/approval-record.md), theo [hướng dẫn điền hồ sơ G3](../../governance/human-review-gates/G3-task-approval.md). Ghi rõ tên/định danh Tech Lead, vai trò, thời điểm, phiên bản và bằng chứng theo [gate policy](../../governance/human-review-gates/gate-policy.md).
 
-Không có quyết định `Approved` kèm bằng chứng thì Stage 04 chưa được phép bắt đầu. Thay đổi trọng yếu sau duyệt (phạm vi task, priority, estimate/dependency ảnh hưởng lịch, baseline nguồn) cần đánh giá lại và phê duyệt G3 mới cho phiên bản mới.
+Không có quyết định `Approved` kèm bằng chứng thì Stage 04 chưa được phép bắt đầu. Xử lý thay đổi sau duyệt theo [Output Contract](../outputs/planning-output-contract.md#thay-đổi-sau-g3).

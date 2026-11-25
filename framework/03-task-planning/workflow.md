@@ -99,7 +99,7 @@ Danh mục đầu ra chuẩn (bắt buộc / khi áp dụng / tham chiếu) nằ
 
 **Người phê duyệt: Tech Lead** theo [gate policy](../governance/human-review-gates/gate-policy.md). Product Owner xác nhận ưu tiên và trade-off sản phẩm; PM xác nhận lịch và nguồn lực. Quyền phê duyệt không chuyển cho PM/PO.
 
-G3 duyệt **một phiên bản kế hoạch với phạm vi task xác định**. Điều kiện và trường bản ghi nằm ở [checklist G3](checklists/g3-planning-approval-checklist.md); dùng chung [mẫu approval record](../templates/review/approval-record.md) cho trường audit. Task ngoài phạm vi đã ghi chưa được G3 duyệt.
+G3 duyệt **một phiên bản kế hoạch với phạm vi task xác định**. Dùng [checklist G3](checklists/g3-planning-approval-checklist.md) để kiểm tra; ghi quyết định và bằng chứng trong [mẫu approval record chung](../templates/review/approval-record.md) theo [hướng dẫn G3](../governance/human-review-gates/G3-task-approval.md). Task ngoài phạm vi đã ghi chưa được G3 duyệt.
 
 ## 3.11 Exit Criteria — Điều kiện hoàn thành
 
@@ -113,7 +113,7 @@ G3 duyệt **một phiên bản kế hoạch với phạm vi task xác định**
 - **Estimate thiếu dữ liệu:** tạo spike/timebox, dùng range và ghi confidence thấp.
 - **Capacity không đủ:** giảm scope, đổi milestone hoặc bổ sung nguồn lực qua quyết định của PO/PM.
 - **Dependency chưa sẵn sàng:** tạo blocker có owner và ngày cần; điều chỉnh sequencing.
-- **Yêu cầu thay đổi sau baseline:** change request và impact analysis. Thay đổi trọng yếu (phạm vi task, priority, estimate/dependency ảnh hưởng lịch, baseline nguồn) phải đánh giá lại và có G3 mới cho phiên bản mới; không chỉ tăng version và ghi changelog.
+- **Yêu cầu thay đổi sau baseline:** ghi change request và để Tech Lead phân loại theo [Output Contract](outputs/planning-output-contract.md#thay-đổi-sau-g3).
 - **Task không đạt DoR:** trả về làm rõ, không đưa vào execution chỉ vì áp lực tiến độ.
 
 ## 3.13 Next Stage — Chuyển sang giai đoạn tiếp theo

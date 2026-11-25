@@ -31,11 +31,19 @@ Artifact planning: `Draft → In Review → Approved → Superseded`.
 
 Theo dõi trạng thái của từng backlog item (`Proposed / Ready / Committed / Done`) riêng với trạng thái artifact planning; `Ready` trong backlog không thay kết quả Development Readiness.
 
-Không sửa trực tiếp baseline đã duyệt. Thay đổi nội dung kế hoạch cần phiên bản mới, changelog và đánh giá tác động. Thay đổi trọng yếu cần review/phê duyệt lại G3; phiên bản mới không tự kế thừa approval. Với sửa đổi không trọng yếu, tiếp tục dùng baseline hiện hành nếu vẫn áp dụng; không thay phiên bản bàn giao bằng bản sửa chưa được G3 duyệt. Cập nhật trạng thái thực thi trong tracker riêng không đổi baseline và không cần duyệt lại.
+## Thay đổi sau G3
+
+Không sửa trực tiếp baseline đã duyệt. **Tech Lead** ghi phân loại và đánh giá tác động trong change log, kèm phiên bản liên quan và tham chiếu bản ghi G3 hiện hành.
+
+- **Trọng yếu:** thay đổi phạm vi task, tiêu chí nghiệm thu/DoR/DoD áp dụng, ưu tiên, baseline nguồn, hoặc estimate/dependency làm thay đổi lịch, nguồn lực hay rủi ro đã duyệt. Nếu chưa chứng minh được thay đổi không ảnh hưởng quyết định G3, xử lý như thay đổi trọng yếu. Tạo phiên bản kế hoạch mới và duyệt lại G3 trước khi bàn giao phiên bản mới; chặn các task bị ảnh hưởng cho đến khi có quyết định hợp lệ.
+- **Không trọng yếu:** sửa lỗi chính tả, định dạng hoặc liên kết trỏ tới cùng artifact/phiên bản, không đổi nghĩa hay quyết định đã duyệt. Lập bản đính chính có phiên bản riêng, ghi nội dung thay đổi, lý do Tech Lead xác nhận không trọng yếu và link đến G3 hiện hành; gửi kèm gói bàn giao để Stage 04 sử dụng. Không cần quyết định G3 mới cho bản đính chính vì baseline thực thi và phạm vi vẫn giữ nguyên. Nếu muốn thay baseline bằng một phiên bản kế hoạch khác, phiên bản đó phải có G3 `Approved` riêng theo gate policy.
+- **Chỉ cập nhật tiến độ:** ghi trong tracker riêng, không đổi baseline và không cần duyệt lại.
 
 ## Truy vết
 `Requirement/User Story → Thành phần Design/ADR → Backlog item → Task → Sprint/Milestone`; mỗi task nêu cách kiểm chứng cần thực hiện. Liên kết PR và test case được bổ sung ở Stage 04–06.
 
 ## Bàn giao cho Stage 04
 Gói bàn giao ghi: ID và phiên bản baseline kế hoạch đã chốt, bằng chứng G3 `Approved` cho đúng phiên bản, **phạm vi task được G3 duyệt**, danh sách task kèm priority, nghiệm thu/kiểm chứng, tham chiếu thiết kế, ràng buộc, dependency, estimate, sprint/milestone mục tiêu, DoR và DoD áp dụng.
+Nếu có bản đính chính không trọng yếu, ghi link và phiên bản bản đính chính riêng với phiên bản baseline.
+
 Stage 04 xác minh (không duyệt lại) phiên bản, phạm vi và DoR bằng [development readiness checklist](../../04-development/checklists/development-readiness.md). Stage 04 không âm thầm mở rộng scope hoặc thay đổi thiết kế đã duyệt; phải gửi yêu cầu thay đổi tới owner/gate phù hợp.

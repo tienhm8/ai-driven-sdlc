@@ -20,7 +20,7 @@
 - FR/NFR liên quan:
 - Use Case liên quan:
 - Business Rules liên quan (BR IDs):
-- Dependencies liên quan (TDEP IDs):
+- Dependencies liên quan (DPN IDs):
 - Acceptance Criteria liên quan (AC IDs):
 - Nguồn:
 - Owner:

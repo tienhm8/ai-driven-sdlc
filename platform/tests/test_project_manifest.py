@@ -35,7 +35,6 @@ class ProjectManifestTests(TestCase):
         source = framework / "templates/review/approval-record.md"
         self.assertEqual(target.read_bytes(), source.read_bytes())
         self.assertIn("## Quyết định", target.read_text(encoding="utf-8"))
-        self.assertEqual((self.project / "docs/03-task-planning/g3-approval.md").read_bytes(), source.read_bytes())
 
     def test_init_validate_and_load_project_overrides(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
@@ -71,12 +70,17 @@ class ProjectManifestTests(TestCase):
         self.assertIn("G2 approval evidence for that version", register)
         self.assertIn("G2 is Approved", register)
         planning = self.project / "docs/03-task-planning"
-        approval = planning / "g3-approval.md"
-        self.assertEqual(approval.read_bytes(), (framework / "templates/review/approval-record.md").read_bytes())
-        approval_text = approval.read_text(encoding="utf-8")
-        for field in ("Vai trò phê duyệt G3: Tech Lead", "Phạm vi task được duyệt", "| Approver |",
+        approval = (planning / "g3-approval.md").read_text(encoding="utf-8")
+        self.assertIn("- Gate / subject: G3", approval.splitlines())
+        canonical = (framework / "templates/review/approval-record.md").read_text(encoding="utf-8")
+        self.assertNotIn("Nếu dùng cho G3", canonical)
+        for field in ("Phạm vi được duyệt / phần ngoài phạm vi", "| Approver |",
                       "`Approved / Rejected / Changes Requested / Blocked`"):
-            self.assertIn(field, approval_text)
+            self.assertIn(field, approval)
+        self.assertEqual(
+            [line for line in approval.splitlines() if not line.startswith("- Gate / subject:")],
+            [line for line in canonical.splitlines() if not line.startswith("- Gate / subject:")],
+        )
         self.assertEqual((planning / "definition-of-ready.md").read_bytes(),
                          (framework / "03-task-planning/templates/definition-of-ready.md").read_bytes())
         for stage, examples in stage_examples.items():

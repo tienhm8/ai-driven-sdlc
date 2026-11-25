@@ -6,6 +6,7 @@
 | Phiên bản manifest / Ngày | |
 | Repository / Base commit | |
 | Gói bàn giao kế hoạch / phạm vi task được G3 duyệt | |
+| Bản đính chính không trọng yếu (phiên bản / link, nếu có) | |
 | Bản ghi waiver/ngoại lệ (nếu có) | |
 
 ## Baseline upstream và bằng chứng phê duyệt

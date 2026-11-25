@@ -8,17 +8,9 @@
 - Review package version / hash:
 - Người yêu cầu / thời điểm yêu cầu:
 - Vai trò approver bắt buộc:
+- Phạm vi được duyệt / phần ngoài phạm vi (nếu có):
 - Đích đã duyệt (nếu áp dụng, ví dụ PR/nhánh đích hoặc môi trường):
 - Audit event ID / vị trí bản ghi kiểm toán:
-
-### Nếu dùng cho G3 — Task Planning
-- Vai trò phê duyệt G3: Tech Lead. Ghi tên/định danh người duyệt trong cột **Approver** bên dưới; PO xác nhận ưu tiên/trade-off sản phẩm, PM xác nhận lịch/nguồn lực ở mục **Kết luận chuyên môn**.
-- ID/phiên bản kế hoạch: ghi ở mục **Metadata**.
-- Phạm vi task được duyệt (task ID và phiên bản, hoặc link danh sách cố định theo đúng phiên bản kế hoạch):
-- Task ngoài phạm vi (nếu có):
-- Requirement baseline (ID/phiên bản và bằng chứng G1):
-- Design baseline (ID/phiên bản gói và bằng chứng G2):
-- Link checklist G3 đã điền / bằng chứng review:
 
 ## Tiêu chí phê duyệt
 | Tiêu chí | Bằng chứng / link | Kết quả |

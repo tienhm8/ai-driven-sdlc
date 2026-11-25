@@ -68,7 +68,7 @@ Nếu nhiều repository hoặc nhiều nhóm cùng sử dụng một namespace 
 | DB | Database Design (Thiết kế cơ sở dữ liệu) | System Design |
 | TASK | Development Task (Task phát triển) | Task Planning |
 | SPIKE | Technical Investigation (Điều tra kỹ thuật) | Task Planning |
-| TDEP | Dependency (Phụ thuộc của yêu cầu, phạm vi, task hoặc kế hoạch) | Cross-stage |
+| DPN | Dependency (Phụ thuộc của yêu cầu, phạm vi, task hoặc kế hoạch) | Cross-stage |
 | CR | Code Review | Code Review |
 | TC | Test Case | Testing & QA |
 | TS | Test Suite (Bộ test) | Testing & QA |
@@ -85,6 +85,8 @@ Nếu nhiều repository hoặc nhiều nhóm cùng sử dụng một namespace 
 Dự án CÓ THỂ định nghĩa thêm prefix khi cần.
 
 Prefix mới PHẢI được tài liệu hóa trước khi sử dụng.
+
+**Chuyển đổi ID dependency:** Dùng `DPN-xxxx` cho dependency mới ở mọi stage. Với hồ sơ hiện có dùng `DEP-xxxx` hoặc `TDEP-xxxx` cho dependency, giữ nguyên ID trong hồ sơ lịch sử và lưu ánh xạ ID cũ → ID `DPN` duy nhất trong sổ dependency của dự án; cập nhật tham chiếu trong tài liệu đang dùng theo quy trình quản lý thay đổi. Không đổi ID bản ghi triển khai `DEP-xxxx` hoặc sửa baseline đã duyệt tại chỗ.
 
 ## 5. Quan hệ giữa các ID
 
