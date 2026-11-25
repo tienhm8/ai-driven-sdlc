@@ -36,11 +36,11 @@ Không cần đọc hết tài liệu. Bắt đầu bằng hai câu hỏi: **"T�
 | Bạn muốn | Mở |
 |---|---|
 | Chọn vai trò hoặc giai đoạn để xem việc cụ thể | [Guide tương tác](framework/guide/index.html) (mở trực tiếp bằng trình duyệt) |
-| Xem dự án đang ở giai đoạn nào, cần làm gì tiếp | Chạy `python platform/scripts/guide-server.py`, mở địa chỉ nó in ra, rồi chọn tab **Theo dự án** |
+| Xem dự án đang ở giai đoạn nào, cần làm gì tiếp | Chạy `python3 platform/scripts/guide-server.py`, mở địa chỉ nó in ra, rồi chọn tab **Theo dự án** |
 | Tra cứu theo vai trò (PO, BA, Developer, QA...) | [Bảng vai trò](framework/README.md#bắt-đầu-theo-vai-trò) |
 | Bắt đầu từ giai đoạn đầu tiên | [01 — Requirement Analysis](framework/01-requirement-analysis/README.md) |
 | Biết cách dùng AI cho mọi vai trò | [Quy trình dùng AI](shared-ai/rules/core/ai-usage-flow.md) |
-| Tạo dự án mới | `python platform/scripts/init-project.py --name "<Tên>" --slug <slug>` |
+| Tạo dự án mới | `python3 platform/scripts/init-project.py --name "<Tên>" --slug <slug>` |
 
 Guide chỉ tóm tắt và dẫn link. Quy định chính thức nằm ở `workflow.md`, `human-review.md` của từng giai đoạn và `framework/governance/`.
 
