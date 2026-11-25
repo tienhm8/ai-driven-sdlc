@@ -1,0 +1,11 @@
+# Planned Maintenance & Recovery Readiness
+
+Dùng policy, lịch và runbook của project instance. Trước khi lên lịch, Service Owner và SRE/Operations xác nhận owner, kỳ hạn, người có quyền quyết định và nơi lưu hồ sơ. Nếu thiếu các thông tin này hoặc lần kiểm tra thất bại, ghi khoảng trống, owner và hạn xử lý; không đánh dấu sẵn sàng khi chưa có bằng chứng.
+
+| Hoạt động | Trách nhiệm | Khi nào / theo policy nào | Bằng chứng cần giữ |
+|---|---|---|---|
+| Vá lỗi, cập nhật dependency | Service Owner phân công; Engineering/SRE thực hiện; Security đánh giá rủi ro khi cần | Theo SLA vá lỗi tính theo rủi ro và change policy của dự án. Escalate nguy cơ trễ hạn hoặc đề xuất ngoại lệ cho owner có thẩm quyền. | Ticket, mức rủi ro/SLA, phiên bản trước/sau, change approval, kết quả kiểm tra sau thay đổi hoặc ngoại lệ có hạn. |
+| Rotation và review định kỳ | Chủ sở hữu chứng thư/credential thực hiện rotation; SRE/Service Owner review health, SLO và capacity | Theo lịch/hạn dùng trong policy quản lý chứng thư/credential và lịch review vận hành. Nếu nghi lộ credential hoặc có sự cố bảo mật, dùng security escalation của dự án, không chờ kỳ bảo trì. | Change record, thời điểm và kết quả xác minh; biên bản review và follow-up. Không lưu giá trị secret. |
+| Backup, restore test và diễn tập DR | SRE/Operations cùng Data Owner kiểm tra; Service/Business Owner xác nhận RTO/RPO và thẩm quyền quyết định failover/quay lại primary theo DR plan | Theo lịch backup/restore/DR của dự án và sau thay đổi trọng yếu theo policy. Kiểm tra backup riêng; backup thành công không thay cho restore test. Diễn tập theo runbook đã duyệt, có điều kiện dừng và tiêu chí quay lại primary. | Backup/restore record, RTO/RPO đo được so với mục tiêu, kết quả kiểm tra toàn vẹn, quyết định failover/failback nếu áp dụng và ticket xử lý khoảng trống. |
+
+Dùng [maintenance checklist](../checklists/maintenance-checklist.md) và [recovery readiness checklist](../checklists/recovery-readiness-checklist.md) để xác nhận từng điều kiện trước khi làm. Bảo trì hoặc diễn tập theo change control và gate tương ứng nếu áp dụng; failover/restore trong incident theo [Incident Management](incident-management.md) và G7 nếu thuộc gate. Lưu hồ sơ theo [quy ước đầu ra](../outputs/README.md).

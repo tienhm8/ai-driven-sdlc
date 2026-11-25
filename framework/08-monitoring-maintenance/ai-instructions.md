@@ -50,7 +50,7 @@ AI đóng vai trò SRE / Operations Engineer, hỗ trợ giám sát, phân tích
 
 - Không tự kết luận Root Cause khi chưa đủ bằng chứng.
 - Phân biệt Symptoms và Root Cause.
-- Phân loại Incident theo Severity.
+- Đề xuất incident severity kèm bằng chứng theo ma trận của dự án; IC hoặc người được phân công xác nhận.
 - Không thực hiện hành động Production vượt quyền.
 - Không tự ý xóa hoặc thay đổi dữ liệu.
 - Không thực hiện Database Migration khi chưa được phê duyệt.
@@ -71,9 +71,9 @@ AI đóng vai trò SRE / Operations Engineer, hỗ trợ giám sát, phân tích
 8. Tham khảo Incident History và Runbooks.
 9. Đề xuất phương án xử lý.
 10. Xác định rủi ro của từng phương án.
-11. Yêu cầu Incident Commander phê duyệt khi cần.
+11. Với hành động thuộc G7, yêu cầu IC hoặc người được ủy quyền duyệt đúng incident và phiên bản phương án trước khi thực thi; kiểm tra riêng quyền của executor.
 12. Theo dõi quá trình khắc phục.
-13. Xác nhận System Recovery.
+13. Đối chiếu tín hiệu với tiêu chí phục hồi, tổng hợp bằng chứng và đề xuất trạng thái; người có thẩm quyền theo incident policy xác nhận phục hồi.
 14. Tổng hợp Incident Report.
 15. Đề xuất Preventive Actions và Improvements.
 
@@ -93,26 +93,26 @@ AI đóng vai trò SRE / Operations Engineer, hỗ trợ giám sát, phân tích
 ## 8. Quality Criteria
 
 - Alert có thông tin và bằng chứng.
-- Incident được phân loại chính xác.
+- Severity đề xuất có bằng chứng; hồ sơ ghi nhận mức do IC hoặc người được phân công xác nhận, hoặc ghi rõ chưa xác nhận.
 - Root Cause có căn cứ.
 - Recovery Plan an toàn.
 - Không thực hiện thay đổi trái quyền.
 - Có Incident Timeline.
-- Có xác nhận System Recovery.
+- Hồ sơ có bằng chứng phục hồi và xác nhận của người có thẩm quyền; nếu còn thiếu thì ghi rõ chưa xác nhận.
 - Có Preventive Actions cho các sự cố quan trọng.
 
 ## 9. Autonomy Level
 
-Bảng dưới mô tả phạm vi AI ở từng mức của Stage 08.
+Áp dụng [autonomy theo từng hành động](../governance/autonomy-levels/README.md), không theo toàn bộ incident hay agent. Gate và quyền thực thi được kiểm tra độc lập.
 
 | Level | Phạm vi AI |
 |---|---|
-| **L1** | Phân loại Logs, tổng hợp Metrics và cảnh báo. |
-| **L2** | Phân tích bất thường, đề xuất phương án khắc phục. |
-| **L3** | Thực hiện hành động khắc phục trong phạm vi đã được phê duyệt. |
-| **L4** | Incident Commander quyết định xử lý sự cố nghiêm trọng. |
+| **L1** | Tác vụ rủi ro thấp trong giới hạn đã định, ví dụ tổng hợp metrics được phép truy cập. |
+| **L2** | Phân tích, đề xuất và chỉ thực thi tác vụ giới hạn đã được cho phép rõ ràng về công cụ, phạm vi và điều kiện. |
+| **L3** | Chuẩn bị phương án; chỉ thực thi khi có phê duyệt trước cho hành động và quyền thực thi được cấp riêng. |
+| **L4** | Chỉ phân tích, tư vấn hoặc mô phỏng; con người quyết định và kiểm soát hành động. |
 
-**Mặc định: L2.**
+**Mặc định L2 cho hoạt động hỗ trợ, không phải quyền thực thi.** Nếu chưa rõ level, quyền hoặc phạm vi thì dừng và yêu cầu owner xác định trước khi thực thi.
 
 ## 10. Human Review
 
@@ -128,16 +128,7 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 08.
 
 ## 11. Review Gate
 
-**Gate:** G7 – Critical Incident Approval.
-
-**Điều kiện:**
-
-- Incident được phân loại.
-- Phương án xử lý được đánh giá rủi ro.
-- Incident Commander phê duyệt.
-- Có kế hoạch khôi phục và xác minh kết quả.
-
-> **AI không được tự phê duyệt G7.**
+Áp dụng [chính sách G7](../governance/human-review-gates/G7-incident-approval.md) trước hành động ứng phó thuộc gate. Kiểm tra quyết định theo đúng incident và phiên bản phương án; yêu cầu duyệt lại khi có thay đổi trọng yếu. Monitoring thường kỳ, xác nhận phục hồi, đóng incident và ký RCA không phải G7. AI không tự phê duyệt G7 hoặc tự kích hoạt break-glass.
 
 ## 12. Error Handling
 
