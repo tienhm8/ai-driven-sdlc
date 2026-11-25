@@ -27,8 +27,13 @@ docs/03-task-planning/
   sprint-plan.md
   planning-review.md
   g3-approval.md
+  planning-change-log.md
+  corrections/            # Tạo khi có bản đính chính
+    PCOR-0001.md
 ```
 Mỗi artifact cần có project, ID, version, trạng thái, owner, ngày cập nhật và baseline nguồn. Bản nháp do AI tạo không phải là baseline đã duyệt.
+
+Dùng [mẫu planning change log](../templates/planning-change-log.md) cho sổ thay đổi chung của Stage 03. Lưu từng [bản đính chính](../templates/planning-correction.md) tại `corrections/<ID>.md`, dùng ID `PCOR-xxxx` duy nhất trong dự án và ghi phiên bản riêng trong metadata. Liên kết hai chiều giữa sổ và bản đính chính; giữ nguyên baseline và hồ sơ G3 gốc.
 
 ## Kiến trúc
 Thư mục outputs định nghĩa **những gì Stage 03 phải bàn giao** và **ai nhận**:

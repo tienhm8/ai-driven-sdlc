@@ -22,6 +22,8 @@ Requirement/Design baseline (inputs)
 | `definition-of-done.md` | Tiêu chí hoàn thành áp dụng cho task/story/sprint/release, kèm ghi nhận ngoại lệ. | Dev, Review, QA |
 | [Definition of Ready](definition-of-ready.md) | Tiêu chí tối thiểu để chuẩn bị và xác minh readiness từng task; không thay G3. | Tech Lead, Developer |
 | `sprint-plan.md` | Sprint goal, capacity, cam kết, cột mốc, rủi ro và xác nhận của PO/PM/Tech Lead hoặc team. | Team |
+| [Planning Change Log](planning-change-log.md) | Ghi phân loại, tác động và bằng chứng xử lý thay đổi sau G3. | Tech Lead, PM, Stage 04 |
+| [Bản đính chính kế hoạch](planning-correction.md) | Ghi đính chính không trọng yếu để bàn giao kèm baseline, không thay baseline. | Tech Lead, Stage 04 |
 
 ## Quy ước dùng chung
 - Mọi file có ID, phiên bản, trạng thái, owner và ngày cập nhật.

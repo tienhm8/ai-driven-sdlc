@@ -33,10 +33,10 @@ Theo dõi trạng thái của từng backlog item (`Proposed / Ready / Committed
 
 ## Thay đổi sau G3
 
-Không sửa trực tiếp baseline đã duyệt. **Tech Lead** ghi phân loại và đánh giá tác động trong change log, kèm phiên bản liên quan và tham chiếu bản ghi G3 hiện hành.
+Không sửa trực tiếp baseline đã duyệt. **Tech Lead** ghi phân loại và đánh giá tác động trong [planning change log](../templates/planning-change-log.md), kèm phiên bản liên quan và tham chiếu bản ghi G3 hiện hành.
 
-- **Trọng yếu:** thay đổi phạm vi task, tiêu chí nghiệm thu/DoR/DoD áp dụng, ưu tiên, baseline nguồn, hoặc estimate/dependency làm thay đổi lịch, nguồn lực hay rủi ro đã duyệt. Nếu chưa chứng minh được thay đổi không ảnh hưởng quyết định G3, xử lý như thay đổi trọng yếu. Tạo phiên bản kế hoạch mới và duyệt lại G3 trước khi bàn giao phiên bản mới; chặn các task bị ảnh hưởng cho đến khi có quyết định hợp lệ.
-- **Không trọng yếu:** sửa lỗi chính tả, định dạng hoặc liên kết trỏ tới cùng artifact/phiên bản, không đổi nghĩa hay quyết định đã duyệt. Lập bản đính chính có phiên bản riêng, ghi nội dung thay đổi, lý do Tech Lead xác nhận không trọng yếu và link đến G3 hiện hành; gửi kèm gói bàn giao để Stage 04 sử dụng. Không cần quyết định G3 mới cho bản đính chính vì baseline thực thi và phạm vi vẫn giữ nguyên. Nếu muốn thay baseline bằng một phiên bản kế hoạch khác, phiên bản đó phải có G3 `Approved` riêng theo gate policy.
+- **Trọng yếu:** thay đổi phạm vi task, tiêu chí nghiệm thu/DoR/DoD áp dụng, ưu tiên, baseline nguồn, hoặc estimate/dependency làm thay đổi lịch, nguồn lực hay rủi ro đã duyệt. Mọi thay đổi nội dung không đáp ứng điều kiện đính chính bên dưới đều phải qua G3 lại nếu muốn áp dụng, kể cả thay đổi estimate không làm đổi lịch. Nếu chưa đủ bằng chứng để phân loại, xử lý như thay đổi trọng yếu. Tạo phiên bản kế hoạch mới và duyệt lại G3 trước khi bàn giao phiên bản mới; chặn các task bị ảnh hưởng cho đến khi có quyết định hợp lệ.
+- **Không trọng yếu:** sửa lỗi chính tả, định dạng hoặc liên kết trỏ tới cùng artifact/phiên bản, không đổi nghĩa hay quyết định đã duyệt. Lập [bản đính chính](../templates/planning-correction.md) có ID và phiên bản riêng, ghi nội dung thay đổi, lý do Tech Lead xác nhận không trọng yếu và link đến G3 hiện hành; gửi kèm gói bàn giao để Stage 04 sử dụng. Không cần quyết định G3 mới cho bản đính chính vì baseline thực thi và phạm vi vẫn giữ nguyên. Nếu muốn thay baseline bằng một phiên bản kế hoạch khác, phiên bản đó phải có G3 `Approved` riêng theo gate policy.
 - **Chỉ cập nhật tiến độ:** ghi trong tracker riêng, không đổi baseline và không cần duyệt lại.
 
 ## Truy vết

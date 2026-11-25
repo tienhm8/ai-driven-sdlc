@@ -68,6 +68,7 @@ Nếu nhiều repository hoặc nhiều nhóm cùng sử dụng một namespace 
 | DB | Database Design (Thiết kế cơ sở dữ liệu) | System Design |
 | TASK | Development Task (Task phát triển) | Task Planning |
 | SPIKE | Technical Investigation (Điều tra kỹ thuật) | Task Planning |
+| PCOR | Planning Correction (Bản đính chính kế hoạch sau G3) | Task Planning |
 | DPN | Dependency (Phụ thuộc của yêu cầu, phạm vi, task hoặc kế hoạch) | Cross-stage |
 | CR | Code Review | Code Review |
 | TC | Test Case | Testing & QA |

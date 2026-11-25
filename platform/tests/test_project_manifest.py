@@ -77,10 +77,14 @@ class ProjectManifestTests(TestCase):
         for field in ("Phạm vi được duyệt / phần ngoài phạm vi", "| Approver |",
                       "`Approved / Rejected / Changes Requested / Blocked`"):
             self.assertIn(field, approval)
-        self.assertEqual(
-            [line for line in approval.splitlines() if not line.startswith("- Gate / subject:")],
-            [line for line in canonical.splitlines() if not line.startswith("- Gate / subject:")],
-        )
+        expected = canonical.replace("- Gate / subject: G1 / G2 / G3 / G4 / G5 / G6 / G7 / Other\n",
+                                     "- Gate / subject: G3\n")
+        expected = expected.replace("- Vai trò approver bắt buộc:\n", "- Vai trò approver bắt buộc: Tech Lead\n")
+        self.assertIn("- Vai trò approver bắt buộc: Tech Lead", approval.splitlines())
+        self.assertEqual(approval, expected)
+        self.assertEqual((planning / "planning-change-log.md").read_bytes(),
+                         (framework / "03-task-planning/templates/planning-change-log.md").read_bytes())
+        self.assertFalse((planning / "corrections").exists())
         self.assertEqual((planning / "definition-of-ready.md").read_bytes(),
                          (framework / "03-task-planning/templates/definition-of-ready.md").read_bytes())
         for stage, examples in stage_examples.items():

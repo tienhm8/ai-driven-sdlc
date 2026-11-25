@@ -34,6 +34,7 @@ TASK_PLANNING_PROJECT_FILES = {
     "definition-of-ready.md": "templates/definition-of-ready.md",
     "definition-of-done.md": "templates/definition-of-done.md",
     "sprint-plan.md": "templates/sprint-plan.md",
+    "planning-change-log.md": "templates/planning-change-log.md",
 }
 
 PROJECT_MANAGEMENT_FOLDERS = [
@@ -337,14 +338,16 @@ unapproved or inconsistent.
 
     approval_template = framework_dir / "templates" / "review" / "approval-record.md"
     if approval_template.is_file():
-        approval_record, count = re.subn(
-            r"^- Gate / subject: [^\n]+$",
-            "- Gate / subject: G3",
-            approval_template.read_text(encoding="utf-8"),
-            flags=re.MULTILINE,
-        )
-        if count != 1:
-            raise ValueError(f"Expected one Gate / subject field in {approval_template}")
+        approval_record = approval_template.read_text(encoding="utf-8")
+        for field, value in (("Gate / subject", "G3"), ("Vai trò approver bắt buộc", "Tech Lead")):
+            approval_record, count = re.subn(
+                rf"^- {re.escape(field)}:[^\n]*$",
+                f"- {field}: {value}",
+                approval_record,
+                flags=re.MULTILINE,
+            )
+            if count != 1:
+                raise ValueError(f"Expected one {field} field in {approval_template}")
         write_if_missing(stage_project_dir / "g3-approval.md", approval_record)
     else:
         print(f"[WARN] Framework source not found: {approval_template}")
