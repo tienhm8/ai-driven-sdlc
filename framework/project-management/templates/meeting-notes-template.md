@@ -1,4 +1,4 @@
-# [MTG-YYYYMMDD-##] – [Meeting title]
+# [MTG-ID] – [Meeting title]
 - Date/time and timezone:
 - Facilitator:
 - Participants:
@@ -7,7 +7,9 @@
 ## Agenda
 ## Discussion
 ## Decisions
-| Decision | Owner | DEC-ID |
+Chỉ tóm tắt và dẫn đến hồ sơ gốc; biên bản không thay phê duyệt.
+
+| Tóm tắt | Owner | Decision / approval ID và link |
 |---|---|---|
 
 ## Action items

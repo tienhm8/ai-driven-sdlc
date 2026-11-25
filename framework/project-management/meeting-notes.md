@@ -1,34 +1,10 @@
-# Meeting Notes
+# Meeting Notes Index
 
-## Meeting index
-| ID | Date/time | Meeting | Facilitator | Participants | Record |
-|---|---|---|---|---|---|
-| MTG-YYYYMMDD-01 | | | | | |
+Dùng [mẫu biên bản](README.md#mẫu-hồ-sơ) để ghi nội dung, quyết định tóm tắt và action items trong hồ sơ riêng.
 
-## Meeting record
-### [MTG-YYYYMMDD-##] – [Title]
-- Date/time and timezone:
-- Facilitator:
-- Participants:
-- Purpose / related phase or Gate:
+No entries
 
-#### Agenda
-1.
-
-#### Discussion notes
-- Topic:
-  - Summary:
-  - Evidence/context:
-
-#### Decisions
-| Decision | Decision owner | DEC-ID |
-|---|---|---|
-
-#### Action items
-| Action | Owner | Due date | Status | Related risk/issue |
+| ID | Date/time | Meeting | Facilitator | Record |
 |---|---|---|---|---|
 
-#### Risks / issues / changes raised
-#### Next meeting
-
-> Meeting notes không tự động là phê duyệt chính thức. Ghi formal decision trong `decision-log.md`, approval trong `approval-register.md`.
+Biên bản không thay cho phê duyệt. Liên kết [quyết định quản trị](decision-log.md) hoặc [phê duyệt](approval-register.md) bằng ID và link khi áp dụng.

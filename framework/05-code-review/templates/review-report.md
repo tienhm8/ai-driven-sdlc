@@ -38,7 +38,7 @@
 - Review limitations:
 
 ## 4. Findings
-### [CR-001] [Severity] – [Short title]
+### [CR-0001] [Severity] – [Short title]
 - **Category:**
 - **Location:** `path/to/file.ext:line`
 - **Status:** Open / Addressed / Accepted Risk / Rejected / Need Clarification

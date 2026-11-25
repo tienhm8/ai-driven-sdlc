@@ -94,7 +94,7 @@ Nếu checklist không đạt:
 
 > **Đề xuất, chờ Product Owner xác nhận.** Level gắn với từng action, không gắn cho cả giai đoạn. Định nghĩa L1–L4 tại [ai-instructions.md](ai-instructions.md#9-autonomy-level). G1 luôn bắt buộc, độc lập với level.
 
-| # | Công việc (theo [workflow.md](workflow.md#14-workflow-steps)) | Action AI thực hiện | Level | Người duyệt/kiểm soát |
+| # | Công việc (theo [workflow.md](workflow.md#14-workflow-steps--các-bước-thực-hiện)) | Action AI thực hiện | Level | Người duyệt/kiểm soát |
 |---|---|---|---|---|
 | 1 | Tiếp nhận và phân loại yêu cầu | Phân loại, tóm tắt tài liệu đầu vào | L1 | Log và kiểm tra tự động; BA xác minh nguồn |
 | 2 | Phân tích stakeholder | Đề xuất stakeholder map | L2 | BA review theo checklist |
@@ -107,7 +107,7 @@ Nếu checklist không đạt:
 | 8 | Xác định acceptance criteria | Soạn bản nháp AC | L2 | Stakeholder xác nhận |
 | 8b | Xác định acceptance criteria | Đưa AC vào baseline | L3 | PO approve trước khi áp dụng |
 | 9 | Đánh giá NFR và rủi ro | Đề xuất NFR checklist | L2 | SA/Security/Compliance xác định |
-| 9b | Đánh giá NFR và rủi ro | Quyết định mục tiêu bảo mật, compliance | L4 | Con người quyết định; AI chỉ tư vấn |
+| 9b | Đánh giá NFR và rủi ro | Trình bày các phương án và đánh đổi về mục tiêu bảo mật, tuân thủ | L4 | Người có thẩm quyền về bảo mật và tuân thủ quyết định; AI chỉ tư vấn |
 | 10 | Thiết lập traceability | Tạo RTM, kiểm tra liên kết thiếu | L2 | BA review theo checklist |
 | 11 | Review với stakeholder | Tổng hợp điểm cần thống nhất | L2 | PO/stakeholder ra quyết định |
 | 12 | Đóng baseline, trình G1 | Chuẩn bị gói review | L3 | PO approve trước khi chuyển bước |

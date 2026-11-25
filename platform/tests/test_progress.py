@@ -205,7 +205,7 @@ class ServerTests(TestCase):
             body = response.read().decode()
             self.assertTrue(response.headers["Content-Type"].startswith("text/html"))
             self.assertIn("default-src 'none'", response.headers["Content-Security-Policy"])
-        self.assertIn("<h1>", body)
+        self.assertIn('<h1 id="01--requirement-analysis">', body)
         self.assertIn("<table>", body)
         self.assertNotIn("# 01", body)
 
