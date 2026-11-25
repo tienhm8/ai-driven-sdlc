@@ -115,8 +115,8 @@ Handoff to Task Planning
 
 ## 2.11 Exit Criteria — Điều kiện hoàn thành
 
-- G2 Approved; Solution Architect được ủy quyền chốt phiên bản design package đã duyệt làm baseline, ghi quyết định và phiên bản trong approval record; package index tham chiếu hồ sơ đó.
-- Khi dự án dùng workflow engine, Stage 02 chỉ đủ điều kiện bàn giao sau khi sự kiện hoàn tất Stage 02 qua G2 có `basis: approved`, khớp execution, review, review-context và hash của gói được bàn giao (xem mục 6 của design package index). Phê duyệt đã ghi nhưng chưa có sự kiện hoàn tất thì chưa bàn giao.
+- G2 `Approved` và đúng phiên bản gói đã chốt làm baseline theo [quy tắc quyết định G2](human-review.md#6-điều-kiện-quyết-định-g2).
+- Đã xác minh bằng chứng và gói thực nhận theo [mục 6 của design package index](outputs/design-package-index.md#6-tham-chiếu-quyết-định-g2). Nếu dùng workflow engine, cần có sự kiện hoàn tất Stage 02 qua G2 với `basis: approved`; quyết định phê duyệt riêng lẻ không đủ để bàn giao.
 - Design baseline, ADR và contract được version hóa.
 - Các dependency và technical risks có owner.
 - Đủ thông tin để phân rã công việc, ước lượng và lập kế hoạch.
@@ -128,7 +128,7 @@ Handoff to Task Planning
 - **Thay đổi kiến trúc lớn:** tạo ADR mới, phân tích tác động và mở lại G2 nếu ảnh hưởng baseline.
 - **Bất đồng kỹ thuật:** ghi nhận options và decision owner; không để AI tự phân xử.
 - **Rủi ro bảo mật nghiêm trọng:** dừng phê duyệt phần liên quan cho tới khi có biện pháp hoặc risk acceptance hợp lệ.
-- **Ngoại lệ trong workflow engine:** ngoại lệ cho một finding hoặc kiểm soát không thay thế phê duyệt G2 và không dùng để chuyển Stage 02 sang Stage 03. Nếu engine đã hoàn tất Stage 02 với `basis: exception_authorized`, không bàn giao; xử lý theo quy trình của tổ chức và trình G2 `Approved` cho đúng phiên bản gói.
+- **Ngoại lệ trong workflow engine:** đơn vị vận hành không bật ngoại lệ chuyển tiếp cho G2. Waiver cho một finding hoặc kiểm soát không thay thế phê duyệt G2. Nếu execution đã hoàn tất Stage 02 với `basis: exception_authorized`, dừng bàn giao và không dùng execution đó để tiếp tục Stage 03. Engine không hỗ trợ quay lại G2 trong execution này; giữ nguyên lịch sử audit, tạo execution thay thế theo quy trình tổ chức, liên kết hai execution và thực hiện lại các gate bắt buộc. Chỉ bàn giao khi execution thay thế có sự kiện hoàn tất Stage 02 qua G2 với `basis: approved` cho đúng gói.
 
 ## 2.13 Next Stage — Chuyển sang giai đoạn tiếp theo
 

@@ -56,19 +56,31 @@ Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái t
 
 Hồ sơ chính thức được liên kết tại trường **Tham chiếu phê duyệt G2** ở mục 1; hồ sơ xác định quyết định, người có thẩm quyền và đúng ID/phiên bản gói đã chốt làm baseline. Không ghi lại quyết định hoặc trạng thái gate tại đây. Đối chiếu phiên bản gói ở mục 1 và danh mục artifact với hồ sơ trước bàn giao; action không chặn và waiver được ghi riêng trong hồ sơ G2.
 
-Chỉ bàn giao khi hồ sơ G2 là `Approved` cho đúng phiên bản gói, sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc.
+Chỉ bàn giao đúng phiên bản gói có hồ sơ G2 `Approved` theo `framework/02-system-design/human-review.md` mục 6. Thực hiện các bước xác minh dưới đây và ghi kết quả tại mục 7.
 
-**Nếu dự án dùng workflow engine**, hồ sơ G2 phải ghi: execution ID, review ID, `review_context_sha256`, `artifact_sha256` của gói đã duyệt, ID các quyết định phê duyệt tham chiếu và ID sự kiện hoàn tất Stage 02. Người nhận xác minh bằng tra cứu chỉ đọc do dịch vụ cung cấp hoặc bản xuất có xác thực, không truy cập trực tiếp kho sự kiện, rằng sự kiện hoàn tất có `basis: approved` và khớp từng giá trị trên. Chỉ `basis: approved` được chấp nhận; `exception_authorized` hoặc thiếu sự kiện thì không bàn giao.
+**Nếu dự án dùng workflow engine:** trước khi vận hành luồng G2, đơn vị vận hành dịch vụ phải thiết lập kênh tra cứu chỉ đọc có kiểm soát quyền hoặc quy trình xuất bằng chứng có xác thực từ kho sự kiện. Phản hồi hoàn tất stage và màn hình tiến độ mặc định không cung cấp đầy đủ bằng chứng này. Sau khi Stage 02 hoàn tất, bên bàn giao lấy ID sự kiện và bằng chứng từ đơn vị vận hành, rồi gửi cho người nhận cùng approval record; không cấp quyền truy cập trực tiếp kho sự kiện cho người nhận.
 
-**Phạm vi băm:** hồ sơ G2 ghi rõ manifest được băm, gồm các artifact và phiên bản ở mục 2. Các trường quản lý sau duyệt (trạng thái gói, ngày hiệu lực, tham chiếu phê duyệt, mục 7 và ngày bàn giao) nằm ngoài phạm vi băm; không sửa nội dung artifact sau khi duyệt. Hồ sơ Markdown là bằng chứng hỗ trợ, không thay thế xác minh này; nếu thiếu hoặc không khớp, chưa bàn giao.
+Hồ sơ G2 ghi execution ID, review ID, `review_context_sha256`, `artifact_sha256`, ID các quyết định phê duyệt và ID sự kiện hoàn tất Stage 02. Người nhận đối chiếu các giá trị này với bằng chứng từ dịch vụ và xác minh sự kiện hoàn tất qua G2 có `basis: approved`. Hồ sơ Markdown không thay thế bằng chứng audit. Nếu thiếu kênh xác minh, thiếu bằng chứng, có sai lệch hoặc sự kiện có `basis: exception_authorized`, không bàn giao.
+
+**Phạm vi băm:** hồ sơ G2 tham chiếu manifest bất biến dùng tại lần review và quy tắc tính digest của adapter. Manifest bao phủ toàn bộ nội dung thuộc baseline giao cho Stage 03, kể cả dependency map, risk register hay thiết kế triển khai nếu chúng là đầu vào bàn giao. Bổ sung mục vào danh mục artifact nếu cần. Metadata quản lý sau duyệt (trạng thái gói, ngày hiệu lực, tham chiếu phê duyệt và thông tin bàn giao) nằm ngoài manifest; không loại trừ nội dung baseline chỉ vì nó được lưu riêng.
+
+**Kiểm tra gói thực nhận:**
+- **Có workflow engine:** tính lại digest của gói theo đúng manifest và quy tắc của adapter lúc review, bao gồm kiểm tra hash thành phần nếu manifest có ghi. So với `artifact_sha256` của sự kiện hoàn tất đã xác minh; không chỉ đối chiếu hai hash đã ghi sẵn.
+- **Không dùng workflow engine:** đối chiếu gói thực nhận với định danh bất biến ghi trong approval record. Nếu dùng digest, tính lại từ gói theo đúng manifest và quy tắc lúc review. Nếu dùng commit, xác minh toàn bộ nội dung baseline thực nhận khớp với snapshot tại commit đã duyệt; chỉ đối chiếu chuỗi SHA là không đủ.
+
+Nếu thiếu nội dung baseline, thiếu bằng chứng hoặc không khớp digest/snapshot, không bàn giao.
 
 ## 7. Bàn giao sang 03 — Task Planning
 - [ ] Kiến trúc và ranh giới component đã có sẵn.
 - [ ] Công việc liên quan API, dữ liệu, migration và tích hợp đã xác định được.
 - [ ] Công việc triển khai bảo mật và NFR đã được xác định.
 - [ ] Phụ thuộc, rủi ro và spike/PoC kỹ thuật đã được ghi nhận.
-- [ ] Baseline thiết kế và bằng chứng phê duyệt đã được liên kết.
+- [ ] Đã xác minh bằng chứng phê duyệt G2 và digest hoặc snapshot của gói thực nhận theo mục 6.
 - [ ] Bảng truy vết ở mục 4 đã được đối chiếu với baseline G1 và sẵn sàng cho Stage 03 sử dụng.
+
+| Người xác minh | Thời điểm / múi giờ | Tham chiếu bằng chứng và digest / commit đã đối chiếu |
+|---|---|---|
+| | | |
 
 Stage 03 phân rã các hạng mục bàn giao thành task, xác định người phụ trách và nối task về requirement và mục thiết kế.
 

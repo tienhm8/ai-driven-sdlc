@@ -70,7 +70,7 @@ Tech Lead và chuyên gia ghi kết luận, phạm vi và bằng chứng review;
 
 ## 6. Điều kiện quyết định G2
 
-**Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ quyết định này mới cho phép G2 `Approved` và chốt baseline.
+**Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ khi G2 `Approved`, Solution Architect được ủy quyền mới chốt đúng phiên bản design package đã duyệt làm baseline. Approval record ghi ID và phiên bản gói, định danh bất biến của nội dung đã duyệt (digest hoặc commit snapshot), quyết định, người duyệt, thời điểm và waiver hợp lệ nếu có; package index chỉ tham chiếu hồ sơ. Xem [quy định G2](../governance/human-review-gates/G2-design-approval.md).
 
 **Changes Requested** khi phương án có thể sửa và trình lại, nhưng còn điều kiện cần đóng (ví dụ: bổ sung kế hoạch rollback hoặc xử lý mâu thuẫn giữa các thành phần). **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc để ra quyết định. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
 
