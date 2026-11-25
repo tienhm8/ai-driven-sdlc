@@ -9,6 +9,7 @@
 | ID gói thiết kế | `[DES-PKG-XXX]` |
 | Phiên bản gói | `[1.0]` |
 | Requirement baseline | `[ID/phiên bản REQ-BASELINE]` |
+| Tham chiếu input manifest | `[Link tới manifest nhận baseline và RTM đã duyệt ở G1]` |
 | Chủ sở hữu gói | `[Architect]` |
 | Trạng thái | `Draft / In Review / Approved / Superseded` |
 | Tham chiếu phê duyệt G2 | `[Approval record ID / link]` |
@@ -39,8 +40,13 @@ Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái t
 | Checklist phê duyệt G2 | | | |
 
 ## 4. Truy vết yêu cầu
-| ID Requirement / NFR | Artifact / mục thiết kế | Kiểm chứng / việc cần theo dõi |
-|---|---|---|
+
+Đây là bảng truy vết thiết kế chính thức của Stage 02. Dùng ID từ đúng baseline G1 ở mục 1; không sửa RTM đã duyệt để thêm liên kết thiết kế.
+
+| ID FR/NFR | ID AC (khi áp dụng) | Artifact / mục thiết kế | Cách kiểm chứng dự kiến |
+|---|---|---|---|
+
+Đối chiếu các FR/NFR trong phạm vi với bảng, không chỉ kiểm những dòng đã điền. Nếu AC không áp dụng theo baseline G1, ghi `N/A` và dẫn chiếu lý do đã được chấp nhận. Ghi gap thiếu liên kết, thiếu thiết kế hoặc yêu cầu mâu thuẫn ở mục 5; chuyển BA/PO xử lý nếu cần thay đổi baseline. Cách kiểm chứng dự kiến không phải kết quả kiểm chứng; không cần ID task ở Stage 02.
 
 ## 5. Quyết định mở và rủi ro tồn dư
 | ID | Mô tả | Mức độ | Người phụ trách | Hạn xử lý | Phê duyệt / cách xử lý |
@@ -62,6 +68,9 @@ Chỉ bàn giao khi hồ sơ G2 là `Approved` cho đúng phiên bản gói, sau
 - [ ] Công việc triển khai bảo mật và NFR đã được xác định.
 - [ ] Phụ thuộc, rủi ro và spike/PoC kỹ thuật đã được ghi nhận.
 - [ ] Baseline thiết kế và bằng chứng phê duyệt đã được liên kết.
+- [ ] Bảng truy vết ở mục 4 đã được đối chiếu với baseline G1 và sẵn sàng cho Stage 03 sử dụng.
+
+Stage 03 phân rã các hạng mục bàn giao thành task, xác định người phụ trách và nối task về requirement và mục thiết kế.
 
 **Người nhận bàn giao:** `[PM / Tech Lead]`  
 **Ngày bàn giao:**

@@ -30,8 +30,8 @@ Handoff to Task Planning
 
 ## 2.3 Entry Criteria — Điều kiện bắt đầu
 
-- G1 đã được phê duyệt; requirement baseline có version rõ ràng.
-- Có RTM, NFR, business rules, constraints và open issues.
+- [Input manifest](inputs/README.md) dẫn đến hồ sơ phê duyệt G1 và đúng phiên bản requirement baseline và RTM; đối chiếu G1 `Approved` với các phiên bản được tham chiếu.
+- Đầu vào đáp ứng quy tắc trong manifest. Mọi yêu cầu đã duyệt, gồm NFR về hiệu năng và bảo mật, vẫn có hiệu lực; tài liệu tham khảo bổ sung chỉ dùng tùy bối cảnh.
 - Có project technology context hoặc quy trình để đề xuất/lựa chọn công nghệ.
 - Các tiêu chuẩn kiến trúc, API, database, security và documentation liên quan đã được xác định.
 
@@ -53,11 +53,8 @@ Handoff to Task Planning
 
 ## 2.5 Input — Đầu vào
 
-- Requirement baseline, RTM, NFR và acceptance criteria.
-- Business/domain model, quy trình nghiệp vụ và integration landscape.
-- Technology stack, platform constraints và tiêu chuẩn nội bộ.
-- Security/compliance requirements, threat/risk register.
-- Kiến trúc hiện trạng, dữ liệu và quyết định kỹ thuật đã có.
+- Dùng [input manifest](inputs/README.md) để xác định danh mục, mức bắt buộc và đúng phiên bản đầu vào. Baseline G1 gồm các yêu cầu đã duyệt, Acceptance Criteria và RTM được tham chiếu theo phiên bản.
+- Dùng bối cảnh và ràng buộc theo điều kiện bắt đầu. Tài liệu tham khảo như kiến trúc hiện trạng, phân tích hiệu năng/bảo mật và tài liệu tích hợp chỉ bổ sung khi phù hợp.
 
 ## 2.6 AI Activities — Hoạt động AI
 
@@ -87,13 +84,14 @@ Handoff to Task Planning
 - API specifications / event contracts.
 - Security design và threat model.
 - Deployment/operations design, reliability strategy.
-- ADR set, design risks và updated RTM.
+- ADR set và design risks.
+- [Bảng truy vết thiết kế trong Design Package Index](outputs/design-package-index.md#4-truy-vết-yêu-cầu): ID FR/NFR và ID AC khi áp dụng → mục thiết kế → cách kiểm chứng dự kiến. Đây là đầu ra truy vết chính thức của Stage 02; không cập nhật RTM đã duyệt ở G1 để ghi các liên kết này.
 - Design Review Record và tham chiếu approval record G2.
 
 ## 2.9 Quality Check — Kiểm tra chất lượng
 
 - Thành phần và ranh giới trách nhiệm rõ; dependency hợp lý.
-- Thiết kế truy vết được tới requirement và NFR.
+- Đối chiếu bảng truy vết thiết kế với đúng baseline G1: các FR/NFR trong phạm vi có liên kết đến mục thiết kế và cách kiểm chứng dự kiến; dùng ID AC khi áp dụng và ghi nhận gap để review.
 - API/data contract có versioning, validation, error handling và security.
 - Data ownership, retention, migration và backup được xác định.
 - Threat model bao phủ trust boundary và tài sản quan trọng.
@@ -134,6 +132,6 @@ Handoff to Task Planning
 
 ## 2.13 Next Stage — Chuyển sang giai đoạn tiếp theo
 
-Bàn giao design baseline, ADR, API/data contracts, dependency map, NFR và risk register cho **03 — Task Planning**, sau khi thỏa điều kiện hoàn thành ở mục 2.11.
+Bàn giao design baseline có bảng truy vết thiết kế, ADR, API/data contracts, dependency map, NFR và risk register cho **03 — Task Planning**, sau khi thỏa điều kiện hoàn thành ở mục 2.11. Stage 02 nêu các hạng mục cần triển khai hoặc kiểm chứng; Stage 03 phân rã thành task, xác định người phụ trách và liên kết task về requirement và mục thiết kế.
 
 ---

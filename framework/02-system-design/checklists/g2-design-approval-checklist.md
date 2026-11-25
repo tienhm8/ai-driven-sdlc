@@ -16,7 +16,7 @@
 ## Completeness & quality
 | # | Gate condition | Result | Evidence / comment |
 |---:|---|---|---|
-| 1 | Requirement baseline đã qua G1 và tham chiếu đúng version | | |
+| 1 | [Input manifest](../inputs/README.md) tham chiếu đúng phiên bản requirement baseline và RTM đã duyệt ở G1 | | |
 | 2 | Architecture overview, boundaries và component responsibilities rõ | | |
 | 3 | ADR ghi nhận quyết định kỹ thuật trọng yếu | | |
 | 4 | API specification đủ cho planning/implementation | | |
@@ -26,7 +26,7 @@
 | 8 | NFR, observability, resilience và operability được xem xét | | |
 | 9 | Checklist chuyên môn đã hoàn thành | | |
 | 10 | Critical/High findings đã xử lý hoặc có waiver hợp lệ | | |
-| 11 | Traceability và versioning đầy đủ | | |
+| 11 | [Bảng truy vết thiết kế](../outputs/design-package-index.md#4-truy-vết-yêu-cầu) đã được đối chiếu: FR/NFR trong phạm vi và AC khi áp dụng liên kết tới mục thiết kế có phiên bản và cách kiểm chứng dự kiến; gap được ghi nhận | | |
 | 12 | Handoff sang Task Planning có constraints/dependencies rõ | | |
 
 ## Kết luận review và bằng chứng

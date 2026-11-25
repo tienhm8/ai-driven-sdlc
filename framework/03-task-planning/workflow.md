@@ -54,7 +54,7 @@ Handoff to Development
 ## 3.5 Input — Đầu vào
 
 - Requirement baseline, RTM, acceptance criteria.
-- Design baseline, ADR, component/API/data contracts.
+- Design baseline, ADR, component/API/data contracts và [bảng truy vết thiết kế trong Design Package Index](../02-system-design/outputs/design-package-index.md#4-truy-vết-yêu-cầu); dùng bảng này để nối task về requirement và mục thiết kế.
 - Release objective, deadline, budget và capacity.
 - Team structure, skill matrix, lịch nghỉ và availability.
 - Risk register, dependency list, environment constraints.
