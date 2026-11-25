@@ -30,7 +30,7 @@ Handoff to Development
 
 ## 3.3 Entry Criteria — Điều kiện bắt đầu
 
-- G1 đã được phê duyệt; G2 `Passed` cho đúng phiên bản design package đã chốt làm baseline, kèm bằng chứng hợp lệ.
+- G1 đã được phê duyệt; G2 `Approved` cho đúng phiên bản design package đã chốt làm baseline, kèm bằng chứng hợp lệ.
 - Có requirement/design baseline và danh sách rủi ro/phụ thuộc.
 - Xác định được delivery approach, team/role và công cụ quản lý backlog.
 - Các constraint về ngân sách, thời hạn, môi trường và nguồn lực đã được cung cấp ở mức phù hợp.

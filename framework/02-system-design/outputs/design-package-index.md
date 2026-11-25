@@ -47,22 +47,22 @@ Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái t
 
 ## 6. Quyết định G2
 - [ ] Đã phê duyệt
-- [ ] Đã phê duyệt có điều kiện
-- [ ] Yêu cầu chỉnh sửa
+- [ ] Yêu cầu chỉnh sửa (bao gồm điều kiện cần đóng)
 - [ ] Từ chối
+- [ ] Blocked (thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc)
 
 | Trường | Giá trị |
 |---|---|
 | Người phê duyệt | |
 | Vai trò | Solution Architect |
-| Phiên bản gói đã duyệt và chốt làm baseline | `[ID / phiên bản; chỉ ghi khi G2 Passed]` |
-| Gate status | `Passed / Failed / Pending` |
+| Phiên bản gói đã duyệt và chốt làm baseline | `[ID / phiên bản; chỉ ghi khi G2 Approved]` |
+| Gate status | `Pending / In Review / Approved / Rejected / Blocked / Changes Requested` |
 | Điều kiện đã đóng và bằng chứng / waiver hợp lệ (nếu có) | |
 | Phê duyệt chuyên môn bắt buộc / bằng chứng | |
 | Ngày/giờ/múi giờ | |
 | Hồ sơ phê duyệt | |
 
-Chỉ `Approved` mới cho phép `Passed` sau khi có đủ các phê duyệt chuyên môn bắt buộc. Với `Approved with conditions`, giữ gate ở `Pending`, đóng các điều kiện, lưu bằng chứng và được Solution Architect xác nhận lại là `Approved` trước khi chốt baseline và bàn giao chính thức.
+Chỉ G2 `Approved` sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc mới cho phép chốt baseline và bàn giao. Nếu còn điều kiện cần đóng, ghi `Changes Requested`; nếu thiếu bằng chứng hoặc phê duyệt bắt buộc, ghi `Blocked`. Sau khi xử lý, lưu bằng chứng và trình Solution Architect phê duyệt lại.
 
 ## 7. Bàn giao sang 03 — Task Planning
 - [ ] Kiến trúc và ranh giới component đã có sẵn.

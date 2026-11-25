@@ -17,7 +17,7 @@ AI đóng vai trò Technical Project Planner / Scrum Assistant, hỗ trợ phân
 Đọc:
 
 - Approved Requirements.
-- Design baseline (phiên bản design package đã chốt, G2 Passed).
+- Design baseline (phiên bản design package đã chốt, G2 Approved).
 - Architecture Decision Records.
 - Project Development Methodology.
 - Team Capacity.

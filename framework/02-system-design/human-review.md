@@ -68,9 +68,9 @@
 
 ## 6. Điều kiện quyết định G2
 
-**Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ quyết định này mới cho phép G2 `Passed` và chốt baseline.
+**Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ quyết định này mới cho phép G2 `Approved` và chốt baseline.
 
-**Approved with conditions** giữ G2 ở `Pending`, chưa cho phép bàn giao chính thức sang Stage 03. Sau khi đóng điều kiện và lưu bằng chứng, trình Solution Architect xác nhận lại để ghi quyết định `Approved`.
+**Changes Requested** khi còn điều kiện cần đóng; **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
 
 **Changes requested / Reject** khi thiết kế không đáp ứng yêu cầu, có lỗ hổng/rủi ro không thể chấp nhận, thiếu phương án vận hành hoặc các thành phần thiết kế mâu thuẫn.
 

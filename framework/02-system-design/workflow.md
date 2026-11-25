@@ -115,7 +115,7 @@ Người phê duyệt: Solution Architect/Architecture Owner và người có th
 
 ## 2.11 Exit Criteria — Điều kiện hoàn thành
 
-- G2 Passed; Solution Architect chốt phiên bản design package đã duyệt làm baseline và ghi phiên bản cùng bằng chứng G2 trong package index.
+- G2 Approved; Solution Architect chốt phiên bản design package đã duyệt làm baseline và ghi phiên bản cùng bằng chứng G2 trong package index.
 - Design baseline, ADR và contract được version hóa.
 - Các dependency và technical risks có owner.
 - Đủ thông tin để phân rã công việc, ước lượng và lập kế hoạch.

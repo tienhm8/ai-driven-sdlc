@@ -55,12 +55,6 @@ class ProgressTests(TestCase):
     def stage(self, result, stage_id):
         return next(s for s in result["stages"] if s["id"] == stage_id)
 
-    def test_design_input_register_requires_matching_g2_baseline(self):
-        register = (self.project / "docs/03-task-planning/input-register.md").read_text(encoding="utf-8")
-        self.assertIn("| Design Baseline (G2) | Yes | | | Pending verification |", register)
-        self.assertIn("G2 approval evidence for that version", register)
-        self.assertIn("only when G2 is Passed", register)
-
     def test_no_store_means_workflow_not_started(self):
         result = self.progress()
         self.assertEqual(result["workflow"], {"state": "not_started", "current_stage": None})

@@ -6,7 +6,7 @@ Phiếu tham chiếu, không thay thế tài liệu Stage 02 gốc.
 | Dự án | |
 | Design package ID / index URL | |
 | Phiên bản gói đã chốt làm baseline / commit | |
-| G2 status | `Passed / Failed / Pending` |
+| G2 status | `Pending / In Review / Approved / Rejected / Blocked / Changes Requested` |
 | Quyết định G2 (Approved) / waiver hợp lệ (nếu có) | |
 | Người phê duyệt G2 / thời điểm / bằng chứng cho đúng phiên bản | |
 | Architecture / ADR | |

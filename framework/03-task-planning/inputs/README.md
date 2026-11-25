@@ -15,7 +15,7 @@ Inputs là baseline từ Stage 01/02 cộng với project context.
 | IN-DES-01 | 02 | | | G2 | `Verified/Pending` | |
 | IN-CTX-01 | Project | | | N/A | | |
 
-Không dùng Draft/Rejected/Superseded làm baseline. Với design, đối chiếu ID/phiên bản gói và các phiên bản artifact trong package index với hồ sơ G2: gate Passed, quyết định Approved của Solution Architect, các phê duyệt chuyên môn bắt buộc, thời điểm và waiver hợp lệ (nếu có). Approved with conditions chưa đủ để bàn giao chính thức; điều kiện phải được đóng và quyết định được xác nhận lại là Approved. Baseline là phiên bản gói đã chốt, không phải trạng thái artifact riêng. Requirement/design thay đổi sau khi planning bắt đầu phải đánh giá tác động và re-plan; phiên bản design mới cần review/phê duyệt phù hợp, không tự kế thừa G2 cũ.
+Không dùng Draft/Rejected/Superseded làm baseline. Với design, đối chiếu ID/phiên bản gói và các phiên bản artifact trong package index với hồ sơ G2: gate Approved, quyết định Approved của Solution Architect, các phê duyệt chuyên môn bắt buộc, thời điểm và waiver hợp lệ (nếu có). Changes Requested hoặc Blocked chưa đủ để bàn giao chính thức; điều kiện phải được đóng và G2 được phê duyệt lại. Baseline là phiên bản gói đã chốt, không phải trạng thái artifact riêng. Requirement/design thay đổi sau khi planning bắt đầu phải đánh giá tác động và re-plan; phiên bản design mới cần review/phê duyệt phù hợp, không tự kế thừa G2 cũ.
 
 ## Kiến trúc
 Luồng tiếp nhận đầu vào:
