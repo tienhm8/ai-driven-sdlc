@@ -14,10 +14,9 @@ Cần review/approval phù hợp khi AI thay đổi logic nghiệp vụ, API, sc
 
 ## Không được phép
 - Né kiểm soát, giả mạo approval hoặc che giấu hành động.
-- Cung cấp secret/dữ liệu vượt quyền cho AI.
+- Cung cấp secret/dữ liệu vượt quyền hoặc gửi dữ liệu tổ chức tới dịch vụ chưa được phê duyệt; xem [AI Security Policy](ai-security-policy.md#secret-và-dữ-liệu).
 - Để AI tự phê duyệt Gate bắt buộc hoặc tự merge/deploy trái policy.
-- Dùng output chưa kiểm chứng như sự thật; bịa nguồn, test result, benchmark hay approval.
-- Đưa dữ liệu tổ chức vào dịch vụ chưa được phê duyệt.
+- Dùng đầu ra chưa kiểm chứng như sự thật hoặc bịa bằng chứng; xem [Responsible AI Guidelines](responsible-ai-guidelines.md#chất-lượng-đầu-ra).
 
 ## Minh bạch và trách nhiệm
 Ghi nhận việc sử dụng AI khi policy yêu cầu. Người áp dụng phải kiểm tra tính đúng đắn, license, bảo mật và phù hợp trước khi sử dụng. Phân biệt đề xuất AI với quyết định đã được người có thẩm quyền thông qua.

@@ -81,7 +81,7 @@ Mức áp dụng theo từng hành động. L1/L2 không miễn G4; quyền merg
 - [ ] Security/data/privacy impact được xem xét.
 - [ ] Test phù hợp đã chạy và kết quả có thể truy vết.
 - [ ] Required CI checks và policy branch protection đạt.
-- [ ] Không còn Critical/High finding chưa xử lý; Medium còn lại có quyết định xử lý theo policy.
+- [ ] Không còn finding Critical mở; finding High còn mở chỉ được giữ lại theo ngoại lệ hợp lệ của [G4](../governance/human-review-gates/G4-code-approval.md#điều-kiện-thông-qua). Finding Medium còn lại có quyết định xử lý theo policy.
 - [ ] Comment và thread cần giải quyết đã được xử lý.
 - [ ] Approval được ghi nhận bởi đúng người có quyền.
 - [ ] Thay đổi sau approval đã được review lại nếu ảnh hưởng nội dung được duyệt.

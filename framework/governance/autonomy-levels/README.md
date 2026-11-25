@@ -1,14 +1,10 @@
 # Autonomy Levels – Operating Model
 
-Tài liệu tổng quan chính sách: `../ai-governance/ai-autonomy-levels.md`.
+Xem [chính sách mức tự chủ](../ai-governance/ai-autonomy-levels.md) để tra định nghĩa chuẩn. Ví dụ và điều kiện áp dụng nằm trong hướng dẫn từng mức:
 
-| Level | AI được làm | Human control |
-|---|---|---|
-| L1 | Tự thực hiện tác vụ rủi ro thấp, đã giới hạn | Policy, log và automated checks |
-| L2 | Thực hiện tác vụ giới hạn, đề xuất/sửa trong phạm vi | Checklist, sampling hoặc trigger review |
-| L3 | Chuẩn bị/thực hiện trong phạm vi được phép | Review/approval trước khi áp dụng hoặc chuyển bước |
-| L4 | Phân tích, tư vấn, mô phỏng | Con người quyết định và kiểm soát hành động |
+- [L1 — Tự động hóa trong phạm vi giới hạn](L1-assisted-automation.md)
+- [L2 — Con người giám sát](L2-human-supervised.md)
+- [L3 — Con người phê duyệt](L3-human-approved.md)
+- [L4 — Con người quyết định và kích hoạt](L4-human-led.md)
 
-Level gắn với action, không chỉ agent. Gate G1–G7 vẫn bắt buộc độc lập với level. Không rõ level thì dừng để owner phân loại và áp dụng kiểm soát nghiêm ngặt hơn. Project phải ghi action, level, allowed tools, scope, approver và evidence.
-
-Đánh giá lại khi đổi model/provider, tool, quyền, dữ liệu, workflow, environment hoặc sau sự cố.
+Áp dụng theo từng hành động và ghi quyết định vào [hồ sơ governance của project](../README.md#áp-dụng). Khi chưa phân loại được rủi ro, dừng để owner đánh giá. Đánh giá lại khi đổi model/provider, công cụ, quyền, dữ liệu, workflow, môi trường hoặc sau sự cố. Nâng mức kiểm soát nếu tác động, độ nhạy, phạm vi quyền hoặc độ khó đảo ngược tăng.
