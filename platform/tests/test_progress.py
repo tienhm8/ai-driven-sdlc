@@ -106,6 +106,26 @@ class ProgressTests(TestCase):
         stage = self.stage(self.progress(), "01-requirement-analysis")
         self.assertEqual((stage["status"], stage["gate"]["state"]), ("blocked", "blocked"))
 
+    def test_store_path_with_uri_special_characters(self):
+        state = self.root / "state?#odd"
+        engine = WorkflowEngine(self.project, state_dir=state)
+        engine.start()
+        result = collect_progress(self.project, self.framework, state)
+        self.assertEqual(result["workflow"]["current_stage"], "01-requirement-analysis")
+
+    def test_approved_gate_not_yet_completed_asks_to_complete(self):
+        run = self.engine.start()["execution_id"]
+        review = self.engine.request_review(run, "G1", artifact_sha256=digest("a"), review_context_sha256=digest("c"),
+                                            author_ids=["ba-id"], actor="ba", artifact_refs=["ref"])
+        self.engine.approvals.approve(run, "G1", "po", "approved", role="product_owner", review_id=review["event_id"],
+                                      artifact_sha256=digest("a"), evidence_refs=["rec"])
+        result = self.progress()
+        first = self.stage(result, "01-requirement-analysis")
+        self.assertEqual((first["status"], first["gate"]["state"]), ("in_progress", "approved"))
+        self.assertEqual(len(result["next_actions"]), 1)
+        self.assertIn("hoàn tất giai đoạn", result["next_actions"][0]["text"])
+        self.assertNotIn("trình duyệt", result["next_actions"][0]["text"])
+
     def test_reading_never_writes_the_store(self):
         self.engine.start()
         db = store_path(self.state, self.project)
@@ -164,17 +184,33 @@ class ServerTests(TestCase):
     def test_rejects_unknown_traversal_and_writes(self):
         self.init_project()
         for path in ("/api/projects/nope/status", "/api/projects/..%2Fframework/status",
-                     "/api/projects/%2e%2e/status", "/../etc/passwd", "/api/other"):
+                     "/api/projects/%2e%2e/status", "/../etc/passwd", "/api/other", "/README.md"):
             self.assertEqual(self.get(path)[0], 404, path)
         request = Request(self.base + "/api/projects", data=b"{}", method="POST")
         with self.assertRaises(HTTPError) as caught:
             urlopen(request)
         self.assertEqual(caught.exception.code, 405)
 
-    def test_serves_guide_page(self):
-        status, body = self.get("/")
+    def test_serves_guide_page_and_linked_docs(self):
+        status, body = self.get("/")  # urlopen follows the redirect to the page path
         self.assertEqual(status, 200)
         self.assertIn("AI-Driven SDLC Guide", body.decode())
+        (self.root / "shared-ai/rules/core").mkdir(parents=True)
+        (self.root / "shared-ai/rules/core/ai-usage-flow.md").write_text("rule", encoding="utf-8")
+        for path in ("/framework/01-requirement-analysis/README.md", "/shared-ai/rules/core/ai-usage-flow.md"):
+            self.assertEqual(self.get(path)[0], 200, path)
+
+    def test_does_not_serve_projects_hidden_or_outside_files(self):
+        self.init_project()
+        for path in ("/projects/demo/.ai-sdlc/project.yaml", "/framework/../platform/README.md",
+                     "/framework/%2e%2e/README.md", "/platform/scripts/guide-server.py", "/framework/.hidden.md"):
+            self.assertEqual(self.get(path)[0], 404, path)
+
+    def test_rejects_foreign_host_header(self):
+        request = Request(self.base + "/api/projects", headers={"Host": "evil.example"})
+        with self.assertRaises(HTTPError) as caught:
+            urlopen(request)
+        self.assertEqual(caught.exception.code, 403)
 
     def test_binds_to_loopback_only(self):
         self.assertEqual(self.server.server_address[0], "127.0.0.1")

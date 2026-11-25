@@ -63,8 +63,8 @@ code{background:var(--chip);padding:1px 5px;border-radius:4px;font-size:13px}
 var DATA = JSON.parse(document.getElementById("guide-data").textContent);
 var KIND = {do: "Thực hiện", confirm: "Xác nhận", approve: "Duyệt gate"};
 var STATUS = {not_started: "Chưa bắt đầu", in_progress: "Đang thực hiện", awaiting_gate: "Chờ duyệt gate", blocked: "Bị chặn", completed: "Hoàn thành",
-  none: "Không có gate", pending: "Chưa trình duyệt", review_requested: "Đã trình, chờ duyệt", approved: "Đã duyệt"};
-var AI_RULE = "../../shared-ai/rules/core/ai-usage-flow.md";
+  none: "Không có gate", pending: "Chưa trình duyệt", review_requested: "Đã trình, chờ duyệt", approved: "Đã duyệt", exception_authorized: "Qua bằng ngoại lệ được phê duyệt"};
+var AI_RULE = "../shared-ai/rules/core/ai-usage-flow.md";
 var state = {tab: "role", role: null, stage: null, project: null};
 
 function h(tag, attrs, kids) {

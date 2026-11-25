@@ -48,7 +48,7 @@ def validate_guide_data(data: dict, framework: Path) -> list[str]:
                 problems.append(f"{sid}: gate {gate['id']} does not match {expected}")
             elif gate["id"] in GATES:
                 code_roles = GATES[gate["id"]].roles
-                if sid != STAGES[-1] and not set(gate["approvers"]) <= (code_roles | {"qa_lead", "product_owner"}):
+                if not set(gate["approvers"]) <= code_roles:
                     problems.append(f"{sid}: approvers {gate['approvers']} not allowed by {gate['id']}")
                 if bool(gate.get("all_required")) != GATES[gate["id"]].require_all_roles:
                     problems.append(f"{sid}: all_required differs from code for {gate['id']}")

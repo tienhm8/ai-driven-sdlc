@@ -33,10 +33,10 @@ Mỗi vai trò có thể làm việc, xác nhận nội dung hoặc duyệt gate
 | Business Analyst (BA) | 01, 02 | Điều phối phân tích, soạn yêu cầu, quản lý baseline và truy vết | Trình G1 |
 | Stakeholder / SME | 01, 02 | Xác nhận quy tắc và ngoại lệ nghiệp vụ | Không |
 | Solution Architect | 02 | Thiết kế kiến trúc, quyết định kỹ thuật | Duyệt G2 |
-| Tech Lead | 02, 03, 04, 05 | Rà soát thiết kế, duyệt kế hoạch task, kiểm soát lệch thiết kế, duyệt merge | Duyệt G3; cùng Reviewer duyệt G4 |
+| Tech Lead | 02, 03, 04, 05 | Rà soát thiết kế, duyệt kế hoạch task, kiểm soát lệch thiết kế, duyệt merge | Duyệt G3; là một trong các vai được duyệt G4 |
 | Project Manager (PM) | 03 | Kế hoạch, tiến độ, nguồn lực, rủi ro | Review G3 |
 | Developer | 03, 04, 05 | Nhận task đã duyệt, thực hiện, bàn giao PR | Không (04 chỉ kiểm tra bàn giao) |
-| Reviewer / Senior Developer | 05 | Review code, xử lý finding | Duyệt G4 |
+| Reviewer / Senior Developer | 05 | Review code, xử lý finding | Duyệt G4 (một trong Reviewer, Senior Developer, Tech Lead) |
 | Security / Data owner | 02, 04, 05, 07 | Review phần bảo mật và dữ liệu khi áp dụng | Không |
 | QA Lead / QA Engineer | 03, 06, 07 | Chiến lược và thực thi kiểm thử, sign-off chất lượng | QA Lead duyệt G5 (cùng PO) |
 | DevOps / Release Manager | 07 | Pipeline, môi trường, rollback, phát hành | Release Manager duyệt G6 |

@@ -99,7 +99,7 @@ Platform có các thành phần tải cấu hình, skills/rules, model routing v
 
 ```bash
 python3 platform/scripts/build-guide.py          # nhúng framework/guide/guide-data.yml vào index.html (--check để kiểm tra)
-python3 platform/scripts/guide-server.py         # http://127.0.0.1:8765, thêm --port và --state-dir nếu cần
+python3 platform/scripts/guide-server.py         # http://127.0.0.1:8765/framework/guide/index.html, thêm --port và --state-dir nếu cần
 ```
 
 - Tab **Theo vai trò** và **Theo giai đoạn** chỉ cần mở `framework/guide/index.html`. Dữ liệu khung nằm ở `framework/guide/guide-data.yml`; sửa file này rồi chạy `build-guide.py`.

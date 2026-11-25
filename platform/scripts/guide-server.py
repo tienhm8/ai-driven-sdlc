@@ -16,6 +16,11 @@ from ai_sdlc_platform.progress import DEFAULT_STATE_DIR, collect_progress
 
 ROOT = Path(__file__).resolve().parents[2]
 STATUS_ROUTE = re.compile(r"/api/projects/([^/]+)/status")
+PAGE_PATH = "/framework/guide/index.html"
+# Only documentation the guide links to is served, never project files or platform state.
+STATIC_ROOTS = ("framework", "shared-ai")
+STATIC_TYPES = {".md": "text/plain; charset=utf-8", ".png": "image/png", ".svg": "image/svg+xml",
+                ".html": "text/html; charset=utf-8", ".yml": "text/plain; charset=utf-8"}
 
 
 def list_projects(root: Path) -> list[dict]:
@@ -32,8 +37,19 @@ def list_projects(root: Path) -> list[dict]:
     return found
 
 
+def static_file(root: Path, url_path: str) -> Path | None:
+    """Resolve a URL path to a file under an allowed documentation root, or None."""
+    parts = [p for p in url_path.split("/") if p]
+    if not parts or parts[0] not in STATIC_ROOTS or any(p in {".", ".."} or p.startswith(".") for p in parts):
+        return None
+    base = (root / parts[0]).resolve()
+    target = (root.joinpath(*parts)).resolve()
+    if not target.is_relative_to(base) or not target.is_file() or target.suffix not in STATIC_TYPES:
+        return None
+    return target
+
+
 def make_handler(root: Path, state_dir: Path):
-    page = root / "framework" / "guide" / "index.html"
 
     class Handler(BaseHTTPRequestHandler):
         server_version = "GuideServer"
@@ -50,10 +66,21 @@ def make_handler(root: Path, state_dir: Path):
         def _json(self, status, payload):
             self._send(status, json.dumps(payload, ensure_ascii=False).encode(), "application/json; charset=utf-8")
 
+        def _host_allowed(self):
+            # Reject DNS-rebinding requests: a browser page on another site must not read local status.
+            host = (self.headers.get("Host") or "").rsplit(":", 1)[0].strip("[]").lower()
+            return host in {"127.0.0.1", "localhost", "::1"}
+
         def do_GET(self):
+            if not self._host_allowed():
+                self._json(HTTPStatus.FORBIDDEN, {"error": "Host not allowed"})
+                return
             path = unquote(urlsplit(self.path).path)
-            if path in ("/", "/index.html"):
-                self._send(HTTPStatus.OK, page.read_bytes(), "text/html; charset=utf-8")
+            if path in ("/", "/index.html", "/framework/guide/"):
+                self.send_response(HTTPStatus.FOUND)
+                self.send_header("Location", PAGE_PATH)
+                self.send_header("Content-Length", "0")
+                self.end_headers()
             elif path == "/api/projects":
                 self._json(HTTPStatus.OK, {"projects": list_projects(root)})
             elif match := STATUS_ROUTE.fullmatch(path):
@@ -67,6 +94,8 @@ def make_handler(root: Path, state_dir: Path):
                     self._json(HTTPStatus.INTERNAL_SERVER_ERROR, {"error": f"{type(error).__name__}: {error}"})
                     return
                 self._json(HTTPStatus.OK, result)
+            elif (target := static_file(root, path)) is not None:
+                self._send(HTTPStatus.OK, target.read_bytes(), STATIC_TYPES[target.suffix])
             else:
                 self._json(HTTPStatus.NOT_FOUND, {"error": "Not found"})
 
@@ -88,7 +117,7 @@ def main():
                         help=f"Governance state directory (default: {DEFAULT_STATE_DIR})")
     args = parser.parse_args()
     server = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(ROOT, args.state_dir.expanduser()))
-    print(f"Guide: http://127.0.0.1:{server.server_port}/  (Ctrl+C to stop)")
+    print(f"Guide: http://127.0.0.1:{server.server_port}{PAGE_PATH}  (Ctrl+C to stop)")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

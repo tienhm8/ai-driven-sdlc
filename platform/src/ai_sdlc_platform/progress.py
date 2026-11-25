@@ -34,7 +34,7 @@ def latest_sdlc_events(db: Path) -> list[dict]:
     """Events of the newest current-schema SDLC execution; [] when none exists. Opens read-only."""
     if not db.is_file():
         return []
-    connection = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"{db.resolve().as_uri()}?mode=ro", uri=True)
     try:
         try:
             rows = connection.execute("SELECT execution_id, event FROM events ORDER BY id").fetchall()
@@ -106,7 +106,8 @@ def gate_state(events: list[dict], stage: str, completed: bool) -> dict | None:
     if review is None:
         return {"id": gate, "state": "pending"}
     status, _, _ = ApprovalEngine._decision(events, review)
-    state = {"blocked": "blocked", "awaiting_approval": "review_requested"}.get(status, "approved")
+    state = {"blocked": "blocked", "awaiting_approval": "review_requested",
+             "exception_authorized": "exception_authorized"}.get(status, "approved")
     return {"id": gate, "state": state}
 
 
@@ -141,6 +142,11 @@ def collect_progress(project: Path, framework: Path, state_dir: Path = DEFAULT_S
         approvers = (meta[stage].get("gate") or {}).get("approvers", [])
         if status == "awaiting_gate":
             actions += [{"role": r, "text": f"Duyệt {gate['id']} cho giai đoạn {stage}"} for r in approvers]
+        elif gate and gate["state"] in {"approved", "exception_authorized"}:
+            action = GATES[gate["id"]].action
+            actions.append({"role": lead, "text": f"{gate['id']} đã có quyết định: "
+                            + (f"thực hiện hành động được duyệt ({action}) rồi hoàn tất giai đoạn" if action
+                               else "hoàn tất giai đoạn và bàn giao")})
         elif status == "blocked":
             actions.append({"role": lead, "text": f"{gate['id']} đang bị chặn: xử lý ý kiến từ chối hoặc yêu cầu sửa rồi trình lại"})
         else:
@@ -153,7 +159,6 @@ def collect_progress(project: Path, framework: Path, state_dir: Path = DEFAULT_S
         state = "not_started"
         actions = [{"role": _lead_role(meta[STAGES[0]]),
                     "text": f"Dự án chưa có workflow trong governance store. Bắt đầu từ giai đoạn {STAGES[0]}"}]
-        stages[0]["status"] = "not_started"
     elif folded["current"] is None or len(folded["completed"]) == len(STAGES):
         state = "completed"
     else:
