@@ -3,9 +3,11 @@
 ## Release/test cycle
 - Project/release, test cycle:
 - Requirement version:
-- Build/commit SHA:
-- Environment:
-- Test plan/report version:
+- Artifact URI/version và SHA-256 (`artifact_sha256`):
+- G4 review/merge reference, verified merge commit SHA và bằng chứng merge:
+- Verified build provenance (`provenance_ref`):
+- Environment / cấu hình đã xác minh (tham chiếu feature flag nếu dùng để giới hạn phạm vi):
+- Test plan/report version và TESTRUN IDs:
 - Sign-off date:
 
 ## Quality summary
@@ -20,7 +22,7 @@
 | Security/non-functional checks | | | |
 
 ## Open defects & residual risks
-| ID | Severity | Impact | Mitigation | Risk owner | Decision |
+| ID | Severity | Impact | Mitigation | Risk owner | Disposition / approver / expiry / evidence |
 |---|---|---|---|---|---|
 | | | | | | |
 
@@ -28,14 +30,20 @@
 Liệt kê requirement chưa test, scenario loại trừ, flaky test, environment limitation và rationale.
 
 ## QA recommendation
-- [ ] Ready
-- [ ] Ready with Accepted Risks (nếu policy cho phép)
-- [ ] Not Ready
+- [ ] Go
+- [ ] Conditional Go (chỉ là khuyến nghị QA)
+- [ ] No-Go
 - [ ] Blocked
 
-Rationale/follow-up:
+Rationale/follow-up (điều kiện, owner, thời hạn và risk acceptance nếu áp dụng):
 
 ## G5 approval
+- Review ID và tham chiếu/phiên bản gói review:
+- SHA-256 gói review (`review_context_sha256`):
+- Quyết định G5: Approve / Reject / Blocked (để trống khi chưa có quyết định):
+
+QA Lead và Product Owner phải là hai người riêng biệt, duyệt đúng artifact và gói review ở trên. Áp dụng quy tắc G5 trong governance và QA Sign-off Checklist của Stage 06.
+
 | Role | Name | Decision | Timestamp | Evidence/reference |
 |---|---|---|---|---|
 | QA Lead | | | | |
@@ -43,4 +51,6 @@ Rationale/follow-up:
 | Security/Domain approver (if required) | | | | |
 
 ## Audit
-Lưu report version, build SHA, approver identity, timestamp, decision và exception reference. AI recommendation không phải human approval.
+Audit event IDs / exception references:
+
+Chỉ ghi phê duyệt từ quyết định của con người; khuyến nghị AI không phải human approval. Không ghi secret, token hay PII không cần thiết.

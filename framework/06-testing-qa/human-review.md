@@ -10,7 +10,7 @@
 - Test pass không đồng nghĩa hệ thống không có lỗi; phải xem xét coverage, rủi ro còn lại và giới hạn kiểm thử.
 - AI có thể sinh test case, test data và phân tích kết quả; QA xác nhận test có giá trị và phản ánh yêu cầu.
 - Không sửa test chỉ để làm pipeline xanh nếu việc sửa làm mất khả năng phát hiện lỗi hoặc thay đổi ý nghĩa Acceptance Criteria.
-- Test result phải phản ánh đúng build, môi trường, dữ liệu và cấu hình đã chạy.
+- Test result phải phản ánh đúng artifact SHA-256, môi trường, dữ liệu và cấu hình đã chạy.
 - Không dùng dữ liệu production nhạy cảm trong test nếu chưa có phê duyệt và biện pháp bảo vệ phù hợp.
 
 ## 2. Vai trò và trách nhiệm
@@ -46,39 +46,23 @@
 | L1 | AI có thể chạy test suite đã được phê duyệt, tổng hợp report và phân loại log; pipeline phải lưu kết quả và build context. |
 | L2 | QA review theo mẫu/điều kiện đối với test case sinh tự động, test bổ sung hoặc phân tích lỗi rủi ro thấp. |
 | L3 | QA bắt buộc review và phê duyệt test scope, kết quả, defect disposition và bằng chứng nghiệm thu trước G5. |
-| L4 | QA Lead/PO quyết định chấp nhận residual risk, waiver, ngoại lệ chất lượng và nghiệm thu nghiệp vụ quan trọng; AI chỉ tư vấn. |
+| L4 | QA Lead và PO quyết định G5 trong phạm vi vai trò; người có thẩm quyền theo policy quyết định ngoại lệ/risk acceptance. AI chỉ tư vấn. |
 
 ## 5. Checklist G5
 
-- [ ] Test strategy và phạm vi test phù hợp với risk.
-- [ ] Các Acceptance Criteria trọng yếu có test/evidence tương ứng.
-- [ ] Test case rõ ràng, hợp lệ, có thể tái lập.
-- [ ] Unit/integration/system/regression test phù hợp đã chạy.
-- [ ] Security/performance/compatibility test đã thực hiện khi được yêu cầu.
-- [ ] Test environment, build và test data được ghi nhận.
-- [ ] Coverage gap và giới hạn kiểm thử được công khai.
-- [ ] Defect được phân loại, có owner và trạng thái chính xác.
-- [ ] Defect nghiêm trọng đã được xử lý hoặc có quyết định ngoại lệ đúng thẩm quyền.
-- [ ] Fix đã retest và regression test phù hợp.
-- [ ] Known issues và residual risks được ghi nhận.
-- [ ] QA report và sign-off gắn với đúng build/version.
-- [ ] PO đã xác nhận nghiệm thu nghiệp vụ khi cần.
+Dùng [checklist QA sign-off](checklists/qa-signoff-checklist.md) làm danh sách kiểm tra duy nhất.
 
 ## 6. Điều kiện quyết định G5
 
-**QA sign-off** khi phạm vi test được thực hiện theo kế hoạch hoặc deviation được giải thích; bằng chứng đủ tin cậy; không còn defect vượt ngưỡng chấp nhận; coverage gap và residual risk được công khai.
-
-**Acceptance approval** là quyết định riêng của PO hoặc người được ủy quyền, dựa trên Acceptance Criteria và các rủi ro đã biết.
-
-Không mặc định G5 đạt chỉ vì CI xanh hoặc test coverage vượt một ngưỡng. Ngưỡng defect/coverage phải được quy định theo loại dự án và risk profile. Không được che giấu defect nghiêm trọng hoặc tự hạ severity để thông qua Gate.
+Áp dụng [quy tắc G5](../governance/human-review-gates/G5-qa-approval.md) về điều kiện chặn, ngoại lệ và hai phê duyệt bắt buộc trên cùng artifact và gói review. QA Lead đánh giá chất lượng bằng chứng; Product Owner xác nhận nghiệm thu nghiệp vụ. CI xanh, code coverage cao hay Conditional Go không thay được quyết định G5.
 
 ## 7. Khi yêu cầu AI làm lại
 
-QA cung cấp test ID, build/environment, dữ liệu đã dùng (đã loại bỏ dữ liệu nhạy cảm), kết quả thực tế/mong đợi và bước tái hiện. AI có thể đề xuất test/fix; QA xác minh test và kết quả trên đúng build. Developer sửa lỗi nhưng QA xác nhận retest.
+QA cung cấp test ID, artifact SHA-256, environment, dữ liệu đã dùng (đã loại bỏ dữ liệu nhạy cảm), kết quả thực tế/mong đợi và bước tái hiện. AI có thể đề xuất test/fix; QA xác minh test và kết quả trên đúng artifact SHA-256 và cấu hình đã ghi nhận. Developer sửa lỗi nhưng QA xác nhận retest.
 
 ## 8. Bằng chứng và hồ sơ review
 
-Lưu test plan/version, test case và traceability, build ID, environment/config, execution report, coverage report, defect register, retest evidence, known issues, QA sign-off và PO acceptance record.
+Lưu [hồ sơ Stage 06 của dự án](outputs/README.md), gồm test plan/version, traceability, định danh artifact và provenance, execution/coverage report, defect và retest evidence, known issues và hồ sơ G5 cho đúng gói review.
 
 ## 9. Trách nhiệm cuối cùng
 

@@ -1,8 +1,10 @@
 # Template Testing
 
-Dành cho giai đoạn 06 – Testing & QA. Test cần truy vết tới requirement/acceptance criteria và lưu evidence thực thi.
+Nguồn chuẩn nằm ở `framework/06-testing-qa/templates/` trong repo framework. Trong dự án đã khởi tạo, dùng bản làm việc tại `docs/06-testing-qa/_templates/`. Thư mục này chỉ giữ chỉ dẫn, không duy trì nội dung trùng lặp.
 
-- `test-plan.md`: phạm vi, strategy, môi trường, entry/exit criteria.
-- `test-case.md`: điều kiện, bước thực hiện và kết quả mong đợi.
-- `test-execution-report.md`: kết quả chạy test và evidence.
-- `defect-report.md`: lỗi, severity, cách tái hiện và trạng thái.
+| Mẫu | Tên file tại hai vị trí trên |
+|---|---|
+| Kế hoạch test | `test-plan.md` |
+| Test case | `test-case.md` |
+| Báo cáo thực thi test | `test-execution-report.md` |
+| Báo cáo lỗi | `bug-report.md` |

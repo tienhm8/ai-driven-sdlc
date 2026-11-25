@@ -20,18 +20,18 @@ Có thể cần release target, supported platforms, operational constraints và
 - Design version/reference:
 - Task/DoD reference:
 - PR/code-review report:
-- Verified merge commit SHA / merge evidence link:
-- Integrated build artifact/version / build run or provenance link:
+- G4 review/merge reference, repository, verified merge commit SHA và link bằng chứng merge:
+- Integrated artifact URI/version và SHA-256 (`artifact_sha256`):
+- CI build/run và tham chiếu provenance đã xác minh (`provenance_ref`), liên kết digest với repository và merge commit G4:
 - Rủi ro bàn giao từ Code Review:
 - Unit/component test evidence:
-- CI pipeline/run:
 - Known defects/findings:
 - Target environment:
 - Missing/conflicting inputs:
 - Intake owner/date:
 
 ## Quy tắc
-Ưu tiên link nguồn chuẩn có version/commit. Nếu snapshot cần thiết, ghi source/version/timestamp/owner. Không tự chọn giữa tài liệu mâu thuẫn; yêu cầu owner xác nhận. Không lưu credential, secret, production dump hoặc PII không cần thiết. Thiếu AC hoặc build identity có thể khiến test bị Blocked. Thiếu bằng chứng liên kết build đã kiểm thử với kết quả merge đã xác minh thì không dùng build đó làm bằng chứng trình G5.
+Ưu tiên link nguồn chuẩn có version/commit. Nếu snapshot cần thiết, ghi source/version/timestamp/owner. Không tự chọn giữa tài liệu mâu thuẫn; yêu cầu owner xác nhận. Không lưu credential, secret, production dump hoặc PII không cần thiết. Thiếu AC, định danh artifact hoặc provenance đã xác minh thì ghi `Missing`/`Blocked` cho intake và báo owner; link build run không thay thế provenance. Sau intake, dùng [readiness checklist](../checklists/test-readiness-checklist.md) trước execution.
 
 ## Kiến trúc
 Inputs đi theo chuỗi giai đoạn, mỗi giai đoạn bổ sung một loại đầu vào cho 06:
