@@ -9,7 +9,7 @@ Mục đích: chuyển requirement/design baseline đã duyệt thành backlog, 
 
 ## Inputs
 1. Stage 01: scope, Epic/User Story, FR/NFR, business rules, Acceptance Criteria, assumptions/open questions; trạng thái Approved và có bằng chứng G1.
-2. Stage 02: architecture, components, API, database, data flow, ADR, technical constraints; trạng thái Approved và có bằng chứng G2.
+2. Stage 02: architecture, components, API, database, data flow, ADR, technical constraints; đúng phiên bản design package đã chốt làm baseline và có bằng chứng G2 hợp lệ cho phiên bản đó.
 3. Project context: team/roles, capacity, calendar, release target, estimation policy.
 
 Thiếu baseline hoặc blocker thì dừng phần kế hoạch bị ảnh hưởng, ghi owner và hạn xử lý. Không biến giả định AI thành fact.

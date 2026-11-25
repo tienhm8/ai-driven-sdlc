@@ -10,7 +10,7 @@
 | Phiên bản gói | `[1.0]` |
 | Requirement baseline | `[ID/phiên bản REQ-BASELINE]` |
 | Chủ sở hữu gói | `[Architect]` |
-| Trạng thái | `Draft / In Review / Approved / Baselined` |
+| Trạng thái | `Draft / In Review / Approved / Superseded` |
 | Tham chiếu phê duyệt G2 | `[Link]` |
 | Ngày có hiệu lực | `[YYYY-MM-DD]` |
 
@@ -47,14 +47,22 @@ Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái t
 
 ## 6. Quyết định G2
 - [ ] Đã phê duyệt
+- [ ] Đã phê duyệt có điều kiện
 - [ ] Yêu cầu chỉnh sửa
 - [ ] Từ chối
 
-**Người phê duyệt:**  
-**Vai trò:** Solution Architect  
-**Phiên bản gói đã duyệt:**  
-**Ngày/giờ/múi giờ:**  
-**Hồ sơ phê duyệt:**
+| Trường | Giá trị |
+|---|---|
+| Người phê duyệt | |
+| Vai trò | Solution Architect |
+| Phiên bản gói đã duyệt và chốt làm baseline | `[ID / phiên bản; chỉ ghi khi G2 Passed]` |
+| Gate status | `Passed / Failed / Pending` |
+| Điều kiện đã đóng và bằng chứng / waiver hợp lệ (nếu có) | |
+| Phê duyệt chuyên môn bắt buộc / bằng chứng | |
+| Ngày/giờ/múi giờ | |
+| Hồ sơ phê duyệt | |
+
+Chỉ `Approved` mới cho phép `Passed` sau khi có đủ các phê duyệt chuyên môn bắt buộc. Với `Approved with conditions`, giữ gate ở `Pending`, đóng các điều kiện, lưu bằng chứng và được Solution Architect xác nhận lại là `Approved` trước khi chốt baseline và bàn giao chính thức.
 
 ## 7. Bàn giao sang 03 — Task Planning
 - [ ] Kiến trúc và ranh giới component đã có sẵn.
