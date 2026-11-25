@@ -22,6 +22,20 @@ class ProjectManifestTests(TestCase):
         self.root = Path(temporary.name)
         self.project = self.root / "projects" / "demo"
 
+    def test_project_management_seeds_canonical_approval(self):
+        shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
+        shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))
+        framework = self.root / "framework"
+        shutil.copytree(PLATFORM.parent / "framework", framework)
+        command = [sys.executable, "-B", str(self.root / "platform/scripts/init-project.py"),
+                   "--name", "Demo", "--slug", "demo", "--tools", "claude"]
+        result = run(command, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        target = self.project / "docs/project-management/_templates/approval-record-template.md"
+        source = framework / "templates/review/approval-record.md"
+        self.assertEqual(target.read_bytes(), source.read_bytes())
+        self.assertIn("## Quyết định", target.read_text(encoding="utf-8"))
+
     def test_init_validate_and_load_project_overrides(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
         shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))

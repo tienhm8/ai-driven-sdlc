@@ -81,6 +81,6 @@ Artifact status dùng các giá trị chuẩn tại `../../standards/metadata/st
 Checklist 06 xác nhận điều kiện sẵn sàng và dẫn chiếu kết quả kiểm tra; hồ sơ `12-requirement-review/G1-approval.md` dẫn chiếu quyết định chính thức trên platform và liệt kê phiên bản được duyệt. `12-requirement-review/requirement-review-record.md` lưu quá trình review, findings và resolution.
 
 - Requirement baseline được chuyển sang System Design qua các artifact đã duyệt và tham chiếu phiên bản/approval cụ thể.
-- RTM Stage 01 được khởi tạo từ `templates/requirement-traceability.md` của framework; các stage sau bổ sung liên kết downstream theo ID, không dùng chúng làm điều kiện G1.
+- RTM Stage 01 được khởi tạo từ `templates/requirement-traceability.md` của framework. Liên kết downstream không phải điều kiện G1: Stage 02 tham chiếu đúng phiên bản RTM đã duyệt và bổ sung liên kết theo ID trong [Design Package Index](../../02-system-design/outputs/design-package-index.md#4-truy-vết-yêu-cầu), không sửa RTM đã duyệt.
 - Không còn câu hỏi critical ngăn cản thiết kế; vấn đề còn lại có owner, hạn và được PO chấp nhận rõ ràng.
 - Chuyển tiếp chỉ sau khi có quyết định G1 hợp lệ là Approved.

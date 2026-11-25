@@ -1,5 +1,5 @@
 # Project Management Templates
-Sao chép template để tạo record/báo cáo mới; không ghi dữ liệu nhiều project vào một bản mẫu.
+Sao chép template để tạo record/báo cáo mới; không ghi dữ liệu nhiều project vào một bản mẫu. Trong framework, `approval-record-template.md` chỉ dẫn tới mẫu chuẩn; project mới được khởi tạo sẽ nhận bản sao nội dung mẫu chuẩn tại cùng tên file trong `_templates/`.
 
 | Template | Purpose |
 |---|---|
@@ -9,7 +9,7 @@ Sao chép template để tạo record/báo cáo mới; không ghi dữ liệu nh
 | risk-register-template.md | Một risk record |
 | issue-log-template.md | Một issue record |
 | decision-record-template.md | Một decision record |
-| approval-record-template.md | Một approval/Gate record |
+| approval-record-template.md | Chỉ dẫn tới mẫu approval chuẩn trong framework; bản sao có thể điền trong project |
 | meeting-notes-template.md | Biên bản họp |
 | closeout-report-template.md | Báo cáo đóng dự án |
 

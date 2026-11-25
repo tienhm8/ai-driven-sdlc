@@ -1,7 +1,7 @@
 # Inputs — System Design
 
 ## Mục đích
-Đây là đầu vào của giai đoạn 02. **Đúng, nguồn đầu vào chính là kết quả đã được xác nhận ở 01-Requirement Analysis.** Không nhất thiết copy toàn bộ file sang đây; nên dùng manifest/link cùng version để tránh lệch bản.
+Dùng manifest này làm điểm tham chiếu chuẩn cho đầu vào Stage 02. Nguồn yêu cầu chính thức là baseline đã được phê duyệt ở G1. Liên kết đúng phiên bản artifact thay vì sao chép tài liệu hoặc trỏ tới bản mới nhất chưa được duyệt.
 
 ## Input baseline
 | Input | Nguồn | Bắt buộc | Kiểm tra |
@@ -9,13 +9,18 @@
 | Approved Requirement Baseline | `01-requirement-analysis/outputs/12-requirement-review/G1-approval.md` và các artifact được tham chiếu | Có | G1 Approved, version/hash và approval reference |
 | User Stories & Acceptance Criteria | `01-requirement-analysis/outputs/05-user-stories-use-cases/`; `06-acceptance-criteria/` | Có | ID rõ, AC kiểm chứng được |
 | Functional Requirements | `01-requirement-analysis/outputs/03-functional-requirements/` | Có | Không mâu thuẫn, có traceability |
-| Non-functional Requirements | `01-requirement-analysis/outputs/04-non-functional-requirements/` | Có | Có target/định nghĩa đo được khi phù hợp |
+| Non-functional Requirements | `01-requirement-analysis/outputs/04-non-functional-requirements/` | Có | Giữ toàn bộ NFR đã duyệt, kể cả hiệu năng và bảo mật; có target/định nghĩa đo được khi phù hợp |
+| Requirement Traceability Matrix (RTM) | `01-requirement-analysis/outputs/11-requirement-traceability/requirement-traceability-matrix.md` | Có | Đường dẫn và phiên bản/hash khớp với baseline đã được duyệt ở G1 |
 | Business Rules | `01-requirement-analysis/outputs/07-business-rules/` | Khi có | Được business owner xác nhận |
 | Scope, assumptions, constraints | `01-requirement-analysis/outputs/02-scope-definition/`; `10-assumptions-constraints-risks/` | Có | Phân biệt fact với assumption |
+| Rủi ro, phụ thuộc và câu hỏi mở | Baseline G1 và các register được tham chiếu | Khi có | Nêu tác động đến thiết kế, quyết định hoặc người phụ trách và hạn xử lý |
 | Integration requirements | `01-requirement-analysis/outputs/03-functional-requirements/`; `10-assumptions-constraints-risks/` | Khi áp dụng | Hệ thống liên quan và owner rõ |
 | Data classification/privacy needs | 01 / security owner | Khi áp dụng | Phân loại và hạn chế dữ liệu |
 | Existing architecture | Project docs | Dự án hiện hữu | Có version/tình trạng cập nhật |
 | Technology constraints | Project context / standards | Khi áp dụng | Nguồn có thẩm quyền |
+| Tài liệu bổ sung về hạ tầng, hiệu năng hoặc bảo mật | Project docs / chuyên gia phụ trách | Tùy bối cảnh | Không thay thế hoặc làm giảm hiệu lực yêu cầu đã duyệt |
+
+Mọi yêu cầu thuộc baseline G1 đều có hiệu lực. Các mục ghi `Khi có`, `Khi áp dụng` hoặc `Tùy bối cảnh` không làm cho yêu cầu đã duyệt trở thành tùy chọn.
 
 ## Manifest
 | Field | Value |
@@ -25,12 +30,14 @@
 | G1 status | `Approved / Not approved` |
 | PO / approver | |
 | Approval reference | `[Link]` |
+| RTM đã duyệt | `[Path / URL tới đúng phiên bản]` |
+| Phiên bản/hash RTM | `[Version / hash hoặc commit định danh bản RTM]` |
 | Source location | `[Path / URL]` |
 | Date | `[YYYY-MM-DD]` |
 
 ## Validation
 - [ ] Requirement baseline đã qua G1.
-- [ ] Có version và approval reference.
+- [ ] Có version và approval reference cho baseline; đường dẫn và phiên bản/hash RTM khớp với baseline đó.
 - [ ] Stories, AC, FR, NFR có ID và truy vết.
 - [ ] Open questions ảnh hưởng thiết kế đã có quyết định hoặc owner/hạn xử lý.
 - [ ] Scope, constraint, assumption được phân biệt.

@@ -19,6 +19,9 @@
 | 10 | Lựa chọn công nghệ và đánh đổi được ghi trong ADR | | |
 | 11 | Rủi ro, giả định và quyết định chưa chốt có người phụ trách | | |
 | 12 | Artifact có version và truy vết được | | |
+| 13 | Luồng chính, luồng thay thế và luồng lỗi khớp với hợp đồng API/sự kiện, giao diện và trách nhiệm component; có tham chiếu sơ đồ và hợp đồng tương ứng | | |
+| 14 | Timeout, retry, yêu cầu trùng lặp, transaction/nhất quán và phục hồi/bù trừ trong các luồng đã được thể hiện nhất quán với thiết kế | | |
+| 15 | Mục Vận hành & Độ tin cậy có phương án DR, rollback triển khai, tiêu chí đạt, cách kiểm chứng và bằng chứng/tham chiếu (hoặc `N/A` có lý do) | | |
 
 **Phát hiện chặn (blocking):**  
 **Hành động / người phụ trách / hạn xử lý:**  

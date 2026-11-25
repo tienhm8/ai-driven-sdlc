@@ -17,13 +17,15 @@
 
 | Vai trò | Trách nhiệm review / quyết định |
 |---|---|
-| Solution Architect – **Approver G2** | Đánh giá tổng thể, trade-off, nguyên tắc kiến trúc, lựa chọn công nghệ và phê duyệt thiết kế trong phạm vi thẩm quyền. |
+| Solution Architect được ủy quyền – **Approver G2** | Đánh giá tổng thể, ra quyết định G2 trong approval record và chốt phiên bản baseline khi G2 Approved. |
 | Tech Lead | Review khả năng triển khai, phân rã thành phần, tính nhất quán kỹ thuật và tác động đến codebase hiện tại. |
 | Security Architect / Security Engineer | Review threat model, trust boundaries, authentication, authorization, secrets, mã hóa và rủi ro bảo mật. |
 | DBA / Data Architect | Review data model, integrity, indexing, transaction, backup/restore, retention, migration và hiệu năng dữ liệu. |
 | API / Integration Owner | Review contract, versioning, backward compatibility, rate limit, error model và tích hợp hệ thống ngoài. |
 | SRE / DevOps | Review deployability, observability, resilience, capacity, recovery và yêu cầu vận hành. |
 | Product Owner / BA | Xác nhận thiết kế không làm sai lệch yêu cầu và trải nghiệm nghiệp vụ trọng yếu. |
+
+Tech Lead và chuyên gia ghi kết luận, phạm vi và bằng chứng review; họ không mặc nhiên ra quyết định G2. Các phê duyệt chuyên môn bắt buộc theo policy hoặc phạm vi dự án phải hoàn tất trước khi G2 được Approved.
 
 ## 3. Trách nhiệm review của con người
 
@@ -68,11 +70,11 @@
 
 ## 6. Điều kiện quyết định G2
 
-**Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ quyết định này mới cho phép G2 `Approved` và chốt baseline.
+**Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ khi G2 `Approved`, Solution Architect được ủy quyền mới chốt đúng phiên bản design package đã duyệt làm baseline. Approval record ghi ID và phiên bản gói, định danh bất biến của nội dung đã duyệt (digest hoặc commit snapshot), quyết định, người duyệt, thời điểm và waiver hợp lệ nếu có; package index chỉ tham chiếu hồ sơ. Xem [quy định G2](../governance/human-review-gates/G2-design-approval.md).
 
-**Changes Requested** khi còn điều kiện cần đóng; **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
+**Changes Requested** khi phương án có thể sửa và trình lại, nhưng còn điều kiện cần đóng (ví dụ: bổ sung kế hoạch rollback hoặc xử lý mâu thuẫn giữa các thành phần). **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc để ra quyết định. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
 
-**Changes requested / Reject** khi thiết kế không đáp ứng yêu cầu, có lỗ hổng/rủi ro không thể chấp nhận, thiếu phương án vận hành hoặc các thành phần thiết kế mâu thuẫn.
+**Rejected** khi Solution Architect không chấp nhận phương án và không yêu cầu sửa để trình lại phương án đó, chẳng hạn vì rủi ro không thể chấp nhận.
 
 Các vấn đề chưa ảnh hưởng đến quyết định có thể được ghi thành action có owner và deadline; không được dùng action mở để che giấu rủi ro nghiêm trọng.
 
@@ -82,7 +84,7 @@ Reviewer chỉ rõ thành phần/ADR liên quan, vấn đề, ràng buộc cần
 
 ## 8. Bằng chứng và hồ sơ review
 
-Lưu design baseline, sơ đồ và spec theo phiên bản; ADR; threat model/risk assessment; comment của reviewer; quyết định G2; danh tính và timestamp người phê duyệt; các ngoại lệ được chấp thuận và ngày hết hạn (nếu có).
+Lưu design baseline, sơ đồ và spec theo phiên bản; ADR; threat model/risk assessment; comment của reviewer; tham chiếu approval record G2 (quyết định, danh tính và timestamp người phê duyệt, ngoại lệ được chấp thuận và ngày hết hạn nếu có).
 
 ## 9. Trách nhiệm cuối cùng
 

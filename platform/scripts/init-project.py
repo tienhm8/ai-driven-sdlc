@@ -550,6 +550,12 @@ def init_project(
             for folder in PROJECT_MANAGEMENT_FOLDERS:
                 create_directory(pm_dir / folder)
 
+            # Seed the canonical approval template first. The project-management
+            # framework copy is a pointer whose relative links do not survive copying.
+            copy_file_if_missing(
+                framework_dir / "templates" / "review" / "approval-record.md",
+                pm_dir / "_templates" / "approval-record-template.md",
+            )
             copy_templates(
                 framework_dir / "project-management" / "templates",
                 pm_dir / "_templates",
