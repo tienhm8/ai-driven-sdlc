@@ -81,7 +81,7 @@ Tạo và duy trì các đầu ra sau, nhất quán với mục **1.8 Output —
 - **Business Glossary (khi áp dụng):** thuật ngữ nghiệp vụ, định nghĩa và từ viết tắt.
 - **Assumptions, Constraints, Dependencies, Risks & Open Questions:** ghi nhận nội dung trong `outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md` và câu hỏi mở trong `outputs/10-assumptions-constraints-risks/open-questions.md`, kèm owner và trạng thái xử lý.
 - **Requirement Traceability Matrix (RTM):** tạo từ [template Stage 01](templates/requirement-traceability.md). Truy vết Nguồn/Mục tiêu → BRQ → FR/NFR đến AC, liên kết BR và US/UC khi áp dụng. Không điền ID downstream giả định. Phân loại từng khoảng trống; AI chỉ đề xuất `N/A` có lý do, không tự ghi là đã được chấp nhận.
-- **Requirement Review Record & G1 Approval Package:** ghi findings và resolution tại `outputs/12-requirement-review/requirement-review-record.md`; ghi ý kiến và quyết định G1, approver, timestamp, bằng chứng cùng phiên bản được duyệt tại `outputs/12-requirement-review/G1-approval.md`.
+- **Requirement Review Record & G1 Approval Package:** ghi findings và resolution tại `outputs/12-requirement-review/requirement-review-record.md`; dẫn chiếu quyết định G1 chính thức trên platform và liệt kê đúng phiên bản được duyệt (gồm OQ, giả định, ràng buộc) tại `outputs/12-requirement-review/G1-approval.md`.
 
 Chỉ tạo nội dung US/UC, BR, AC, Business Process Model và Business Glossary khi áp dụng. Lưu artifact theo vị trí và quy ước tại `outputs/README.md`; không tạo bản sao không cần thiết nếu nội dung đã có artifact chuẩn.
 

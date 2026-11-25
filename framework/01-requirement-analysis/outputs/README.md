@@ -58,7 +58,7 @@ Business Process Model và Glossary là đầu ra tùy chọn, nhưng template v
 | 9 | Business Glossary (tùy chọn) | `09-glossary/glossary.md` | Thuật ngữ, định nghĩa và từ viết tắt khi phù hợp. |
 | 10 | Assumptions, Constraints, Dependencies, Risks & Open Questions | `10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md`; `10-assumptions-constraints-risks/open-questions.md` | Các giả định, ràng buộc, phụ thuộc, rủi ro và câu hỏi mở cùng owner/trạng thái xử lý. |
 | 11 | Requirement Traceability Matrix (RTM) | `11-requirement-traceability/requirement-traceability-matrix.md` | Nguồn/Mục tiêu → BRQ → FR/NFR đến AC; liên kết BR và US/UC khi áp dụng. Đánh giá từng chiều trước G1. |
-| 12 | Requirement Review Record & G1 Approval Package | `12-requirement-review/requirement-review-record.md`; `12-requirement-review/G1-approval.md` | File review ghi findings/resolution; file G1 ghi quyết định PO, approver, timestamp, bằng chứng và đúng phiên bản baseline/package. |
+| 12 | Requirement Review Record & G1 Approval Package | `12-requirement-review/requirement-review-record.md`; `12-requirement-review/G1-approval.md` | File review ghi findings/resolution; file G1 dẫn chiếu quyết định PO trên platform và đúng phiên bản baseline/package (gồm OQ, giả định, ràng buộc). |
 
 ## 4. Quy tắc đầu ra
 
@@ -78,7 +78,7 @@ Artifact status dùng các giá trị chuẩn tại `../../standards/metadata/st
 
 ## 6. Bàn giao và điều kiện G1
 
-Checklist 06 xác nhận điều kiện sẵn sàng và dẫn chiếu kết quả kiểm tra; hồ sơ `12-requirement-review/G1-approval.md` là nơi duy nhất ghi quyết định chính thức. `12-requirement-review/requirement-review-record.md` lưu quá trình review, findings và resolution.
+Checklist 06 xác nhận điều kiện sẵn sàng và dẫn chiếu kết quả kiểm tra; hồ sơ `12-requirement-review/G1-approval.md` dẫn chiếu quyết định chính thức trên platform và liệt kê phiên bản được duyệt. `12-requirement-review/requirement-review-record.md` lưu quá trình review, findings và resolution.
 
 - Requirement baseline được chuyển sang System Design qua các artifact đã duyệt và tham chiếu phiên bản/approval cụ thể.
 - RTM Stage 01 được khởi tạo từ `templates/requirement-traceability.md` của framework; các stage sau bổ sung liên kết downstream theo ID, không dùng chúng làm điều kiện G1.

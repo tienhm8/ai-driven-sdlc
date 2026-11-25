@@ -34,20 +34,26 @@ Dùng [template RTM Stage 01](../templates/requirement-traceability.md#5-độ-b
 - [ ] Đã đối chiếu cả baseline và ma trận; không còn `Missing` ở liên kết bắt buộc, `Orphan` chưa xử lý, `N/A` chưa được chấp nhận hoặc `TBD` chặn G1. Phần không chặn đã có tác động, owner, hạn và quyết định xử lý.
 - [ ] RTM `PASS` ở mọi chiều. Thiết kế, task, implementation, Test Case, kết quả kiểm thử và release không phải điều kiện G1.
 
-## 5. Điều kiện phê duyệt
+## 5. Điều kiện sẵn sàng trình duyệt
 
-- [ ] Tất cả mục bắt buộc trong checklist đạt (PASS).
+- [ ] Checklist 01–05 đã có kết quả PASS (hoặc ngoại lệ được ghi rõ ở mục 6).
+- [ ] Các mục bắt buộc ở mục 1–4 đạt (PASS).
 - [ ] Các vấn đề quan trọng đã được giải quyết.
-- [ ] Product Owner đã review các artifact.
-- [ ] Product Owner đã phê duyệt G1 một cách tường minh.
+- [ ] Product Owner đã nhận đủ artifact để review.
 
-## 6. Ghi nhận kết quả kiểm tra và bàn giao
+## 6. Ghi nhận kết quả kiểm tra
 
-- Kết quả checklist: [PASS / FAIL / PENDING]
+| Checklist | Kết quả | Tham chiếu run/evidence |
+|---|---|---|
+| 01 Input completeness | [PASS / FAIL / PENDING] | |
+| 02 Requirement analysis | [PASS / FAIL / PENDING] | |
+| 03 Requirement quality | [PASS / FAIL / PENDING] | |
+| 04 Ambiguity and conflict | [PASS / FAIL / PENDING] | |
+| 05 NFR validation | [PASS / FAIL / PENDING] | |
+
+- Kết quả sẵn sàng trình duyệt (checklist 06): [PASS / FAIL / PENDING]
 - Phiên bản RTM và tham chiếu kết quả kiểm tra từng chiều:
 - Findings/gap còn lại: [Artifact/ID, owner, hạn]
-- Tham chiếu checklist run/evidence:
 - Hồ sơ review: `../outputs/12-requirement-review/requirement-review-record.md`
-- Quyết định G1 chính thức được ghi duy nhất tại: `../outputs/12-requirement-review/G1-approval.md`
 
-Checklist này xác nhận điều kiện sẵn sàng trình duyệt, không ghi quyết định thay Product Owner. AI KHÔNG được phê duyệt G1.
+Checklist này chỉ xác nhận đủ điều kiện trình duyệt và dẫn kết quả checklist 01–05; không ghi quyết định G1. Quyết định chính thức của Product Owner được ghi trên platform và dẫn chiếu tại `../outputs/12-requirement-review/G1-approval.md`. AI KHÔNG được phê duyệt G1.

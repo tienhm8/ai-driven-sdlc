@@ -29,24 +29,30 @@
 | RTM | [Version] | [Path/URL/commit] | [Draft/In Review] |
 | Requirement Review Record | [Review ID/version] | [Path/URL/commit] | [Completed/Findings open] |
 
-## 3. Điều kiện trước khi quyết định
+## 3. Kết quả kiểm tra (dẫn chiếu)
 
-- [ ] Các đầu ra bắt buộc đã được hoàn thiện và review.
-- [ ] Các đầu ra tùy chọn được tạo khi phù hợp, hoặc ghi N/A cùng lý do.
-- [ ] Findings trọng yếu đã được xử lý; phần còn lại có owner, hạn và được PO chấp nhận rõ ràng.
-- [ ] Không còn câu hỏi critical ngăn cản System Design.
-- [ ] Phạm vi, yêu cầu, acceptance criteria, NFR và RTM nhất quán.
-- [ ] RTM `PASS` ở từng chiều Stage 01; hồ sơ review ghi phiên bản RTM và tham chiếu kết quả.
-- [ ] Đúng phiên bản artifact/review package đã được trình duyệt.
+Kết quả checklist 01–06 được ghi tại các checklist run; hồ sơ này chỉ dẫn chiếu, không ghi lại điều kiện hay kết quả kiểm tra.
 
-## 4. Quyết định của Product Owner
+| Checklist | Tham chiếu run/bằng chứng |
+|---|---|
+| 01–05 | [Run/evidence link] |
+| 06 G1 readiness | [Run/evidence link] |
 
-- **Approver:** [Danh tính]
-- **Vai trò/thẩm quyền:** Product Owner
-- **Decision:** [Approve / Reject / Blocked / Changes Requested]
-- **Reason/comment:** [Lý do và điều kiện]
-- **Timestamp:** [YYYY-MM-DDThh:mm:ssZ]
-- **Evidence/reference:** [Approval event/link]
+**Câu hỏi mở, giả định, ràng buộc thuộc phiên bản được duyệt:**
+
+| Loại | Phiên bản/tham chiếu bất biến | ID liên quan (owner, hạn, criticality nếu là OQ) |
+|---|---|---|
+| Open Questions | [Path/URL/commit] | [OQ IDs/Không có] |
+| Assumptions | [Path/URL/commit] | [IDs/Không có] |
+| Constraints | [Path/URL/commit] | [IDs/Không có] |
+| Yêu cầu chưa duyệt/provisional | | [IDs/Không có] |
+
+## 4. Quyết định chính thức của Product Owner
+
+Quyết định G1 được ghi trên platform; hồ sơ này chỉ dẫn chiếu, không sao chép nội dung quyết định.
+
+- **Tham chiếu quyết định trên platform:** [Link/ID]
+- **Áp dụng cho:** Requirement baseline và Review package ở mục 1.
 
 ## 5. Ngoại lệ/điều kiện được chấp nhận
 
