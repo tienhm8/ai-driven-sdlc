@@ -23,6 +23,28 @@ Xây dựng quy trình phát triển phần mềm trong đó AI tham gia tất c
 
 Mọi vai trò dùng AI theo cùng một luồng `Role → Stage → Task → Context → Execute → Review → Output`. Quy tắc đầy đủ nằm tại [ai-usage-flow.md](../shared-ai/rules/core/ai-usage-flow.md).
 
+## Bắt đầu theo vai trò
+
+Mỗi vai trò có thể làm việc, xác nhận nội dung hoặc duyệt gate. Ba việc này không luôn thuộc cùng một người. Chi tiết trách nhiệm nằm ở `human-review.md` của từng giai đoạn và [gate-policy](governance/human-review-gates/gate-policy.md).
+
+| Vai trò | Giai đoạn tham gia | Việc chính | Gate |
+|---|---|---|---|
+| Product Owner (PO) | 01, 03, 06, 07 | Chốt phạm vi và ưu tiên, duyệt yêu cầu, nghiệm thu nghiệp vụ | Duyệt G1; cùng QA Lead duyệt G5 |
+| Business Analyst (BA) | 01, 02 | Điều phối phân tích, soạn yêu cầu, quản lý baseline và truy vết | Trình G1 |
+| Stakeholder / SME | 01, 02 | Xác nhận quy tắc và ngoại lệ nghiệp vụ | Không |
+| Solution Architect | 02 | Thiết kế kiến trúc, quyết định kỹ thuật | Duyệt G2 |
+| Tech Lead | 02, 03, 04, 05 | Rà soát thiết kế, duyệt kế hoạch task, kiểm soát lệch thiết kế, duyệt merge | Duyệt G3; cùng Reviewer duyệt G4 |
+| Project Manager (PM) | 03 | Kế hoạch, tiến độ, nguồn lực, rủi ro | Review G3 |
+| Developer | 03, 04, 05 | Nhận task đã duyệt, thực hiện, bàn giao PR | Không (04 chỉ kiểm tra bàn giao) |
+| Reviewer / Senior Developer | 05 | Review code, xử lý finding | Duyệt G4 |
+| Security / Data owner | 02, 04, 05, 07 | Review phần bảo mật và dữ liệu khi áp dụng | Không |
+| QA Lead / QA Engineer | 03, 06, 07 | Chiến lược và thực thi kiểm thử, sign-off chất lượng | QA Lead duyệt G5 (cùng PO) |
+| DevOps / Release Manager | 07 | Pipeline, môi trường, rollback, phát hành | Release Manager duyệt G6 |
+| SRE / Operations | 08 | Giám sát, cảnh báo, runbook | Không (monitoring thường kỳ không chặn) |
+| Incident Commander | 08 | Điều phối sự cố nghiêm trọng | Duyệt G7 (chỉ khi có sự cố nghiêm trọng) |
+
+AI hỗ trợ ở mọi vai trò nhưng không phê duyệt. Xem [cách dùng AI](../shared-ai/rules/core/ai-usage-flow.md).
+
 ## Chuẩn hóa cấu trúc bên trong mỗi giai đoạn
 
 Để framework không bị rời rạc, cả 8 giai đoạn tuân theo cùng một cấu trúc:

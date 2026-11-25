@@ -1,5 +1,35 @@
 # 01 — Requirement Analysis
 
+## 0. Bắt đầu nhanh
+
+> Trang này hướng dẫn thao tác. Quy định chính thức nằm ở [workflow.md](workflow.md), [human-review.md](human-review.md) và [G1](../governance/human-review-gates/G1-requirement-approval.md).
+
+**Lối vào:** **BA — Bắt đầu phân tích** (mục 0.1 và 0.2) · **PO — Duyệt G1** (mục 0.3).
+
+### 0.1 Dành cho ai?
+
+- **BA:** người dùng chính, chịu trách nhiệm bộ hồ sơ yêu cầu.
+- **Stakeholder / chuyên gia nghiệp vụ (SME):** xác nhận thông tin chuyên môn.
+- **PO:** quyết định phạm vi, ưu tiên và duyệt G1.
+- **AI:** hỗ trợ phân tích, soạn nháp, phát hiện thiếu sót. AI không xác nhận nghiệp vụ và không phê duyệt.
+
+**Cần gì để bắt đầu?** Mô tả vấn đề hoặc đề xuất dự án, mục tiêu và phạm vi sơ bộ, danh sách stakeholder và người có quyền quyết định, bối cảnh hệ thống hiện tại (nếu có), các ràng buộc đã biết. Không cần có sẵn BRD hoàn chỉnh. Thiếu thông tin thì BA ghi câu hỏi làm rõ, không để AI tự điền. Xem [hướng dẫn chuẩn bị input](inputs/README.md).
+
+### 0.2 Bốn bước
+
+| Bước | Ai làm? | Việc cần làm | Kết quả |
+|---|---|---|---|
+| **1. Tiếp nhận** | BA, bên đề xuất | Ghi vấn đề, mục tiêu, nguồn tài liệu và người có thẩm quyền. | Danh sách input và câu hỏi làm rõ. |
+| **2. Phân tích và soạn nháp** | BA chủ trì, AI hỗ trợ | Tách yêu cầu nghiệp vụ, quy tắc, FR/NFR; viết User Story và tiêu chí nghiệm thu; gắn ID và nguồn. | Bộ yêu cầu nháp và ma trận truy vết. |
+| **3. Xác nhận và kiểm tra** | BA, SME, PO; mời kỹ thuật/bảo mật khi cần | SME xác nhận quy tắc và ngoại lệ; PO chốt phạm vi và ưu tiên; BA chạy [checklist G1](checklists/06-G1-approval-checklist.md). | Hồ sơ sẵn sàng trình duyệt, hoặc danh sách nội dung phải sửa. |
+| **4. Duyệt và bàn giao** | PO duyệt, BA bàn giao | PO ghi quyết định cho đúng phiên bản hồ sơ. Cần sửa thì BA cập nhật và trình lại. Chỉ bàn giao sang giai đoạn 02 khi G1 đã được duyệt. | Bộ yêu cầu đã duyệt, ma trận truy vết và hồ sơ G1. |
+
+### 0.3 PO cần đọc gì để duyệt G1?
+
+Bắt đầu từ [báo cáo tổng hợp](outputs/requirement-analysis-report.md), rồi đối chiếu phạm vi, tiêu chí nghiệm thu và các vấn đề còn mở với [điều kiện G1](../governance/human-review-gates/G1-requirement-approval.md). AI có thể chuẩn bị hồ sơ trong [outputs/12-requirement-review/](outputs/12-requirement-review/), nhưng **PO ghi quyết định**. Hồ sơ thật lưu trong project, không điền vào bản mẫu dùng chung.
+
+---
+
 ## 1. Kiến trúc
 
 Giai đoạn Requirement Analysis tuân theo cấu trúc chung của framework:
