@@ -70,6 +70,11 @@ Lặp lại block trên cho từng finding.
 - Outstanding risks / accepted exceptions:
 - CI run:
 - Merge authorization:
+- Merge identity / thời gian:
+- Merge commit SHA:
+- Link bằng chứng merge:
+- Build/CI sau merge (truy vết tới SHA trên):
+- Rủi ro bàn giao cho QA:
 
 ## 7. Sign-off
 | Vai trò | Người | Quyết định | Thời gian |

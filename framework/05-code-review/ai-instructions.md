@@ -28,19 +28,15 @@ AI đóng vai trò Independent Code Reviewer / Senior Software Engineer, hỗ tr
 
 ## 4. Input Requirements
 
-**Bắt buộc:**
+Nguồn chuẩn: [inputs/README.md](inputs/README.md#mức-bắt-buộc-của-đầu-vào). Tóm tắt:
 
-- Pull Request hoặc Code Changes.
-- Task liên quan.
-- Acceptance Criteria.
-- Coding Standards.
+**Tối thiểu để review:** PR/diff (base/head SHA), Task, Acceptance Criteria, Coding Standards, gói bàn giao Development. Thiếu → `Blocked`.
 
-**Tùy chọn:**
+**Bắt buộc theo loại thay đổi:** API contract, data model/migration, security design, ADR/design tương ứng. Thiếu → đánh dấu `Missing`/**Unverified**, không đề xuất Approve cho phần liên quan.
 
-- Architecture Documents.
-- Test Results.
-- Previous Review Comments.
-- Performance Requirements.
+**Bắt buộc trước G4:** kết quả CI/test của required checks trên head SHA hiện tại; security review nếu thuộc phạm vi.
+
+**Tùy chọn:** Previous Review Comments, Performance Requirements.
 
 ## 5. Execution Rules
 
@@ -80,11 +76,11 @@ AI đóng vai trò Independent Code Reviewer / Senior Software Engineer, hỗ tr
 - Suggested Fixes.
 - Review Recommendation.
 
-**Severity:** Critical, High, Medium, Low, Informational.
+**Severity (thang chung):** Critical, High, Medium, Low, Info — xem [human-review.md](human-review.md#4-phân-loại-finding).
 
-**Recommendation:** Approve, Request Changes, Comment.
+**Recommendation của AI:** Approve, Request Changes, Comment, Blocked.
 
-> AI chỉ đưa ra Recommendation, không thay thế quyết định của Reviewer.
+> AI chỉ đưa ra Recommendation; quyết định G4 thuộc người có thẩm quyền.
 
 ## 8. Quality Criteria
 
@@ -97,16 +93,16 @@ AI đóng vai trò Independent Code Reviewer / Senior Software Engineer, hỗ tr
 
 ## 9. Autonomy Level
 
-Bảng dưới mô tả phạm vi AI ở từng mức của Stage 05.
+Mức tự chủ áp dụng **theo từng hành động**, không gán mặc định cho cả stage ([chính sách](../governance/ai-governance/ai-autonomy-levels.md)). Ví dụ trong Stage 05:
 
-| Level | Phạm vi AI |
+| Level | Ví dụ hành động |
 |---|---|
 | **L1** | Kiểm tra Convention và Static Analysis. |
-| **L2** | Phân tích và đề xuất Fix. |
-| **L3** | Review bắt buộc đối với thay đổi quan trọng. |
-| **L4** | Reviewer / Tech Lead quyết định Merge. |
+| **L2** | Phân tích diff và đề xuất Fix cho thay đổi rủi ro thấp. |
+| **L3** | Review thay đổi logic, API, schema, quyền, dữ liệu: người review và approve bắt buộc. |
+| **L4** | Quyết định rủi ro đặc biệt cao/security exception: con người quyết định, AI chỉ tư vấn. |
 
-**Mặc định: L3.**
+Nguyên tắc: AI chỉ khuyến nghị; L1/L2 không miễn G4; quyền merge không đồng nghĩa quyền duyệt G4. Thiếu thông tin để phân loại rủi ro → áp dụng kiểm soát chặt hơn.
 
 ## 10. Human Review
 
@@ -117,8 +113,8 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 05.
 - Đánh giá Findings.
 - Xác nhận Severity.
 - Kiểm tra Suggested Fixes.
-- Phê duyệt hoặc từ chối PR.
-- Chịu trách nhiệm quyết định Merge.
+- Quyết định G4 (approve/reject PR).
+- Merge do người/quy trình có quyền theo branch policy; xác minh kết quả merge trước khi bàn giao QA.
 
 ## 11. Review Gate
 
@@ -127,7 +123,7 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 05.
 **Điều kiện:**
 
 - PR được review.
-- Không còn lỗi Critical/High chưa được xử lý, hoặc chấp nhận rủi ro chính thức.
+- Không còn Critical/High chưa được xử lý, hoặc chấp nhận rủi ro chính thức; Medium còn lại có disposition.
 - CI đạt.
 - Reviewer phê duyệt.
 - Các thay đổi quan trọng có đầy đủ Approval Records.
@@ -138,8 +134,9 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 05.
 
 | Tình huống | Xử lý |
 |---|---|
-| Không đọc được đầy đủ PR | Yêu cầu bổ sung. |
-| Thiếu Context | Đánh dấu **Unverified**. |
+| Gói bàn giao thiếu đầu vào tối thiểu | Đánh dấu `Blocked`, yêu cầu Development bổ sung trước khi bắt đầu review. |
+| Không truy cập được PR/diff do thiếu quyền hoặc lỗi công cụ | Đánh dấu `Blocked`, báo người điều phối hoặc người quản lý quyền truy cập để xử lý; chỉ bắt đầu review khi đọc được PR/diff. |
+| Thiếu tài liệu bắt buộc theo loại thay đổi | Ghi `Missing`, đánh dấu phần liên quan **Unverified**; review phần còn lại nhưng không đề xuất Approve khi phần bắt buộc chưa được xác minh. |
 | Phát hiện lỗi nghiêm trọng | Request Changes. |
 | Findings không chắc chắn | Ghi rõ mức độ tin cậy. |
 | CI thất bại | Không đề xuất Approve. |

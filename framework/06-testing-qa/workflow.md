@@ -30,8 +30,8 @@ Handoff to Deployment
 
 ## 6.3 Entry Criteria — Điều kiện bắt đầu
 
-- Thay đổi đã qua G4 và được tích hợp theo quy trình.
-- Có build/version/commit xác định và release scope.
+- Thay đổi đã được G4 phê duyệt và merge theo policy; QA nhận merge commit SHA đã xác minh và link bằng chứng merge theo [quy ước intake](inputs/README.md).
+- Có release scope và build/version xác định để kiểm thử; build dùng làm bằng chứng G5 phải truy vết được về kết quả merge đã xác minh.
 - Requirement baseline, acceptance criteria, test strategy và test environment sẵn sàng.
 - Test data được chuẩn bị hợp pháp, an toàn và có khả năng tái tạo.
 - Các dependency ngoài và test account cần thiết được xác nhận.
@@ -55,7 +55,7 @@ Handoff to Deployment
 
 ## 6.5 Input — Đầu vào
 
-- Integrated build/release candidate và commit/tag.
+- Integrated build/release candidate, phiên bản và bằng chứng liên kết build với merge commit SHA đã xác minh.
 - Requirement baseline, RTM, acceptance criteria.
 - Test strategy, test plan, test cases và automation suite.
 - Environment/configuration, test accounts và test data.

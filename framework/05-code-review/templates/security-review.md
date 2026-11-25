@@ -1,5 +1,7 @@
 # Security Review Template
 
+> Dùng khi thay đổi thuộc phạm vi security review. Các mục nhanh có trong [security-checklist](../checklists/security-checklist.md) được mở rộng ở đây; phần phạm vi/trust boundary, bằng chứng và kết luận chuyên môn chỉ có trong mẫu này. Severity dùng thang chung Critical/High/Medium/Low/Info ([human-review.md](../human-review.md#4-phân-loại-finding)).
+
 ## Metadata
 - PR / commit:
 - Reviewer:
