@@ -91,7 +91,6 @@ stages:
       - effort-estimation.md
       - dependency-matrix.md
       - definition-of-done.md
-      - g3-approval.md
     outputs_link: 03-task-planning/outputs/README.md
     handoff: Kế hoạch đã duyệt (G3) và task sẵn sàng cho Development.
     tasks:
