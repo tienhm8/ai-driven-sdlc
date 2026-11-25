@@ -2,9 +2,9 @@
 
 ## Danh sách tiêu chí nghiệm thu
 
-| Mã | User Story / Use Case | Mô tả | Trạng thái |
-|---|---|---|---|
-| AC-0001 | US-0001 / UC-0001 | | DRAFT |
+| Mã | User Story / Use Case (khi áp dụng) | FR/NFR (liên kết trực tiếp nếu không dùng US/UC) | Mô tả | Trạng thái |
+|---|---|---|---|---|
+| AC-0001 | | | | DRAFT |
 
 ## Chi tiết tiêu chí nghiệm thu
 

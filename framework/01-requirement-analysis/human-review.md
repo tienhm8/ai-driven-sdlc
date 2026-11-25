@@ -11,7 +11,7 @@
 - AI có thể phân tích, đặt câu hỏi, đề xuất và soạn tài liệu; AI không được tự xác nhận yêu cầu nghiệp vụ hoặc tự phê duyệt G1.
 - Không suy diễn nội dung còn thiếu thành sự thật. Giả định phải được đánh dấu, nêu tác động và có người chịu trách nhiệm xác nhận.
 - Yêu cầu chưa rõ, mâu thuẫn hoặc chưa có chủ sở hữu phải được làm rõ trước khi baseline.
-- Mọi yêu cầu được duyệt phải có mã định danh ổn định để truy vết đến thiết kế, task, code và test.
+- Mọi yêu cầu được duyệt phải có ID ổn định. Dùng ID này để nối thiết kế, task, code và test ở các stage sau, không yêu cầu các liên kết đó tại G1.
 
 ## 2. Vai trò và trách nhiệm
 
@@ -56,13 +56,13 @@ Người review cần xác nhận tối thiểu:
 
 - [ ] Mục tiêu nghiệp vụ và vấn đề cần giải quyết đã được xác nhận.
 - [ ] In-scope / out-of-scope và ưu tiên đã rõ.
-- [ ] User Story có actor, nhu cầu và giá trị mong đợi phù hợp.
+- [ ] US/UC khi áp dụng mô tả actor, nhu cầu và mục tiêu phù hợp; trường hợp không áp dụng có lý do được chấp nhận trong RTM.
 - [ ] Acceptance Criteria rõ ràng, đo/kiểm chứng được.
 - [ ] Luồng chính, ngoại lệ và business rules quan trọng đã được xem xét.
 - [ ] NFR, bảo mật, quyền riêng tư và yêu cầu tuân thủ đã được xem xét khi áp dụng.
 - [ ] Giả định, câu hỏi mở, rủi ro và phụ thuộc có owner.
 - [ ] Không còn mâu thuẫn nghiêm trọng hoặc yêu cầu chưa rõ ảnh hưởng đến thiết kế.
-- [ ] Requirement ID và liên kết truy vết đã được tạo.
+- [ ] RTM `PASS` ở từng chiều theo [checklist G1](checklists/06-G1-approval-checklist.md#4-kiểm-tra-rtm-trước-g1) trên đúng phiên bản baseline; không yêu cầu liên kết downstream.
 - [ ] Stakeholder cần thiết đã xác nhận.
 
 ## 6. Điều kiện quyết định G1

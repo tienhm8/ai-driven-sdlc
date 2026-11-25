@@ -17,6 +17,6 @@
 
 ## Tiêu chí hoàn thành
 
-Các NFR áp dụng PHẢI được tài liệu hóa kèm tiêu chí nghiệm thu có thể đo lường.
+Các NFR áp dụng PHẢI được tài liệu hóa kèm tiêu chí đo (chỉ số, ngưỡng, điều kiện đo khi cần) hoặc phương pháp kiểm chứng với kết quả đạt/không đạt rõ ràng.
 
 KHÔNG tự đặt ra các con số mục tiêu. Khi chưa có mục tiêu, PHẢI yêu cầu bên liên quan làm rõ.

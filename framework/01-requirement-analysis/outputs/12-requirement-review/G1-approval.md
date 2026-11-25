@@ -53,6 +53,7 @@
 - [ ] Findings trọng yếu đã xử lý; vấn đề còn lại có owner/hạn và được PO chấp nhận rõ ràng.
 - [ ] Không còn câu hỏi critical ngăn cản System Design.
 - [ ] Scope, yêu cầu, AC, NFR và RTM nhất quán.
+- [ ] RTM `PASS` ở từng chiều Stage 01; hồ sơ review ghi phiên bản RTM và tham chiếu kết quả.
 - [ ] Baseline và review package đúng phiên bản.
 
 ## Quyết định của Product Owner

@@ -15,8 +15,8 @@
 | Trường | Giá trị |
 |---|---|
 | Mã tiêu chí nghiệm thu | AC-001 |
-| User Story liên quan | US-001 |
-| Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
+| User Story / Use Case liên quan (khi áp dụng) | [US/UC ID hoặc N/A theo RTM] |
+| Yêu cầu liên quan | [BRQ ID; FR/NFR ID liên kết trực tiếp nếu không dùng US/UC] |
 | Chức năng / Module | [Tên chức năng] |
 | Độ ưu tiên | Cao |
 | Trạng thái | Draft |

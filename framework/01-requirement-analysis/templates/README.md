@@ -16,12 +16,12 @@ Bộ template gồm 14 file nội dung (12 deliverable bắt buộc và 2 templa
 | `non-functional-requirements.md` | `04-non-functional-requirements/non-functional-requirements.md` | Có | NFR có category, nguồn, owner, priority, status và cách đo/kiểm chứng. |
 | `user-story.md` | `05-user-stories-use-cases/user-stories.md` | Có | Nhu cầu người dùng liên kết với BRQ/FR/NFR. |
 | `use-case.md` | `05-user-stories-use-cases/use-cases.md` | Có | Actor, mục tiêu, luồng chính, ngoại lệ và kết quả. |
-| `acceptance-criteria.md` | `06-acceptance-criteria/acceptance-criteria.md` | Có | Tiêu chí kiểm chứng cho User Story/Use Case; Test Case cụ thể bổ sung ở Stage 06. |
+| `acceptance-criteria.md` | `06-acceptance-criteria/acceptance-criteria.md` | Có | Tiêu chí kiểm chứng qua US/UC hoặc trực tiếp từ FR/NFR; Test Case bổ sung ở Stage 06. |
 | `business-rules.md` | `07-business-rules/business-rules.md` | Có | Nguồn chuẩn duy nhất cho BR; BRD chỉ tham chiếu bằng ID. |
 | `business-process-model.md` | `08-business-process-model/business-process-model.md` | Tùy chọn | Mô hình quy trình, actor, activity, decision và event khi phù hợp. Giữ template để project cần thì dùng. |
 | `glossary.md` | `09-glossary/glossary.md` | Tùy chọn | Thuật ngữ và định nghĩa nghiệp vụ khi phù hợp. Giữ template để project cần thì dùng. |
 | `assumptions-constraints-dependencies-risks.md` | `10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md` | Có | Nguồn chuẩn cho giả định, ràng buộc, phụ thuộc và rủi ro; câu hỏi mở có register riêng tại `10-assumptions-constraints-risks/open-questions.md`. |
-| `requirement-traceability.md` | `11-requirement-traceability/requirement-traceability-matrix.md` | Có | Stage 01 truy vết BRQ → FR/NFR → US/UC → AC; downstream được nối ở các stage tương ứng. |
+| `requirement-traceability.md` | `11-requirement-traceability/requirement-traceability-matrix.md` | Có | Mẫu chuẩn RTM: Nguồn/Mục tiêu → BRQ → FR/NFR đến AC; BR và US/UC khi áp dụng. |
 | `requirement-review-record.md` | `12-requirement-review/requirement-review-record.md` | Có | Ghi quá trình review, findings, resolution và bằng chứng. |
 | `G1-approval.md` | `12-requirement-review/G1-approval.md` | Có | Ghi quyết định chính thức G1 của Product Owner cho đúng phiên bản baseline/review package. |
 
@@ -30,7 +30,7 @@ Bộ template gồm 14 file nội dung (12 deliverable bắt buộc và 2 templa
 - Business Rules Catalogue là nguồn chuẩn duy nhất cho nội dung BR; các artifact khác chỉ tham chiếu BR ID.
 - Scope Definition là nguồn chuẩn duy nhất cho phạm vi; BRD và báo cáo chỉ tóm tắt hoặc dẫn chiếu.
 - Requirement Review Record và G1 Approval là hai artifact riêng: một ghi quá trình review, một ghi quyết định gate.
-- RTM tại Stage 01 dừng ở Acceptance Criteria. Test Case, thiết kế, task, implementation và deployment được liên kết tại stage tương ứng.
+- [Template RTM Stage 01](requirement-traceability.md) là chuẩn duy nhất cho RTM trước G1. Bản khởi tạo trong `outputs/` được tạo từ template này. Thiết kế, task, implementation, test và release được nối ở các stage sau.
 - Business Process Model và Glossary là đầu ra tùy chọn; không xóa template khỏi framework khi một project không dùng. Project ghi N/A và lý do khi cần báo cáo tính đầy đủ.
 - Dùng [Quy ước định danh](../../standards/metadata/id-conventions.md), trạng thái chuẩn và yêu cầu metadata của framework. Không tự khẳng định một ID đã được cấp phát nếu chưa có registry đáng tin cậy.
 - Mỗi artifact có ID, phiên bản, trạng thái và nguồn liên quan khi áp dụng. Nội dung do AI suy luận phải được đánh dấu và không được trình bày như dữ kiện đã xác nhận.
@@ -69,7 +69,7 @@ templates/
 | `business-rules.md` | Danh mục Business Rules (BR). | Nguồn chuẩn duy nhất cho nội dung BR. |
 | `business-process-model.md` / `glossary.md` | Mô hình quy trình / thuật ngữ nghiệp vụ. | Tùy chọn; giữ để project cần thì sử dụng. |
 | `assumptions-constraints-dependencies-risks.md` | Register assumption, constraint, dependency và risk. | Có owner/trạng thái; OQ lifecycle chi tiết nằm ở `outputs/10-assumptions-constraints-risks/open-questions.md`. |
-| `requirement-traceability.md` | RTM Stage 01. | Dừng tại BRQ → FR/NFR → US/UC → AC; downstream nối ở stage tương ứng. |
+| `requirement-traceability.md` | RTM Stage 01. | Kết thúc tại AC; kiểm độ bao phủ từng chiều trước G1. |
 | `requirement-review-record.md` | Findings, resolution và bằng chứng review. | Không ghi thay quyết định G1. |
 | `G1-approval.md` | Quyết định G1 và bằng chứng duyệt. | Quyết định của PO cho đúng phiên bản baseline/review package. |
 

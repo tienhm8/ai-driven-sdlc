@@ -165,13 +165,15 @@ def initialize_requirement_analysis_outputs(
 ):
     """Create the project-level Requirement Analysis deliverable set.
 
-    Copies the framework's standard output structure (README plus the 12
-    numbered deliverable folders with starter documents) into
-    docs/01-requirement-analysis/outputs. Existing project files are
-    never overwritten.
+    Copies the framework's standard output structure into
+    docs/01-requirement-analysis/outputs. The RTM starter is copied from
+    the canonical Stage 01 template, not the framework output snapshot.
+    Existing project files are never overwritten.
     """
-    framework_outputs = framework_dir / "01-requirement-analysis" / "outputs"
+    framework_stage = framework_dir / "01-requirement-analysis"
+    framework_outputs = framework_stage / "outputs"
     project_outputs = project_docs_dir / "01-requirement-analysis" / "outputs"
+    rtm_output = Path("11-requirement-traceability/requirement-traceability-matrix.md")
 
     create_directory(project_outputs)
 
@@ -183,8 +185,14 @@ def initialize_requirement_analysis_outputs(
         relative = source.relative_to(framework_outputs)
         if source.is_dir():
             create_directory(project_outputs / relative)
-        elif source.is_file():
+        elif source.is_file() and relative != rtm_output:
             copy_file_if_missing(source, project_outputs / relative)
+
+    copy_file_if_missing(
+        framework_stage / "templates" / "requirement-traceability.md",
+        project_outputs / rtm_output,
+    )
+
 
 def initialize_system_design_outputs(
     framework_dir: Path,

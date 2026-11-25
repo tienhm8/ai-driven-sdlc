@@ -60,7 +60,7 @@ AI đóng vai trò Business Analyst (BA), hỗ trợ Product Owner phân tích v
 5. Xác định phạm vi In-scope và Out-of-scope.
 6. Xác định Functional Requirements.
 7. Xác định Non-functional Requirements.
-8. Phân rã thành Epic và User Story.
+8. Chọn hình thức đặc tả phù hợp (User Story/Use Case khi áp dụng).
 9. Xây dựng Acceptance Criteria.
 10. Phát hiện yêu cầu thiếu, mâu thuẫn và phụ thuộc.
 11. Tổng hợp các câu hỏi cần Product Owner xác nhận.
@@ -73,17 +73,17 @@ Tạo và duy trì các đầu ra sau, nhất quán với mục **1.8 Output —
 - **Business Requirements Document (BRD):** ghi mục tiêu, nhu cầu nghiệp vụ và yêu cầu stakeholder; các Business Requirements (BRQ) có ID và tham chiếu đến Business Rules liên quan.
 - **Scope Definition:** xác định Project/System Scope, In-scope, Out-of-scope, system boundaries và external dependencies.
 - **Functional Requirements Specification (FRS):** các Functional Requirements (FR) có ID, description, priority, source, owner, status và tiêu chí xác minh phù hợp.
-- **Non-functional Requirements (NFR):** các NFR có ID, category, description, priority, source, owner, status và measurable criteria hoặc verification method khi phù hợp.
+- **Non-functional Requirements (NFR):** các NFR có ID, category, description, priority, source, owner, status và tiêu chí đo hoặc phương pháp kiểm chứng đủ để xác định đạt/không đạt.
 - **User Stories & Use Cases:** mô tả nhu cầu, actors, goals và scenarios; liên kết với FR/NFR liên quan khi áp dụng.
-- **Acceptance Criteria:** tiêu chí cho User Story/Use Case liên quan, có thể kiểm thử và xác định kết quả Pass/Fail.
+- **Acceptance Criteria:** tiêu chí kiểm chứng được cho yêu cầu cần nghiệm thu, liên kết qua US/UC hoặc trực tiếp từ FR/NFR nếu không dùng US/UC.
 - **Business Rules Catalogue:** Business Rules (BR) có ID, description, conditions và expected outcomes; tham chiếu đến BRQ/FR liên quan.
 - **Business Process Model (khi áp dụng):** business workflows, process diagrams và process descriptions, gồm actors, activities, decisions và business events.
 - **Business Glossary (khi áp dụng):** thuật ngữ nghiệp vụ, định nghĩa và từ viết tắt.
 - **Assumptions, Constraints, Dependencies, Risks & Open Questions:** ghi nhận nội dung trong `outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md` và câu hỏi mở trong `outputs/10-assumptions-constraints-risks/open-questions.md`, kèm owner và trạng thái xử lý.
-- **Requirement Traceability Matrix (RTM):** truy vết BRQ → FR/NFR → User Story/Use Case → Acceptance Criteria; liên kết Test Cases ở giai đoạn Testing & QA.
+- **Requirement Traceability Matrix (RTM):** tạo từ [template Stage 01](templates/requirement-traceability.md). Truy vết Nguồn/Mục tiêu → BRQ → FR/NFR đến AC, liên kết BR và US/UC khi áp dụng. Không điền ID downstream giả định. Phân loại từng khoảng trống; AI chỉ đề xuất `N/A` có lý do, không tự ghi là đã được chấp nhận.
 - **Requirement Review Record & G1 Approval Package:** ghi findings và resolution tại `outputs/12-requirement-review/requirement-review-record.md`; ghi ý kiến và quyết định G1, approver, timestamp, bằng chứng cùng phiên bản được duyệt tại `outputs/12-requirement-review/G1-approval.md`.
 
-Business Process Model và Business Glossary chỉ cần tạo khi phù hợp với phạm vi dự án; các đầu ra còn lại là bắt buộc. Lưu artifact theo vị trí và quy ước tại `outputs/README.md`; không tạo bản sao không cần thiết nếu nội dung đã có artifact chuẩn.
+Chỉ tạo nội dung US/UC, BR, AC, Business Process Model và Business Glossary khi áp dụng. Lưu artifact theo vị trí và quy ước tại `outputs/README.md`; không tạo bản sao không cần thiết nếu nội dung đã có artifact chuẩn.
 
 ## 8. Quality Criteria
 
@@ -92,7 +92,7 @@ Business Process Model và Business Glossary chỉ cần tạo khi phù hợp v�
 - Acceptance Criteria có thể xác minh.
 - Không có giả định nghiệp vụ chưa được đánh dấu.
 - Phạm vi dự án được xác định rõ.
-- User Story truy vết được về yêu cầu nghiệp vụ (BRQ) nguồn.
+- Đối chiếu RTM với toàn bộ baseline, ghi kết quả từng chiều theo [checklist G1](checklists/06-G1-approval-checklist.md#4-kiểm-tra-rtm-trước-g1); không suy ra đủ độ bao phủ từ một tỷ lệ tổng hợp.
 
 ## 9. Autonomy Level
 

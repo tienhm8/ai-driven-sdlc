@@ -1,4 +1,6 @@
-# Ma trận Truy vết Requirement (Requirements Traceability Matrix)
+# Ma trận truy vết downstream (Requirements Traceability Matrix)
+
+Mẫu mở rộng **sau G1**: lấy các ID từ RTM baseline đã duyệt và bổ sung liên kết thiết kế, task, PR/commit, test và release ở stage tương ứng. Không dùng mẫu này để đánh giá độ bao phủ Stage 01. Trước G1, dùng [template RTM Stage 01](../../01-requirement-analysis/templates/requirement-traceability.md).
 
 | Requirement ID | Tóm tắt | Acceptance Criteria | Design / ADR | Task | PR / Commit | Test Case | Release | Status |
 |---|---|---|---|---|---|---|---|---|
