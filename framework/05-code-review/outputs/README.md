@@ -17,9 +17,9 @@ Không xem ví dụ trong thư mục này là kết quả review thực tế ho�
 
 | Đầu ra | Mức | Ghi chú |
 |---|---|---|
-| Review report (`templates/review-report.md`) | **Bắt buộc** mọi PR | Gồm findings, quyết định G4, merge commit SHA, link bằng chứng merge, rủi ro bàn giao QA |
-| Review summary | **Bắt buộc** mọi PR | Bản ngắn cho PR/dashboard, trỏ về report |
-| Security review (`templates/security-review.md`) | Khi thuộc phạm vi bảo mật | Phụ lục của report |
+| [Review report](../templates/review-report.md) | **Bắt buộc** mọi PR | Gồm findings và quyết định G4; bổ sung merge commit SHA, link bằng chứng merge và rủi ro bàn giao QA sau khi merge |
+| Review summary | Khuyến nghị | Bản ngắn cho PR/dashboard, trỏ về report |
+| [Security review](../templates/security-review.md) | Khi thuộc phạm vi bảo mật | Phụ lục của report |
 | Risk acceptance / exception record | Khi có accepted risk | Nêu approver, lý do, hạn |
 | Cập nhật risk/technical debt register | Khi có follow-up | Mỗi follow-up có owner/deadline |
 

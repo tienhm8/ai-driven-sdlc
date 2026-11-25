@@ -47,12 +47,12 @@ Thang severity chung cho cả stage (ai-instructions, review report, G4 checklis
 | Severity | Ý nghĩa | Chặn merge/G4 | Cách xử lý |
 |---|---|---|---|
 | Critical | Nguy cơ nghiêm trọng về bảo mật, mất/hỏng dữ liệu, sai nghiệp vụ trọng yếu hoặc hệ thống không vận hành được. | Có | Không approve/merge; sửa và review lại. |
-| High | Lỗi correctness, reliability, compatibility hoặc chất lượng ảnh hưởng đáng kể. | Có, trừ ngoại lệ | Sửa trước merge; ngoại lệ chỉ theo policy, có người đủ thẩm quyền và risk acceptance. |
+| High | Lỗi ảnh hưởng đáng kể tới luồng chính, nhiều người dùng hoặc dữ liệu dùng chung, nhưng chưa đến mức Critical. | Có, trừ ngoại lệ | Sửa trước merge; ngoại lệ chỉ theo policy, có người đủ thẩm quyền và risk acceptance. |
 | Medium | Vấn đề có ảnh hưởng vừa/cục bộ. | Không mặc định | Sửa trước merge, hoặc có quyết định xử lý/accepted risk/follow-up có owner và deadline. |
 | Low | Vấn đề nhỏ, ít ảnh hưởng. | Không | Sửa hoặc tạo tracked follow-up nếu policy cho phép. |
 | Info | Gợi ý cải thiện, không phải lỗi. | Không | Author cân nhắc; ghi rõ không phải blocker. |
 
-Tương ứng với cách gọi cũ: Blocker→Critical, Major→High, Minor→Medium/Low, Suggestion→Info.
+Tương ứng với cách gọi cũ: Blocker → Critical, Major → High, Suggestion → Info. Với finding từng gọi là Minor, chọn **Medium** nếu có ảnh hưởng đáng kể trong một phạm vi giới hạn (ví dụ: một luồng phụ cho kết quả sai); chọn **Low** nếu ảnh hưởng không đáng kể, chẳng hạn vấn đề cục bộ về khả năng đọc hoặc bảo trì.
 
 **Trạng thái xử lý:** Open / Addressed / Accepted Risk / Rejected / Need Clarification (xem review report).
 

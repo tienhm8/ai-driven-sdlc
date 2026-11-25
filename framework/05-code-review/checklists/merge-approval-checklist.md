@@ -1,5 +1,6 @@
-# Merge Approval Checklist – G4
+# Merge Approval Checklist – G4 & Merge Verification
 
+## G4 (trước khi merge)
 - [ ] Đúng PR, repository và head commit đã được review.
 - [ ] Requirement, design và task liên quan có thể truy vết.
 - [ ] Không còn Critical/High finding chưa xử lý.

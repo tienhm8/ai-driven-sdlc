@@ -134,8 +134,9 @@ Nguyên tắc: AI chỉ khuyến nghị; L1/L2 không miễn G4; quyền merge k
 
 | Tình huống | Xử lý |
 |---|---|
-| Không đọc được đầy đủ PR | Yêu cầu bổ sung. |
-| Thiếu Context | Đánh dấu **Unverified**. |
+| Gói bàn giao thiếu đầu vào tối thiểu | Đánh dấu `Blocked`, yêu cầu Development bổ sung trước khi bắt đầu review. |
+| Không truy cập được PR/diff do thiếu quyền hoặc lỗi công cụ | Đánh dấu `Blocked`, báo người điều phối hoặc người quản lý quyền truy cập để xử lý; chỉ bắt đầu review khi đọc được PR/diff. |
+| Thiếu tài liệu bắt buộc theo loại thay đổi | Ghi `Missing`, đánh dấu phần liên quan **Unverified**; review phần còn lại nhưng không đề xuất Approve khi phần bắt buộc chưa được xác minh. |
 | Phát hiện lỗi nghiêm trọng | Request Changes. |
 | Findings không chắc chắn | Ghi rõ mức độ tin cậy. |
 | CI thất bại | Không đề xuất Approve. |
