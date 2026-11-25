@@ -31,18 +31,20 @@
 
 ## Kết luận review và bằng chứng
 
-| Phạm vi | Reviewer / vai trò | Kết luận / ngày | Bằng chứng | Phê duyệt chuyên môn bắt buộc (nếu áp dụng) |
-|---|---|---|---|---|
-| Khả năng triển khai | Tech Lead | | | |
-| Security | Security owner | | | |
-| Data | Data owner | | | |
-| Chuyên môn khác | | | | |
+| Phạm vi | Reviewer / vai trò | Kết luận / ngày | Bằng chứng | Phiên bản gói / hash / review ID đã xem xét | Phê duyệt chuyên môn bắt buộc (nếu áp dụng) |
+|---|---|---|---|---|---|
+| Khả năng triển khai | Tech Lead | | | | |
+| Security | Security owner | | | | |
+| Data | Data owner | | | | |
+| Chuyên môn khác | | | | | |
 
 Ghi `N/A` và lý do khi không áp dụng. Reviewer ghi kết luận theo phạm vi, không mặc nhiên là approver G2; phê duyệt chuyên môn bắt buộc theo policy hoặc phạm vi phải có bằng chứng. Liên kết điều kiện cần đóng, action không chặn và waiver hợp lệ tới các mục riêng trong approval record.
 
 **Hồ sơ quyết định G2 chính thức:** `[Approval record ID / link]` — dùng mẫu `framework/templates/review/approval-record.md` và gate policy. Checklist chỉ lưu tiêu chí, kết quả và bằng chứng; không thay thế hồ sơ quyết định.
 
+**Hồ sơ blocker (nếu có):** `[ID / link, phiên bản gói, owner, việc cần xử lý, hạn]` — liên kết cả từ approval record; tách khỏi quyết định của approver.
+
 **Rule:**
-- Chỉ G2 `Approved`, sau khi đủ điều kiện gate và phê duyệt chuyên môn bắt buộc, mới cho phép chốt baseline và bàn giao.
+- Chỉ G2 `Approved`, sau khi đủ điều kiện gate và phê duyệt chuyên môn bắt buộc, mới cho phép chốt baseline và bàn giao. Phê duyệt chuyên môn chỉ có giá trị cho đúng phiên bản gói, hash hoặc review ID đã ghi; dùng lại cho phiên bản khác là không hợp lệ.
 - Nếu còn điều kiện cần đóng, ghi `Changes Requested`, không dùng quyết định `Approved with conditions`. Thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc thì ghi `Blocked`. Sau khi xử lý, lưu bằng chứng và trình Solution Architect phê duyệt lại phiên bản gói sau khi đóng điều kiện; thay đổi vượt phạm vi điều kiện phải review lại theo G2.
 - Khi G2 `Approved`, Solution Architect được ủy quyền chốt đúng phiên bản gói đã duyệt làm baseline; quyết định, phiên bản, thời điểm và waiver hợp lệ (nếu có) được ghi trong approval record. Package index chỉ tham chiếu hồ sơ đó. Bàn giao phiên bản này cùng bằng chứng G2 hợp lệ cho Stage 03 Task Planning; sau planning phải qua G3 trước coding. Baseline không phải trạng thái artifact riêng.

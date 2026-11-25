@@ -11,7 +11,7 @@
 | Requirement baseline | `[ID/phiên bản REQ-BASELINE]` |
 | Chủ sở hữu gói | `[Architect]` |
 | Trạng thái | `Draft / In Review / Approved / Superseded` |
-| Tham chiếu phê duyệt G2 | `[Link]` |
+| Tham chiếu phê duyệt G2 | `[Approval record ID / link]` |
 | Ngày có hiệu lực | `[YYYY-MM-DD]` |
 
 Trạng thái gói chỉ được là `Approved` khi hồ sơ G2 là `Approved` cho đúng ID và phiên bản gói; trạng thái này không thay thế việc đối chiếu hồ sơ G2.
@@ -26,9 +26,8 @@ Trạng thái gói chỉ được là `Approved` khi hồ sơ G2 là `Approved` 
 | Data Model (Mô hình dữ liệu) | `DM-XXX` | `data-model/...` | | | |
 | Sequence Diagram(s) (Biểu đồ tuần tự) | `FLOW-XXX` | `flows/...` | | | |
 | Security Design (Thiết kế bảo mật) | `SEC-DES-XXX` | `security/...` | | | |
-| Phê duyệt G2 | `G2-XXX` | `approvals/...` | | | |
 
-Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái thiếu với không áp dụng.
+Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái thiếu với không áp dụng. Hồ sơ G2 chỉ được tham chiếu ở mục 1 và mục 6, không liệt kê ở đây để tránh một trạng thái thứ hai.
 
 ## 3. Bằng chứng review
 | Checklist | Người review | Kết quả | Bằng chứng / liên kết |
@@ -51,7 +50,11 @@ Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái t
 
 Hồ sơ chính thức được liên kết tại trường **Tham chiếu phê duyệt G2** ở mục 1; hồ sơ xác định quyết định, người có thẩm quyền và đúng ID/phiên bản gói đã chốt làm baseline. Không ghi lại quyết định hoặc trạng thái gate tại đây. Đối chiếu phiên bản gói ở mục 1 và danh mục artifact với hồ sơ trước bàn giao; action không chặn và waiver được ghi riêng trong hồ sơ G2.
 
-Chỉ bàn giao khi hồ sơ G2 là `Approved` cho đúng phiên bản gói, sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc. Nếu dự án dùng workflow engine, người nhận phải đối chiếu audit event trong kho sự kiện: Stage 02 đã hoàn tất qua G2 với `basis: approved`, đúng lần review và hash của phiên bản gói bàn giao. Hồ sơ Markdown là bằng chứng hỗ trợ, không thay thế xác minh này; nếu thiếu hoặc không khớp bản ghi, chưa bàn giao.
+Chỉ bàn giao khi hồ sơ G2 là `Approved` cho đúng phiên bản gói, sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc.
+
+**Nếu dự án dùng workflow engine**, hồ sơ G2 phải ghi: execution ID, review ID, `review_context_sha256`, `artifact_sha256` của gói đã duyệt, ID các quyết định phê duyệt tham chiếu và ID sự kiện hoàn tất Stage 02. Người nhận xác minh bằng tra cứu chỉ đọc do dịch vụ cung cấp hoặc bản xuất có xác thực, không truy cập trực tiếp kho sự kiện, rằng sự kiện hoàn tất có `basis: approved` và khớp từng giá trị trên. Chỉ `basis: approved` được chấp nhận; `exception_authorized` hoặc thiếu sự kiện thì không bàn giao.
+
+**Phạm vi băm:** hồ sơ G2 ghi rõ manifest được băm, gồm các artifact và phiên bản ở mục 2. Các trường quản lý sau duyệt (trạng thái gói, ngày hiệu lực, tham chiếu phê duyệt, mục 7 và ngày bàn giao) nằm ngoài phạm vi băm; không sửa nội dung artifact sau khi duyệt. Hồ sơ Markdown là bằng chứng hỗ trợ, không thay thế xác minh này; nếu thiếu hoặc không khớp, chưa bàn giao.
 
 ## 7. Bàn giao sang 03 — Task Planning
 - [ ] Kiến trúc và ranh giới component đã có sẵn.

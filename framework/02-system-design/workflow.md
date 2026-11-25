@@ -118,6 +118,7 @@ Handoff to Task Planning
 ## 2.11 Exit Criteria — Điều kiện hoàn thành
 
 - G2 Approved; Solution Architect được ủy quyền chốt phiên bản design package đã duyệt làm baseline, ghi quyết định và phiên bản trong approval record; package index tham chiếu hồ sơ đó.
+- Khi dự án dùng workflow engine, Stage 02 chỉ đủ điều kiện bàn giao sau khi sự kiện hoàn tất Stage 02 qua G2 có `basis: approved`, khớp execution, review, review-context và hash của gói được bàn giao (xem mục 6 của design package index). Phê duyệt đã ghi nhưng chưa có sự kiện hoàn tất thì chưa bàn giao.
 - Design baseline, ADR và contract được version hóa.
 - Các dependency và technical risks có owner.
 - Đủ thông tin để phân rã công việc, ước lượng và lập kế hoạch.
@@ -129,9 +130,10 @@ Handoff to Task Planning
 - **Thay đổi kiến trúc lớn:** tạo ADR mới, phân tích tác động và mở lại G2 nếu ảnh hưởng baseline.
 - **Bất đồng kỹ thuật:** ghi nhận options và decision owner; không để AI tự phân xử.
 - **Rủi ro bảo mật nghiêm trọng:** dừng phê duyệt phần liên quan cho tới khi có biện pháp hoặc risk acceptance hợp lệ.
+- **Ngoại lệ trong workflow engine:** ngoại lệ cho một finding hoặc kiểm soát không thay thế phê duyệt G2 và không dùng để chuyển Stage 02 sang Stage 03. Nếu engine đã hoàn tất Stage 02 với `basis: exception_authorized`, không bàn giao; xử lý theo quy trình của tổ chức và trình G2 `Approved` cho đúng phiên bản gói.
 
 ## 2.13 Next Stage — Chuyển sang giai đoạn tiếp theo
 
-Bàn giao design baseline, ADR, API/data contracts, dependency map, NFR và risk register cho **03 — Task Planning**.
+Bàn giao design baseline, ADR, API/data contracts, dependency map, NFR và risk register cho **03 — Task Planning**, sau khi thỏa điều kiện hoàn thành ở mục 2.11.
 
 ---

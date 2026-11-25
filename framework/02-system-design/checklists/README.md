@@ -33,5 +33,5 @@ checklists/
 - Phát hiện **blocking** (Critical/High) phải có hành động, người phụ trách và hạn xử lý.
 - AI có thể điền sẵn các mục dựa trên tài liệu, nhưng **không được tự kết luận Pass cho mục cần chuyên gia xác nhận**.
 - Checklist G2 lưu kết quả và bằng chứng, không phải quyết định gate. Chỉ Solution Architect được ủy quyền ra quyết định G2 trong approval record; AI không được tự approve hoặc bỏ qua gate.
-- Khi thiếu approver có thẩm quyền, người điều phối review ghi nhận tình trạng `Blocked`, lý do và việc cần xử lý trong hồ sơ theo dõi review. Đây là ghi nhận blocker, không phải quyết định của approver hay quyền chuyển tiếp; không bàn giao cho đến khi có quyết định `Approved` hợp lệ.
+- Khi thiếu approver có thẩm quyền, người điều phối review ghi nhận tình trạng `Blocked` trong hồ sơ blocker có ID, gắn với phiên bản gói, owner, lý do, việc cần xử lý và hạn, được liên kết từ checklist G2 và approval record. Đây là ghi nhận blocker, không phải quyết định của approver hay quyền chuyển tiếp; không bàn giao cho đến khi có quyết định `Approved` hợp lệ.
 - Kết quả review được lưu trong thư mục checklist hoặc liên kết từ `../outputs/design-package-index.md`, mục Bằng chứng review.
