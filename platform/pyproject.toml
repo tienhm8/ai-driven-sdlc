@@ -5,6 +5,6 @@ build-backend = "setuptools.build_meta"
 name = "ai-driven-sdlc-platform"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = ["PyYAML>=6.0"]
+dependencies = ["PyYAML>=6.0", "Markdown>=3.5"]
 [tool.setuptools.packages.find]
 where = ["src"]

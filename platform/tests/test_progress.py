@@ -200,6 +200,22 @@ class ServerTests(TestCase):
         for path in ("/framework/01-requirement-analysis/README.md", "/shared-ai/rules/core/ai-usage-flow.md"):
             self.assertEqual(self.get(path)[0], 200, path)
 
+    def test_markdown_is_rendered_with_security_headers(self):
+        with urlopen(self.base + "/framework/01-requirement-analysis/README.md") as response:
+            body = response.read().decode()
+            self.assertTrue(response.headers["Content-Type"].startswith("text/html"))
+            self.assertIn("default-src 'none'", response.headers["Content-Security-Policy"])
+        self.assertIn("<h1>", body)
+        self.assertIn("<table>", body)
+        self.assertNotIn("# 01", body)
+
+    def test_folder_link_opens_readme_and_keeps_relative_links_working(self):
+        status, body = self.get("/framework/01-requirement-analysis")  # redirected to trailing slash
+        self.assertEqual(status, 200)
+        self.assertIn("Requirement Analysis", body.decode())
+        status, _ = self.get("/framework/01-requirement-analysis/workflow.md")
+        self.assertEqual(status, 200)
+
     def test_does_not_serve_projects_hidden_or_outside_files(self):
         self.init_project()
         for path in ("/projects/demo/.ai-sdlc/project.yaml", "/framework/../platform/README.md",

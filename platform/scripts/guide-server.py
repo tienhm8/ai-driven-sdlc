@@ -12,14 +12,16 @@ from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ai_sdlc_platform.config import PROJECT_ID_PATTERN, load_project_manifest
+from ai_sdlc_platform.markdown_view import render_markdown_page
 from ai_sdlc_platform.progress import DEFAULT_STATE_DIR, collect_progress
 
 ROOT = Path(__file__).resolve().parents[2]
 STATUS_ROUTE = re.compile(r"/api/projects/([^/]+)/status")
 PAGE_PATH = "/framework/guide/index.html"
+MARKDOWN_CSP = "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'"
 # Only documentation the guide links to is served, never project files or platform state.
 STATIC_ROOTS = ("framework", "shared-ai")
-STATIC_TYPES = {".md": "text/plain; charset=utf-8", ".png": "image/png", ".svg": "image/svg+xml",
+STATIC_TYPES = {".md": "text/html; charset=utf-8", ".png": "image/png", ".svg": "image/svg+xml",
                 ".html": "text/html; charset=utf-8", ".yml": "text/plain; charset=utf-8"}
 
 
@@ -44,7 +46,11 @@ def static_file(root: Path, url_path: str) -> Path | None:
         return None
     base = (root / parts[0]).resolve()
     target = (root.joinpath(*parts)).resolve()
-    if not target.is_relative_to(base) or not target.is_file() or target.suffix not in STATIC_TYPES:
+    if not target.is_relative_to(base):
+        return None
+    if target.is_dir():  # a folder link opens its README.md
+        target = target / "README.md"
+    if not target.is_file() or target.suffix not in STATIC_TYPES:
         return None
     return target
 
@@ -54,12 +60,14 @@ def make_handler(root: Path, state_dir: Path):
     class Handler(BaseHTTPRequestHandler):
         server_version = "GuideServer"
 
-        def _send(self, status, body: bytes, content_type: str):
+        def _send(self, status, body: bytes, content_type: str, csp: str | None = None):
             self.send_response(status)
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(body)))
             self.send_header("Cache-Control", "no-store")
             self.send_header("X-Content-Type-Options", "nosniff")
+            if csp:
+                self.send_header("Content-Security-Policy", csp)
             self.end_headers()
             self.wfile.write(body)
 
@@ -95,7 +103,20 @@ def make_handler(root: Path, state_dir: Path):
                     return
                 self._json(HTTPStatus.OK, result)
             elif (target := static_file(root, path)) is not None:
-                self._send(HTTPStatus.OK, target.read_bytes(), STATIC_TYPES[target.suffix])
+                if target.name == "README.md" and not path.endswith(("README.md", "/")) and not path.endswith(".md"):
+                    # Folder URL without a trailing slash: redirect so relative links resolve inside it.
+                    self.send_response(HTTPStatus.MOVED_PERMANENTLY)
+                    self.send_header("Location", path + "/")
+                    self.send_header("Content-Length", "0")
+                    self.end_headers()
+                elif target.suffix == ".md":
+                    page = render_markdown_page(target.read_text(encoding="utf-8", errors="replace"),
+                                                title=target.name, path=target.relative_to(root).as_posix(),
+                                                guide_url=PAGE_PATH)
+                    self._send(HTTPStatus.OK, page, STATIC_TYPES[".md"], csp=MARKDOWN_CSP)
+                else:
+                    self._send(HTTPStatus.OK, target.read_bytes(), STATIC_TYPES[target.suffix],
+                               csp=MARKDOWN_CSP if target.suffix == ".svg" else None)
             else:
                 self._json(HTTPStatus.NOT_FOUND, {"error": "Not found"})
 

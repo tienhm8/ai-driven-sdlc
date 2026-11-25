@@ -26,7 +26,7 @@
 
 ### 0.3 PO cần đọc gì để duyệt G1?
 
-Bắt đầu từ [báo cáo tổng hợp](outputs/requirement-analysis-report.md), rồi đối chiếu phạm vi, tiêu chí nghiệm thu và các vấn đề còn mở với [điều kiện G1](../governance/human-review-gates/G1-requirement-approval.md). AI có thể chuẩn bị hồ sơ trong [outputs/12-requirement-review/](outputs/12-requirement-review/), nhưng **PO ghi quyết định**. Hồ sơ thật lưu trong project, không điền vào bản mẫu dùng chung.
+Bắt đầu từ [báo cáo tổng hợp](outputs/requirement-analysis-report.md), rồi đối chiếu phạm vi, tiêu chí nghiệm thu và các vấn đề còn mở với [điều kiện G1](../governance/human-review-gates/G1-requirement-approval.md). AI có thể chuẩn bị [bản ghi review](outputs/12-requirement-review/requirement-review-record.md) và [hồ sơ G1](outputs/12-requirement-review/G1-approval.md), nhưng **PO ghi quyết định**. Hồ sơ thật lưu trong project, không điền vào bản mẫu dùng chung.
 
 ---
 
