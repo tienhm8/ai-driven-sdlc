@@ -107,7 +107,7 @@ Nếu checklist không đạt:
 | 8 | Xác định acceptance criteria | Soạn bản nháp AC | L2 | Stakeholder xác nhận |
 | 8b | Xác định acceptance criteria | Đưa AC vào baseline | L3 | PO approve trước khi áp dụng |
 | 9 | Đánh giá NFR và rủi ro | Đề xuất NFR checklist | L2 | SA/Security/Compliance xác định |
-| 9b | Đánh giá NFR và rủi ro | Quyết định mục tiêu bảo mật, compliance | L4 | Con người quyết định; AI chỉ tư vấn |
+| 9b | Đánh giá NFR và rủi ro | Trình bày các phương án và đánh đổi về mục tiêu bảo mật, tuân thủ | L4 | Người có thẩm quyền về bảo mật và tuân thủ quyết định; AI chỉ tư vấn |
 | 10 | Thiết lập traceability | Tạo RTM, kiểm tra liên kết thiếu | L2 | BA review theo checklist |
 | 11 | Review với stakeholder | Tổng hợp điểm cần thống nhất | L2 | PO/stakeholder ra quyết định |
 | 12 | Đóng baseline, trình G1 | Chuẩn bị gói review | L3 | PO approve trước khi chuyển bước |

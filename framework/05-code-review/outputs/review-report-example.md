@@ -20,7 +20,7 @@
 
 ### [CR-0001] [High] – Endpoint thiếu kiểm tra quyền trên resource
 - Category: Authorization
-- Location: `src/example/ResourceController.cs` (minh họa)
+- Location: `src/example/ResourceController.cs:42` (minh họa)
 - Status: Open
 - Evidence: Minh họa tình huống endpoint nhận `resourceId` từ request nhưng không thể hiện kiểm tra resource ownership/permission.
 - Impact: Người dùng có thể truy cập resource ngoài phạm vi quyền nếu không có kiểm soát ở tầng khác.
@@ -29,7 +29,7 @@
 
 ### [CR-0002] [Medium] – Thiếu test cho trường hợp input rỗng
 - Category: Testing
-- Location: `tests/example` (minh họa)
+- Location: `tests/example/ResourceControllerTests.cs:68` (minh họa)
 - Status: Open
 - Evidence: Bộ test giả định input hợp lệ; chưa có test empty/null.
 - Impact: Regression có thể không được phát hiện.
