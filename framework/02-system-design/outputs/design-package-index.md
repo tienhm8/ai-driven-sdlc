@@ -51,7 +51,7 @@ Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái t
 
 Hồ sơ chính thức được liên kết tại trường **Tham chiếu phê duyệt G2** ở mục 1; hồ sơ xác định quyết định, người có thẩm quyền và đúng ID/phiên bản gói đã chốt làm baseline. Không ghi lại quyết định hoặc trạng thái gate tại đây. Đối chiếu phiên bản gói ở mục 1 và danh mục artifact với hồ sơ trước bàn giao; action không chặn và waiver được ghi riêng trong hồ sơ G2.
 
-Chỉ bàn giao khi hồ sơ G2 là `Approved` cho đúng phiên bản gói, sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc.
+Chỉ bàn giao khi hồ sơ G2 là `Approved` cho đúng phiên bản gói, sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc. Nếu dự án dùng workflow engine, người nhận phải đối chiếu audit event trong kho sự kiện: Stage 02 đã hoàn tất qua G2 với `basis: approved`, đúng lần review và hash của phiên bản gói bàn giao. Hồ sơ Markdown là bằng chứng hỗ trợ, không thay thế xác minh này; nếu thiếu hoặc không khớp bản ghi, chưa bàn giao.
 
 ## 7. Bàn giao sang 03 — Task Planning
 - [ ] Kiến trúc và ranh giới component đã có sẵn.

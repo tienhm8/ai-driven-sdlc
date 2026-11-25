@@ -72,9 +72,9 @@ Tech Lead và chuyên gia ghi kết luận, phạm vi và bằng chứng review;
 
 **Approved** khi thiết kế đáp ứng yêu cầu đã duyệt, các rủi ro trọng yếu được xử lý hoặc chấp nhận đúng thẩm quyền, đã có đủ phê duyệt chuyên môn bắt buộc theo phạm vi và Solution Architect phê duyệt. Chỉ quyết định này mới cho phép G2 `Approved` và chốt baseline.
 
-**Changes Requested** khi còn điều kiện cần đóng; **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
+**Changes Requested** khi phương án có thể sửa và trình lại, nhưng còn điều kiện cần đóng (ví dụ: bổ sung kế hoạch rollback hoặc xử lý mâu thuẫn giữa các thành phần). **Blocked** khi thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc để ra quyết định. Cả hai đều chặn bàn giao chính thức sang Stage 03. Sau khi xử lý và lưu bằng chứng, trình Solution Architect phê duyệt lại.
 
-**Rejected** khi thiết kế không đáp ứng yêu cầu, có lỗ hổng/rủi ro không thể chấp nhận, thiếu phương án vận hành hoặc các thành phần thiết kế mâu thuẫn.
+**Rejected** khi Solution Architect không chấp nhận phương án và không yêu cầu sửa để trình lại phương án đó, chẳng hạn vì rủi ro không thể chấp nhận.
 
 Các vấn đề chưa ảnh hưởng đến quyết định có thể được ghi thành action có owner và deadline; không được dùng action mở để che giấu rủi ro nghiêm trọng.
 
