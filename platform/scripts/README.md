@@ -74,7 +74,7 @@ Khi khởi tạo, ba stage dưới đây có thư mục `outputs/` chứa README
 |---|---|
 | `06-testing-qa` | `docs/06-testing-qa/outputs/<project>/<release-or-cycle>/` |
 | `07-deployment` | `docs/07-deployment/outputs/<project>/<release-ID>/` |
-| `08-monitoring-maintenance` | `docs/08-monitoring-maintenance/outputs/<service>/<period>/` hoặc `docs/08-monitoring-maintenance/outputs/<service>/<incident-id>/` |
+| `08-monitoring-maintenance` | `docs/08-monitoring-maintenance/outputs/<service>/<env>/<period-or-incident-id>/` |
 
 ## Kiểm tra và đồng bộ
 

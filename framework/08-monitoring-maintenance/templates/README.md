@@ -14,22 +14,22 @@ templates/
 Quan hệ giữa các template:
 
 ```
-Maintenance plan ─────────────┐
-Monitoring report ──► Incident report ──► Postmortem ──► Improvement backlog
-(định kỳ)             (từng sự cố)        (RCA/actions)   (theo dõi đến khi verify)
+Monitoring report (định kỳ) ───────────────────────┐
+Incident report / Postmortem (nếu cần) ────────────┼─► Improvement backlog
+Maintenance plan và kết quả ───────────────────────┘   (khi có follow-up)
 ```
 
-Template là khung trống; sản phẩm thực tế được lưu trong `outputs/` (xem `outputs/README.md`).
+Template là khung trống; hồ sơ thực tế nằm trong `outputs/` của project instance theo [quy ước đầu ra](../outputs/README.md).
 
 ## 2. Vai trò từng file
 
 | File | Vai trò | Đầu ra/nơi lưu |
 |---|---|---|
-| `monitoring-report.md` | Tổng hợp trạng thái sức khỏe, SLI/SLO, alert quality, capacity và khuyến nghị theo kỳ | `outputs/<service>/<period>/monitoring-report.md` |
-| `incident-report.md` | Ghi metadata, tác động, timeline, mitigation, phê duyệt và tiêu chí đóng sự cố | `outputs/<service>/<incident-id>/incident-report.md` |
-| `postmortem.md` | Phân tích nguyên nhân gốc và yếu tố góp phần, tách sự kiện đã xác minh khỏi giả thuyết, đưa ra action items | `outputs/<service>/<incident-id>/postmortem.md` |
-| `maintenance-plan.md` | Mô tả phạm vi, hoạt động, kiểm tra trước/trong/sau, rollback và phê duyệt của một đợt bảo trì | `outputs/<service>/<period>/maintenance-plan.md` |
-| `improvement-backlog.md` | Theo dõi vấn đề/cơ hội cải tiến, ưu tiên, owner và bằng chứng xác minh trước khi đóng | `outputs/<service>/<period>/improvement-backlog.md` |
+| `monitoring-report.md` | Tổng hợp trạng thái sức khỏe, SLI/SLO, alert quality, capacity và khuyến nghị theo kỳ | `outputs/<service>/<env>/<period>/monitoring-report.md` |
+| `incident-report.md` | Ghi metadata, tác động, timeline, mitigation, phê duyệt và tiêu chí đóng sự cố | `outputs/<service>/<env>/<incident-id>/incident-report.md` |
+| `postmortem.md` | Phân tích nguyên nhân gốc và yếu tố góp phần, tách sự kiện đã xác minh khỏi giả thuyết, đưa ra action items | `outputs/<service>/<env>/<incident-id>/postmortem.md` |
+| `maintenance-plan.md` | Mô tả phạm vi, hoạt động, kiểm tra trước/trong/sau, rollback và phê duyệt của một đợt bảo trì | `outputs/<service>/<env>/<period>/maintenance-plan.md` |
+| `improvement-backlog.md` | Theo dõi vấn đề/cơ hội cải tiến, ưu tiên, owner và bằng chứng xác minh trước khi đóng | `outputs/<service>/<env>/<period>/improvement-backlog.md` |
 
 ## Quy ước
 - Không ghi secret, credential, PII thô vào template; dùng dữ liệu đã redact.

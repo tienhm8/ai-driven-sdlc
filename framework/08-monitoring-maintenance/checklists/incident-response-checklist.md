@@ -3,10 +3,12 @@
 - [ ] Đánh giá tác động người dùng/nghiệp vụ và blast radius.
 - [ ] Xác nhận severity theo severity matrix đã duyệt.
 - [ ] Phân công IC và các vai trò cần thiết.
-- [ ] Thu thập evidence và timeline.
+- [ ] Thu thập evidence và timeline; bảo vệ dữ liệu nhạy cảm.
 - [ ] Kiểm tra thay đổi gần đây: deploy/config/dependency.
-- [ ] Đánh giá mitigation về rủi ro và khả năng đảo ngược.
-- [ ] Có G7 approval cho sự cố nghiêm trọng/hành động rủi ro cao.
+- [ ] Đánh giá mitigation về rủi ro, khả năng đảo ngược và điều kiện dừng.
+- [ ] Trước hành động thuộc G7, xác minh phê duyệt đúng incident và phiên bản phương án; kiểm tra riêng quyền của executor.
 - [ ] Thiết lập owner và nhịp cập nhật truyền thông.
-- [ ] Xác minh khôi phục theo health, SLI và tính toàn vẹn dữ liệu.
-- [ ] Ghi nhận rủi ro còn lại và owner các việc tiếp theo.
+- [ ] Người có thẩm quyền xác minh khôi phục theo health, SLI và tính toàn vẹn dữ liệu.
+- [ ] Ghi nhận rủi ro còn lại, quyết định chấp nhận nếu cần và owner các việc tiếp theo.
+- [ ] Xác nhận ai có quyền đóng incident theo policy; ghi quyết định, thời điểm và thông báo stakeholder.
+- [ ] Xác định postmortem có bắt buộc theo policy hay không; nếu có, ghi owner và hạn, nếu không, ghi lý do.

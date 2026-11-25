@@ -11,25 +11,18 @@ Duy trì sức khỏe, tính sẵn sàng, an toàn và hiệu quả của hệ t
 ## 8.2 Workflow Overview — Tổng quan luồng xử lý
 
 ```text
-Production Handoff
-        ↓
-Observe Metrics / Logs / Traces / Business Signals
-        ↓
-Alert Triage & Incident Classification
-        ↓
-Mitigation / Recovery
-        ↓
-RCA & Corrective / Preventive Actions
-        ↓
-Maintenance / Optimization / Security Updates
-        ↓
-Operational Review & Feedback to Backlog
-        ↺
+Bàn giao Production đã xác minh → Vận hành liên tục
+  ├─ Giám sát thường kỳ → Quan sát, phân loại cảnh báo, review SLO
+  ├─ Khi xác minh có sự cố → Triage, ứng phó (G7 nếu áp dụng), phục hồi, đóng
+  │                         └─ RCA/postmortem nếu policy yêu cầu
+  └─ Theo lịch/rủi ro → Bảo trì, vá lỗi, kiểm tra restore/DR
+
+Cả ba nhánh → Review vận hành → Cải tiến/runbook/backlog
 ```
 
 ## 8.3 Entry Criteria — Điều kiện bắt đầu
 
-- Release đã được bàn giao cho operations; có production version và owner.
+- Release Production đã được xác minh thành công và bàn giao cho Operations theo [intake record](inputs/README.md#intake-record).
 - Monitoring, logging, tracing, alerting và dashboard tối thiểu đã cấu hình.
 - Có runbook, escalation path, on-call roster và incident severity definitions.
 - Backup, restore, DR và access policy được xác định theo mức độ quan trọng của hệ thống.
@@ -37,20 +30,11 @@ Operational Review & Feedback to Backlog
 
 ## 8.4 Workflow Steps — Các bước thực hiện
 
-1. **Tiếp nhận vận hành:** xác nhận service owner, system inventory, production version, support window và escalation contact.
-2. **Quan sát hệ thống:** theo dõi metrics, logs, traces, infrastructure, dependency và business signals.
-3. **Quản lý alert:** nhận alert, loại bỏ noise, deduplicate, correlate và xác định mức độ ưu tiên.
-4. **Triage:** xác minh impact, affected users/services, timeline, severity và incident commander.
-5. **Ứng phó incident:** đối với incident nghiêm trọng, Incident Commander phê duyệt G7 cho đúng phiên bản phương án trước khi thực thi hành động thuộc gate. Thực hiện runbook, khoanh vùng, thông báo stakeholder và bảo toàn evidence theo thẩm quyền đã có.
-6. **Khôi phục dịch vụ:** failover, rollback, scale, disable feature hoặc workaround theo quyền hạn và runbook.
-7. **Xác nhận recovery:** kiểm tra health, data consistency, business transaction và thời gian ổn định.
-8. **Truyền thông và đóng incident:** cập nhật status, impact, resolution và follow-up owner.
-9. **RCA/post-incident review:** dựng timeline, xác định contributing factors/root causes; tập trung cải tiến hệ thống, tránh quy lỗi cá nhân.
-10. **Tạo corrective/preventive actions:** chuyển thành task có priority, owner, due date và verification criteria.
-11. **Bảo trì định kỳ:** patching, dependency updates, certificate rotation, backup verification, capacity review và vulnerability remediation.
-12. **Tối ưu:** phân tích performance/cost/reliability, technical debt và user feedback; đề xuất cải tiến.
-13. **Review vận hành:** đánh giá SLO/SLI, incident trend, alert quality, capacity và operational risk.
-14. **Feedback loop:** chuyển yêu cầu/cải tiến vào Requirement Analysis hoặc Task Planning; cập nhật runbook/architecture/standards khi cần.
+- **Bàn giao:** Operations xác nhận [intake 07 → 08](inputs/README.md#intake-record), service owner, system inventory và support window.
+- **Giám sát thường kỳ:** theo dõi metrics, logs, traces, dependencies và business signals. Loại nhiễu, nhóm cảnh báo và định tuyến theo [mức ưu tiên alert](operations/alerting-guidelines.md). Nếu xác minh có sự cố, chuyển sang nhánh incident; không mở incident chỉ vì có alert.
+- **Ứng phó sự cố:** xác minh tác động và severity, điều phối, ứng phó và phục hồi theo [Incident Management](operations/incident-management.md). Áp dụng G7 trước hành động thuộc gate. Người có thẩm quyền xác nhận phục hồi, đóng incident và quyết định postmortem theo policy.
+- **Bảo trì có kế hoạch:** vá lỗi, cập nhật dependency, rotation, kiểm tra backup/restore/DR và capacity theo [hướng dẫn bảo trì và phục hồi](operations/maintenance-and-recovery.md). Nhánh này chạy theo lịch/rủi ro, không cần chờ incident.
+- **Review và feedback:** đánh giá SLO/SLI, incident trend, alert quality, capacity, hiệu năng, chi phí và rủi ro. Đưa việc cải tiến vào backlog với priority, owner, hạn và tiêu chí xác minh; cập nhật runbook, architecture hoặc standards khi cần.
 
 ## 8.5 Input — Đầu vào
 
@@ -96,7 +80,7 @@ Operational Review & Feedback to Backlog
 ## 8.9 Quality Check — Kiểm tra chất lượng
 
 - Monitoring bao phủ service health, critical dependency và business-critical flow.
-- Alert có severity, owner, action/runbook và ngưỡng hợp lý.
+- Alert có mức ưu tiên, owner, action/runbook và ngưỡng hợp lý; incident severity được xác nhận riêng trong triage.
 - Incident có timeline, impact, response và recovery evidence.
 - RCA dựa trên evidence; phân biệt root cause với contributing factors.
 - Action items có owner, due date và tiêu chí xác minh.
@@ -107,17 +91,9 @@ Operational Review & Feedback to Backlog
 
 ## 8.10 Human Review Gate — Điểm phê duyệt bắt buộc
 
-**G7 — Critical Incident Approval (kích hoạt theo sự kiện)**
+**G7 — phê duyệt trước hành động ứng phó thuộc gate.** Incident Commander (IC), hoặc người được ủy quyền theo [chính sách G7](../governance/human-review-gates/G7-incident-approval.md), duyệt phương án cho đúng incident và đúng phiên bản trước khi thực thi. Nếu phương án thay đổi trọng yếu, phải duyệt lại theo [gate policy](../governance/human-review-gates/gate-policy.md). Ngoại lệ khẩn cấp chỉ theo quy trình break-glass đã được tổ chức định nghĩa. Monitoring thường kỳ không qua G7 và không có G8.
 
-Incident Commander duyệt phương án ứng phó cho từng incident nghiêm trọng trong luồng incident riêng. Monitoring thường kỳ không cần G7 để hoàn tất bàn giao và không có G8. Các quyết định vận hành hoặc đóng incident khác vẫn theo [gate policy](../governance/human-review-gates/gate-policy.md) và incident policy.
-
-Bắt buộc có người phê duyệt khi:
-- Thực hiện hành động production có rủi ro cao hoặc khó đảo ngược.
-- Thay đổi dữ liệu, quyền truy cập, security control hoặc cấu hình trọng yếu.
-- Chấp nhận rủi ro vượt ngưỡng/SLO hoặc đóng incident nghiêm trọng.
-- Xác nhận RCA và các action ưu tiên đối với incident major.
-
-Người phê duyệt: Service Owner, Incident Commander, Change Owner hoặc Security/Data Owner tùy loại quyết định. AI không được tự phê duyệt.
+**Phê duyệt vận hành — không phải G7.** Người được chỉ định trong incident policy xác nhận phục hồi, đóng incident hoặc ký xác nhận RCA. Service Owner hoặc người có thẩm quyền theo risk policy chấp nhận rủi ro còn lại. Thay đổi có kế hoạch theo change control và gate tương ứng nếu áp dụng. Các phê duyệt này không thay thế G7 cho hành động thuộc gate. Phê duyệt G7 cũng không cấp quyền thực thi; AI không tự phê duyệt.
 
 ## 8.11 Exit Criteria — Điều kiện hoàn thành
 

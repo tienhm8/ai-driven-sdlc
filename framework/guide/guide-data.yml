@@ -172,8 +172,8 @@ stages:
     gate: {id: G7, name: Incident Approval, approvers: [incident_commander], only_when: Chỉ áp dụng khi xử lý sự cố nghiêm trọng, doc: governance/human-review-gates/G7-incident-approval.md}
     gate_note: Giám sát thường kỳ không có gate chặn.
     guide: 08-monitoring-maintenance/README.md
-    inputs: [Log/metric và cảnh báo từ hệ thống, Runbook, Thông tin sự cố]
-    inputs_link: 08-monitoring-maintenance/README.md
+    inputs: [Gói bàn giao từ Stage 07 sau khi xác minh triển khai Production thành công, Telemetry và cảnh báo, Runbook và thông tin on-call, Thông tin sự cố khi có]
+    inputs_link: 08-monitoring-maintenance/inputs/README.md
     required_outputs: []
     outputs_link: 08-monitoring-maintenance/outputs/README.md
     handoff: Báo cáo giám sát, báo cáo sự cố, postmortem và backlog cải tiến.
