@@ -56,4 +56,4 @@ Dùng [template RTM Stage 01](../templates/requirement-traceability.md#5-độ-b
 - Findings/gap còn lại: [Artifact/ID, owner, hạn]
 - Hồ sơ review: `../outputs/12-requirement-review/requirement-review-record.md`
 
-Checklist này chỉ xác nhận đủ điều kiện trình duyệt và dẫn kết quả checklist 01–05; không ghi quyết định G1. Quyết định chính thức của Product Owner được ghi trên platform và dẫn chiếu tại `../outputs/12-requirement-review/G1-approval.md`. AI KHÔNG được phê duyệt G1.
+Checklist này chỉ xác nhận đủ điều kiện trình duyệt và dẫn kết quả checklist 01–05; không ghi quyết định G1. Quyết định chính thức của Product Owner được ghi trên platform và dẫn chiếu tại `../outputs/12-requirement-review/G1-approval.md`. AI KHÔNG được phê duyệt G1 (xem [ai-instructions.md](../ai-instructions.md#11-review-gate)).

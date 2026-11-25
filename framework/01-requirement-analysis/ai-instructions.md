@@ -130,14 +130,13 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 01.
 
 **Gate:** G1 – Requirement Approval.
 
-**Điều kiện thông qua:**
+**Việc AI thực hiện tại gate:**
 
-- Yêu cầu rõ ràng và không mâu thuẫn.
-- Scope được xác nhận.
-- User Stories và Acceptance Criteria được duyệt.
-- Các vấn đề quan trọng đã được giải quyết.
+- Chạy các checklist 01–06 trong [checklists/](checklists/) và ghi kết quả PASS / FAIL / PENDING kèm bằng chứng; không tự diễn giải hay hạ tiêu chí. Tiêu chí kiểm tra do checklist quản lý, đặc biệt điều kiện sẵn sàng trình duyệt tại [checklists/06-G1-approval-checklist.md](checklists/06-G1-approval-checklist.md).
+- Chuẩn bị review package và nêu rõ findings/gap còn lại cho người review.
+- Việc xem xét và quyết định thuộc con người; xem [human-review.md](human-review.md#6-điều-kiện-quyết-định-g1).
 
-> **AI không được tự phê duyệt G1.**
+> **Quy tắc đối với AI:** AI không được tự phê duyệt G1, không được tích điều kiện phê duyệt thay Product Owner và không được suy diễn im lặng hoặc thiếu phản hồi thành approval. Quy tắc quản trị G1 đầy đủ: [G1-approval.md](outputs/12-requirement-review/G1-approval.md).
 
 ## 12. Error Handling
 

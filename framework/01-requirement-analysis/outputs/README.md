@@ -41,7 +41,7 @@ outputs/
 
 Business Process Model và Glossary là đầu ra tùy chọn, nhưng template và thư mục chuẩn được giữ trong framework/project. Nếu không áp dụng, ghi `N/A` và lý do trong review package. Các deliverables khác là bắt buộc.
 
-`requirement-analysis-report.md` là báo cáo tổng hợp bổ sung để review dễ hơn; không thay thế artifact nguồn và không phải một trong 12 deliverable chuẩn.
+`requirement-analysis-report.md` là báo cáo tổng hợp bổ sung để review dễ hơn; không thay thế artifact nguồn và không phải một trong 12 deliverable chuẩn. Báo cáo chỉ tóm tắt phạm vi, rủi ro và trạng thái review, đồng thời dẫn chiếu về artifact nguồn; khi lệch, artifact nguồn được ưu tiên. Template: `../templates/requirement-analysis-report.md`.
 
 ## 3. Deliverables và nội dung
 
@@ -69,7 +69,7 @@ Business Process Model và Glossary là đầu ra tùy chọn, nhưng template v
 5. Cập nhật artifact nguồn thay vì sao chép nội dung khiến các bản trùng lặp có thể lệch nhau.
 6. Duy trì trạng thái, phiên bản, owner và lịch sử thay đổi theo chuẩn framework.
 7. Phân biệt rõ bản nháp do AI tạo với nội dung đã được người có thẩm quyền xác nhận.
-8. G1 Approval chỉ ghi nhận quyết định của Product Owner được ủy quyền; AI không được tự phê duyệt.
+8. G1 Approval chỉ ghi nhận quyết định của Product Owner được ủy quyền; AI không được tự phê duyệt (quy tắc đầy đủ: [ai-instructions.md](../ai-instructions.md#11-review-gate), [G1-approval.md](12-requirement-review/G1-approval.md)).
 9. Quyết định G1 chỉ áp dụng cho đúng phiên bản artifact và review package được ghi trong hồ sơ.
 
 ## 5. Trạng thái

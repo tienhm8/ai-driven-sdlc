@@ -8,7 +8,7 @@
 ## 1. Nguyên tắc review
 
 - Con người xác nhận **đúng vấn đề cần giải quyết**, không chỉ kiểm tra tài liệu có đầy đủ hình thức.
-- AI có thể phân tích, đặt câu hỏi, đề xuất và soạn tài liệu; AI không được tự xác nhận yêu cầu nghiệp vụ hoặc tự phê duyệt G1.
+- AI có thể phân tích, đặt câu hỏi, đề xuất và soạn tài liệu; AI không được tự xác nhận yêu cầu nghiệp vụ hoặc tự phê duyệt G1 (xem [ai-instructions.md](ai-instructions.md#11-review-gate)).
 - Không suy diễn nội dung còn thiếu thành sự thật. Giả định phải được đánh dấu, nêu tác động và có người chịu trách nhiệm xác nhận.
 - Yêu cầu chưa rõ, mâu thuẫn hoặc chưa có chủ sở hữu phải được làm rõ trước khi baseline.
 - Mọi yêu cầu được duyệt phải có ID ổn định. Dùng ID này để nối thiết kế, task, code và test ở các stage sau, không yêu cầu các liên kết đó tại G1.
@@ -66,6 +66,8 @@ Người review cần xác nhận tối thiểu:
 - [ ] Stakeholder cần thiết đã xác nhận.
 
 ## 6. Điều kiện quyết định G1
+
+Người review chỉ xem xét quyết định khi kết quả checklist sẵn sàng trình duyệt tại [checklists/06-G1-approval-checklist.md](checklists/06-G1-approval-checklist.md) đã có PASS hoặc ngoại lệ được ghi rõ. Tiêu chí kiểm tra do checklist quản lý; mục này chỉ nêu cơ sở để con người quyết định.
 
 **Approve** khi các yêu cầu trong phạm vi đã đủ rõ, nhất quán, có thể kiểm chứng; các rủi ro/câu hỏi còn lại đã được chấp nhận rõ ràng và có owner; PO xác nhận baseline.
 

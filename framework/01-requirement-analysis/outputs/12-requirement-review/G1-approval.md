@@ -64,7 +64,7 @@ Quyết định G1 được ghi trên platform; hồ sơ này chỉ dẫn chiế
 
 ## Quy tắc quản trị
 
-- Chỉ Product Owner được ủy quyền mới quyết định G1; AI không được tự phê duyệt hoặc suy diễn im lặng thành approval.
+- Chỉ Product Owner được ủy quyền mới quyết định G1; AI không được tự phê duyệt hoặc suy diễn im lặng thành approval. Hành vi của AI: xem [ai-instructions.md](../../ai-instructions.md#11-review-gate).
 - Quyết định chỉ áp dụng cho đúng artifact và review package đã ghi.
 - REJECTED, BLOCKED hoặc CHANGES_REQUESTED chặn chuyển sang System Design cho đến khi có review và quyết định hợp lệ mới.
 - Thay đổi trọng yếu sau approval cần đánh giá hiệu lực G1 và trình duyệt lại khi cần.

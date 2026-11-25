@@ -22,7 +22,7 @@ Thư mục này chứa các checklist kiểm soát chất lượng cho giai đo�
 - Các mục không đạt PHẢI được ghi nhận.
 - Các mục Không áp dụng PHẢI có lý do đi kèm.
 - Cần có review của con người theo chính sách mức độ tự chủ.
-- AI KHÔNG ĐƯỢC phê duyệt G1.
+- AI KHÔNG ĐƯỢC phê duyệt G1 (xem [ai-instructions.md](../ai-instructions.md#11-review-gate)).
 
 ## Định nghĩa trạng thái
 

@@ -6,7 +6,7 @@ Thư mục này chứa các biểu mẫu chuẩn để tạo deliverables của 
 
 ## 2. Danh mục template và ánh xạ
 
-Bộ template gồm 14 file nội dung (12 deliverable bắt buộc và 2 template tùy chọn) cùng README này.
+Bộ template gồm 15 file nội dung (12 deliverable bắt buộc, 2 template tùy chọn và 1 báo cáo tổng hợp bổ sung) cùng README này.
 
 | Template | Artifact đầu ra | Bắt buộc | Vai trò / thứ tự sử dụng |
 |---|---|---:|---|
@@ -24,6 +24,7 @@ Bộ template gồm 14 file nội dung (12 deliverable bắt buộc và 2 templa
 | `requirement-traceability.md` | `11-requirement-traceability/requirement-traceability-matrix.md` | Có | Mẫu chuẩn RTM: Nguồn/Mục tiêu → BRQ → FR/NFR đến AC; BR và US/UC khi áp dụng. |
 | `requirement-review-record.md` | `12-requirement-review/requirement-review-record.md` | Có | Ghi quá trình review, findings, resolution và bằng chứng. |
 | `G1-approval.md` | `12-requirement-review/G1-approval.md` | Có | Dẫn chiếu quyết định G1 chính thức của Product Owner (ghi trên platform) cho đúng phiên bản baseline/review package. |
+| `requirement-analysis-report.md` | `requirement-analysis-report.md` | Bổ sung | Báo cáo tổng hợp để review dễ hơn; chỉ tóm tắt phạm vi, rủi ro, trạng thái RTM/review và dẫn về artifact nguồn. Không phải một trong 12 deliverable chuẩn. |
 
 ## 3. Nguyên tắc sử dụng
 
@@ -53,7 +54,8 @@ templates/
 ├── assumptions-constraints-dependencies-risks.md
 ├── requirement-traceability.md
 ├── requirement-review-record.md
-└── G1-approval.md
+├── G1-approval.md
+└── requirement-analysis-report.md            # Supplementary summary
 ```
 
 ## 5. Vai trò và quan hệ template
