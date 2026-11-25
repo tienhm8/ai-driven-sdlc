@@ -18,7 +18,8 @@ Quy tắc phân rã: bắt đầu từ Epic/Story đã duyệt; chia thành deli
 - Dependency:
 - Estimate, đơn vị, độ tin cậy:
 - Vai trò owner:
-- Priority (PO xác nhận) / trạng thái:
+- Priority (PO xác nhận):
+- Trạng thái task: `Proposed / Ready / Committed / Done`
 - Rủi ro/giả định:
 - Mức độ review/autonomy bắt buộc:
 

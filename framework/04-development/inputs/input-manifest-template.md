@@ -5,15 +5,15 @@
 | Project / Task ID | |
 | Phiên bản manifest / Ngày | |
 | Repository / Base commit | |
-| Phiên bản kế hoạch G3 / phạm vi task được duyệt | |
+| Gói bàn giao kế hoạch / phạm vi task được G3 duyệt | |
 | Bản ghi waiver/ngoại lệ (nếu có) | |
 
-## Artifact upstream đã duyệt
-| Giai đoạn | ID/tiêu đề artifact | Version/commit | Trạng thái | Tham chiếu phê duyệt | Link/path |
+## Baseline upstream và bằng chứng phê duyệt
+| Baseline | ID/tiêu đề | Phiên bản/commit bàn giao | Gate / trạng thái xác minh | Tham chiếu phê duyệt | Link/path |
 |---|---|---|---|---|---|
-| 01 Requirement | | | Approved | G1: | |
-| 02 Design | | | Approved | G2: | |
-| 03 Planning | | | Approved | G3: | |
+| 01 Requirement | | | G1: | | |
+| 02 Design | | | G2: | | |
+| 03 Planning | | | G3: | | |
 
 ## Bối cảnh task
 | Hạng mục | Tham chiếu/version | Ghi chú |
@@ -31,4 +31,4 @@
 - [ ] Đã biết dependency/blocker.
 - [ ] Không có secret hoặc dữ liệu nhạy cảm không cần thiết.
 
-**Readiness:** `Ready / Blocked` — **Blocker / owner / hạn xử lý:**
+**Tham chiếu kết quả Development Readiness:**

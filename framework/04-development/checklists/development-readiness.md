@@ -13,15 +13,12 @@ Nguồn kiểm tra duy nhất trước coding. Stage 04 **xác minh**, không ph
 - [ ] API, mô hình dữ liệu và luồng liên quan đã được đặc tả.
 - [ ] Đã xem xét bảo mật, quyền riêng tư và authorization.
 - [ ] Ràng buộc migration/tương thích đã được ghi lại.
-- [ ] Đã ghi nhận tham chiếu phê duyệt của Architect/Tech Lead.
+- [ ] Đã đối chiếu phiên bản design package bàn giao với bằng chứng G2 `Approved` của Solution Architect và các phê duyệt chuyên môn bắt buộc nếu áp dụng.
 
 ## Planning — G3
-- [ ] Task có ID, owner, priority, estimate và dependency.
-- [ ] Task truy vết được về requirement/AC và thiết kế.
-- [ ] Tiêu chí Acceptance/Done rõ ràng.
-- [ ] Bản ghi G3 `Approved` bởi Tech Lead, gồm người phê duyệt, timestamp và phiên bản kế hoạch.
-- [ ] Task thuộc phạm vi task đã ghi trong bản ghi G3 và kế hoạch chưa có thay đổi trọng yếu nào chưa được phê duyệt lại.
-- [ ] Task đạt Definition of Ready (DoR).
+- [ ] Đã đối chiếu ID/phiên bản baseline kế hoạch trong gói bàn giao với input manifest và bản ghi G3 `Approved` (định danh Tech Lead, timestamp và bằng chứng).
+- [ ] Task thuộc đúng phạm vi đã duyệt; phiên bản kế hoạch chưa bị thay thế và không có thay đổi trọng yếu nào chưa được phê duyệt lại.
+- [ ] Task đạt [DoR tối thiểu của framework](../../03-task-planning/templates/definition-of-ready.md) và tiêu chí bổ sung của dự án/tổ chức nếu có; ghi tham chiếu tiêu chí và bằng chứng kiểm tra.
 
 ## Môi trường
 - [ ] Đã xác định repository, branch và base commit.

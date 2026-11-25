@@ -3,7 +3,7 @@
 > **Giai đoạn:** 03 – Task Planning  
 > **Mục đích:** Bảo đảm backlog có thể thực hiện, ưu tiên đúng giá trị, phản ánh phụ thuộc/rủi ro và có tiêu chí hoàn thành rõ ràng trước khi bắt đầu coding.  
 > **Review Gate:** G3 – Task Approval (trước khi bắt đầu coding)  
-> **Người phê duyệt chính:** Tech Lead; PM/Project Manager phê duyệt kế hoạch và nguồn lực theo cơ chế dự án
+> **Người phê duyệt G3:** Tech Lead; PM xác nhận lịch và nguồn lực, PO xác nhận ưu tiên và trade-off sản phẩm
 
 ## 1. Nguyên tắc review
 
@@ -17,7 +17,7 @@
 
 | Vai trò | Trách nhiệm review / quyết định |
 |---|---|
-| Tech Lead – **Approver G3** | Xác nhận task đủ rõ về kỹ thuật, phạm vi, dependency, Definition of Done và sẵn sàng coding. |
+| Tech Lead – **Approver G3** | Phê duyệt một phiên bản kế hoạch và phạm vi task; xem xét tính khả thi kỹ thuật, dependency và Definition of Done. |
 | Project Manager (PM) | Review kế hoạch, milestone, tiến độ, nguồn lực, rủi ro và điều phối phụ thuộc. |
 | Product Owner | Xác nhận thứ tự ưu tiên và giá trị nghiệp vụ; quyết định trade-off phạm vi/sản phẩm. |
 | Developer / Engineering Lead | Review tính khả thi, effort, độ phức tạp, cách tiếp cận và các task kỹ thuật bị bỏ sót. |
@@ -41,12 +41,12 @@ Tiêu chí kiểm tra chi tiết nằm ở [checklist G3](checklists/g3-planning
 |---|---|
 | L1 | AI có thể sắp xếp/định dạng backlog, gắn nhãn hoặc phát hiện task trùng; không tự thay đổi cam kết hoặc ưu tiên đã duyệt. |
 | L2 | PM/Tech Lead review theo mẫu đối với đề xuất phân rã/estimate có rủi ro thấp; kiểm tra các trường hợp ngoại lệ hoặc độ lệch lớn. |
-| L3 | Tech Lead phải review và phê duyệt task trước coding khi task tác động logic nghiệp vụ, API, schema, security, kiến trúc hoặc dữ liệu. |
+| L3 | Tech Lead review tác động kỹ thuật của task đến logic nghiệp vụ, API, schema, security, kiến trúc hoặc dữ liệu trong gói trình G3. G3 duyệt phiên bản kế hoạch và phạm vi task, không tạo thêm quyết định G3 cho từng task. |
 | L4 | PO quyết định ưu tiên và trade-off sản phẩm; PM quyết định/đề xuất kế hoạch nguồn lực theo thẩm quyền; AI chỉ tư vấn. |
 
 ## 5. Checklist
 
-Dùng [checklist G3](checklists/g3-planning-approval-checklist.md) để thao tác và ghi quyết định.
+Dùng [checklist G3](checklists/g3-planning-approval-checklist.md) để kiểm tra; ghi quyết định trong [mẫu approval record chung](../templates/review/approval-record.md).
 
 ## 6. Điều kiện quyết định G3
 
@@ -66,4 +66,4 @@ Lưu backlog snapshot/version, task ID, liên kết requirement/design, estimate
 
 ## 9. Trách nhiệm cuối cùng
 
-Tech Lead chịu trách nhiệm xác nhận task readiness về kỹ thuật trước coding. PM chịu trách nhiệm điều phối kế hoạch và nguồn lực trong phạm vi được giao. PO chịu trách nhiệm ưu tiên và trade-off sản phẩm. Estimate do AI đề xuất không phải cam kết delivery nếu chưa được người có thẩm quyền xác nhận.
+Tech Lead chịu trách nhiệm về quyết định G3; Stage 04 kiểm tra readiness từng task trước coding. PM chịu trách nhiệm điều phối kế hoạch và nguồn lực trong phạm vi được giao. PO chịu trách nhiệm ưu tiên và trade-off sản phẩm. Estimate do AI đề xuất không phải cam kết delivery nếu chưa được người có thẩm quyền xác nhận.

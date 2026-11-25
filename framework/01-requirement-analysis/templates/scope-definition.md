@@ -50,7 +50,7 @@ Tham chiếu dependency chi tiết trong `../outputs/10-assumptions-constraints-
 
 | Dependency ID | Hệ thống/bên ngoài | Phụ thuộc vào | Owner | Trạng thái |
 |---|---|---|---|---|
-| DEP-0001 | [Tên] | [Mô tả] | [Owner] | [Draft / Confirmed / Blocked] |
+| TDEP-0001 | [Tên] | [Mô tả] | [Owner] | [Draft / Confirmed / Blocked] |
 
 ## 8. Giả định và ràng buộc ảnh hưởng phạm vi
 

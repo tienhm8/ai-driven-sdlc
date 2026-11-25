@@ -5,29 +5,17 @@ G3 duyệt **một phiên bản kế hoạch với phạm vi task xác định**
 
 - [ ] Đã tham chiếu requirement baseline và bằng chứng G1.
 - [ ] Đã tham chiếu design baseline (đúng phiên bản package) và bằng chứng G2.
-- [ ] Phạm vi task được duyệt đã ghi rõ (danh sách/khoảng task ID, version) và task ngoài phạm vi được nêu.
+- [ ] Phạm vi task được duyệt đã ghi rõ (danh sách/khoảng task ID, version) và task ngoài phạm vi được nêu nếu có.
 - [ ] PO đã xác nhận priority; PM đã xác nhận lịch và nguồn lực.
-- [ ] Task breakdown truy vết được, có deliverable và cách kiểm chứng.
+- [ ] Task breakdown truy vết được, có scope, owner, deliverable và cách kiểm chứng.
 - [ ] Estimate có đơn vị, phương pháp, độ tin cậy và được con người review.
-- [ ] Dependency matrix có owner và biện pháp giảm thiểu.
+- [ ] Dependency matrix có thứ tự thực hiện, owner và biện pháp giảm thiểu.
 - [ ] Kế hoạch vừa với capacity hoặc ngoại lệ đã được phê duyệt.
 - [ ] DoD đã được định nghĩa/tham chiếu.
+- [ ] Task rủi ro cao có reviewer hoặc phê duyệt chuyên môn phù hợp theo policy; công việc kiểm chứng, tài liệu và bảo mật đã được tính đến khi áp dụng.
 - [ ] Rủi ro, giả định và vấn đề còn mở đều có owner.
 - [ ] Outputs được version hóa và có lịch sử thay đổi.
 
-| Trường | Giá trị |
-|---|---|
-| Gate | G3 |
-| ID/phiên bản Plan | |
-| Phạm vi task được duyệt | |
-| Phiên bản Requirement baseline | |
-| Phiên bản Design baseline | |
-| Người phê duyệt / vai trò | Tech Lead |
-| Quyết định | `Approved/Rejected/Changes Requested/Blocked` |
-| Điều kiện / blocker | |
-| Thời điểm + múi giờ | |
-| Bằng chứng phê duyệt/ticket | |
-
-Các trường audit bắt buộc (approver, timestamp, version/hash, bằng chứng) ghi theo [mẫu approval record](../../templates/review/approval-record.md) và [gate policy](../../governance/human-review-gates/gate-policy.md); không duy trì bản mẫu riêng.
+Lưu checklist đã điền làm bằng chứng; ghi phạm vi, kết luận PO/PM và quyết định trong [bản ghi phê duyệt chung](../../templates/review/approval-record.md), phần dành cho G3. Ghi rõ tên/định danh Tech Lead, vai trò, thời điểm, phiên bản và bằng chứng theo [gate policy](../../governance/human-review-gates/gate-policy.md).
 
 Không có quyết định `Approved` kèm bằng chứng thì Stage 04 chưa được phép bắt đầu. Thay đổi trọng yếu sau duyệt (phạm vi task, priority, estimate/dependency ảnh hưởng lịch, baseline nguồn) cần đánh giá lại và phê duyệt G3 mới cho phiên bản mới.

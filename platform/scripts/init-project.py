@@ -31,6 +31,7 @@ TASK_PLANNING_PROJECT_FILES = {
     "task-breakdown.md": "templates/task-breakdown.md",
     "effort-estimation.md": "templates/effort-estimation.md",
     "dependency-matrix.md": "templates/dependency-matrix.md",
+    "definition-of-ready.md": "templates/definition-of-ready.md",
     "definition-of-done.md": "templates/definition-of-done.md",
     "sprint-plan.md": "templates/sprint-plan.md",
 }
@@ -334,66 +335,9 @@ unapproved or inconsistent.
 """,
     )
 
-    write_if_missing(
+    copy_file_if_missing(
+        framework_dir / "templates" / "review" / "approval-record.md",
         stage_project_dir / "g3-approval.md",
-        """# G3 — Task Planning Approval
-
-> Human approval record. AI-generated checks and recommendations do not
-> constitute approval.
-
-## Approval scope
-
-- Project:
-- Planning baseline / version:
-- Task scope approved (task IDs / version; tasks excluded):
-- Related Requirement Baseline (G1):
-- Related Design Baseline (G2):
-- Planning Review:
-- Approval date:
-
-## Approval checklist
-
-- [ ] Required G1 and G2 inputs are approved and versioned.
-- [ ] Product Owner confirmed priority; PM confirmed schedule and resources.
-- [ ] Product backlog is reviewed and prioritized.
-- [ ] Task breakdown is sufficiently complete and traceable.
-- [ ] Estimates, assumptions and uncertainty are understood.
-- [ ] Dependencies and blockers have owners and plans.
-- [ ] Definition of Done is agreed.
-- [ ] Sprint plan is feasible against available capacity.
-- [ ] Significant risks and open actions are accepted by the appropriate owners.
-- [ ] Planning outputs are versioned and ready for Development handoff.
-
-## Decision
-
-- [ ] Approved
-- [ ] Changes requested
-- [ ] Rejected
-- [ ] Blocked
-
-Decision rationale:
-
-Conditions / follow-up actions:
-
-| Action | Owner | Due date |
-|---|---|---|
-| | | |
-
-## Approval record
-
-- Approver name:
-- Role / authority:
-- Decision timestamp:
-- Artifact version / commit:
-- Evidence / reference:
-
-**Rule:** G3 is approved by the Tech Lead (see the gate policy). The Product
-Owner confirms priority and product trade-offs; the PM confirms schedule and
-resources. G3 approves one plan version with the task scope recorded above.
-Record approver, timestamp, version/hash and evidence as in the project
-approval record template. The AI that prepared the planning artifacts cannot
-approve G3. Material changes after approval require a new G3 decision.
-""",
     )
 
 

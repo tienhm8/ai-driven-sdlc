@@ -35,6 +35,7 @@ class ProjectManifestTests(TestCase):
         source = framework / "templates/review/approval-record.md"
         self.assertEqual(target.read_bytes(), source.read_bytes())
         self.assertIn("## Quyết định", target.read_text(encoding="utf-8"))
+        self.assertEqual((self.project / "docs/03-task-planning/g3-approval.md").read_bytes(), source.read_bytes())
 
     def test_init_validate_and_load_project_overrides(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
@@ -69,6 +70,15 @@ class ProjectManifestTests(TestCase):
         self.assertEqual([cell.strip() for cell in row.strip("|").split("|")][4], "Pending")
         self.assertIn("G2 approval evidence for that version", register)
         self.assertIn("G2 is Approved", register)
+        planning = self.project / "docs/03-task-planning"
+        approval = planning / "g3-approval.md"
+        self.assertEqual(approval.read_bytes(), (framework / "templates/review/approval-record.md").read_bytes())
+        approval_text = approval.read_text(encoding="utf-8")
+        for field in ("Vai trò phê duyệt G3: Tech Lead", "Phạm vi task được duyệt", "| Approver |",
+                      "`Approved / Rejected / Changes Requested / Blocked`"):
+            self.assertIn(field, approval_text)
+        self.assertEqual((planning / "definition-of-ready.md").read_bytes(),
+                         (framework / "03-task-planning/templates/definition-of-ready.md").read_bytes())
         for stage, examples in stage_examples.items():
             with self.subTest(stage=stage):
                 outputs = self.project / "docs" / stage / "outputs"

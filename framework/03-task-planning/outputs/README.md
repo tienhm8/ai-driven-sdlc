@@ -11,7 +11,7 @@ Danh mục đầu ra chuẩn, mức bắt buộc/khi áp dụng/tham chiếu, tr
 | Dependency Matrix | templates/dependency-matrix.md | PM, Tech Lead |
 | Definition of Done | templates/definition-of-done.md hoặc chuẩn tổ chức | Dev, Review, QA |
 | Sprint/Delivery Plan (khi áp dụng) | templates/sprint-plan.md | Team |
-| Bản ghi phê duyệt G3 | checklists/g3-planning-approval-checklist.md + mẫu approval record chung | Workflow/approval engine |
+| Bản ghi phê duyệt G3 | [Mẫu approval record chung](../../templates/review/approval-record.md); checklist G3 là bằng chứng | Workflow/approval engine |
 
 Cấu trúc thư mục dự án đề xuất:
 ```text
@@ -22,6 +22,7 @@ docs/03-task-planning/
   task-breakdown.md
   effort-estimation.md
   dependency-matrix.md
+  definition-of-ready.md  # Tiêu chí tham chiếu
   definition-of-done.md
   sprint-plan.md
   planning-review.md

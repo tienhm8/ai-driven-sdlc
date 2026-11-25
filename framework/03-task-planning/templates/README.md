@@ -20,7 +20,8 @@ Requirement/Design baseline (inputs)
 | `effort-estimation.md` | Ước lượng effort theo task, đơn vị, độ tin cậy và giả định; tổng hợp theo hạng mục. | PM, Tech Lead |
 | `dependency-matrix.md` | Dependency nội bộ và bên ngoài, critical path, rủi ro và owner xử lý. | PM, Tech Lead |
 | `definition-of-done.md` | Tiêu chí hoàn thành áp dụng cho task/story/sprint/release, kèm ghi nhận ngoại lệ. | Dev, Review, QA |
-| `sprint-plan.md` | Sprint goal, capacity, cam kết, cột mốc, rủi ro và phê duyệt của PO/PM/Tech Lead. | Team |
+| [Definition of Ready](definition-of-ready.md) | Tiêu chí tối thiểu để chuẩn bị và xác minh readiness từng task; không thay G3. | Tech Lead, Developer |
+| `sprint-plan.md` | Sprint goal, capacity, cam kết, cột mốc, rủi ro và xác nhận của PO/PM/Tech Lead hoặc team. | Team |
 
 ## Quy ước dùng chung
 - Mọi file có ID, phiên bản, trạng thái, owner và ngày cập nhật.

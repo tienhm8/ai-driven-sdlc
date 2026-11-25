@@ -55,12 +55,12 @@
 ## 4. Quy tắc nghiệp vụ và phụ thuộc
 
 - Business Rules: tham chiếu BR ID trong `../outputs/07-business-rules/business-rules.md`.
-- Dependencies: tham chiếu DEP ID trong `../outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md`.
+- Dependencies: tham chiếu TDEP ID trong `../outputs/10-assumptions-constraints-risks/assumptions-constraints-dependencies-risks.md`.
 
 | Loại | ID | Mô tả ngắn/ghi chú |
 |---|---|---|
 | BR | BR-0001 | [Tên quy tắc] |
-| DEP | DEP-0001 | [Phụ thuộc] |
+| TDEP | TDEP-0001 | [Phụ thuộc] |
 
 ## 5. Tham chiếu tiêu chí nghiệm thu
 

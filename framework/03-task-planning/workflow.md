@@ -40,7 +40,7 @@ Handoff to Development
 1. **Xác nhận phạm vi release/iteration:** thống nhất mục tiêu, deliverables, in-scope/out-of-scope và giới hạn.
 2. **Phân rã backlog:** tạo epic/feature/story/work package; liên kết về requirement ID và design component.
 3. **Phân rã technical tasks:** tạo task cho code, database, API, integration, security, infrastructure, documentation và testing.
-4. **Xác định tiêu chí sẵn sàng:** áp dụng Definition of Ready (DoR) cho story/task; làm rõ acceptance criteria và dependency.
+4. **Xác định tiêu chí sẵn sàng:** áp dụng [Definition of Ready (DoR)](templates/definition-of-ready.md) cho story/task; làm rõ acceptance criteria và dependency.
 5. **Ước lượng:** sử dụng phương pháp phù hợp (story points, ideal days, t-shirt sizing hoặc effort range); ghi rõ độ tin cậy và giả định.
 6. **Phân tích phụ thuộc:** xác định thứ tự, critical path, external dependency, environment/data dependency và integration sequence.
 7. **Xác định công việc kiểm chứng:** xác định cần kiểm chứng gì (test level, test data, automation, non-functional) và lập task tương ứng. Test case và PR chi tiết được liên kết ở các stage thực hiện; không bắt buộc trước G3.
@@ -104,7 +104,7 @@ G3 duyệt **một phiên bản kế hoạch với phạm vi task xác định**
 ## 3.11 Exit Criteria — Điều kiện hoàn thành
 
 - G3 `Approved` cho đúng phiên bản kế hoạch và phạm vi task đã ghi.
-- Phiên bản đó được chốt `Baselined` để bàn giao.
+- PM/Delivery Lead ghi phiên bản kế hoạch đã chốt làm baseline và tham chiếu bản ghi G3 vào gói bàn giao.
 - DoR từng task do Stage 04 xác minh trước coding; môi trường/công cụ cần thiết sẵn sàng hoặc có kế hoạch.
 - Owner và reporting cadence được xác định.
 

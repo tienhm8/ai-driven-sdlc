@@ -102,7 +102,7 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 03.
 - Xác nhận Priority.
 - Đánh giá Effort.
 - Xác nhận Dependencies.
-- Phê duyệt Sprint Plan.
+- Xác nhận tính khả thi của Sprint Plan (nếu áp dụng); quyết định G3 ghi riêng.
 - Xác nhận nguồn lực và Timeline.
 
 ## 11. Review Gate

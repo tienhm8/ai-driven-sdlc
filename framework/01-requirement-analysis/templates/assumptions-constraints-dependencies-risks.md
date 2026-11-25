@@ -29,7 +29,7 @@ Trạng thái gợi ý: `Unverified`, `Confirmed`, `Rejected`, `Superseded`.
 
 | ID | Phụ thuộc vào | Mô tả/giao diện | Bên cung cấp/owner | Hạn hoặc mốc | Tác động nếu trễ/thay đổi | Trạng thái |
 |---|---|---|---|---|---|---|
-| DEP-0001 | [Hệ thống/nhóm/quyết định] | [Nội dung] | [Owner] | [Ngày/mốc] | [Tác động] | Identified |
+| TDEP-0001 | [Hệ thống/nhóm/quyết định] | [Nội dung] | [Owner] | [Ngày/mốc] | [Tác động] | Identified |
 
 ## 5. Rủi ro (Risks)
 

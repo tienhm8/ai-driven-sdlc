@@ -2,13 +2,13 @@
 ## Thông tin chung
 | Dự án | ID/phiên bản backlog | PO | Requirement baseline | Design baseline | Trạng thái |
 |---|---|---|---|---|---|
-| | | | | | `Draft/Reviewed/Approved/Baselined` |
+| | | | | | `Draft / In Review / Approved / Superseded` |
 
-Phương pháp ưu tiên: `[MoSCoW/WSJF/Value-Risk/tùy chỉnh]`. Người quyết định ưu tiên: `[PO/PM]`. Priority không phải là effort.
+Phương pháp ưu tiên: `[MoSCoW/WSJF/Value-Risk/tùy chỉnh]`. Người xác nhận ưu tiên và trade-off sản phẩm: Product Owner. Priority không phải là effort.
 
 | ID | Loại | Cha | Tiêu đề/mô tả | Requirement/AC | Tham chiếu Design | Giá trị kinh doanh | Ưu tiên | Estimate+đơn vị | Trạng thái |
 |---|---|---|---|---|---|---|---|---|---|
-| | `Epic/Story/Task/Enabler/Bug` | | | | | | `P0-P3` | | `Proposed/Ready/Committed/Done` |
+| | `Epic/Story/Task/Enabler/Bug` | | | | | | `P0-P3` | | `Proposed / Ready / Committed / Done` |
 
 | Item ID | Outcome rõ ràng | AC đầy đủ | Dependency đã biết | Độ tin cậy estimate | Sẵn sàng? | Khoảng trống |
 |---|---|---|---|---|---|---|
