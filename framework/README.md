@@ -19,6 +19,10 @@ Xây dựng quy trình phát triển phần mềm trong đó AI tham gia tất c
 - **Con người review:** xác nhận tính đúng đắn, nghiệp vụ, kiến trúc, bảo mật và chất lượng.
 - **Không để AI tự quyết định vấn đề rủi ro cao:** phê duyệt yêu cầu, thay đổi kiến trúc, phát hành production, thay đổi dữ liệu quan trọng và xử lý sự cố nghiêm trọng phải có người chịu trách nhiệm.
 
+## Cách dùng AI cho mọi vai trò
+
+Mọi vai trò dùng AI theo cùng một luồng `Role → Stage → Task → Context → Execute → Review → Output`. Quy tắc đầy đủ nằm tại [ai-usage-flow.md](../shared-ai/rules/core/ai-usage-flow.md).
+
 ## Chuẩn hóa cấu trúc bên trong mỗi giai đoạn
 
 Để framework không bị rời rạc, cả 8 giai đoạn tuân theo cùng một cấu trúc:
