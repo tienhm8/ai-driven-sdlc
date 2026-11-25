@@ -49,18 +49,8 @@
 ### 3.1 Mô tả
 [Mô tả chi tiết chức năng cần thực hiện.]
 
-### 3.2 Luồng chính
-1. [Bước 1]
-2. [Bước 2]
-3. [Bước 3]
-
-### 3.3 Luồng thay thế
-1. [Kịch bản thay thế]
-2. [Hành vi mong đợi]
-
-### 3.4 Luồng ngoại lệ
-1. [Điều kiện lỗi]
-2. [Cách xử lý lỗi mong đợi]
+### 3.2 Use Case liên quan
+- [UC IDs]: luồng chính, thay thế và ngoại lệ chi tiết được quản lý trong Use Case; không sao chép vào User Story.
 
 ## 4. Quy tắc nghiệp vụ và phụ thuộc
 
@@ -72,7 +62,7 @@
 | BR | BR-0001 | [Tên quy tắc] |
 | DEP | DEP-0001 | [Phụ thuộc] |
 
-## 6. Tham chiếu tiêu chí nghiệm thu
+## 5. Tham chiếu tiêu chí nghiệm thu
 
 | Mã AC | Mô tả | Độ ưu tiên |
 |---|---|---|
@@ -81,7 +71,7 @@
 
 Tiêu chí nghiệm thu chi tiết được quản lý trong `../outputs/06-acceptance-criteria/acceptance-criteria.md`.
 
-## 7. Yêu cầu UX/UI
+## 6. Yêu cầu UX/UI
 
 - Màn hình/Trang: [Tên màn hình]
 - Tương tác người dùng: [Mô tả tương tác]
@@ -90,14 +80,14 @@ Tiêu chí nghiệm thu chi tiết được quản lý trong `../outputs/06-acce
 - Kiểm tra dữ liệu: [Quy tắc kiểm tra]
 - Tham chiếu UI/UX: [Liên kết thiết kế]
 
-## 8. Yêu cầu phi chức năng liên quan
+## 7. Yêu cầu phi chức năng liên quan
 
 Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functional-requirements.md`:
 
 - NFR IDs:
 - Điều kiện áp dụng:
 
-## 9. Định nghĩa sẵn sàng (Definition of Ready - DoR)
+## 8. Định nghĩa sẵn sàng (Definition of Ready - DoR)
 
 - [ ] Yêu cầu nghiệp vụ đã được xác định.
 - [ ] Vai trò người dùng đã được định nghĩa rõ ràng.
@@ -107,7 +97,7 @@ Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functio
 - [ ] Không còn câu hỏi quan trọng chưa được giải quyết.
 - [ ] Story đủ nhỏ để triển khai.
 
-## 10. Định nghĩa hoàn thành (Definition of Done - DoD)
+## 9. Định nghĩa hoàn thành (Definition of Done - DoD)
 
 - [ ] Đã hoàn thành triển khai.
 - [ ] Unit test đã pass.
@@ -117,7 +107,7 @@ Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functio
 - [ ] Tài liệu đã được cập nhật.
 - [ ] Không còn lỗi nghiêm trọng chưa được xử lý.
 
-## 11. Review và phê duyệt
+## 10. Review và phê duyệt
 
 | Vai trò | Họ tên | Quyết định | Ngày |
 |---|---|---|---|
@@ -125,7 +115,7 @@ Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functio
 | Product Owner | [Họ tên] | [Quyết định] | [Ngày] |
 | Tech Lead | [Họ tên] | [Quyết định] | [Ngày] |
 
-## 12. Lịch sử thay đổi
+## 11. Lịch sử thay đổi
 
 | Phiên bản | Ngày | Mô tả thay đổi |
 |---|---|---|

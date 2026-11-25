@@ -98,6 +98,8 @@ AI đóng vai trò QA Engineer / Test Engineer, hỗ trợ xây dựng chiến l
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 06.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Chạy Automated Tests và tổng hợp kết quả. |

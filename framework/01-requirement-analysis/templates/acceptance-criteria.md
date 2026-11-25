@@ -15,13 +15,15 @@
 | Trường | Giá trị |
 |---|---|
 | Mã tiêu chí nghiệm thu | AC-001 |
-| User Story liên quan | US-001 |
-| Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
+| User Story / Use Case liên quan (khi áp dụng) | [US/UC ID hoặc N/A theo RTM] |
+| Yêu cầu liên quan | [BRQ ID; FR/NFR ID liên kết trực tiếp nếu không dùng US/UC] |
 | Chức năng / Module | [Tên chức năng] |
 | Độ ưu tiên | Cao |
 | Trạng thái | Draft |
 
 ## 3. Định nghĩa tiêu chí nghiệm thu
+
+**Hướng dẫn:** Mỗi AC phải kiểm chứng độc lập, truy vết về US/UC/FR/NFR, và xác nhận kết quả quan sát được (Pass/Fail) của luồng chính, thay thế, ngoại lệ trong Use Case mà không sao chép các bước của Use Case. AC đủ cụ thể để Stage 06 sinh Test Case; không tạo ID Test Case tại Stage 01.
 
 ### AC-001: [Tên tiêu chí nghiệm thu]
 

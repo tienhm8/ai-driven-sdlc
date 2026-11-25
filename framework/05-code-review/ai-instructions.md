@@ -97,6 +97,8 @@ AI đóng vai trò Independent Code Reviewer / Senior Software Engineer, hỗ tr
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 05.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Kiểm tra Convention và Static Analysis. |

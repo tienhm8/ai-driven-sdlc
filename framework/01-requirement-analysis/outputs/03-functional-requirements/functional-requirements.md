@@ -15,9 +15,7 @@
 - Actor:
 - Điều kiện tiên quyết:
 - Sự kiện kích hoạt:
-- Luồng chính:
-- Luồng thay thế:
-- Luồng ngoại lệ:
+- Use Case liên quan (luồng chính/thay thế/ngoại lệ): [UC IDs]
 - Hậu điều kiện:
 - Đầu vào/đầu ra:
 - Business Rules liên quan:

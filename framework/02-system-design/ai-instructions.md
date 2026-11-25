@@ -98,6 +98,8 @@ AI đóng vai trò Solution Architect / System Analyst, hỗ trợ thiết kế 
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 02.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Phân tích và tổng hợp tài liệu. |

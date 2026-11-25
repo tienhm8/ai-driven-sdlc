@@ -99,6 +99,8 @@ AI đóng vai trò DevOps Engineer / Release Engineer, hỗ trợ chuẩn bị v
 
 ## 9. Autonomy Level
 
+Bảng dưới mô tả phạm vi AI ở từng mức của Stage 07.
+
 | Level | Phạm vi AI |
 |---|---|
 | **L1** | Tạo Release Notes và chạy Pre-deployment Checks. |

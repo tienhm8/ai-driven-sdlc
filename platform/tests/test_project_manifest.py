@@ -27,6 +27,13 @@ class ProjectManifestTests(TestCase):
         shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))
         framework = self.root / "framework"
         shutil.copytree(PLATFORM.parent / "framework", framework)
+        ra_stage = framework / "01-requirement-analysis"
+        ra_source = ra_stage / "outputs"
+        rtm_relative = Path("11-requirement-traceability/requirement-traceability-matrix.md")
+        rtm_template = ra_stage / "templates/requirement-traceability.md"
+        self.assertEqual((ra_source / rtm_relative).read_bytes(), rtm_template.read_bytes())
+        # A stale snapshot must never become the starter in a new project.
+        (ra_source / rtm_relative).write_text("stale starter\n", encoding="utf-8")
         stage_examples = {
             "06-testing-qa": {"qa-signoff-example.md", "test-execution-summary-example.md"},
             "07-deployment": {"deployment-report-example.md", "release-note-example.md"},
@@ -49,13 +56,13 @@ class ProjectManifestTests(TestCase):
                 self.assertEqual({path.name for path in outputs.iterdir()}, examples | {"README.md"})
                 for name in examples | {"README.md"}:
                     self.assertEqual((outputs / name).read_bytes(), (framework / stage / "outputs" / name).read_bytes())
-        ra_source = framework / "01-requirement-analysis" / "outputs"
         ra_target = self.project / "docs" / "01-requirement-analysis" / "outputs"
         ra_files = sorted(p.relative_to(ra_source) for p in ra_source.rglob("*") if p.is_file())
         self.assertIn(Path("01-business-requirements/BRD.md"), ra_files)
         self.assertIn(Path("12-requirement-review/G1-approval.md"), ra_files)
         for relative in ra_files:
-            self.assertEqual((ra_target / relative).read_bytes(), (ra_source / relative).read_bytes())
+            expected = rtm_template if relative == rtm_relative else ra_source / relative
+            self.assertEqual((ra_target / relative).read_bytes(), expected.read_bytes())
         self.assertFalse((self.project / "config.yml").exists())
         manifest = load_project_manifest(self.project)
         self.assertEqual(manifest["project"], {"id": "demo", "name": display_name, "version": "1.0.0"})
