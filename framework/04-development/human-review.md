@@ -53,7 +53,7 @@
 
 ## 5. Checklist review trước khi gửi PR
 
-- [ ] Task đã được G3 xác nhận hoặc có phê duyệt ngoại lệ hợp lệ.
+- [ ] Development readiness checklist = Ready (G1/G2/G3 + DoR đã xác minh) hoặc có ngoại lệ hợp lệ.
 - [ ] Diff nằm trong phạm vi task; thay đổi ngoài phạm vi được tách hoặc giải trình.
 - [ ] Developer hiểu và có thể giải thích code do AI tạo.
 - [ ] Logic nghiệp vụ, edge case và error handling đã được kiểm tra.

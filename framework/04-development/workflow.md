@@ -30,7 +30,7 @@ Handoff to Code Review
 
 ## 4.3 Entry Criteria — Điều kiện bắt đầu
 
-- G3 đã được phê duyệt; task đạt DoR.
+- [Development readiness checklist](checklists/development-readiness.md) = `Ready`: G1/G2/G3 đã `Approved` cho đúng phiên bản, task thuộc phạm vi bản ghi G3 và đạt DoR. Đây là xác minh, không phê duyệt lại; thiếu/mâu thuẫn → `Blocked` trừ ngoại lệ hợp lệ.
 - Có design/API/data contract và coding guidelines.
 - Repository, branch strategy, CI checks và môi trường phát triển sẵn sàng.
 - Developer/AI agent được cấp quyền tối thiểu cần thiết.

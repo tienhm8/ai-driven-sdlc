@@ -21,7 +21,7 @@ Luồng sử dụng: trước khi code, Developer lập một `input-manifest-te
 
 ## Quy tắc sử dụng
 
-- Chỉ dùng artifact ở trạng thái Approved. Không dùng Draft thay thế nếu không có waiver được phê duyệt.
+- Chỉ dùng artifact ở trạng thái Approved. Không dùng Draft thay thế nếu không có waiver được phê duyệt; manifest dẫn tới bản ghi waiver đó.
 - Nếu các nguồn mâu thuẫn, kết quả là Blocked và owner phải giải quyết trước khi tiếp tục.
 - Không lưu secret hoặc dữ liệu production nhạy cảm trong manifest.
 

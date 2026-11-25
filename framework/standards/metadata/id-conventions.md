@@ -68,6 +68,7 @@ Nếu nhiều repository hoặc nhiều nhóm cùng sử dụng một namespace 
 | DB | Database Design (Thiết kế cơ sở dữ liệu) | System Design |
 | TASK | Development Task (Task phát triển) | Task Planning |
 | SPIKE | Technical Investigation (Điều tra kỹ thuật) | Task Planning |
+| TDEP | Task Dependency (Phụ thuộc giữa task/công việc) | Task Planning |
 | CR | Code Review | Code Review |
 | TC | Test Case | Testing & QA |
 | TS | Test Suite (Bộ test) | Testing & QA |

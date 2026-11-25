@@ -23,7 +23,7 @@ Chuyển requirement, thiết kế và backlog đã duyệt thành code, tests, 
 ## Cách sử dụng
 1. Kiểm tra input manifest và approval references.
 2. Tạo task từ `templates/development-task.md`.
-3. Hoàn tất `checklists/development-readiness.md`; thiếu G1/G2/G3 thì Blocked.
+3. Hoàn tất `checklists/development-readiness.md` (nguồn kiểm tra duy nhất: xác minh G1/G2/G3 và DoR); thiếu hoặc mâu thuẫn thì Blocked.
 4. Lập plan, triển khai theo guidelines và autonomy policy.
 5. Chạy kiểm tra, ghi evidence, tự review và cập nhật docs.
 6. Hoàn tất DoD/handover checklist và bàn giao sang 05.

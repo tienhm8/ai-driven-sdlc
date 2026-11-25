@@ -1,4 +1,6 @@
-# Development Readiness Checklist (G3)
+# Development Readiness Checklist (G1/G2/G3 + DoR)
+
+Nguồn kiểm tra duy nhất trước coding. Stage 04 **xác minh**, không phê duyệt lại, baseline G1/G2/G3 và DoR. Thiếu hoặc mâu thuẫn → `Blocked`, trừ ngoại lệ hợp lệ theo [gate policy](../../governance/human-review-gates/gate-policy.md).
 
 ## Requirement — G1
 - [ ] Requirement/story đã duyệt có ID và version.
@@ -17,8 +19,9 @@
 - [ ] Task có ID, owner, priority, estimate và dependency.
 - [ ] Task truy vết được về requirement/AC và thiết kế.
 - [ ] Tiêu chí Acceptance/Done rõ ràng.
-- [ ] Tech Lead đã duyệt phạm vi trước khi code.
-- [ ] Bản ghi G3 gồm người phê duyệt, timestamp và baseline version.
+- [ ] Bản ghi G3 `Approved` bởi Tech Lead, gồm người phê duyệt, timestamp và phiên bản kế hoạch.
+- [ ] Task thuộc phạm vi task đã ghi trong bản ghi G3 và kế hoạch chưa có thay đổi trọng yếu nào chưa được phê duyệt lại.
+- [ ] Task đạt Definition of Ready (DoR).
 
 ## Môi trường
 - [ ] Đã xác định repository, branch và base commit.
@@ -26,4 +29,4 @@
 - [ ] Coding/security standard và cấu hình autonomy sẵn sàng.
 - [ ] Dữ liệu test an toàn và được phép sử dụng.
 
-**Kết quả:** Ready / Blocked — **Blocker / owner / hạn xử lý:** — **Người kiểm tra / ngày:**
+**Kết quả:** Ready / Blocked — **Blocker / owner / hạn xử lý:** — **Bản ghi waiver (nếu có):** — **Người kiểm tra / ngày:**

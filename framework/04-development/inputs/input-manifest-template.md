@@ -5,6 +5,8 @@
 | Project / Task ID | |
 | Phiên bản manifest / Ngày | |
 | Repository / Base commit | |
+| Phiên bản kế hoạch G3 / phạm vi task được duyệt | |
+| Bản ghi waiver/ngoại lệ (nếu có) | |
 
 ## Artifact upstream đã duyệt
 | Giai đoạn | ID/tiêu đề artifact | Version/commit | Trạng thái | Tham chiếu phê duyệt | Link/path |

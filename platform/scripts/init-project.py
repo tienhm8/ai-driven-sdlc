@@ -345,6 +345,7 @@ unapproved or inconsistent.
 
 - Project:
 - Planning baseline / version:
+- Task scope approved (task IDs / version; tasks excluded):
 - Related Requirement Baseline (G1):
 - Related Design Baseline (G2):
 - Planning Review:
@@ -353,6 +354,7 @@ unapproved or inconsistent.
 ## Approval checklist
 
 - [ ] Required G1 and G2 inputs are approved and versioned.
+- [ ] Product Owner confirmed priority; PM confirmed schedule and resources.
 - [ ] Product backlog is reviewed and prioritized.
 - [ ] Task breakdown is sufficiently complete and traceable.
 - [ ] Estimates, assumptions and uncertainty are understood.
@@ -367,6 +369,7 @@ unapproved or inconsistent.
 - [ ] Approved
 - [ ] Changes requested
 - [ ] Rejected
+- [ ] Blocked
 
 Decision rationale:
 
@@ -384,9 +387,12 @@ Conditions / follow-up actions:
 - Artifact version / commit:
 - Evidence / reference:
 
-**Rule:** G3 must be approved by an authorized human (normally PM /
-Project Manager and Tech Lead, with Product Owner involvement as
-required). The AI that prepared the planning artifacts cannot approve G3.
+**Rule:** G3 is approved by the Tech Lead (see the gate policy). The Product
+Owner confirms priority and product trade-offs; the PM confirms schedule and
+resources. G3 approves one plan version with the task scope recorded above.
+Record approver, timestamp, version/hash and evidence as in the project
+approval record template. The AI that prepared the planning artifacts cannot
+approve G3. Material changes after approval require a new G3 decision.
 """,
     )
 
