@@ -9,7 +9,7 @@ checklists/
 ├── development-readiness.md   # Xác minh G1/G2/G3 và DoR trước khi code
 ├── ai-safety-checklist.md     # Kiểm soát an toàn AI, áp dụng xuyên suốt
 ├── implementation-dod.md      # Definition of Done của từng task
-└── handover-checklist.md      # Kiểm tra bàn giao sang 05 Code Review
+└── handover-checklist.md      # PR Readiness Check — bàn giao 04 → 05
 ```
 
 Luồng sử dụng theo thời điểm trong vòng đời task:
@@ -28,7 +28,7 @@ Luồng sử dụng theo thời điểm trong vòng đời task:
 | `development-readiness.md` | Xác minh bằng chứng G1/G2/G3 đúng phiên bản, phạm vi task và DoR; không phê duyệt lại. Thiếu hoặc mâu thuẫn thì `Blocked` theo checklist. | Developer kiểm tra; AI hỗ trợ; Tech Lead xác nhận kết quả kiểm tra | Trước khi code |
 | `ai-safety-checklist.md` | Kiểm soát ủy quyền, bảo vệ dữ liệu, an toàn mã nguồn do AI sinh ra và truy vết hoạt động của AI. | AI; Developer | Xuyên suốt task |
 | `implementation-dod.md` | Tiêu chí hoàn thành của một task: AC, test đã chạy, bảo mật, tài liệu, rủi ro còn lại. | Developer | Trước khi tự nhận task xong |
-| `handover-checklist.md` | Đảm bảo gói bàn giao (PR, test evidence, tác động kỹ thuật, tài liệu) đủ để Reviewer làm việc. Không tự đánh dấu G4 approved. | Developer | Khi chuyển sang 05 |
+| `handover-checklist.md` | Kiểm tra gói PR, evidence, quyền truy cập và rủi ro; là nơi ghi kết quả bàn giao. Không quyết định G4. | Developer xác nhận; Tech Lead/maintainer xác nhận thêm nếu policy dự án yêu cầu | Khi chuyển sang 05 |
 
 ## Quy tắc sử dụng
 

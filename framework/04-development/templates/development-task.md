@@ -31,13 +31,10 @@
 - Component, contract API/dữ liệu, bảo mật/authorization, hiệu năng, tương thích, coding standard:
 
 ## DoD
-- [ ] Đáp ứng AC; đã thêm/cập nhật và chạy test.
-- [ ] Đã hoàn thành các kiểm tra lint/static/security theo yêu cầu.
-- [ ] Đã cập nhật tài liệu/cấu hình/ghi chú migration khi cần.
-- [ ] Developer đã tự review và hoàn tất handover.
+Áp dụng [Implementation DoD](../checklists/implementation-dod.md). Chỉ bổ sung tiêu chí riêng của task nếu có:
 
 ## Hỗ trợ của AI
 Công cụ/model, mức autonomy, hành động được phép/bị hạn chế, các checkpoint bắt buộc có con người:
 
 ## Hoàn thành
-Branch/PR, commit, tóm tắt, test evidence, giới hạn đã biết, xác nhận của developer:
+Branch/PR, commit và liên kết tới implementation summary, test evidence, Implementation DoD và PR Readiness Check:

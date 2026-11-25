@@ -1,28 +1,26 @@
-# Development Handover Checklist — Giai đoạn 05
+# PR Readiness Check — bàn giao 04 → 05
 
-## Gói code
-- [ ] Có branch và URL PR/MR.
-- [ ] PR liên kết task, requirement và tham chiếu thiết kế.
-- [ ] Diff tập trung; không có thay đổi không liên quan hoặc debug.
-- [ ] Đã ghi commit và base commit.
+Dùng checklist này để kiểm gói bàn giao và ghi kết quả theo [quy tắc PR Readiness Check](../workflow.md#410-pr-readiness-check--bàn-giao-04--05). Kiểm chất lượng triển khai và self-review tại [Implementation DoD](implementation-dod.md).
 
-## Xác minh
-- [ ] Các test liên quan đã được chạy.
-- [ ] Đã ghi lệnh, môi trường, kết quả và link evidence.
-- [ ] Trạng thái CI được nêu chính xác.
-- [ ] Kiểm tra chưa chạy hoặc thất bại đã được giải thích; không khai báo pass sai.
+## Gói bàn giao
 
-## Tác động kỹ thuật
-- [ ] Đã mô tả thay đổi API/schema/migration.
-- [ ] Đã liệt kê biến cấu hình, không kèm giá trị secret.
-- [ ] Đã ghi chú tác động về bảo mật, hiệu năng, tương thích và vận hành.
-- [ ] Đã công bố known issue, giới hạn và rủi ro còn lại.
+- [ ] Có PR/MR, mô tả thay đổi và liên kết task, requirement, thiết kế.
+- [ ] Có `Base SHA` và `Head SHA` của phiên bản bàn giao.
+- [ ] Có tham chiếu Implementation DoD, implementation summary, test evidence và tài liệu liên quan.
+- [ ] Evidence ghi rõ SHA đã kiểm tra và đủ để xác minh kết quả bắt buộc cho phiên bản bàn giao; có link ngoại lệ đã duyệt nếu áp dụng.
+- [ ] Đã gán reviewer theo policy và kiểm tra reviewer truy cập được PR và evidence.
+- [ ] Đã công bố known issues, giới hạn, rủi ro và các tác động cần theo dõi (ví dụ migration, cấu hình, rollback); không ghi giá trị secret.
 
-## Tài liệu và trách nhiệm
-- [ ] Đã hoàn thành Implementation Summary.
-- [ ] Tài liệu kỹ thuật đã cập nhật hoặc ghi N/A kèm lý do.
-- [ ] Đã gán reviewer theo chính sách.
-- [ ] Developer đã tự review xong.
-- [ ] G4 giữ trạng thái pending cho đến khi reviewer quyết định.
+## Kết quả bàn giao
 
-**Bàn giao:** Ready for Review / Blocked — **Developer / ngày:**
+**PR/MR và phiên bản (link gói bàn giao có Base SHA / Head SHA):**
+
+**Kết quả:** Ready for Review / Blocked
+
+**Developer xác nhận / ngày:**
+
+**Tech Lead/maintainer xác nhận / ngày (nếu policy dự án yêu cầu):**
+
+**Blocker / owner / hạn xử lý (nếu Blocked):**
+
+Không ghi `G4 Approved` ở Stage 04. Reviewer có thẩm quyền quyết định G4 ở Stage 05.

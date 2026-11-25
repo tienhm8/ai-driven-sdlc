@@ -98,7 +98,7 @@ AI đóng vai trò Software Developer / Software Engineer, hỗ trợ triển kh
 
 ## 9. Autonomy Level
 
-Bảng dưới mô tả phạm vi AI ở từng mức của Stage 04.
+Bảng dưới chỉ nêu ví dụ cho Stage 04, không cấp quyền thực hiện.
 
 | Level | Phạm vi AI |
 |---|---|
@@ -107,7 +107,7 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 04.
 | **L3** | Thay đổi Business Logic, API, Database và Security, cần review. |
 | **L4** | Con người quyết định thay đổi kiến trúc và nghiệp vụ quan trọng. |
 
-**Mặc định: L2.**
+Trước từng hành động, xác định level theo rủi ro và kiểm tra quyền đã được cấp, phạm vi task và yêu cầu review theo [AI autonomy policy](../governance/ai-governance/ai-autonomy-levels.md) và policy dự án. Nếu chưa rõ level hoặc quyền, dừng hành động đó và hỏi người phụ trách phân loại hoặc xác nhận quyền; không suy ra quyền từ bảng ví dụ.
 
 ## 10. Human Review
 
@@ -123,7 +123,9 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 04.
 
 ## 11. Review Gate
 
-**Trước khi coding**, xác minh bằng [development readiness checklist](checklists/development-readiness.md): G1/G2/G3 đã `Approved` cho đúng phiên bản, task thuộc phạm vi bản ghi G3 và đạt DoR. Thiếu hoặc mâu thuẫn → **Blocked**. AI không tự phê duyệt hoặc nới điều kiện này.
+**Trước khi coding**, dùng [development readiness checklist](checklists/development-readiness.md) để xác minh G1/G2/G3 và DoR. Thiếu hoặc mâu thuẫn → `Blocked`, trừ ngoại lệ hợp lệ được ghi nhận theo checklist. AI không tự phê duyệt hoặc nới điều kiện này.
+
+**Trước khi bàn giao sang 05**, AI hỗ trợ đối chiếu [PR Readiness Check](workflow.md#410-pr-readiness-check--bàn-giao-04--05), không tự xác nhận bàn giao hay phê duyệt G4.
 
 **Gate G4** áp dụng trước khi merge Pull Request. Điều kiện G4:
 
