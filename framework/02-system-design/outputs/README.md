@@ -32,7 +32,7 @@ Chỉ tạo thư mục con khi có artifact tương ứng.
 `Draft → In Review → Approved → Superseded`
 
 - Draft/In Review không phải design baseline; Approved phải có approval reference và version.
-- Baseline là vai trò của phiên bản design package đã chốt, không phải trạng thái artifact riêng. G2 chỉ Passed với quyết định Approved và đủ các phê duyệt chuyên môn bắt buộc; Approved with conditions chưa cho phép bàn giao chính thức, phải đóng điều kiện và được xác nhận Approved. Khi G2 Passed, Solution Architect chốt phiên bản gói đã duyệt làm baseline; hồ sơ G2 và package index ghi rõ phiên bản, quyết định, waiver hợp lệ (nếu có), người duyệt và thời điểm.
+- Baseline là vai trò của phiên bản design package đã chốt, không phải trạng thái artifact riêng. G2 chỉ hoàn tất với quyết định Approved và đủ các phê duyệt chuyên môn bắt buộc. Điều kiện cần đóng được ghi là Changes Requested; thiếu bằng chứng hoặc phê duyệt bắt buộc là Blocked. Không bàn giao trước khi G2 Approved. Khi G2 Approved, Solution Architect chốt phiên bản gói đã duyệt làm baseline; hồ sơ G2 và package index ghi rõ phiên bản, quyết định, waiver hợp lệ (nếu có), người duyệt và thời điểm.
 - Đầu vào chính thức của `03-task-planning` là đúng phiên bản gói đã chốt làm baseline cùng bằng chứng G2 hợp lệ cho phiên bản đó. G2 → Stage 03 Task Planning → G3 → coding tại Stage 04.
 - Thay đổi sau phê duyệt phải tăng version, đánh giá tác động và review/approval lại; phiên bản mới không tự động kế thừa G2 của phiên bản cũ.
 
@@ -69,7 +69,7 @@ Chỉ tạo thư mục con khi có artifact tương ứng. Thư mục rỗng kh�
 | `data-model/` | Chứa mô hình dữ liệu và data dictionary theo miền. | Draft → In Review → Approved → Superseded |
 | `flows/` | Chứa luồng chính, luồng thay thế và ngoại lệ, kèm sơ đồ tuần tự. | Draft → In Review → Approved → Superseded |
 | `security/` | Chứa thiết kế bảo mật và threat model. | Draft → In Review → Approved → Superseded |
-| `approvals/` | Chứa bằng chứng review và bản ghi G2: người phê duyệt, thời điểm, phiên bản đã duyệt. Chỉ con người được ghi quyết định. | Pending / Passed / Failed |
+| `approvals/` | Chứa bằng chứng review và bản ghi G2: người phê duyệt, thời điểm, phiên bản đã duyệt. Chỉ con người được ghi quyết định. | Pending / In Review / Approved / Rejected / Blocked / Changes Requested |
 
 ## Quy tắc đầu ra
 

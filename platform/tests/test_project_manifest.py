@@ -50,6 +50,11 @@ class ProjectManifestTests(TestCase):
                     "--name", display_name, "--slug", "demo", "--tools", "cursor,claude",
                     "--no-project-management"], capture_output=True, text=True)
         self.assertEqual(init.returncode, 0, init.stderr)
+        register = (self.project / "docs/03-task-planning/input-register.md").read_text(encoding="utf-8")
+        row = next(line for line in register.splitlines() if line.startswith("| Design Baseline (G2) |"))
+        self.assertEqual([cell.strip() for cell in row.strip("|").split("|")][4], "Pending")
+        self.assertIn("G2 approval evidence for that version", register)
+        self.assertIn("G2 is Approved", register)
         for stage, examples in stage_examples.items():
             with self.subTest(stage=stage):
                 outputs = self.project / "docs" / stage / "outputs"

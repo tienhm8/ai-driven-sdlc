@@ -31,9 +31,9 @@
 
 ## Decision
 - [ ] Approved
-- [ ] Approved with conditions — chưa Passed (không áp dụng nếu còn blocker/critical risk chưa xử lý)
-- [ ] Changes requested
+- [ ] Changes requested (bao gồm điều kiện cần đóng)
 - [ ] Rejected
+- [ ] Blocked (thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc)
 
 **Conditions / outstanding actions:** Ghi điều kiện, việc còn mở và bằng chứng đóng; package index ghi điều kiện đã đóng.
 
@@ -48,9 +48,9 @@
 
 Với từng vai trò chuyên môn, ghi quyết định thực tế (ví dụ `Approved`, `Changes requested` hoặc `N/A` kèm lý do); chỉ các phê duyệt bắt buộc theo phạm vi mới được tính là điều kiện gate.
 
-**Gate status:** `Passed / Failed / Pending`
+**Gate status:** `Pending / In Review / Approved / Rejected / Blocked / Changes Requested`
 
 **Rule:**
-- Chỉ quyết định `Approved` mới cho phép G2 `Passed`, sau khi các điều kiện gate và các phê duyệt chuyên môn bắt buộc theo phạm vi đã đầy đủ.
-- Với `Approved with conditions`, giữ gate ở `Pending` và không bàn giao chính thức sang Stage 03. Sau khi đóng điều kiện, lưu bằng chứng và trình Solution Architect xác nhận lại quyết định `Approved`. Quyết định và baseline phải gắn với phiên bản gói sau khi đóng điều kiện. Nếu thay đổi chỉ nhằm đóng điều kiện đã ghi, Solution Architect xác nhận dựa trên bằng chứng; nếu vượt phạm vi điều kiện, phải review lại theo G2.
-- Khi G2 `Passed`, Solution Architect chốt đúng phiên bản gói đã duyệt làm baseline và ghi quyết định, phiên bản, thời điểm và waiver hợp lệ (nếu có) vào hồ sơ G2 và package index. Bàn giao phiên bản này cùng bằng chứng G2 hợp lệ cho Stage 03 Task Planning; sau planning phải qua G3 trước coding. Baseline không phải trạng thái artifact riêng.
+- Chỉ G2 `Approved`, sau khi đủ điều kiện gate và phê duyệt chuyên môn bắt buộc, mới cho phép chốt baseline và bàn giao.
+- Nếu còn điều kiện cần đóng, ghi `Changes Requested`, không dùng quyết định `Approved with conditions`. Thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc thì ghi `Blocked`. Sau khi xử lý, lưu bằng chứng và trình Solution Architect phê duyệt lại phiên bản gói sau khi đóng điều kiện; thay đổi vượt phạm vi điều kiện phải review lại theo G2.
+- Khi G2 `Approved`, Solution Architect chốt đúng phiên bản gói đã duyệt làm baseline và ghi quyết định, phiên bản, thời điểm và waiver hợp lệ (nếu có) vào hồ sơ G2 và package index. Bàn giao phiên bản này cùng bằng chứng G2 hợp lệ cho Stage 03 Task Planning; sau planning phải qua G3 trước coding. Baseline không phải trạng thái artifact riêng.
