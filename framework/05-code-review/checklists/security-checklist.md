@@ -1,5 +1,7 @@
 # Security Checklist
 
+> Kiểm tra nhanh mọi PR có rủi ro bảo mật. Với thay đổi nhạy cảm, dùng thêm [security-review](../templates/security-review.md) (trust boundary, bằng chứng, kết luận chuyên môn).
+
 - [ ] Authentication được áp dụng cho endpoint/chức năng cần bảo vệ.
 - [ ] Authorization kiểm tra quyền trên từng resource/action phù hợp.
 - [ ] Input được validate server-side; output được encode đúng ngữ cảnh.

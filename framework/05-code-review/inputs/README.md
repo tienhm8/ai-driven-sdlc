@@ -11,6 +11,16 @@
 | 04 Development | PR URL, diff, base/head SHA, test, build/CI evidence | Đối tượng review trực tiếp |
 | Repository standards | Coding, testing, security standards | Tiêu chí đánh giá |
 
+## Mức bắt buộc của đầu vào
+Đây là nguồn chuẩn; `ai-instructions.md` và `workflow.md` tham chiếu về đây.
+
+| Mức | Đầu vào | Nếu thiếu |
+|---|---|---|
+| **Tối thiểu để bắt đầu review** | PR/diff gắn base/head SHA; task và Acceptance Criteria; coding standards; [gói bàn giao Development](../04-development/outputs/development-handover-template.md) | `Blocked` – không review, trả về Development |
+| **Bắt buộc theo loại thay đổi** | Thay đổi API → API contract; schema/migration → data model + kế hoạch rollback; bảo mật/quyền/dữ liệu nhạy cảm → security design/decision; thay đổi kiến trúc → ADR/design | Ghi `Missing`, review được phần còn lại nhưng không đề xuất Approve cho phần liên quan |
+| **Bắt buộc trước G4** | Kết quả CI/build/test của required checks trên head SHA hiện tại; security review nếu thuộc phạm vi; xử lý xong finding chặn merge | Không trình/duyệt G4. CI chưa đạt không ngăn đọc diff nhưng chặn G4 và merge nếu là check bắt buộc |
+| **Tùy chọn** | Previous review comments, performance requirements, tài liệu kiến trúc bổ sung khi thay đổi không chạm kiến trúc | Ghi chú nếu liên quan |
+
 ## Quy ước
 - Ưu tiên liên kết đến tài liệu gốc có version/commit.
 - Nếu cần snapshot, lưu metadata nguồn, version, thời điểm lấy và owner.
@@ -26,7 +36,7 @@
 - Design reference:
 - Task reference:
 - CI/test evidence:
-- Missing inputs:
+- Missing inputs (kèm mức: Blocked / theo loại thay đổi / trước G4):
 - Intake owner/date:
 
 ## Kiến trúc

@@ -25,14 +25,20 @@ Re-review
         ↓
 G4 — Approve Code Review
         ↓
-Merge / Handoff to QA
+Merge theo branch policy
+        ↓
+Xác minh kết quả merge (merge commit SHA + bằng chứng)
+        ↓
+Handoff to QA
 ```
+
+Stage chỉ hoàn tất sau khi merge đã được xác minh. PR đã G4 Approved nhưng chưa merge thì stage vẫn mở.
 
 ## 5.3 Entry Criteria — Điều kiện bắt đầu
 
 - PR đã qua kiểm tra bàn giao Development và ở trạng thái Ready for Review; G4 chưa được duyệt.
-- Build, lint và automated checks bắt buộc đã chạy.
-- PR có mô tả, task/requirement links, test evidence và risk notes.
+- Đủ đầu vào tối thiểu theo [inputs/README.md](inputs/README.md) (gồm gói bàn giao Development: mô tả, task/requirement links, test evidence, risk notes). Thiếu → Blocked.
+- Build, lint và automated checks bắt buộc đã chạy; CI chưa đạt không ngăn đọc diff nhưng chặn G4.
 - Reviewer không có xung đột lợi ích phù hợp với policy; đủ quyền truy cập context.
 
 ## 5.4 Workflow Steps — Các bước thực hiện
@@ -45,16 +51,18 @@ Merge / Handoff to QA
 6. **Review security/privacy:** kiểm tra authentication, authorization, input validation, injection, secrets, sensitive data và audit.
 7. **Review performance/reliability:** xem query, caching, resource lifecycle, timeout/retry, idempotency và failure handling.
 8. **Review test/documentation:** xác nhận test có ý nghĩa, coverage phù hợp, docs/changelog được cập nhật.
-9. **Phân loại findings:** Critical/High/Medium/Low hoặc severity scale của dự án; mô tả evidence, impact và remediation.
+9. **Phân loại findings:** Critical/High/Medium/Low/Info (thang chung trong `human-review.md`); mô tả evidence, impact và remediation.
 10. **Gửi phản hồi:** dùng comment rõ ràng, phân biệt blocker với suggestion; không chỉ yêu cầu sửa theo cảm tính.
 11. **Remediation:** author sửa, bổ sung test/evidence và phản hồi từng finding.
 12. **Re-review:** reviewer xác nhận sửa đúng, không phát sinh regression hoặc scope ngoài ý muốn.
-13. **Phê duyệt:** xác nhận các rule bắt buộc và trình G4; merge theo branch protection sau khi đủ approval.
+13. **Phê duyệt:** xác nhận các rule bắt buộc và trình G4 cho người có thẩm quyền duyệt G4.
+14. **Merge:** người/quy trình có quyền merge thực hiện theo branch protection sau khi G4 Approved.
+15. **Xác minh merge & bàn giao:** ghi `merge commit SHA` và link bằng chứng merge; kiểm tra build/CI sau merge (nếu policy yêu cầu) và bàn giao cho QA.
 
 ## 5.5 Input — Đầu vào
 
 - Pull Request, commit diff và branch context.
-- Requirement/task, acceptance criteria và design/ADR.
+- Requirement/task, acceptance criteria và design/ADR (mức bắt buộc xem `inputs/README.md`).
 - Coding, security, testing và review standards.
 - CI results, test reports, static/security scan reports.
 - PR risk classification và previous review findings.
@@ -75,14 +83,15 @@ Merge / Handoff to QA
 - Reviewer chịu trách nhiệm đánh giá độc lập và quyết định approve/request changes.
 - Security reviewer tham gia với thay đổi nhạy cảm hoặc risk cao.
 - Author giải trình, sửa lỗi và xác nhận tác động của remediation.
-- Maintainer kiểm soát merge policy và branch protection.
+- Maintainer kiểm soát merge policy và branch protection. Quyền merge không đồng nghĩa quyền duyệt G4.
 - Tech Lead phân xử tranh luận kỹ thuật và exception.
 
 ## 5.8 Output — Đầu ra
 
 - Review comments/findings có severity và trạng thái.
 - Remediation commits và re-review evidence.
-- Approved PR / merge approval hoặc rejection.
+- Approved PR / G4 decision hoặc rejection.
+- Merge evidence: merge identity, merge commit SHA, link bằng chứng merge.
 - Code Review Report và security review record khi cần.
 - Updated risk/technical debt register.
 - G4 approval record.
@@ -101,20 +110,17 @@ Merge / Handoff to QA
 
 **G4 — Code Review Approval**
 
-Người phê duyệt: reviewer/maintainer được chỉ định; thay đổi bảo mật hoặc kiến trúc nhạy cảm cần reviewer chuyên môn.
+Nguồn quy định: [G4 — Code Review & Merge Approval](../governance/human-review-gates/G4-code-approval.md). Danh sách thao tác: [Merge Approval Checklist](checklists/merge-approval-checklist.md). Phân vai và xử lý bất đồng: [human-review.md](human-review.md).
 
-Điều kiện:
-- Reviewer đã xem xét đầy đủ diff và context.
-- Không còn finding blocker; ngoại lệ có risk acceptance được ghi nhận.
-- Required checks đạt.
-- PR được approve theo số lượng/quy tắc reviewer của dự án.
+Tóm tắt: người duyệt G4 là reviewer/Tech Lead có thẩm quyền (cần reviewer chuyên môn với thay đổi bảo mật/kiến trúc nhạy cảm); không còn Critical/High chưa xử lý (ngoại lệ phải có risk acceptance); required checks đạt; approval đúng head SHA. AI chỉ khuyến nghị, không duyệt G4.
 
 ## 5.11 Exit Criteria — Điều kiện hoàn thành
 
-- G4 được Approved.
-- PR được merge hoặc được phép chuyển sang bước tích hợp theo branch policy.
+- G4 được Approved cho đúng head SHA.
+- PR đã được merge theo branch policy và kết quả merge đã được xác minh (merge commit SHA + link bằng chứng).
 - Review findings đã đóng/có quyết định.
-- Commit/merge reference được lưu để truy vết.
+- Build đưa vào G5 truy vết được về merge commit này.
+- PR approved nhưng chưa merge: stage chưa hoàn tất.
 
 ## 5.12 Exception Handling — Xử lý ngoại lệ
 
@@ -126,6 +132,6 @@ Người phê duyệt: reviewer/maintainer được chỉ định; thay đổi b
 
 ## 5.13 Next Stage — Chuyển sang giai đoạn tiếp theo
 
-Bàn giao merge reference, approved PR, review findings, test evidence và known risks cho **06 — Testing & QA**.
+Bàn giao merge commit SHA và bằng chứng merge, approved PR, review findings, test evidence và known risks (ghi trong review report/outputs) cho **06 — Testing & QA**.
 
 ---

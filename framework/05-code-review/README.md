@@ -6,7 +6,7 @@
 ## Vai trò
 - **AI Code Reviewer:** phân tích diff, đối chiếu tài liệu đầu vào, chạy/đọc kết quả kiểm tra được cấp quyền, ghi nhận phát hiện và đề xuất sửa.
 - **Developer/Author:** giải trình, cập nhật code và phản hồi từng nhận xét.
-- **Senior Developer/Tech Lead/Reviewer:** xác nhận phát hiện, quyết định chấp nhận hoặc yêu cầu sửa, phê duyệt merge.
+- **Senior Developer/Tech Lead/Reviewer:** xác nhận phát hiện, quyết định chấp nhận hoặc yêu cầu sửa, duyệt G4 (quyền merge là quyền riêng, không đồng nghĩa quyền duyệt G4).
 - **Security/Domain reviewer:** tham gia khi thay đổi liên quan đến bảo mật hoặc nghiệp vụ nhạy cảm.
 
 ## Cấu trúc
@@ -30,15 +30,14 @@
 - **L1:** format, lint và kiểm tra tự động đã cấu hình.
 - **L2:** phân tích diff, đề xuất refactor nhỏ trong phạm vi được giao.
 - **L3:** thay đổi logic nghiệp vụ, API, schema, phân quyền hoặc xử lý dữ liệu phải có người review và phê duyệt.
-- **L4:** quyết định bảo mật/rủi ro cao, ngoại lệ policy và phê duyệt merge thuộc con người.
+- **L4:** quyết định bảo mật/rủi ro cao, ngoại lệ policy thuộc con người.
+
+Mức áp dụng theo từng hành động, không gán cho cả stage. L1/L2 không miễn G4.
 
 ## Human Review Gate
-G4 – Trước khi merge code:
-- PR có reviewer được chỉ định.
-- Các finding nghiêm trọng đã được xử lý hoặc có quyết định ngoại lệ được ghi nhận.
-- CI/check bắt buộc đạt.
-- Reviewer/Tech Lead phê duyệt.
-- Lưu người phê duyệt, thời gian, commit SHA, phiên bản báo cáo và kết quả.
+G4 – Trước khi merge code. Quy định chi tiết: [G4-code-approval.md](../governance/human-review-gates/G4-code-approval.md); thao tác: [merge-approval-checklist.md](checklists/merge-approval-checklist.md).
+
+Luồng: **G4 Approved → merge theo policy → xác minh merge (merge commit SHA + bằng chứng) → bàn giao QA.** Stage chưa hoàn tất nếu PR chưa merge.
 
 ## Bắt đầu nhanh
 1. Thu thập đầu vào theo `inputs/README.md`.
