@@ -1,7 +1,10 @@
 """Canonical gate definitions and project policy validation."""
 from dataclasses import dataclass
+import errno
+import os
 from pathlib import Path
 import re
+from stat import S_ISDIR, S_ISREG
 
 import yaml
 from yaml.constructor import ConstructorError
@@ -147,12 +150,87 @@ class _ApprovalPolicyLoader(yaml.SafeLoader):
         return super().construct_mapping(node, deep=deep)
 
 
+def _read_approval_policy(project: Path) -> str | None:
+    config_dir = project / ".ai-sdlc"
+    path = config_dir / "approval-policy.yaml"
+    bad_directory = f"Approval policy directory must be a real directory: {config_dir}"
+    bad_file = f"Approval policy must be a regular file: {path}"
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+    dir_fd = None
+
+    def check_directory():
+        current = config_dir.lstat()
+        if not S_ISDIR(current.st_mode):
+            raise ValueError(bad_directory)
+        return current
+
+    def require_same_directory():
+        if not os.path.samestat(config_checked, check_directory()):
+            raise ValueError(f"Approval policy directory changed while reading: {config_dir}")
+
+    try:
+        if nofollow and hasattr(os, "O_DIRECTORY") and os.open in os.supports_dir_fd:
+            try:
+                # Linux O_PATH works with search permission alone. Without it,
+                # O_RDONLY also requires directory read permission (e.g. on macOS).
+                dir_fd = os.open(config_dir, getattr(os, "O_PATH", os.O_RDONLY) | os.O_DIRECTORY | nofollow)
+            except OSError as error:
+                if error.errno in (errno.ENOTDIR, errno.ELOOP):
+                    raise ValueError(bad_directory) from error
+                raise
+        else:
+            config_checked = check_directory()
+    except FileNotFoundError:
+        return None
+
+    try:
+        try:
+            if dir_fd is None:
+                checked = path.lstat()
+            else:
+                checked = os.stat(path.name, dir_fd=dir_fd, follow_symlinks=False)
+        except FileNotFoundError:
+            if dir_fd is None:
+                require_same_directory()
+            return None
+        if not S_ISREG(checked.st_mode):
+            raise ValueError(bad_file)
+
+        # Use the checked directory descriptor where supported. Nonblocking
+        # open also prevents a concurrently substituted FIFO from stalling us.
+        flags = os.O_RDONLY | nofollow | getattr(os, "O_NONBLOCK", 0)
+        try:
+            fd = os.open(path, flags) if dir_fd is None else os.open(path.name, flags, dir_fd=dir_fd)
+        except OSError as error:
+            if error.errno == errno.ELOOP:
+                raise ValueError(bad_file) from error
+            raise
+        try:
+            opened = os.fstat(fd)
+            if not S_ISREG(opened.st_mode) or not os.path.samestat(checked, opened):
+                raise ValueError(bad_file)
+            if dir_fd is None:
+                # On hosts without descriptor-relative open, recheck the
+                # path before consuming any bytes from the verified descriptor.
+                require_same_directory()
+                current = path.lstat()
+                if not S_ISREG(current.st_mode) or not os.path.samestat(current, opened):
+                    raise ValueError(bad_file)
+            with os.fdopen(fd, encoding="utf-8", closefd=False) as stream:
+                return stream.read()
+        finally:
+            os.close(fd)
+    finally:
+        if dir_fd is not None:
+            os.close(dir_fd)
+
+
 def load_approver_roles(project: Path) -> dict[str, frozenset[str]]:
     approved = {gate_id: gate.roles for gate_id, gate in GATES.items()}
-    path = project / ".ai-sdlc" / "approval-policy.yaml"
-    if not path.exists():
+    content = _read_approval_policy(project)
+    if content is None:
         return approved
-    policy = yaml.load(path.read_text(encoding="utf-8"), Loader=_ApprovalPolicyLoader)
+    policy = yaml.load(content, Loader=_ApprovalPolicyLoader)
     if not isinstance(policy, dict) or set(policy) != {"gates"} or not isinstance(policy["gates"], dict):
         raise ValueError("Approval policy must contain a gates mapping")
     for gate_id, override in policy["gates"].items():

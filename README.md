@@ -18,7 +18,7 @@ Mô hình **One Shared Framework + Multiple Project Instances + Shared AI Knowle
 | **Framework** (`framework/`) | Quy trình SDLC, Governance, Standards, Templates, Human Review Gates |
 | **Shared AI** (`shared-ai/`) | Rules, Skills, Agents, Model Routing, Knowledge, Tool Configurations |
 | **Project Instances** (`projects/`) | CRM, ERP, Booking... Mỗi dự án có cấu hình và tài liệu riêng, tái sử dụng và tham chiếu Framework và Shared AI |
-| **Platform** (`platform/`) | Công cụ tự động hoá: khởi tạo dự án, đồng bộ Framework, kiểm tra cấu trúc (và các module loader/router/engine đang được phát triển) |
+| [**Platform**](platform/README.md) | CLI khởi tạo, kiểm tra, đồng bộ Project Instance và API điều phối, phê duyệt local |
 
 **Lợi ích:**
 
@@ -45,8 +45,6 @@ Không cần đọc hết tài liệu. Bắt đầu bằng hai câu hỏi: **"T�
 Guide chỉ tóm tắt và dẫn link. Quy định chính thức nằm ở `workflow.md`, `human-review.md` của từng giai đoạn và `framework/governance/`.
 
 ## Kiến trúc
-
-Ký hiệu: thư mục không có chú thích là đã có trong repo; `(planned)` là thư mục đã được định nghĩa trong thiết kế nhưng chưa có nội dung.
 
 ```
 ai-driven-sdlc/
@@ -146,21 +144,7 @@ ai-driven-sdlc/
 │   ├── Project-ERP/
 │   └── Project-Booking/
 │
-└── platform/                                 # AUTOMATION & INTEGRATION
-    │
-    ├── README.md
-    ├── scripts/                              # Đã có
-    │   ├── init-project.py                   #   Tạo Project Instance mới
-    │   ├── validate-project.py               #   Kiểm tra cấu trúc & cấu hình dự án
-    │   └── sync-framework.py                 #   Đồng bộ template/tài nguyên theo phiên bản Framework
-    │
-    ├── tool-adapters/                        # (planned)
-    ├── skill-loader/                         # Shared and project-local skills
-    ├── rule-loader/                          # Shared and project-local rules
-    ├── model-router/                         # Static v1 routing policy
-    ├── workflow-engine/                      # Local stage state and action gates
-    ├── approval-engine/                      # Local approval enforcement API
-    └── validators/                           # (planned)
+└── platform/                                 # Lõi điều phối local; xem Platform README
 ```
 
 ## Thành phần chính

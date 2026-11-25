@@ -5,12 +5,13 @@ from hashlib import sha256
 import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest import TestCase
+from unittest import TestCase, skipUnless
 from unittest.mock import patch
 
 from ai_sdlc_platform.action_evidence import VerifiedActionResult, VerifiedBuildProvenance
 from ai_sdlc_platform.approval_engine import VerifiedApprover
 from ai_sdlc_platform.constants import STAGES
+from ai_sdlc_platform import governance
 from ai_sdlc_platform.governance import GATES, load_approver_roles
 from ai_sdlc_platform.workflow_engine import WorkflowEngine
 
@@ -249,6 +250,69 @@ class GovernanceTests(TestCase):
             self.approve("G4", "reviewer", "reviewer")
         self.approve("G4", "lead", "tech_lead")
         self.assertEqual(self.authorize("G4")["status"], "authorized")
+
+    def test_symlinked_approval_policy_blocks_new_reviews(self):
+        policy = self.project / ".ai-sdlc" / "approval-policy.yaml"
+        policy.parent.mkdir()
+        target = self.project.parent / "external-policy.yaml"
+        try:
+            policy.symlink_to(target)
+        except (NotImplementedError, OSError) as error:
+            self.skipTest(f"Cannot create policy symlink: {error}")
+        with self.assertRaisesRegex(ValueError, "Approval policy must be a regular file"):
+            self.review("G1")
+        target.write_text("gates: {}\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "Approval policy must be a regular file"):
+            self.review("G1")
+
+        # A missing policy entry, unlike a symlink, permits defaults.
+        policy.unlink()
+        self.assertEqual(self.review("G1")["allowed_roles"], ["product_owner"])
+
+    def test_symlinked_approval_policy_directory_blocks_new_reviews(self):
+        config_dir = self.project / ".ai-sdlc"
+        target = self.project.parent / "external-config"
+        try:
+            config_dir.symlink_to(target, target_is_directory=True)
+        except (NotImplementedError, OSError) as error:
+            self.skipTest(f"Cannot create directory symlink: {error}")
+
+        with self.assertRaisesRegex(ValueError, "Approval policy directory must be a real directory"):
+            self.review("G1")
+        target.mkdir()
+        with self.assertRaisesRegex(ValueError, "Approval policy directory must be a real directory"):
+            self.review("G1")
+
+        config_dir.unlink()
+        self.assertEqual(self.review("G1")["allowed_roles"], ["product_owner"])
+
+    def test_path_based_policy_reader_matches_descriptor_reader(self):
+        policy = self.project / ".ai-sdlc" / "approval-policy.yaml"
+        policy.parent.mkdir()
+        policy.write_text("gates:\n  G4: {approver_roles: [tech_lead]}\n", encoding="utf-8")
+        expected = load_approver_roles(self.project)
+        self.assertEqual(expected["G4"], frozenset({"tech_lead"}))
+
+        with patch.object(governance.os, "supports_dir_fd", set()):
+            self.assertEqual(load_approver_roles(self.project), expected)
+            policy.unlink()
+            self.assertEqual(load_approver_roles(self.project)["G4"], GATES["G4"].roles)
+            policy.symlink_to(self.project.parent / "external-policy.yaml")
+            with self.assertRaisesRegex(ValueError, "Approval policy must be a regular file"):
+                load_approver_roles(self.project)
+
+    @skipUnless(hasattr(os, "O_PATH") and hasattr(os, "geteuid") and os.geteuid() != 0,
+                "Requires O_PATH and a non-root user to exercise search-only directory access")
+    def test_search_only_config_directory_is_readable_on_both_paths(self):
+        policy = self.project / ".ai-sdlc" / "approval-policy.yaml"
+        policy.parent.mkdir()
+        policy.write_text("gates:\n  G4: {approver_roles: [tech_lead]}\n", encoding="utf-8")
+        policy.parent.chmod(0o311)
+        self.addCleanup(policy.parent.chmod, 0o755)
+        expected = {**{gate_id: gate.roles for gate_id, gate in GATES.items()}, "G4": frozenset({"tech_lead"})}
+        self.assertEqual(load_approver_roles(self.project), expected)
+        with patch.object(governance.os, "supports_dir_fd", set()):
+            self.assertEqual(load_approver_roles(self.project), expected)
 
     def test_policy_edit_cannot_remove_an_active_review_veto(self):
         self.advance_to_code_review()
