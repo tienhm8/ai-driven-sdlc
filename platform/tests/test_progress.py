@@ -1,5 +1,6 @@
 from hashlib import sha256
 import json
+import re
 from pathlib import Path
 import shutil
 import sqlite3
@@ -8,6 +9,7 @@ from tempfile import TemporaryDirectory
 from threading import Thread
 from unittest import TestCase
 from urllib.error import HTTPError
+from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
 import importlib.util
 
@@ -208,6 +210,20 @@ class ServerTests(TestCase):
         self.assertIn('<h1 id="01--requirement-analysis">', body)
         self.assertIn("<table>", body)
         self.assertNotIn("# 01", body)
+
+    def test_project_management_guide_links_stay_in_served_docs(self):
+        path = "/framework/project-management/README.md"
+        status, body = self.get(path)
+        self.assertEqual(status, 200)
+        html = body.decode()
+        self.assertIn('href="#ví-dụ-manifest"', html)
+        self.assertIn('id="ví-dụ-manifest"', html)
+        self.assertIn("python3 platform/scripts/init-project.py", html)
+        for link in re.findall(r'<a href="([^"]+)"', html):
+            target = urlsplit(urljoin(path, link))
+            if not target.netloc and not target.scheme and target.path != path:
+                with self.subTest(link=link):
+                    self.assertEqual(self.get(target.path)[0], 200)
 
     def test_folder_link_opens_readme_and_keeps_relative_links_working(self):
         status, body = self.get("/framework/01-requirement-analysis")  # redirected to trailing slash

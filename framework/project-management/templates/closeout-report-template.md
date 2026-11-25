@@ -42,8 +42,10 @@ Tóm tắt và dẫn hồ sơ nghiệm thu gốc theo ID/link; không chép lạ
 - Support owner and period:
 - Rollback/contingency:
 
-## Transferred risks/issues
-| ID / hồ sơ gốc | Tóm tắt | Receiving owner | Review date | Bằng chứng bàn giao |
+## Xử lý risk/issue trước khi đóng
+Đối chiếu Risk Register và Issue Log cho cả `completed` và `cancelled`. Mỗi mục còn mở phải được xử lý hoặc được người nhận có tên xác nhận tiếp quản trước khi Sponsor và PO duyệt. Nếu không còn mục mở, ghi rõ sau khi đối chiếu.
+
+| ID / hồ sơ gốc | Kết quả xử lý hoặc bàn giao | Người nhận (nếu bàn giao) | Hạn xem xét | Bằng chứng xử lý hoặc ID/link xác nhận tiếp quản |
 |---|---|---|---|---|
 
 ## Handover checklist
