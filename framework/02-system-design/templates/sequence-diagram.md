@@ -43,7 +43,7 @@ sequenceDiagram
 | ALT-03 | Yêu cầu bị trùng lặp | | |
 
 ## 6. Hành vi xuyên suốt
-- Xác thực / phân quyền:
+- Xác thực / phân quyền: bước nào kiểm tra quyền gì; quy tắc theo `SEC-DES-XXX §…`.
 - Validation:
 - Transaction / nhất quán:
 - Idempotency:

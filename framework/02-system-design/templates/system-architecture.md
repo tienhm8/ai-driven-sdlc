@@ -70,7 +70,7 @@ Ghi `N/A` kèm lý do nếu không áp dụng. Có thể dẫn link tới thiế
 |---|---|---|---|---|---|
 
 ## 9. Thiết kế xuyên suốt
-- Xác thực / phân quyền:
+- Xác thực / phân quyền: tóm tắt chính sách ở mức kiến trúc; chi tiết theo `SEC-DES-XXX §…`, không chép lại.
 - Logging, metric, tracing:
 - Xử lý lỗi:
 - Cấu hình và secret:
