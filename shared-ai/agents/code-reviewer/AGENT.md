@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: "Phát hiện có mức độ, vị trí, điều kiện lỗi và hướng sửa"
+description: "Chọn khi cần đánh giá độc lập một diff trước khi merge."
 ---
 
 # code-reviewer

@@ -157,6 +157,7 @@ class ProjectManifestTests(TestCase):
         manifest = load_project_manifest(self.project)
         self.assertEqual(manifest["project"], {"id": "demo", "name": display_name, "version": "1.0.0"})
         self.assertEqual(manifest["ai"]["default_tool"], "cursor")
+        self.assertIs(manifest["governance"]["allow_project_override_mandatory_rules"], False)
         self.assertFalse(manifest["project_management"]["enabled"])
         self.assertFalse((self.project / "docs/project-management").exists())
         validation = run([sys.executable, "-B", str(self.root / "platform/scripts/validate-project.py"),
@@ -193,6 +194,75 @@ class ProjectManifestTests(TestCase):
         path = self.project / PROJECT_MANIFEST
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(yaml.safe_dump({"project": {"id": "demo", "name": "Demo"}, **data}), encoding="utf-8")
+
+    def test_mandatory_rule_namespaces_are_protected_by_default(self):
+        shared = self.root / "shared-rules"
+        local = self.project / ".ai-sdlc/local-rules"
+        for root, files in (
+            (shared, {"core/README.md": "shared core", "sdlc/README.md": "shared sdlc",
+                      "engineering/style.md": "shared style"}),
+            (local, {"core/README.md": "local core", "core/README.mdc": "local variant",
+                     "core/local.md": "reserved", "sdlc/README.md": "local sdlc",
+                     "sdlc/README.mdc": "local sdlc variant", "sdlc/local.md": "reserved",
+                     "engineering/style.md": "local style"}),
+        ):
+            for name, text in files.items():
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text, encoding="utf-8")
+
+        def loaded(root=shared):
+            return {item["id"]: (item["scope"], item["content"]) for item in load_rules(root, self.project)}
+
+        key = "allow_project_override_mandatory_rules"
+        for governance in ({}, {key: False}):
+            with self.subTest(governance=governance):
+                self.write_manifest(**({"governance": governance} if governance else {}))
+                self.assertEqual(loaded(), {"core/README.md": ("shared", "shared core"),
+                                            "sdlc/README.md": ("shared", "shared sdlc"),
+                                            "engineering/style.md": ("project", "local style")})
+                self.assertEqual(loaded(None), {"engineering/style.md": ("project", "local style")})
+
+        self.write_manifest(governance={key: True})
+        self.assertEqual(loaded(), {"core/README.md": ("project", "local core"),
+                                    "core/README.mdc": ("project", "local variant"),
+                                    "core/local.md": ("project", "reserved"),
+                                    "sdlc/README.md": ("project", "local sdlc"),
+                                    "sdlc/README.mdc": ("project", "local sdlc variant"),
+                                    "sdlc/local.md": ("project", "reserved"),
+                                    "engineering/style.md": ("project", "local style")})
+
+    def test_validator_warns_only_about_ignored_rules_in_configured_root(self):
+        root = self.project / "custom/rules"
+        names = ("core/README.md", "sdlc/nested/local.mdc", "sdlc/notes.txt", "engineering/style.md")
+        for name in names:
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.touch()
+
+        key = "allow_project_override_mandatory_rules"
+        for governance in ({}, {key: False}, {key: True}):
+            with self.subTest(governance=governance):
+                self.write_manifest(ai={"local_resources": {"rules_path": "custom/rules"}},
+                                    governance=governance)
+                issues = validate_project(self.project)
+                warnings = [item for item in issues if item["code"] == "RESERVED_RULE_IGNORED"]
+                expected = [] if governance.get(key) else [f"custom/rules/{name}" for name in names[:2]]
+                self.assertCountEqual([item["message"].split(" is ignored;")[0] for item in warnings],
+                                      expected)
+                self.assertTrue(all(item["severity"] == "warning" for item in warnings))
+                self.assertIn("VALIDATION_PASSED", {item["code"] for item in issues})
+
+    def test_invalid_mandatory_rule_policy_blocks_validation_and_loading(self):
+        key = "allow_project_override_mandatory_rules"
+        for governance in (None, [], {key: "false"}, {key: None}, {key: 1}):
+            with self.subTest(governance=governance):
+                self.write_manifest(governance=governance)
+                with self.assertRaisesRegex(ValueError, "governance"):
+                    load_rules(None, self.project)
+                codes = {issue["code"] for issue in validate_project(self.project)}
+                self.assertIn("INVALID_RULE_OVERRIDE_POLICY", codes)
+                self.assertNotIn("VALIDATION_PASSED", codes)
 
     def test_custom_paths_and_defaults(self):
         self.write_manifest(ai={"local_resources": {"rules_path": "custom/rules"}})

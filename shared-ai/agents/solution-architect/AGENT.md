@@ -1,6 +1,6 @@
 ---
 name: solution-architect
-description: "ADR, interface, luồng dữ liệu, rủi ro và phương án rollback"
+description: "Chọn khi cần so sánh phương án thiết kế hoặc đánh giá thay đổi qua ranh giới hệ thống."
 ---
 
 # solution-architect

@@ -59,8 +59,20 @@ def resolve_local_resources(project_root: Path, manifest: dict, *, kinds=tuple(D
     return paths
 
 
-def resource_roots(shared_root: Path | None, project_root: Path, kind: str):
-    manifest = load_project_manifest(project_root)
+def allow_mandatory_rule_overrides(manifest: dict) -> bool:
+    governance = manifest.get("governance", {})
+    if not isinstance(governance, dict):
+        raise ValueError("governance must be a mapping")
+    key = "allow_project_override_mandatory_rules"
+    value = governance.get(key, False)
+    if not isinstance(value, bool):
+        raise ValueError(f"governance.{key} must be a boolean")
+    return value
+
+
+def resource_roots(shared_root: Path | None, project_root: Path, kind: str, *, manifest: dict | None = None):
+    if manifest is None:
+        manifest = load_project_manifest(project_root)
     local_root = resolve_local_resources(project_root, manifest, kinds=(kind,))[kind]
     if shared_root is not None:
         yield "shared", shared_root.resolve()
