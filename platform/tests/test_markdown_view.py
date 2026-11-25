@@ -1,6 +1,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import re
+from tempfile import TemporaryDirectory
 from unittest import TestCase
 from urllib.parse import unquote, urlsplit
 
@@ -25,6 +26,17 @@ class PageLinks(HTMLParser):
             self.links.append(attrs["href"])
         if attrs.get("id"):
             self.ids.add(attrs["id"])
+
+def markdown_fragment_target(source, link):
+    url = urlsplit(link)
+    relative = unquote(url.path)
+    if url.scheme or url.netloc or not url.fragment or relative.startswith("/"):
+        return None
+    target = (source.parent / relative).resolve() if relative else source
+    if target.is_dir() or relative.endswith("/"):
+        target /= "README.md"
+    if target.suffix.lower() == ".md":
+        return target, unquote(url.fragment)
 
 class MarkdownViewTests(TestCase):
     def test_renders_tables_code_lists_and_links(self):
@@ -56,6 +68,19 @@ class MarkdownViewTests(TestCase):
         page = PageLinks(render("## Entity `&copy;`\n\n## Entity &copy;\n\n## Entity &amp;copy;"))
         self.assertEqual(page.ids, {"entity-copy", "entity-", "entity-copy-1"})
 
+    def test_heading_ids_keep_bare_entities_and_literal_autolink_text(self):
+        page = PageLinks(render("## Use &copy here\n\n## See <https://example.org/?x=&copy;>"))
+        self.assertEqual(page.ids, {"use-copy-here", "see-httpsexampleorgxcopy"})
+
+    def test_folder_fragments_resolve_to_readme(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "guide").mkdir()
+            for link in ("guide#%C4%91%C3%ADch", "guide/#đích"):
+                with self.subTest(link=link):
+                    self.assertEqual(markdown_fragment_target(root / "index.md", link),
+                                     (root / "guide/README.md", "đích"))
+
     def test_link_scan_ignores_code_examples_and_includes_reference_links(self):
         page = PageLinks(render("[Real][ref]\n\n[ref]: other.md#section\n\n"
                                 "`[Inline](inline-example.md#section)`\n\n"
@@ -78,18 +103,15 @@ class MarkdownViewTests(TestCase):
 
         for source in sources:
             for link in page(source).links:
-                url = urlsplit(link)
-                relative = unquote(url.path)
-                if url.scheme or url.netloc or not url.fragment or relative.startswith("/"):
+                resolved = markdown_fragment_target(source, link)
+                if resolved is None:
                     continue
-                if relative and Path(relative).suffix.lower() != ".md":
-                    continue
-                target = (source.parent / relative).resolve() if relative else source
+                target, fragment = resolved
                 if not target.is_relative_to(repo):
                     continue
                 with self.subTest(source=source.relative_to(repo), link=link):
                     self.assertTrue(target.is_file())
-                    self.assertIn(unquote(url.fragment), page(target).ids)
+                    self.assertIn(fragment, page(target).ids)
 
     def test_raw_html_and_script_are_escaped(self):
         html = render("<script>alert(1)</script>\n\n<img src=x onerror=alert(1)>\n\ntext")

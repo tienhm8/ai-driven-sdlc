@@ -1,6 +1,5 @@
 from hashlib import sha256
 import json
-import re
 from pathlib import Path
 import shutil
 import sqlite3
@@ -9,9 +8,11 @@ from tempfile import TemporaryDirectory
 from threading import Thread
 from unittest import TestCase
 from urllib.error import HTTPError
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import quote, urljoin, urlsplit
 from urllib.request import Request, urlopen
 import importlib.util
+
+from test_markdown_view import PageLinks
 
 from ai_sdlc_platform.approval_engine import VerifiedApprover
 from ai_sdlc_platform.progress import collect_progress, store_path
@@ -211,7 +212,7 @@ class ServerTests(TestCase):
         self.assertIn("<table>", body)
         self.assertNotIn("# 01", body)
 
-    def test_project_management_guide_links_stay_in_served_docs(self):
+    def project_management_guide_requests(self):
         path = "/framework/project-management/README.md"
         status, body = self.get(path)
         self.assertEqual(status, 200)
@@ -219,11 +220,29 @@ class ServerTests(TestCase):
         self.assertIn('href="#ví-dụ-manifest"', html)
         self.assertIn('id="ví-dụ-manifest"', html)
         self.assertIn("python3 platform/scripts/init-project.py", html)
-        for link in re.findall(r'<a href="([^"]+)"', html):
+        for link in PageLinks(html).links:
             target = urlsplit(urljoin(path, link))
-            if not target.netloc and not target.scheme and target.path != path:
-                with self.subTest(link=link):
-                    self.assertEqual(self.get(target.path)[0], 200)
+            if target.netloc or target.scheme or (target.path == path and not target.query):
+                continue
+            request_path = quote(target.path, safe="/%:@!$&'()*+,;=")
+            if target.query:
+                request_path += "?" + quote(target.query, safe="%/:@!$&'()*+,;=?")
+            yield request_path
+
+    def test_project_management_guide_links_stay_in_served_docs(self):
+        for request_path in self.project_management_guide_requests():
+            with self.subTest(path=request_path):
+                self.assertEqual(self.get(request_path)[0], 200)
+
+    def test_project_management_guide_accepts_unicode_link_paths(self):
+        docs = self.root / "framework/project-management"
+        (docs / "ví dụ.md").write_text("# Ví dụ\n", encoding="utf-8")
+        readme = docs / "README.md"
+        with readme.open("a", encoding="utf-8") as stream:
+            stream.write("\n[Ví dụ](<ví dụ.md?first=1&second=2>)\n")
+        target = "/framework/project-management/v%C3%AD%20d%E1%BB%A5.md?first=1&second=2"
+        self.assertIn(target, self.project_management_guide_requests())
+        self.assertEqual(self.get(target)[0], 200)
 
     def test_folder_link_opens_readme_and_keeps_relative_links_working(self):
         status, body = self.get("/framework/01-requirement-analysis")  # redirected to trailing slash
