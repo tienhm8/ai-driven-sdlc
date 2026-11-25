@@ -31,16 +31,26 @@
 
 ## Decision
 - [ ] Approved
-- [ ] Approved with conditions (không áp dụng nếu còn blocker/critical risk chưa xử lý)
+- [ ] Approved with conditions — chưa Passed (không áp dụng nếu còn blocker/critical risk chưa xử lý)
 - [ ] Changes requested
 - [ ] Rejected
 
-**Conditions / outstanding actions:**  
+**Conditions / outstanding actions:** Ghi điều kiện, việc còn mở và bằng chứng đóng; package index ghi điều kiện đã đóng.
+
 **Risk accepted and by whom:**
 
 | Approver | Role | Decision | Timestamp/timezone | Approved version | Reference |
 |---|---|---|---|---|---|
 | | Solution Architect | | | | |
+| | Security owner (khi thuộc phạm vi bắt buộc) | | | | |
+| | Data owner (khi thuộc phạm vi bắt buộc) | | | | |
+| | Chuyên môn khác (khi thuộc phạm vi bắt buộc) | | | | |
 
-**Gate status:** `Passed / Failed / Pending`  
-**Rule:** Chỉ khi Passed mới chuyển design package thành baseline chính thức và cho phép G3.
+Với từng vai trò chuyên môn, ghi quyết định thực tế (ví dụ `Approved`, `Changes requested` hoặc `N/A` kèm lý do); chỉ các phê duyệt bắt buộc theo phạm vi mới được tính là điều kiện gate.
+
+**Gate status:** `Passed / Failed / Pending`
+
+**Rule:**
+- Chỉ quyết định `Approved` mới cho phép G2 `Passed`, sau khi các điều kiện gate và các phê duyệt chuyên môn bắt buộc theo phạm vi đã đầy đủ.
+- Với `Approved with conditions`, giữ gate ở `Pending` và không bàn giao chính thức sang Stage 03. Sau khi đóng điều kiện, lưu bằng chứng và trình Solution Architect xác nhận lại quyết định `Approved`. Quyết định và baseline phải gắn với phiên bản gói sau khi đóng điều kiện. Nếu thay đổi chỉ nhằm đóng điều kiện đã ghi, Solution Architect xác nhận dựa trên bằng chứng; nếu vượt phạm vi điều kiện, phải review lại theo G2.
+- Khi G2 `Passed`, Solution Architect chốt đúng phiên bản gói đã duyệt làm baseline và ghi quyết định, phiên bản, thời điểm và waiver hợp lệ (nếu có) vào hồ sơ G2 và package index. Bàn giao phiên bản này cùng bằng chứng G2 hợp lệ cho Stage 03 Task Planning; sau planning phải qua G3 trước coding. Baseline không phải trạng thái artifact riêng.

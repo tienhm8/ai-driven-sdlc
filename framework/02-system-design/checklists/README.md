@@ -24,7 +24,7 @@ checklists/
 | `api-review-checklist.md` | Kiểm tra API: đặt tên, schema, xác thực và phân quyền ở mức object và field, error model, versioning, idempotency, rate limit và contract test. | `outputs/api/` | API / Integration Owner |
 | `database-data-review-checklist.md` | Kiểm tra CSDL và mô hình dữ liệu: khóa, ràng buộc, index, transaction, phân loại PII, lưu giữ, migration, backup và RPO/RTO. | `outputs/database/`, `outputs/data-model/` | DBA / Data Architect |
 | `security-review-checklist.md` | Kiểm tra bảo mật: trust boundary, threat model, xác thực, least privilege, mã hóa, quản lý secret, audit và rủi ro tồn dư. | `outputs/security/` | Security Architect / Security Engineer |
-| `g2-design-approval-checklist.md` | Tổng hợp điều kiện G2: đầy đủ, chất lượng, findings Critical/High đã xử lý, handoff sang Task Planning và bản ghi phê duyệt. Là điểm duy nhất quyết định chuyển sang G3. | `outputs/design-package-index.md`, `outputs/approvals/` | Solution Architect (approver chính) |
+| `g2-design-approval-checklist.md` | Tổng hợp điều kiện G2: đầy đủ, chất lượng, findings Critical/High đã xử lý, handoff sang Task Planning và bản ghi phê duyệt. Là điểm kiểm soát G2 trước khi bàn giao sang Task Planning; G3 diễn ra sau planning và trước coding. | `outputs/design-package-index.md`, `outputs/approvals/` | Solution Architect (approver chính) |
 
 ## Quy tắc thực hiện
 

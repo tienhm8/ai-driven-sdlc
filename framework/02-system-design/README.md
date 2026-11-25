@@ -5,7 +5,7 @@ Chuyển Requirement Baseline đã được PO phê duyệt ở giai đoạn 01 
 
 - **AI:** đề xuất kiến trúc, API, database, data model, luồng xử lý và security design; tạo bản nháp và kiểm tra tính nhất quán.
 - **Con người:** Solution Architect / Architect / Tech Lead đánh giá, điều chỉnh và phê duyệt các quyết định quan trọng.
-- **Gate:** G2 — không được coi thiết kế là baseline chính thức hoặc chuyển G3 nếu chưa có phê duyệt hợp lệ.
+- **Gate:** G2 — chỉ bàn giao cho Stage 03 phiên bản design package đã được chốt làm baseline và có bằng chứng G2 hợp lệ cho đúng phiên bản đó.
 
 ## Cấu trúc
 ```text
@@ -47,7 +47,7 @@ Chuyển Requirement Baseline đã được PO phê duyệt ở giai đoạn 01 
 | `inputs/` | Đầu vào đã duyệt từ 01 và bối cảnh/ràng buộc liên quan | Tham chiếu đúng version của requirement baseline |
 | `templates/` | Biểu mẫu tạo tài liệu thiết kế | Không phải output dự án |
 | `checklists/` | Tiêu chí kiểm tra chất lượng và tính đầy đủ | Lưu kết quả, reviewer, bằng chứng, ngoại lệ |
-| `outputs/` | Tài liệu thiết kế thực tế của project | Chỉ Approved/Baselined sau G2 |
+| `outputs/` | Tài liệu thiết kế thực tế của project | Baseline bàn giao phải có G2 hợp lệ cho đúng phiên bản gói |
 
 ## Inputs
 Nguồn chính là các deliverable đã duyệt trong `01-requirement-analysis/outputs/` theo danh mục và cấu trúc tại `01-requirement-analysis/outputs/README.md`: BRD, Scope Definition, FRS, NFR, User Stories/Use Cases, Acceptance Criteria, Business Rules, RTM và register assumptions/constraints/dependencies/risks. Dùng manifest/link kèm ID, version và G1 approval reference. Có thể bổ sung kiến trúc hiện trạng và technology constraints cho dự án đang vận hành.
@@ -67,12 +67,12 @@ Không cần sao chép toàn bộ tài liệu 01. Ưu tiên manifest/link + ID/v
 Artifact không áp dụng phải ghi `N/A` và lý do trong package index.
 
 ## Document control
-Mỗi artifact cần ID, version, status, owner, date, requirement references. Trạng thái gợi ý: `Draft → In Review → Approved → Baselined → Superseded`. Không sửa âm thầm bản đã duyệt; tăng version, ghi change reason và đánh giá tác động.
+Mỗi artifact cần ID, version, status, owner, date, requirement references. Trạng thái gợi ý: `Draft → In Review → Approved → Superseded`; baseline là vai trò của phiên bản gói đã chốt, không phải trạng thái artifact riêng. Không sửa âm thầm bản đã duyệt; tăng version, ghi change reason và đánh giá tác động.
 
 ## G2 — Human Review Gate
-Solution Architect là approver chính; phối hợp Tech Lead, Security/Data owner khi cần. G2 xác nhận architecture, API, data, key flows, security/privacy, NFR, risks và traceability. Critical/High findings phải được xử lý hoặc có waiver đúng thẩm quyền. AI không được tự phê duyệt G2.
+Solution Architect là approver chính; phối hợp Tech Lead, Security/Data owner khi cần. G2 xác nhận architecture, API, data, key flows, security/privacy, NFR, risks và traceability. Critical/High findings phải được xử lý hoặc có waiver đúng thẩm quyền. Chỉ quyết định `Approved`, sau khi có đủ phê duyệt chuyên môn bắt buộc, mới cho phép G2 `Passed`. `Approved with conditions` chưa cho phép bàn giao chính thức: phải đóng điều kiện và được Solution Architect xác nhận `Approved`. Khi G2 Passed, Solution Architect chốt đúng phiên bản gói đã được phê duyệt làm baseline và ghi phiên bản, quyết định, waiver hợp lệ (nếu có), người duyệt và thời điểm trong hồ sơ G2/package index. AI không được tự phê duyệt G2.
 
 ## Handoff sang 03 — Task Planning
-Chuyển design package version đã Approved, component boundaries, API/schema/flow, migration/integration tasks, security/NFR tasks, dependencies, risks, spikes/PoC và G2 approval reference.
+Chuyển đúng phiên bản design package đã chốt làm baseline cùng bằng chứng G2 hợp lệ cho phiên bản đó, component boundaries, API/schema/flow, migration/integration tasks, security/NFR tasks, dependencies, risks và spikes/PoC. Stage 03 xác minh đầu vào và lập kế hoạch; G3 phê duyệt readiness của kế hoạch/task trước khi coding tại Stage 04. Luồng: **G2 → Stage 03 Task Planning → G3 → coding**.
 
 Áp dụng `framework/standards/architecture/`, `security/`, `documentation/` và governance policies. Policy/standard được phê duyệt có hiệu lực cao hơn template.
