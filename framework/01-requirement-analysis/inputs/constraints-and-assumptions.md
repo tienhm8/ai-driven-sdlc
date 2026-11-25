@@ -30,7 +30,7 @@
 
 | Mã | Rủi ro | Tác động | Ghi chú |
 |---|---|---|---|
-| RSK-001 | | | |
+| RISK-0001 | | | |
 
 ## 8. Vấn đề chưa được giải quyết
 

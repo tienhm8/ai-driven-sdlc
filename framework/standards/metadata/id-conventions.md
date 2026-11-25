@@ -37,6 +37,7 @@ Ví dụ:
 - `AC-0001`
 - `TASK-0001`
 - `TC-0001`
+- `CHG-0001`, `RISK-0001`, `ISS-0001`, `DEC-0001`, `APR-0001`, `MTG-0001`
 
 Trong đó:
 
@@ -79,15 +80,20 @@ Nếu nhiều repository hoặc nhiều nhóm cùng sử dụng một namespace 
 | DEP | Deployment Record (Bản ghi triển khai) | Deployment |
 | INC | Incident (Sự cố) | Monitoring & Maintenance |
 | PROB | Problem Record (Bản ghi vấn đề gốc) | Monitoring & Maintenance |
-| CR | Change Request (Yêu cầu thay đổi) | Cross-stage |
+| CHG | Change Request (Yêu cầu thay đổi) | Cross-stage |
 | RISK | Risk (Rủi ro) | Cross-stage |
 | DEC | Decision (Quyết định) | Cross-stage |
+| ISS | Project Issue (Vấn đề quản trị dự án) | Cross-stage |
+| APR | Approval Record (Hồ sơ phê duyệt) | Cross-stage |
+| MTG | Meeting Record (Biên bản họp dự án) | Cross-stage |
 
 Dự án CÓ THỂ định nghĩa thêm prefix khi cần.
 
 Prefix mới PHẢI được tài liệu hóa trước khi sử dụng.
 
 **Chuyển đổi ID dependency:** Dùng `DPN-xxxx` cho dependency mới ở mọi stage. Với hồ sơ hiện có dùng `DEP-xxxx` hoặc `TDEP-xxxx` cho dependency, giữ nguyên ID trong hồ sơ lịch sử và lưu ánh xạ ID cũ → ID `DPN` duy nhất trong sổ dependency của dự án; cập nhật tham chiếu trong tài liệu đang dùng theo quy trình quản lý thay đổi. Không đổi ID bản ghi triển khai `DEP-xxxx` hoặc sửa baseline đã duyệt tại chỗ.
+
+**Chuyển tiếp ID quản trị dự án:** Dùng `CHG` cho Change Request mới (`CR` chỉ dùng cho Code Review mới), `RISK` cho risk mới và bốn chữ số cho tất cả ID mới. Giữ nguyên ID và link lịch sử, kể cả `CR` từng dùng cho change, `RSK`, ID ba chữ số hoặc `MTG` có ngày. Khi ID cũ có thể trùng giữa các loại hồ sơ, tham chiếu kèm loại và link đến hồ sơ gốc; không đổi ID hoặc sửa baseline đã duyệt tại chỗ.
 
 ## 5. Quan hệ giữa các ID
 

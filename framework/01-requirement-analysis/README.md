@@ -94,7 +94,7 @@ Nếu checklist không đạt:
 
 > **Đề xuất, chờ Product Owner xác nhận.** Level gắn với từng action, không gắn cho cả giai đoạn. Định nghĩa L1–L4 tại [ai-instructions.md](ai-instructions.md#9-autonomy-level). G1 luôn bắt buộc, độc lập với level.
 
-| # | Công việc (theo [workflow.md](workflow.md#14-workflow-steps)) | Action AI thực hiện | Level | Người duyệt/kiểm soát |
+| # | Công việc (theo [workflow.md](workflow.md#14-workflow-steps--các-bước-thực-hiện)) | Action AI thực hiện | Level | Người duyệt/kiểm soát |
 |---|---|---|---|---|
 | 1 | Tiếp nhận và phân loại yêu cầu | Phân loại, tóm tắt tài liệu đầu vào | L1 | Log và kiểm tra tự động; BA xác minh nguồn |
 | 2 | Phân tích stakeholder | Đề xuất stakeholder map | L2 | BA review theo checklist |

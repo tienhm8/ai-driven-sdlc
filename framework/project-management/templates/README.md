@@ -1,16 +1,16 @@
 # Project Management Templates
-Sao chép template để tạo record/báo cáo mới; không ghi dữ liệu nhiều project vào một bản mẫu. Trong framework, `approval-record-template.md` chỉ dẫn tới mẫu chuẩn; project mới được khởi tạo sẽ nhận bản sao nội dung mẫu chuẩn tại cùng tên file trong `_templates/`.
 
-| Template | Purpose |
+Sao chép mẫu phù hợp để tạo hồ sơ mới. Đừng ghi dữ liệu dự án vào bản mẫu. Các register là chỉ mục; lưu chi tiết trong hồ sơ có ID và liên kết từ register.
+
+| Mẫu | Dùng cho |
 |---|---|
-| project-charter-template.md | Khởi tạo/phê duyệt charter |
-| status-report-template.md | Báo cáo trạng thái |
-| change-request-template.md | Đề xuất thay đổi |
-| risk-register-template.md | Một risk record |
-| issue-log-template.md | Một issue record |
-| decision-record-template.md | Một decision record |
-| approval-record-template.md | Chỉ dẫn tới mẫu approval chuẩn trong framework; bản sao có thể điền trong project |
-| meeting-notes-template.md | Biên bản họp |
-| closeout-report-template.md | Báo cáo đóng dự án |
-
-Register tổng hợp ở folder cha là chỉ mục tập trung; record chi tiết có thể lưu riêng và liên kết bằng ID.
+| [Project Charter](project-charter-template.md) | Khởi tạo, baseline và thẩm quyền |
+| [Status Report](status-report-template.md) | Báo cáo trạng thái theo kỳ |
+| [Change Request](change-request-template.md) | Đề xuất và đánh giá thay đổi |
+| [Risk Record](risk-register-template.md) | Chi tiết một risk |
+| [Issue Record](issue-log-template.md) | Chi tiết một issue |
+| [Decision Record](decision-record-template.md) | Quyết định quản trị, không thay ADR |
+| [Human Review Gate Approval](approval-record-template.md) | Chỉ dẫn tới mẫu chuẩn trong framework; khi init, nhận bản mẫu chuẩn điền được |
+| [Management Approval](management-approval-template.md) | Phê duyệt quản trị, không dùng cho Gate |
+| [Meeting Notes](meeting-notes-template.md) | Biên bản và action items |
+| [Closeout Report](closeout-report-template.md) | Đóng dự án hoàn tất hoặc bị hủy |

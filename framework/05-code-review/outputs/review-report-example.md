@@ -18,7 +18,7 @@
 
 ## Findings
 
-### [CR-001] [High] – Endpoint thiếu kiểm tra quyền trên resource
+### [CR-0001] [High] – Endpoint thiếu kiểm tra quyền trên resource
 - Category: Authorization
 - Location: `src/example/ResourceController.cs` (minh họa)
 - Status: Open
@@ -27,7 +27,7 @@
 - Recommendation: Thực hiện authorization server-side trên resource và bổ sung test truy cập chéo user/tenant.
 - Verification: Cần kiểm tra implementation và integration test thực tế.
 
-### [CR-002] [Medium] – Thiếu test cho trường hợp input rỗng
+### [CR-0002] [Medium] – Thiếu test cho trường hợp input rỗng
 - Category: Testing
 - Location: `tests/example` (minh họa)
 - Status: Open
@@ -35,7 +35,7 @@
 - Impact: Regression có thể không được phát hiện.
 - Recommendation: Bổ sung test boundary và validation failure.
 
-### [CR-003] [Info] – Bổ sung mô tả rollback
+### [CR-0003] [Info] – Bổ sung mô tả rollback
 - Category: Release
 - Location: PR description
 - Status: Need Clarification

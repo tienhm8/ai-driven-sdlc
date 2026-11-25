@@ -1,9 +1,11 @@
 """Render repository Markdown as a standalone, script-free HTML page."""
-from html import escape
+from html import escape, unescape
 import re
+from unicodedata import category
 
 import markdown
 from markdown.extensions import Extension
+from markdown.extensions.toc import get_name, stashedHTML2text
 from markdown.treeprocessors import Treeprocessor
 
 SAFE_SCHEMES = {"http", "https", "mailto"}
@@ -64,8 +66,43 @@ class _SafeLinksExtension(Extension):
         md.treeprocessors.register(_SafeLinks(md), "safe_links", 5)
 
 
+def _heading_slug(text: str) -> str:
+    # Preserve literal hyphens and one hyphen per space, even when punctuation
+    # between two spaces is removed (e.g. "A — B" becomes "a--b").
+    return "".join(
+        "-" if char == " " else char
+        for char in text.lower()
+        if char in " -_" or category(char)[0] in "LMN"
+    )
+
+class _HeadingIds(Treeprocessor):
+    def run(self, root):
+        used = set()
+        suffixes = {}
+        for heading in root.iter():
+            if heading.tag not in {"h1", "h2", "h3", "h4", "h5", "h6"}:
+                continue
+            # At this point inline Markdown has been expanded into elements.
+            text = stashedHTML2text(get_name(heading), self.md, strip_entities=False)
+            base = _heading_slug(unescape(text))
+            if not base:
+                continue
+            slug = base
+            suffix = suffixes.get(base, 0)
+            while slug in used:
+                suffix += 1
+                slug = f"{base}-{suffix}"
+            suffixes[base] = suffix
+            used.add(slug)
+            heading.set("id", slug)
+
+class _HeadingIdsExtension(Extension):
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(_HeadingIds(md), "heading_ids", -1)
+
 def render_markdown_page(text: str, *, title: str, path: str, guide_url: str) -> bytes:
     body = markdown.markdown(
-        text, extensions=["tables", "fenced_code", "sane_lists", _NoRawHtml(), _SafeLinksExtension()])
+        text, extensions=["tables", "fenced_code", "sane_lists", _HeadingIdsExtension(),
+                          _NoRawHtml(), _SafeLinksExtension()])
     return PAGE.format(title=escape(title), path=escape(path), guide=escape(guide_url, quote=True),
                        body=body).encode("utf-8")

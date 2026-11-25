@@ -66,6 +66,10 @@ python3 platform/scripts/init-project.py \
   --no-project-management
 ```
 
+## Hồ sơ Project Management
+
+Mặc định, init tạo charter `Draft`, hướng dẫn và các register `No entries` trong `docs/project-management/`. Dùng `_templates/` cho hồ sơ chi tiết, báo cáo trạng thái và closeout. `.ai-sdlc/project.yaml` là nguồn cấu hình platform; phạm vi, KPI, baseline và thẩm quyền thuộc charter đã duyệt. `--no-project-management` bỏ qua toàn bộ phần này. Xem [Project Management](../../framework/project-management/README.md).
+
 ## Outputs của QA, Deployment và Monitoring
 
 Khi khởi tạo, ba stage dưới đây có thư mục `outputs/` chứa README hướng dẫn và các file `*-example.md` từ framework. File ví dụ không phải kết quả kiểm thử, phê duyệt hay bằng chứng vận hành. Thư mục con thực tế chỉ được tạo khi có đợt kiểm thử, triển khai hoặc vận hành tương ứng:

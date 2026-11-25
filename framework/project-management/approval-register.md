@@ -1,19 +1,12 @@
 # Approval Register
-Sổ đăng ký phê duyệt và Human Review Gates. Mỗi approval gắn với đúng artifact version hoặc commit SHA.
 
-| ID | Gate / Subject | Artifact version / SHA | Requested by | Approver | Decision | Timestamp | Evidence | Notes |
-|---|---|---|---|---|---|---|---|---|
-| APR-001 | G1 / Requirement | | | Product Owner | Pending | | | |
+Chỉ mục phê duyệt của dự án. Mỗi mục dẫn đến hồ sơ quyết định gốc; bảng này không cấp quyền hoặc thay thế audit.
 
-## Gate reference
-| Gate | Control point | Approver |
-|---|---|---|
-| G1 | Sau phân tích yêu cầu | Product Owner |
-| G2 | Sau thiết kế | Solution Architect |
-| G3 | Trước coding | Tech Lead |
-| G4 | Trước merge | Reviewer / Tech Lead |
-| G5 | Trước nghiệm thu | QA Lead / Product Owner |
-| G6 | Trước production | Release Manager |
-| G7 | Sự cố nghiêm trọng | Incident Commander |
+No entries
 
-Ghi approver là người có thẩm quyền, timestamp, quyết định, artifact version/SHA và evidence. Từ chối phải có lý do/action. Không sửa/xóa approval cũ. Tuân thủ gate-policy chính thức của framework.
+| Approval ID | Loại / Gate hoặc chủ đề | Artifact version / SHA | Trạng thái | Hồ sơ quyết định / audit |
+|---|---|---|---|---|
+
+- **Gate:** tra vai trò, tiêu chí và trạng thái hợp lệ ở [Gate Policy](README.md#nguồn-chuẩn). Link đến review/audit chính thức ghi danh tính, vai trò và quyết định của từng người duyệt, thời điểm, bằng chứng và đích được duyệt nếu áp dụng. `Conditional` không cho qua Gate; nếu còn điều kiện bắt buộc cần sửa, ghi `changes_requested` theo policy.
+- **Quản trị dự án:** dùng mẫu phê duyệt quản trị để ghi quyết định về charter, baseline, change hoặc closeout theo thẩm quyền trong charter. Đây không phải quyết định Gate.
+- Khi quyết định bị thay thế hoặc cần duyệt lại, giữ lịch sử và liên kết bản ghi mới; không sửa hoặc xóa quyết định gốc.

@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import shutil
 from subprocess import run
 import sys
@@ -8,6 +9,7 @@ from unittest import TestCase
 import yaml
 
 from ai_sdlc_platform.config import PROJECT_MANIFEST, load_project_manifest, resolve_local_resources
+from ai_sdlc_platform.markdown_view import render_markdown_page
 from ai_sdlc_platform.rule_loader import load_rules
 from ai_sdlc_platform.skill_loader import load_skills
 from ai_sdlc_platform.validators.project import validate_project
@@ -22,19 +24,70 @@ class ProjectManifestTests(TestCase):
         self.root = Path(temporary.name)
         self.project = self.root / "projects" / "demo"
 
-    def test_project_management_seeds_canonical_approval(self):
+    def test_project_management_seeds_working_docs_and_canonical_templates(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
         shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))
         framework = self.root / "framework"
         shutil.copytree(PLATFORM.parent / "framework", framework)
         command = [sys.executable, "-B", str(self.root / "platform/scripts/init-project.py"),
-                   "--name", "Demo", "--slug", "demo", "--tools", "claude"]
+                   "--name", "Demo", "--slug", "demo"]
         result = run(command, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        target = self.project / "docs/project-management/_templates/approval-record-template.md"
+        pm = self.project / "docs/project-management"
+        pm_source = framework / "project-management"
+        templates = pm / "_templates"
+        self.assertEqual(load_project_manifest(self.project)["project_management"], {
+            "enabled": True, "path": "docs/project-management",
+        })
+        self.assertFalse((pm / "structure.yml").exists())
+        charter = (pm / "project-charter.md").read_text(encoding="utf-8")
+        self.assertIn("0.1 / Draft", charter)
+        self.assertNotIn("Project lifecycle status", charter)
+        self.assertEqual(charter, (templates / "project-charter-template.md").read_text(encoding="utf-8"))
+        workflow = (pm / "workflow.md").read_text(encoding="utf-8")
+        self.assertEqual(workflow, (pm_source / "workflow.md").read_text(encoding="utf-8"))
+        closeout = (templates / "closeout-report-template.md").read_text(encoding="utf-8")
+        for doc in (workflow, closeout):
+            self.assertIn("`cancelled`: có thể đề xuất từ `active` hoặc `on_hold`", doc)
+
+        target = templates / "approval-record-template.md"
         source = framework / "templates/review/approval-record.md"
         self.assertEqual(target.read_bytes(), source.read_bytes())
-        self.assertIn("## Quyết định", target.read_text(encoding="utf-8"))
+        gate_template = target.read_text(encoding="utf-8")
+        self.assertIn("changes_requested", gate_template)
+        self.assertIn("G7 / Other", gate_template)
+        management = (templates / "management-approval-template.md").read_text(encoding="utf-8")
+        self.assertIn("Không dùng để thông qua Human Review Gate", management)
+
+        readme = (pm / "README.md").read_text(encoding="utf-8")
+        self.assertIn("## Trạng thái dự án\n\n- Trạng thái hiện tại: `proposed`", readme)
+        self.assertIn("Căn cứ phê duyệt (ID/link): Chưa có", readme)
+        self.assertIn("`on_hold` khi tạm dừng, trở lại `active` khi tiếp tục", readme)
+        self.assertIn("Tạm dừng (`active` → `on_hold`)", charter)
+        status_template = (templates / "status-report-template.md").read_text(encoding="utf-8")
+        self.assertIn("Sức khỏe tổng thể: Green / Amber / Red", status_template)
+        self.assertNotIn("On Hold", status_template)
+        for name in ("change-log.md", "risk-register.md", "issue-log.md", "decision-log.md",
+                     "approval-register.md", "meeting-notes.md"):
+            with self.subTest(register=name):
+                self.assertIn(f"]({name})", readme)
+                lines = (pm / name).read_text(encoding="utf-8").splitlines()
+                self.assertIn("No entries", lines)
+                self.assertEqual(len([line for line in lines if line.startswith("|")]), 2)
+        for name in ("project-status", "project-closeout"):
+            with self.subTest(directory=name):
+                self.assertEqual(list((pm / name).iterdir()), [])
+        for path in pm.rglob("*.md"):
+            for link in re.findall(r"\]\(([^)#]+)(?:#[^)]*)?\)", path.read_text(encoding="utf-8")):
+                with self.subTest(file=path.name, link=link):
+                    self.assertTrue((path.parent / link).is_file())
+        for root in (pm, pm_source):
+            html = render_markdown_page((root / "README.md").read_text(encoding="utf-8"),
+                                        title="README.md", path="README.md", guide_url="/").decode()
+            for path in root.glob("*.md"):
+                for fragment in re.findall(r"\]\(README\.md#([^)]+)\)", path.read_text(encoding="utf-8")):
+                    with self.subTest(file=path, fragment=fragment):
+                        self.assertIn(f'id="{fragment}"', html)
 
     def test_init_validate_and_load_project_overrides(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
@@ -105,6 +158,7 @@ class ProjectManifestTests(TestCase):
         self.assertEqual(manifest["project"], {"id": "demo", "name": display_name, "version": "1.0.0"})
         self.assertEqual(manifest["ai"]["default_tool"], "cursor")
         self.assertFalse(manifest["project_management"]["enabled"])
+        self.assertFalse((self.project / "docs/project-management").exists())
         validation = run([sys.executable, "-B", str(self.root / "platform/scripts/validate-project.py"),
                           "--project", str(self.project), "--framework", str(framework)],
                          capture_output=True, text=True)

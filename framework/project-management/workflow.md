@@ -1,25 +1,33 @@
 # Project Management Workflow
 
 ## 1. Initiate
-Sponsor/PO nêu business need và chỉ định PM. PM lập charter, xác định mục tiêu, phạm vi, deliverables, stakeholders, giả định và ràng buộc. Cập nhật `structure.yml`. Sponsor/PO phê duyệt; chỉ sau đó chuyển project sang `active`.
+Sponsor bảo trợ và chỉ định PM; PO xác nhận nhu cầu nghiệp vụ. PM lập charter ở trạng thái `Draft`, tham chiếu manifest thay vì sao chép cấu hình. Sponsor **và** PO đều phê duyệt đúng phiên bản charter trước khi PM chuyển trạng thái từ `proposed` sang `active` trong mục **Trạng thái dự án** của README PM và dẫn tới phê duyệt charter. Không sửa bản charter đã duyệt để cập nhật trạng thái.
 
 ## 2. Establish baseline
-Xác định delivery approach, milestones, nguồn lực, cadence và success criteria. Liên kết requirement, design, backlog, repository. Tạo register ban đầu; ghi `No entries` nếu chưa phát sinh.
+PM đề xuất baseline (scope, KPI, deliverables, milestones, lịch, ngân sách) và liên kết requirement, design, backlog, repository. Sponsor **và** PO duyệt baseline ban đầu, trong charter hoặc hồ sơ có phiên bản được charter dẫn tới. Điền ma trận thẩm quyền và ngưỡng escalation trước khi duyệt charter; nếu một ngưỡng chưa được duyệt thì không suy diễn quyền ủy nhiệm.
 
 ## 3. Execute and monitor
-PM cập nhật status theo cadence. Change vào `change-log.md`; risk vào `risk-register.md`; vấn đề đã xảy ra vào `issue-log.md`; quyết định vào `decision-log.md`; phê duyệt vào `approval-register.md`; cuộc họp/action items vào `meeting-notes.md`.
+PM cập nhật báo cáo theo kỳ bằng [mẫu trạng thái](README.md#mẫu-hồ-sơ). Milestone lấy từ baseline; trạng thái Gate được báo cáo riêng và dẫn đến review/audit. G7 chỉ ghi nếu có incident nghiêm trọng kích hoạt. Chỉ tóm tắt rủi ro, vấn đề và quyết định; dẫn về hồ sơ gốc bằng ID/link.
+
+### Tạm dừng và tiếp tục
+PM đề xuất chuyển `active` → `on_hold` hoặc `on_hold` → `active` và ghi rõ lý do, phạm vi ảnh hưởng và điều kiện tiếp tục. Sponsor **và** PO phải phê duyệt từng quyết định. Chỉ sau khi đủ phê duyệt, PM cập nhật mục **Trạng thái dự án** trong README PM và ghi ID/link phê duyệt quản trị tương ứng. Tiếp tục dự án không thay cho phê duyệt Gate hay phê duyệt lại baseline khi có thay đổi.
 
 ## 4. Change control
-Người đề xuất tạo request theo template. PM điều phối impact assessment (scope, schedule, cost, quality, architecture, security, operations). Owner chuyên môn đánh giá; người có thẩm quyền phê duyệt/từ chối. Chỉ cập nhật baseline sau approval; lưu ID, lý do và bằng chứng.
+Người đề xuất tạo change request. PM điều phối đánh giá tác động scope, lịch, chi phí, chất lượng, kiến trúc, bảo mật và vận hành. Trong ngưỡng, chỉ người được charter ủy quyền mới được duyệt. Vượt ngưỡng, thiếu ủy quyền hoặc tranh chấp thẩm quyền thì PM trình Sponsor **và** PO, không sửa baseline trước khi đủ phê duyệt. Ghi ID, lý do, phiên bản và bằng chứng trong [Change Log](change-log.md) và liên kết hồ sơ phê duyệt. Phê duyệt quản trị không thay Gate hoặc yêu cầu review lại của Gate Policy.
 
 ## 5. Risk and issue
-Risk là sự kiện chưa chắc chắn; issue là vấn đề đã xảy ra. Mỗi mục có owner, response/next action, due date, status và escalation. Khi risk xảy ra, tạo issue và liên kết hai ID.
+Risk là sự kiện chưa chắc chắn; issue là vấn đề đã xảy ra. Mỗi mục có owner, next action, hạn, trạng thái và escalation khi cần. Khi risk xảy ra, tạo issue và liên kết hai ID. Dẫn hồ sơ chi tiết từ [Risk Register](risk-register.md) hoặc [Issue Log](issue-log.md).
 
 ## 6. Decision and approval
-Decision log ghi phương án, rationale, consequence và decision owner. Approval register ghi người duyệt, thời điểm, artifact version/commit SHA và bằng chứng. AI không tự phê duyệt Gate bắt buộc.
+[Decision Log](decision-log.md) chỉ ghi quyết định quản trị và dẫn đến ADR nếu liên quan tới kiến trúc. [Approval Register](approval-register.md) chỉ dẫn về hồ sơ gốc: phê duyệt quản trị theo charter hoặc review/audit theo [Gate Policy](README.md#nguồn-chuẩn). Biên bản họp và nội dung AI tạo không phải phê duyệt.
 
 ## 7. Escalation
-Escalate khi vượt tolerance scope/schedule/cost, có risk Critical/High, tranh chấp quyền quyết định, compliance/security concern hoặc Gate/milestone có nguy cơ trễ. Ghi nhận người nhận, thời điểm, quyết định và action.
+PM chuyển cấp theo ngưỡng scope/lịch/chi phí ghi trong charter và khi có risk High/Critical, tranh chấp thẩm quyền, vấn đề compliance/security, hoặc Gate/milestone có nguy cơ trễ. Ghi ai nhận, thời điểm, quyết định và hành động tiếp theo. Escalation không thay cho phê duyệt bắt buộc.
 
 ## 8. Closeout
-Xác nhận deliverables/acceptance; xử lý hoặc bàn giao issue/risk còn lại; bàn giao vận hành, tài liệu và quyền truy cập; ghi lessons learned; Sponsor/PO xác nhận đóng; cập nhật `completed` hoặc `cancelled`; archive theo retention policy.
+PM đề xuất trạng thái và lập báo cáo theo [mẫu closeout](README.md#mẫu-hồ-sơ):
+
+- `completed`: dẫn bằng chứng nghiệm thu deliverables đã cam kết và xác nhận bàn giao.
+- `cancelled`: có thể đề xuất từ `active` hoặc `on_hold`, không cần kích hoạt lại dự án. Ghi quyết định/lý do hủy, hạng mục chưa hoàn thành hoặc chưa nghiệm thu, và người nhận các nghĩa vụ/rủi ro còn lại. Không yêu cầu nghiệm thu phần chưa hoàn tất.
+
+Cả hai trường hợp đều cần Sponsor **và** PO phê duyệt đúng phiên bản báo cáo. Chỉ sau đó PM cập nhật mục **Trạng thái dự án** trong README PM và dẫn tới phê duyệt closeout, rồi lưu trữ theo retention policy; giữ nguyên baseline và phê duyệt lịch sử.
