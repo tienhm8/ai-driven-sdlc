@@ -46,11 +46,11 @@
 | Level | Cách con người tham gia |
 |---|---|
 | L1 | AI có thể tạo release note nháp, kiểm tra cấu hình tĩnh hoặc tổng hợp trạng thái pipeline; không được tự cấp quyền production. |
-| L2 | DevOps/Release Manager review theo điều kiện đối với deploy tự động ở môi trường phi production hoặc thay đổi production rủi ro thấp đã được policy cho phép. |
+| L2 | DevOps/Release Manager giới hạn phạm vi triển khai tự động ở non-production và kiểm tra theo checklist hoặc điều kiện kích hoạt review. Không áp dụng L2 để triển khai Production. |
 | L3 | Bắt buộc review và phê duyệt trước thay đổi production có ảnh hưởng logic, API, schema, quyền, dữ liệu hoặc hạ tầng quan trọng. |
 | L4 | Con người trực tiếp quyết định production release rủi ro cao, migration không thể đảo ngược, security exception hoặc release có blast radius lớn; AI chỉ tư vấn. |
 
-**Quy tắc:** Tự động hóa pipeline không đồng nghĩa tự động hóa quyền phê duyệt. G6 phải được thực thi theo release policy và risk classification.
+**Quy tắc:** Mức tự chủ gắn với từng hành động. Tự động hóa pipeline không đồng nghĩa tự động hóa quyền phê duyệt; G6 chỉ áp dụng cho Production và vẫn bắt buộc ở mọi mức rủi ro.
 
 ## 5. Checklist G6
 
@@ -81,7 +81,7 @@ Reviewer nêu rõ release/version, cấu hình hoặc bước triển khai cần
 
 ## 8. Bằng chứng và hồ sơ review
 
-Lưu release ID, commit/tag, artifact digest, pipeline run, environment, change record, QA/security approvals, migration/rollback plan, checklist, approver identity, Go/No-Go timestamp, deployment events và kết quả post-deploy.
+Lưu quyết định, approver, thời điểm và tham chiếu gói review trong [hồ sơ G6](templates/production-approval.md). Quyết định phải khớp artifact SHA-256, môi trường đích và SHA-256 của gói review; thay đổi trọng yếu thì review lại. Sau khi phê duyệt, dùng [checklist quyền thực thi](checklists/production-authorization-checklist.md) ngay trước khi chạy. Ghi sự kiện thực thi, kết quả xác minh và bàn giao riêng trong [Deployment Record](../templates/deployment/deployment-record.md).
 
 ## 9. Trách nhiệm cuối cùng
 

@@ -31,7 +31,7 @@ Chuẩn bị, phê duyệt, phát hành và triển khai phần mềm vào môi 
 - `outputs/`: báo cáo và bằng chứng triển khai.
 
 ## Human Review Gate G6
-G6 diễn ra trước Production. Release Manager chỉ phê duyệt khi release scope/artifact truy vết được; G4/G5 hoàn tất; CI/security checks đạt; cấu hình môi trường an toàn; deployment và rollback plan được kiểm tra; monitoring, health checks và người chịu trách nhiệm đã sẵn sàng. AI chỉ đưa ra khuyến nghị, không được tự phê duyệt G6.
+G6 chỉ áp dụng cho Production, sau readiness và trước khi cấp quyền thực thi. Release Manager phê duyệt đúng artifact đã qua G5, môi trường đích và gói review đã chốt. AI chỉ hỗ trợ, không được phê duyệt G6. Dùng [checklist quyền thực thi](checklists/production-authorization-checklist.md) ngay trước khi chạy.
 
 ## Mức tự chủ L1–L4
 - **L1:** tạo release note nháp, tổng hợp pipeline status, chạy kiểm tra read-only.
@@ -52,4 +52,4 @@ L1 vẫn cần log, kiểm tra tự động, quyền tối thiểu và truy vế
 8. Thiếu evidence hoặc còn rủi ro chưa xử lý thì Blocked/No-Go.
 
 ## Đầu ra
-Deployment plan, release notes, checklist, rollback plan, G6 approval record, pipeline evidence, deployment report và handover record.
+Deployment plan, release notes, checklist, rollback plan, hồ sơ G6 (chỉ Production), pipeline evidence và [Deployment Record](../templates/deployment/deployment-record.md) chứa kết quả xác minh và bàn giao. Chỉ triển khai Production thành công đã xác minh mới chuyển Stage 08; rollback hoặc bàn giao thông tin sự cố không hoàn thành Stage 07.
