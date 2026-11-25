@@ -69,6 +69,24 @@ class ProjectManifestTests(TestCase):
         self.assertEqual([cell.strip() for cell in row.strip("|").split("|")][4], "Pending")
         self.assertIn("G2 approval evidence for that version", register)
         self.assertIn("G2 is Approved", register)
+        planning = self.project / "docs/03-task-planning"
+        approval = (planning / "g3-approval.md").read_text(encoding="utf-8")
+        self.assertIn("- Gate / subject: G3", approval.splitlines())
+        canonical = (framework / "templates/review/approval-record.md").read_text(encoding="utf-8")
+        self.assertNotIn("Nếu dùng cho G3", canonical)
+        for field in ("Phạm vi được duyệt / phần ngoài phạm vi", "| Approver |",
+                      "`Approved / Rejected / Changes Requested / Blocked`"):
+            self.assertIn(field, approval)
+        expected = canonical.replace("- Gate / subject: G1 / G2 / G3 / G4 / G5 / G6 / G7 / Other\n",
+                                     "- Gate / subject: G3\n")
+        expected = expected.replace("- Vai trò approver bắt buộc:\n", "- Vai trò approver bắt buộc: Tech Lead\n")
+        self.assertIn("- Vai trò approver bắt buộc: Tech Lead", approval.splitlines())
+        self.assertEqual(approval, expected)
+        self.assertEqual((planning / "planning-change-log.md").read_bytes(),
+                         (framework / "03-task-planning/templates/planning-change-log.md").read_bytes())
+        self.assertFalse((planning / "corrections").exists())
+        self.assertEqual((planning / "definition-of-ready.md").read_bytes(),
+                         (framework / "03-task-planning/templates/definition-of-ready.md").read_bytes())
         for stage, examples in stage_examples.items():
             with self.subTest(stage=stage):
                 outputs = self.project / "docs" / stage / "outputs"

@@ -8,6 +8,7 @@
 - Review package version / hash:
 - Người yêu cầu / thời điểm yêu cầu:
 - Vai trò approver bắt buộc:
+- Phạm vi được duyệt / phần ngoài phạm vi (nếu có):
 - Đích đã duyệt (nếu áp dụng, ví dụ PR/nhánh đích hoặc môi trường):
 - Audit event ID / vị trí bản ghi kiểm toán:
 

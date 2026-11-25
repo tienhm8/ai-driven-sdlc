@@ -123,7 +123,7 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 04.
 
 ## 11. Review Gate
 
-**Gate G3** phải được thông qua trước khi bắt đầu triển khai Task thuộc phạm vi yêu cầu phê duyệt.
+**Trước khi coding**, xác minh bằng [development readiness checklist](checklists/development-readiness.md): G1/G2/G3 đã `Approved` cho đúng phiên bản, task thuộc phạm vi bản ghi G3 và đạt DoR. Thiếu hoặc mâu thuẫn → **Blocked**. AI không tự phê duyệt hoặc nới điều kiện này.
 
 **Gate G4** áp dụng trước khi merge Pull Request. Điều kiện G4:
 

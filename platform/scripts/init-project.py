@@ -31,8 +31,10 @@ TASK_PLANNING_PROJECT_FILES = {
     "task-breakdown.md": "templates/task-breakdown.md",
     "effort-estimation.md": "templates/effort-estimation.md",
     "dependency-matrix.md": "templates/dependency-matrix.md",
+    "definition-of-ready.md": "templates/definition-of-ready.md",
     "definition-of-done.md": "templates/definition-of-done.md",
     "sprint-plan.md": "templates/sprint-plan.md",
+    "planning-change-log.md": "templates/planning-change-log.md",
 }
 
 PROJECT_MANAGEMENT_FOLDERS = [
@@ -334,61 +336,21 @@ unapproved or inconsistent.
 """,
     )
 
-    write_if_missing(
-        stage_project_dir / "g3-approval.md",
-        """# G3 — Task Planning Approval
-
-> Human approval record. AI-generated checks and recommendations do not
-> constitute approval.
-
-## Approval scope
-
-- Project:
-- Planning baseline / version:
-- Related Requirement Baseline (G1):
-- Related Design Baseline (G2):
-- Planning Review:
-- Approval date:
-
-## Approval checklist
-
-- [ ] Required G1 and G2 inputs are approved and versioned.
-- [ ] Product backlog is reviewed and prioritized.
-- [ ] Task breakdown is sufficiently complete and traceable.
-- [ ] Estimates, assumptions and uncertainty are understood.
-- [ ] Dependencies and blockers have owners and plans.
-- [ ] Definition of Done is agreed.
-- [ ] Sprint plan is feasible against available capacity.
-- [ ] Significant risks and open actions are accepted by the appropriate owners.
-- [ ] Planning outputs are versioned and ready for Development handoff.
-
-## Decision
-
-- [ ] Approved
-- [ ] Changes requested
-- [ ] Rejected
-
-Decision rationale:
-
-Conditions / follow-up actions:
-
-| Action | Owner | Due date |
-|---|---|---|
-| | | |
-
-## Approval record
-
-- Approver name:
-- Role / authority:
-- Decision timestamp:
-- Artifact version / commit:
-- Evidence / reference:
-
-**Rule:** G3 must be approved by an authorized human (normally PM /
-Project Manager and Tech Lead, with Product Owner involvement as
-required). The AI that prepared the planning artifacts cannot approve G3.
-""",
-    )
+    approval_template = framework_dir / "templates" / "review" / "approval-record.md"
+    if approval_template.is_file():
+        approval_record = approval_template.read_text(encoding="utf-8")
+        for field, value in (("Gate / subject", "G3"), ("Vai trò approver bắt buộc", "Tech Lead")):
+            approval_record, count = re.subn(
+                rf"^- {re.escape(field)}:[^\n]*$",
+                f"- {field}: {value}",
+                approval_record,
+                flags=re.MULTILINE,
+            )
+            if count != 1:
+                raise ValueError(f"Expected one {field} field in {approval_template}")
+        write_if_missing(stage_project_dir / "g3-approval.md", approval_record)
+    else:
+        print(f"[WARN] Framework source not found: {approval_template}")
 
 
 def initialize_development_project_docs(

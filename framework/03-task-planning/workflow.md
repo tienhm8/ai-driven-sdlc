@@ -40,16 +40,16 @@ Handoff to Development
 1. **Xác nhận phạm vi release/iteration:** thống nhất mục tiêu, deliverables, in-scope/out-of-scope và giới hạn.
 2. **Phân rã backlog:** tạo epic/feature/story/work package; liên kết về requirement ID và design component.
 3. **Phân rã technical tasks:** tạo task cho code, database, API, integration, security, infrastructure, documentation và testing.
-4. **Xác định tiêu chí sẵn sàng:** áp dụng Definition of Ready (DoR) cho story/task; làm rõ acceptance criteria và dependency.
+4. **Xác định tiêu chí sẵn sàng:** áp dụng [Definition of Ready (DoR)](templates/definition-of-ready.md) cho story/task; làm rõ acceptance criteria và dependency.
 5. **Ước lượng:** sử dụng phương pháp phù hợp (story points, ideal days, t-shirt sizing hoặc effort range); ghi rõ độ tin cậy và giả định.
 6. **Phân tích phụ thuộc:** xác định thứ tự, critical path, external dependency, environment/data dependency và integration sequence.
-7. **Lập kế hoạch kiểm thử:** liên kết task với test level, test data, automation và non-functional validation.
+7. **Xác định công việc kiểm chứng:** xác định cần kiểm chứng gì (test level, test data, automation, non-functional) và lập task tương ứng. Test case và PR chi tiết được liên kết ở các stage thực hiện; không bắt buộc trước G3.
 8. **Phân công và capacity planning:** xác định owner, reviewer, skill requirement và workload; không giao task vượt quyền AI agent.
 9. **Lập kế hoạch rủi ro:** đánh giá risk, mitigation, contingency và trigger.
 10. **Thiết lập Definition of Done (DoD):** quy định code, test, review, documentation, security và traceability cần có.
 11. **Lập milestone/release plan:** xác định mốc, deliverable, acceptance, buffer và reporting.
 12. **Kiểm tra tính khả thi:** rà soát scope, estimate, capacity, dependency và risk; điều chỉnh kế hoạch.
-13. **Trình G3:** phê duyệt execution baseline và lưu kế hoạch.
+13. **Trình G3:** trình **một phiên bản kế hoạch với phạm vi task xác định** (danh sách task ID/version) và ghi vào bản ghi G3.
 
 ## 3.5 Input — Đầu vào
 
@@ -81,14 +81,7 @@ Handoff to Development
 
 ## 3.8 Output — Đầu ra
 
-- Product/Engineering Backlog (epic, story, task).
-- Work Breakdown Structure và task-to-requirement mapping.
-- Estimate, capacity plan và resource assignment.
-- Dependency matrix, milestone/release plan.
-- Risk register và mitigation plan.
-- DoR/DoD, sprint/iteration plan.
-- Test task mapping và execution readiness checklist.
-- G3 approval record.
+Danh mục đầu ra chuẩn (bắt buộc / khi áp dụng / tham chiếu) nằm ở [Output Contract](outputs/planning-output-contract.md#danh-mục-đầu-ra). Workflow chỉ quy định trình tự tạo ra chúng.
 
 ## 3.9 Quality Check — Kiểm tra chất lượng
 
@@ -104,19 +97,15 @@ Handoff to Development
 
 **G3 — Planning & Execution Readiness Approval**
 
-Người phê duyệt: Project Manager/Delivery Lead và Product Owner; Tech Lead/SA xác nhận tính khả thi kỹ thuật.
+**Người phê duyệt: Tech Lead** theo [gate policy](../governance/human-review-gates/gate-policy.md). Product Owner xác nhận ưu tiên và trade-off sản phẩm; PM xác nhận lịch và nguồn lực. Quyền phê duyệt không chuyển cho PM/PO.
 
-Điều kiện duyệt:
-- Scope, priority, estimate và milestone được thống nhất.
-- Team/capacity và dependency khả thi.
-- DoR/DoD, test work và risk mitigation đã được xác định.
-- Không có blocker critical chưa có kế hoạch xử lý.
+G3 duyệt **một phiên bản kế hoạch với phạm vi task xác định**. Dùng [checklist G3](checklists/g3-planning-approval-checklist.md) để kiểm tra; ghi quyết định và bằng chứng trong [mẫu approval record chung](../templates/review/approval-record.md) theo [hướng dẫn G3](../governance/human-review-gates/G3-task-approval.md). Task ngoài phạm vi đã ghi chưa được G3 duyệt.
 
 ## 3.11 Exit Criteria — Điều kiện hoàn thành
 
-- G3 được Approved.
-- Backlog và kế hoạch thực thi được baseline.
-- Task đầu tiên đạt DoR; môi trường/công cụ cần thiết sẵn sàng hoặc có kế hoạch.
+- G3 `Approved` cho đúng phiên bản kế hoạch và phạm vi task đã ghi.
+- PM/Delivery Lead ghi phiên bản kế hoạch đã chốt làm baseline và tham chiếu bản ghi G3 vào gói bàn giao.
+- DoR từng task do Stage 04 xác minh trước coding; môi trường/công cụ cần thiết sẵn sàng hoặc có kế hoạch.
 - Owner và reporting cadence được xác định.
 
 ## 3.12 Exception Handling — Xử lý ngoại lệ
@@ -124,11 +113,11 @@ Người phê duyệt: Project Manager/Delivery Lead và Product Owner; Tech Lea
 - **Estimate thiếu dữ liệu:** tạo spike/timebox, dùng range và ghi confidence thấp.
 - **Capacity không đủ:** giảm scope, đổi milestone hoặc bổ sung nguồn lực qua quyết định của PO/PM.
 - **Dependency chưa sẵn sàng:** tạo blocker có owner và ngày cần; điều chỉnh sequencing.
-- **Yêu cầu thay đổi sau baseline:** change request và impact analysis; cập nhật backlog sau phê duyệt.
+- **Yêu cầu thay đổi sau baseline:** ghi change request và để Tech Lead phân loại theo [Output Contract](outputs/planning-output-contract.md#thay-đổi-sau-g3).
 - **Task không đạt DoR:** trả về làm rõ, không đưa vào execution chỉ vì áp lực tiến độ.
 
 ## 3.13 Next Stage — Chuyển sang giai đoạn tiếp theo
 
-Bàn giao execution baseline, backlog, task ownership, DoR/DoD, dependency và test mapping cho **04 — Development**.
+Bàn giao execution baseline, backlog, task ownership, DoR/DoD, dependency và danh sách việc kiểm chứng cho **04 — Development**.
 
 ---

@@ -16,4 +16,4 @@ Checklist chỉ ghi nhận kết quả kiểm tra. Người review (PM/Tech Lead
 | `planning-readiness-checklist.md` | Kiểm tra baseline G1/G2, scope, NFR, capacity và open questions trước khi planning. Kết quả: Ready / Ready with conditions / Not ready. | PM, Tech Lead |
 | `estimation-review-checklist.md` | Kiểm tra đơn vị, phương pháp, giả định, độ tin cậy và phần dự phòng của estimate. Kết quả: Accepted / Re-estimate / Spike required. | PM, Tech Lead, người ước lượng |
 | `dependency-review-checklist.md` | Kiểm tra dependency có owner, lead time, critical path và biện pháp giảm thiểu. Kết quả: Accepted / Changes Requested. | PM, Tech Lead |
-| `g3-planning-approval-checklist.md` | Điều kiện của gate G3 và bảng ghi quyết định phê duyệt. Không có `Approved` kèm bằng chứng thì Stage 04 không được bắt đầu. | Tech Lead (phê duyệt), PO/PM (xác nhận scope, priority, lịch) |
+| `g3-planning-approval-checklist.md` | Tiêu chí G3; quyết định ghi trong [mẫu approval record chung](../../templates/review/approval-record.md). Không có `Approved` kèm bằng chứng thì Stage 04 không được bắt đầu. | Tech Lead (phê duyệt), PO/PM (xác nhận scope, priority, lịch) |

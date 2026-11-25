@@ -18,7 +18,7 @@ Các ràng buộc nghiệp vụ, kỹ thuật, pháp lý/tuân thủ, ngân sác
 
 | ID | Phụ thuộc vào | Mô tả/giao diện | Bên cung cấp/owner | Hạn/mốc | Tác động nếu trễ/thay đổi | Trạng thái |
 |---|---|---|---|---|---|---|
-| DEP-0001 | | | | | | Identified |
+| DPN-0001 | | | | | | Identified |
 
 ## Rủi ro (Risks)
 

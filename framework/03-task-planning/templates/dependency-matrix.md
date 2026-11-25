@@ -4,7 +4,7 @@
 
 | Dependency ID | Tiền nhiệm (predecessor) | Kế nhiệm (successor) | Loại | Mô tả/interface | Có chặn không? | Cần trước ngày | Owner | Trạng thái | Biện pháp giảm thiểu |
 |---|---|---|---|---|---|---|---|---|---|
-| DEP-001 | | | `Internal/External/Technical/Data/Resource/Approval` | | | | | `Open/At risk/Resolved` | |
+| DPN-0001 | | | `Internal/External/Technical/Data/Resource/Approval` | | | | | `Open/At risk/Resolved` | |
 
 Dependency bên ngoài:
 | Team/vendor/hệ thống | Deliverable | Owner/liên hệ | Lead time | Hạn chót | Leo thang | Trạng thái |
