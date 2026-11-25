@@ -10,6 +10,6 @@
 |---|---|---|---|
 | | | | |
 
-- Tech Lead xác nhận không trọng yếu (định danh / ngày / lý do / tham chiếu bằng chứng):
+- Tech Lead xác nhận đủ điều kiện đính chính (định danh / ngày / lý do / tham chiếu bằng chứng):
 
 Chỉ gửi kèm gói bàn giao sau khi Tech Lead xác nhận. Bản đính chính không thay baseline và không phải quyết định G3 mới.

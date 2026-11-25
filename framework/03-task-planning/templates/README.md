@@ -15,7 +15,7 @@ Requirement/Design baseline (inputs)
 ## Vai trò từng file
 | File | Vai trò | Đầu ra cho |
 |---|---|---|
-| `product-backlog.md` | Danh sách Epic/Story/Task đã ưu tiên, kèm trạng thái Ready và nhật ký thay đổi. Priority tách biệt với estimate. | PO, PM, Stage 04 |
+| `product-backlog.md` | Danh sách Epic/Story/Task đã ưu tiên, kèm trạng thái Ready và nhật ký backlog trước G3. Priority tách biệt với estimate. | PO, PM, Stage 04 |
 | `task-breakdown.md` | WBS phân rã Story thành task có thể kiểm chứng, truy vết về requirement và design. | Tech Lead, Developer |
 | `effort-estimation.md` | Ước lượng effort theo task, đơn vị, độ tin cậy và giả định; tổng hợp theo hạng mục. | PM, Tech Lead |
 | `dependency-matrix.md` | Dependency nội bộ và bên ngoài, critical path, rủi ro và owner xử lý. | PM, Tech Lead |
@@ -23,7 +23,7 @@ Requirement/Design baseline (inputs)
 | [Definition of Ready](definition-of-ready.md) | Tiêu chí tối thiểu để chuẩn bị và xác minh readiness từng task; không thay G3. | Tech Lead, Developer |
 | `sprint-plan.md` | Sprint goal, capacity, cam kết, cột mốc, rủi ro và xác nhận của PO/PM/Tech Lead hoặc team. | Team |
 | [Planning Change Log](planning-change-log.md) | Ghi phân loại, tác động và bằng chứng xử lý thay đổi sau G3. | Tech Lead, PM, Stage 04 |
-| [Bản đính chính kế hoạch](planning-correction.md) | Ghi đính chính không trọng yếu để bàn giao kèm baseline, không thay baseline. | Tech Lead, Stage 04 |
+| [Bản đính chính kế hoạch](planning-correction.md) | Ghi bản đính chính đã được Tech Lead xác nhận để bàn giao kèm baseline, không thay baseline. | Tech Lead, Stage 04 |
 
 ## Quy ước dùng chung
 - Mọi file có ID, phiên bản, trạng thái, owner và ngày cập nhật.

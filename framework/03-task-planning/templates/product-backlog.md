@@ -14,5 +14,5 @@ Phương pháp ưu tiên: `[MoSCoW/WSJF/Value-Risk/tùy chỉnh]`. Người xác
 |---|---|---|---|---|---|---|
 | | | | | | | |
 
-Change log: phiên bản, item, thay đổi, lý do, người yêu cầu, người phê duyệt.
+Nhật ký backlog trước G3: phiên bản, item, thay đổi, lý do và người yêu cầu. Sau G3, ghi đề xuất thay đổi kế hoạch trong `planning-change-log.md`, không ghi lặp tại đây hay sửa trực tiếp backlog thuộc baseline đã duyệt.
 Xác nhận của PO: scope/priority đã thống nhất; phần loại trừ được bảo vệ; AC đã được hiểu; xung đột đã giải quyết. Quyết định/ngày của PO:

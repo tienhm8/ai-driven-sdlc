@@ -12,6 +12,8 @@ Danh mục đầu ra chuẩn, mức bắt buộc/khi áp dụng/tham chiếu, tr
 | Definition of Done | templates/definition-of-done.md hoặc chuẩn tổ chức | Dev, Review, QA |
 | Sprint/Delivery Plan (khi áp dụng) | templates/sprint-plan.md | Team |
 | Bản ghi phê duyệt G3 | [Mẫu approval record chung](../../templates/review/approval-record.md); checklist G3 là bằng chứng | Workflow/approval engine |
+| Nhật ký thay đổi kế hoạch | [Mẫu nhật ký](../templates/planning-change-log.md) | Tech Lead, PM, Stage 04 |
+| Bản đính chính kế hoạch | [Mẫu bản đính chính](../templates/planning-correction.md) | Tech Lead, Stage 04 |
 
 Cấu trúc thư mục dự án đề xuất:
 ```text
@@ -33,7 +35,7 @@ docs/03-task-planning/
 ```
 Mỗi artifact cần có project, ID, version, trạng thái, owner, ngày cập nhật và baseline nguồn. Bản nháp do AI tạo không phải là baseline đã duyệt.
 
-Dùng [mẫu planning change log](../templates/planning-change-log.md) cho sổ thay đổi chung của Stage 03. Lưu từng [bản đính chính](../templates/planning-correction.md) tại `corrections/<ID>.md`, dùng ID `PCOR-xxxx` duy nhất trong dự án và ghi phiên bản riêng trong metadata. Liên kết hai chiều giữa sổ và bản đính chính; giữ nguyên baseline và hồ sơ G3 gốc.
+Dùng [mẫu planning change log](../templates/planning-change-log.md) cho các thay đổi kế hoạch sau G3. Lưu từng [bản đính chính](../templates/planning-correction.md) tại `corrections/<ID>.md`, dùng ID `PCOR-xxxx` duy nhất trong dự án và ghi phiên bản riêng trong metadata. Liên kết hai chiều giữa sổ và bản đính chính; giữ nguyên baseline và hồ sơ G3 gốc.
 
 ## Kiến trúc
 Thư mục outputs định nghĩa **những gì Stage 03 phải bàn giao** và **ai nhận**:
