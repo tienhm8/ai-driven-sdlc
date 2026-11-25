@@ -82,6 +82,11 @@
 | Sự kiện | Trigger | Schema payload | Gửi lại / retry | Chữ ký / xác minh |
 |---|---|---|---|---|
 
+**Với tích hợp bất đồng bộ, chốt thêm** (ghi `N/A` kèm lý do nếu không áp dụng):
+| Sự kiện | Ngữ nghĩa giao nhận | Thứ tự (phạm vi bảo đảm) | Xử lý trùng (ID/khóa idempotency) | Phiên bản & thay đổi schema |
+|---|---|---|---|---|
+| | `at-most-once / at-least-once / exactly-once (điều kiện)` | | | |
+
 ## 7. Observability & Hợp đồng
 - Trường log / metric / tracing:
 - Sự kiện audit:
