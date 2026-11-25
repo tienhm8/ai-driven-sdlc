@@ -105,7 +105,9 @@ Handoff to Task Planning
 
 **G2 — Architecture & Design Approval**
 
-Người phê duyệt: Solution Architect/Architecture Owner và người có thẩm quyền kỹ thuật của dự án; Security/Compliance phê duyệt phần thuộc phạm vi của họ.
+- **Approver G2:** Solution Architect được ủy quyền ra quyết định G2 và, khi G2 `Approved`, chốt đúng phiên bản design package làm baseline. Nếu thiếu người có thẩm quyền, gate `Blocked` theo policy.
+- **Reviewer chuyên môn:** Tech Lead và các chuyên gia Security, Data, Compliance, vận hành hoặc lĩnh vực khác review và ghi kết luận, phạm vi, người review và bằng chứng. Họ không mặc nhiên là approver G2; phê duyệt chuyên môn là bắt buộc khi policy hoặc phạm vi dự án yêu cầu và phải hoàn tất trước G2 `Approved`.
+- Quyết định chính thức được ghi trong approval record theo gate policy; checklist giữ tiêu chí và bằng chứng, package index chỉ tham chiếu hồ sơ quyết định.
 
 Điều kiện duyệt:
 - Kiến trúc đáp ứng requirement/NFR và constraints.
@@ -115,7 +117,7 @@ Người phê duyệt: Solution Architect/Architecture Owner và người có th
 
 ## 2.11 Exit Criteria — Điều kiện hoàn thành
 
-- G2 Approved; Solution Architect chốt phiên bản design package đã duyệt làm baseline và ghi phiên bản cùng bằng chứng G2 trong package index.
+- G2 Approved; Solution Architect được ủy quyền chốt phiên bản design package đã duyệt làm baseline, ghi quyết định và phiên bản trong approval record; package index tham chiếu hồ sơ đó.
 - Design baseline, ADR và contract được version hóa.
 - Các dependency và technical risks có owner.
 - Đủ thông tin để phân rã công việc, ước lượng và lập kế hoạch.

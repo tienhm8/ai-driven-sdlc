@@ -29,28 +29,20 @@
 | 11 | Traceability và versioning đầy đủ | | |
 | 12 | Handoff sang Task Planning có constraints/dependencies rõ | | |
 
-## Decision
-- [ ] Approved
-- [ ] Changes requested (bao gồm điều kiện cần đóng)
-- [ ] Rejected
-- [ ] Blocked (thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc)
+## Kết luận review và bằng chứng
 
-**Conditions / outstanding actions:** Ghi điều kiện, việc còn mở và bằng chứng đóng; package index ghi điều kiện đã đóng.
+| Phạm vi | Reviewer / vai trò | Kết luận / ngày | Bằng chứng | Phê duyệt chuyên môn bắt buộc (nếu áp dụng) |
+|---|---|---|---|---|
+| Khả năng triển khai | Tech Lead | | | |
+| Security | Security owner | | | |
+| Data | Data owner | | | |
+| Chuyên môn khác | | | | |
 
-**Risk accepted and by whom:**
+Ghi `N/A` và lý do khi không áp dụng. Reviewer ghi kết luận theo phạm vi, không mặc nhiên là approver G2; phê duyệt chuyên môn bắt buộc theo policy hoặc phạm vi phải có bằng chứng. Liên kết điều kiện cần đóng, action không chặn và waiver hợp lệ tới các mục riêng trong approval record.
 
-| Approver | Role | Decision | Timestamp/timezone | Approved version | Reference |
-|---|---|---|---|---|---|
-| | Solution Architect | | | | |
-| | Security owner (khi thuộc phạm vi bắt buộc) | | | | |
-| | Data owner (khi thuộc phạm vi bắt buộc) | | | | |
-| | Chuyên môn khác (khi thuộc phạm vi bắt buộc) | | | | |
-
-Với từng vai trò chuyên môn, ghi quyết định thực tế (ví dụ `Approved`, `Changes requested` hoặc `N/A` kèm lý do); chỉ các phê duyệt bắt buộc theo phạm vi mới được tính là điều kiện gate.
-
-**Gate status:** `Pending / In Review / Approved / Rejected / Blocked / Changes Requested`
+**Hồ sơ quyết định G2 chính thức:** `[Approval record ID / link]` — dùng mẫu `framework/templates/review/approval-record.md` và gate policy. Checklist chỉ lưu tiêu chí, kết quả và bằng chứng; không thay thế hồ sơ quyết định.
 
 **Rule:**
 - Chỉ G2 `Approved`, sau khi đủ điều kiện gate và phê duyệt chuyên môn bắt buộc, mới cho phép chốt baseline và bàn giao.
 - Nếu còn điều kiện cần đóng, ghi `Changes Requested`, không dùng quyết định `Approved with conditions`. Thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc thì ghi `Blocked`. Sau khi xử lý, lưu bằng chứng và trình Solution Architect phê duyệt lại phiên bản gói sau khi đóng điều kiện; thay đổi vượt phạm vi điều kiện phải review lại theo G2.
-- Khi G2 `Approved`, Solution Architect chốt đúng phiên bản gói đã duyệt làm baseline và ghi quyết định, phiên bản, thời điểm và waiver hợp lệ (nếu có) vào hồ sơ G2 và package index. Bàn giao phiên bản này cùng bằng chứng G2 hợp lệ cho Stage 03 Task Planning; sau planning phải qua G3 trước coding. Baseline không phải trạng thái artifact riêng.
+- Khi G2 `Approved`, Solution Architect được ủy quyền chốt đúng phiên bản gói đã duyệt làm baseline; quyết định, phiên bản, thời điểm và waiver hợp lệ (nếu có) được ghi trong approval record. Package index chỉ tham chiếu hồ sơ đó. Bàn giao phiên bản này cùng bằng chứng G2 hợp lệ cho Stage 03 Task Planning; sau planning phải qua G3 trước coding. Baseline không phải trạng thái artifact riêng.

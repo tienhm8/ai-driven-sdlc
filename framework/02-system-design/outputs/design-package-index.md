@@ -14,6 +14,8 @@
 | Tham chiếu phê duyệt G2 | `[Link]` |
 | Ngày có hiệu lực | `[YYYY-MM-DD]` |
 
+Trạng thái gói chỉ được là `Approved` khi hồ sơ G2 là `Approved` cho đúng ID và phiên bản gói; trạng thái này không thay thế việc đối chiếu hồ sơ G2.
+
 ## 2. Danh mục artifact
 | Loại artifact | ID artifact | File / URL | Phiên bản | Trạng thái | Chủ sở hữu |
 |---|---|---|---|---|---|
@@ -45,24 +47,11 @@ Ghi `N/A` và lý do nếu không áp dụng; không để lẫn trạng thái t
 | ID | Mô tả | Mức độ | Người phụ trách | Hạn xử lý | Phê duyệt / cách xử lý |
 |---|---|---|---|---|---|
 
-## 6. Quyết định G2
-- [ ] Đã phê duyệt
-- [ ] Yêu cầu chỉnh sửa (bao gồm điều kiện cần đóng)
-- [ ] Từ chối
-- [ ] Blocked (thiếu đầu vào, bằng chứng hoặc phê duyệt bắt buộc)
+## 6. Tham chiếu quyết định G2
 
-| Trường | Giá trị |
-|---|---|
-| Người phê duyệt | |
-| Vai trò | Solution Architect |
-| Phiên bản gói đã duyệt và chốt làm baseline | `[ID / phiên bản; chỉ ghi khi G2 Approved]` |
-| Gate status | `Pending / In Review / Approved / Rejected / Blocked / Changes Requested` |
-| Điều kiện đã đóng và bằng chứng / waiver hợp lệ (nếu có) | |
-| Phê duyệt chuyên môn bắt buộc / bằng chứng | |
-| Ngày/giờ/múi giờ | |
-| Hồ sơ phê duyệt | |
+Hồ sơ chính thức được liên kết tại trường **Tham chiếu phê duyệt G2** ở mục 1; hồ sơ xác định quyết định, người có thẩm quyền và đúng ID/phiên bản gói đã chốt làm baseline. Không ghi lại quyết định hoặc trạng thái gate tại đây. Đối chiếu phiên bản gói ở mục 1 và danh mục artifact với hồ sơ trước bàn giao; action không chặn và waiver được ghi riêng trong hồ sơ G2.
 
-Chỉ G2 `Approved` sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc mới cho phép chốt baseline và bàn giao. Nếu còn điều kiện cần đóng, ghi `Changes Requested`; nếu thiếu bằng chứng hoặc phê duyệt bắt buộc, ghi `Blocked`. Sau khi xử lý, lưu bằng chứng và trình Solution Architect phê duyệt lại.
+Chỉ bàn giao khi hồ sơ G2 là `Approved` cho đúng phiên bản gói, sau khi đủ điều kiện và phê duyệt chuyên môn bắt buộc.
 
 ## 7. Bàn giao sang 03 — Task Planning
 - [ ] Kiến trúc và ranh giới component đã có sẵn.

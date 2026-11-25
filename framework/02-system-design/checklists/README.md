@@ -24,7 +24,7 @@ checklists/
 | `api-review-checklist.md` | Kiểm tra API: đặt tên, schema, xác thực và phân quyền ở mức object và field, error model, versioning, idempotency, rate limit và contract test. | `outputs/api/` | API / Integration Owner |
 | `database-data-review-checklist.md` | Kiểm tra CSDL và mô hình dữ liệu: khóa, ràng buộc, index, transaction, phân loại PII, lưu giữ, migration, backup và RPO/RTO. | `outputs/database/`, `outputs/data-model/` | DBA / Data Architect |
 | `security-review-checklist.md` | Kiểm tra bảo mật: trust boundary, threat model, xác thực, least privilege, mã hóa, quản lý secret, audit và rủi ro tồn dư. | `outputs/security/` | Security Architect / Security Engineer |
-| `g2-design-approval-checklist.md` | Tổng hợp điều kiện G2: đầy đủ, chất lượng, findings Critical/High đã xử lý, handoff sang Task Planning và bản ghi phê duyệt. Là điểm kiểm soát G2 trước khi bàn giao sang Task Planning; G3 diễn ra sau planning và trước coding. | `outputs/design-package-index.md`, `outputs/approvals/` | Solution Architect (approver chính) |
+| `g2-design-approval-checklist.md` | Tổng hợp điều kiện G2: đầy đủ, chất lượng, findings Critical/High đã xử lý, handoff sang Task Planning và liên kết hồ sơ phê duyệt. Là điểm kiểm soát G2 trước khi bàn giao sang Task Planning; G3 diễn ra sau planning và trước coding. | `outputs/design-package-index.md`, `outputs/approvals/` | Solution Architect (approver chính) |
 
 ## Quy tắc thực hiện
 
@@ -32,5 +32,5 @@ checklists/
 - Mục **Fail** hoặc **N/A** phải ghi bằng chứng hoặc lý do. Mục N/A không được để trống.
 - Phát hiện **blocking** (Critical/High) phải có hành động, người phụ trách và hạn xử lý.
 - AI có thể điền sẵn các mục dựa trên tài liệu, nhưng **không được tự kết luận Pass cho mục cần chuyên gia xác nhận**.
-- Checklist G2 chỉ được đánh dấu **Approved** bởi người có thẩm quyền. AI không được tự approve hoặc bỏ qua gate.
+- Checklist G2 lưu kết quả và bằng chứng, không phải quyết định gate. Chỉ Solution Architect được ủy quyền ghi quyết định G2 trong approval record; AI không được tự approve hoặc bỏ qua gate.
 - Kết quả review được lưu trong thư mục checklist hoặc liên kết từ `../outputs/design-package-index.md`, mục Bằng chứng review.

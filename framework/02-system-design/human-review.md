@@ -17,13 +17,15 @@
 
 | Vai trò | Trách nhiệm review / quyết định |
 |---|---|
-| Solution Architect – **Approver G2** | Đánh giá tổng thể, trade-off, nguyên tắc kiến trúc, lựa chọn công nghệ và phê duyệt thiết kế trong phạm vi thẩm quyền. |
+| Solution Architect được ủy quyền – **Approver G2** | Đánh giá tổng thể, ra quyết định G2 trong approval record và chốt phiên bản baseline khi G2 Approved. |
 | Tech Lead | Review khả năng triển khai, phân rã thành phần, tính nhất quán kỹ thuật và tác động đến codebase hiện tại. |
 | Security Architect / Security Engineer | Review threat model, trust boundaries, authentication, authorization, secrets, mã hóa và rủi ro bảo mật. |
 | DBA / Data Architect | Review data model, integrity, indexing, transaction, backup/restore, retention, migration và hiệu năng dữ liệu. |
 | API / Integration Owner | Review contract, versioning, backward compatibility, rate limit, error model và tích hợp hệ thống ngoài. |
 | SRE / DevOps | Review deployability, observability, resilience, capacity, recovery và yêu cầu vận hành. |
 | Product Owner / BA | Xác nhận thiết kế không làm sai lệch yêu cầu và trải nghiệm nghiệp vụ trọng yếu. |
+
+Tech Lead và chuyên gia ghi kết luận, phạm vi và bằng chứng review; họ không mặc nhiên ra quyết định G2. Các phê duyệt chuyên môn bắt buộc theo policy hoặc phạm vi dự án phải hoàn tất trước khi G2 được Approved.
 
 ## 3. Trách nhiệm review của con người
 

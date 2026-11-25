@@ -1,16 +1,3 @@
-# Approval Record – [APR-ID]
-- Gate / Subject:
-- Artifact version or commit SHA:
-- Requested by:
-- Required approver role:
-- Actual approver:
-- Decision: Pending / Approved / Rejected / Conditional
-- Timestamp and timezone:
-- Evidence link:
+# Approval Record – Mẫu dùng chung
 
-## Review criteria and evidence
-## Conditions / rejection reasons
-## Follow-up actions
-## Related decision/change
-
-> Only an authorized human may approve a mandatory Human Review Gate.
+Dùng [mẫu approval record chuẩn](../../templates/review/approval-record.md) cho các human review gate. File này chỉ là chỉ dẫn, không phải mẫu quyết định độc lập. Tuân thủ [gate policy](../../governance/human-review-gates/gate-policy.md) và các yêu cầu riêng của gate.
