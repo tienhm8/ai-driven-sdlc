@@ -98,10 +98,10 @@ ai-driven-sdlc/
 │   │   ├── core/                             # code-generation, code-review, documentation,
 │   │   │                                     # requirement-analysis, system-design, testing
 │   │   ├── architecture/                     # clean-architecture, domain-driven-design, microservices, monolith
-│   │   ├── backend/                          # dotnet, laravel, nestjs, nodejs, spring-boot
-│   │   ├── frontend/                         # angular, nextjs, react, vue
-│   │   ├── database/                         # database-design, database-migration, mongodb, mysql, postgresql, redis
-│   │   ├── devops/                           # docker, github-actions, kubernetes, terraform
+│   │   ├── backend/                          # nestjs, nodejs
+│   │   ├── frontend/                         # react
+│   │   ├── database/                         # database-design, database-migration, mongodb, postgresql, redis
+│   │   ├── devops/                           # docker, kubernetes, terraform
 │   │   └── security/                         # authentication, authorization, owasp
 │   │
 │   ├── agents/                               # Hướng dẫn agent theo vai trò

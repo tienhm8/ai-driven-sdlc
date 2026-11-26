@@ -4,8 +4,8 @@ project:
 framework:
   version: "1.0.0"
 technology_stack:
-  backend: dotnet
-  frontend: react
+  backend: nestjs
+  frontend: umi-max
   database: postgresql
 ai:
   tools: [claude]
