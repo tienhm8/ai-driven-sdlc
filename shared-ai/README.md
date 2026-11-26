@@ -11,6 +11,28 @@ Tài nguyên AI dùng chung cho các dự án áp dụng [SDLC Framework](../fra
 | [Knowledge](knowledge/) | Tra cứu quyết định kiến trúc, dữ liệu, bảo mật và vận hành. |
 | [Tool configs](tool-configs/generic/README.md) | Tích hợp thủ công theo công cụ khi loader chưa có. |
 
+## Kiến trúc
+
+```
+shared-ai/
+├── rules/                  # Ràng buộc chung: core/, sdlc/, engineering/
+├── skills/                 # SKILL.md theo nhóm kỹ thuật (32 skill)
+│   ├── core/               # code-generation, code-review, documentation, requirement-analysis, system-design, testing
+│   ├── architecture/       # clean-architecture, domain-driven-design, microservices, monolith
+│   ├── backend/            # dotnet, laravel, nestjs, nodejs, spring-boot
+│   ├── frontend/           # angular, nextjs, react, vue
+│   ├── database/           # database-design, database-migration, mongodb, mysql, postgresql, redis
+│   ├── devops/             # docker, github-actions, kubernetes, terraform
+│   └── security/           # authentication, authorization, owasp
+├── agents/                 # AGENT.md theo vai trò: business-analyst, solution-architect, developer,
+│                           #   code-reviewer, qa-engineer, devops-engineer
+├── model-routing/          # task-model-mapping, model-profiles, effort-policy, fallback-policy (YAML)
+├── knowledge/              # Tài liệu tra cứu: architecture, database, security, devops
+└── tool-configs/           # Hướng dẫn tích hợp theo công cụ: claude-code, codex, cursor, github-copilot, generic
+```
+
+Ranh giới: `rules/` và `agents/` là hướng dẫn, không cấp quyền thực thi. Loader và ánh xạ model/tool chạy ở `platform/`; khi chưa có loader, dùng `tool-configs/` để tích hợp thủ công.
+
 ## Bắt đầu
 
 1. Đọc project context, stack, phạm vi và phiên bản framework/shared resources được dự án chọn.

@@ -78,15 +78,16 @@ ai-driven-sdlc/
 │   │   └── security/
 │   │
 │   ├── templates/                            # Template dùng chung cho nhiều giai đoạn
-│   │   ├── requirement/                      # (trống)
-│   │   ├── design/
-│   │   ├── planning/
-│   │   ├── development/                      # (trống)
-│   │   ├── review/
-│   │   ├── testing/                          # (trống)
-│   │   └── deployment/                       # (trống)
+│   │   ├── requirement/                      # business-requirement, user-story, traceability matrix
+│   │   ├── design/                           # decision-record
+│   │   ├── planning/                         # risk-assessment
+│   │   ├── development/                      # implementation-plan, technical-change-record, development-handover
+│   │   ├── review/                           # review-checklist, approval-record
+│   │   ├── testing/                          # test-plan, test-case, test-execution-report, defect-report
+│   │   └── deployment/                       # deployment-plan, rollback-plan, release-notes
 │   │
-│   ├── project-management/                   # charter, status, risk/issue/decision/change log, approval register...
+│   ├── guide/                                # Guide tương tác (index.html, guide-data.yml)
+│   ├── project-management/                   # Project charter template, status, risk/issue/decision/change log, approval register...
 │   └── assets/                               # Hình minh hoạ
 │
 ├── shared-ai/                                # AI RESOURCES CHUNG
@@ -145,6 +146,12 @@ ai-driven-sdlc/
 │   └── Project-Booking/
 │
 └── platform/                                 # Lõi điều phối local; xem Platform README
+    ├── src/ai_sdlc_platform/                 # Mã Python của platform
+    ├── tests/
+    ├── scripts/                              # init-project, validate-project, sync-framework, guide-server
+    ├── config-examples/                      # Manifest, autonomy và gate policy mẫu
+    ├── docs/                                 # Kiến trúc và ranh giới tin cậy
+    ├── skill-loader/ rule-loader/ model-router/ workflow-engine/ approval-engine/ validators/ tool-adapters/
 ```
 
 ## Thành phần chính
