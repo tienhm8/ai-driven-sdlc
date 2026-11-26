@@ -20,7 +20,7 @@ shared-ai/
 │   ├── core/               # code-generation, code-review, documentation, requirement-analysis, system-design, testing
 │   ├── architecture/       # clean-architecture, domain-driven-design, microservices, monolith
 │   ├── backend/            # nestjs, nodejs
-│   ├── frontend/           # react
+│   ├── frontend/           # react, umi-max
 │   ├── database/           # database-design, database-migration, mongodb, postgresql, redis
 │   ├── devops/             # docker, kubernetes, terraform
 │   └── security/           # authentication, authorization, owasp
