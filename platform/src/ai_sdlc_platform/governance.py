@@ -109,6 +109,8 @@ class _ApprovalPolicyLoader(yaml.SafeLoader):
                 if key_node.tag != "tag:yaml.org,2002:merge":
                     entries.append((key_node, value_node))
                     continue
+                if not isinstance(key_node, ScalarNode) or key_node.value != "<<":
+                    raise ConstructorError(None, None, "expected YAML merge key to be the scalar '<<'", key_node.start_mark)
                 if merge_seen:
                     raise ConstructorError(None, None, "duplicate key '<<'", key_node.start_mark)
                 merge_seen = True
