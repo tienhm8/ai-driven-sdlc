@@ -21,7 +21,7 @@ Platform là lõi điều phối local cho [Project Instance](../README.md): cun
 
 Xem [kiến trúc và ranh giới tin cậy](docs/architecture.md) để biết phần việc thuộc về core và phần do adapter thực hiện. Xem [Framework gate policy](../framework/governance/human-review-gates/gate-policy.md) để biết điều kiện và vai trò G1–G7.
 
-## Cấu trúc thư mục
+## Kiến trúc
 
 ```text
 platform/
