@@ -361,6 +361,8 @@ class ProjectManifestTests(TestCase):
             ("gates: {G4: {approver_roles: [!!str {=: reviewer, repeated: 1, repeated: 2}]}}",
              "expected a scalar node"),
             ("gates: {G4: &gate {<<: *gate}}", "recursive YAML merge"),
+            ("gates: {G4: {? !!merge [unexpected] : {required: true}}}", "expected YAML merge key"),
+            ("gates: {G4: {? !!merge unexpected : {required: true}}}", "expected YAML merge key"),
         ):
             with self.subTest(contents=contents):
                 policy.write_text(contents, encoding="utf-8")
