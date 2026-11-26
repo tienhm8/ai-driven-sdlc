@@ -14,11 +14,13 @@
 8. **Non-functional:** performance, security, accessibility, reliability theo scope.
 
 ## Traceability matrix
-| Requirement/AC | Risk | Test Case IDs | Execution | Defect IDs | Coverage |
-|---|---|---|---|---|---|
-| BRQ-0001 | High | TC-0001, TC-0002 | Pass/Fail/... | BUG-0001 | Covered/Partial/Missing |
+Sao chép bảng này vào hồ sơ của đợt kiểm thử, cùng báo cáo thực thi. Thay dòng ví dụ bằng dữ liệu thực tế; mỗi dòng truy vết ít nhất một requirement/AC hoặc một risk.
 
-Requirement quan trọng cần liên kết test và kết quả. Ghi rõ không test được, N/A hoặc Blocked.
+| Requirement/AC ID | Risk ID / mức độ | Test Case IDs | Kết quả / tham chiếu lần chạy | Defect IDs | Coverage |
+|---|---|---|---|---|---|
+| AC-0001 | RISK-0001 / High | TC-0001, TC-0002 | TESTRUN-0001 / Pass, Fail | BUG-0001 | Partial |
+
+Requirement quan trọng cần liên kết test và kết quả. Ghi rõ lý do nếu không kiểm thử được, không áp dụng hoặc bị chặn.
 
 ## Diễn giải đúng
 - Code coverage cao không chứng minh assertion tốt.

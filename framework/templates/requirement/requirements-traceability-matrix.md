@@ -4,7 +4,7 @@ Mẫu mở rộng **sau G1**: lấy các ID từ RTM baseline đã duyệt và b
 
 | Requirement ID | Tóm tắt | Acceptance Criteria | Design / ADR | Task | PR / Commit | Test Case | Release | Status |
 |---|---|---|---|---|---|---|---|---|
-| `BRQ-0001` | {{SUMMARY}} | `AC-01` | `ADR-001` | `TASK-001` | {{PR/SHA}} | `TC-001` | `REL-001` | Proposed |
+| `BRQ-0001` | {{SUMMARY}} | `AC-0001` | `ADR-0001` | `TASK-0001` | {{PR/SHA}} | `TC-0001` | `REL-0001` | Proposed |
 
 ## Rà soát độ phủ
 - Requirement chưa có design:

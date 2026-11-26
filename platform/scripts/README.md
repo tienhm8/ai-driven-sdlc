@@ -97,6 +97,8 @@ python3 platform/scripts/sync-framework.py --framework framework --project proje
 | `--apply` | Ghi thay đổi vào `.ai-sdlc/framework-resources/` và cập nhật manifest. Không cập nhật các bản template theo stage đã được init chép vào `docs/`. |
 | `--overwrite` | Cho phép thay file đích khác nội dung, kể cả file chưa được quản lý. Dùng riêng để xem trước; chỉ ghi khi kèm `--apply`. Không bỏ qua file chỉ đọc hoặc mục recovery chưa xác minh được. |
 
+**Cập nhật mẫu cho dự án cũ:** Tra [danh mục mẫu chuẩn](../../framework/templates/README.md) trong repo framework. Khi cần dùng mẫu mới, đối chiếu bản chuẩn với bản tại `docs/<stage>/_templates/`, rồi cập nhật thủ công phần mẫu chưa điền và giữ tùy chỉnh cần thiết. Không sửa hồ sơ đã điền hoặc baseline đã duyệt. Các file chỉ dẫn trong `.ai-sdlc/framework-resources/templates/` không phải bản mẫu để điền.
+
 ### Checksum và xử lý conflict
 
 - `.ai-sdlc/framework-sync.json` lưu SHA-256 của tài nguyên do sync quản lý. Nếu file đích khác nguồn và đã khác checksum mốc, sync mặc định giữ nguyên file và checksum mốc, đồng thời báo conflict (exit code `2`). File khác nội dung chưa được quản lý được bỏ qua. Hãy đối chiếu, sao lưu thay đổi cần giữ và xem dry run trước khi quyết định dùng `--apply --overwrite`.

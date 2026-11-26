@@ -25,7 +25,7 @@
 
 | AC ID | Given/When/Then hoặc điều kiện đo lường được | Cách xác minh |
 |---|---|---|
-| AC-01 | | |
+| AC-0001 | | |
 
 ## Ràng buộc kỹ thuật
 - Component, contract API/dữ liệu, bảo mật/authorization, hiệu năng, tương thích, coding standard:

@@ -33,7 +33,7 @@ templates/
 ## Quy tắc sử dụng
 
 - Điền đủ mục **Kiểm soát tài liệu** (ID, phiên bản, trạng thái, chủ sở hữu, requirement baseline) trước khi viết nội dung.
-- Dùng ID theo quy ước `framework/standards/metadata/`, ví dụ `API-001`, `ADR-001`, `DB-001`.
+- Dùng ID theo quy ước `framework/standards/metadata/`, ví dụ `API-0001`, `ADR-0001`, `DB-0001`.
 - Artifact không áp dụng phải ghi `N/A` và lý do trong `../outputs/design-package-index.md`.
 - Template không được sửa để chứa dữ liệu dự án thật. Dữ liệu thật chỉ nằm trong `../outputs/`.
 - Khi template và standard/policy đã duyệt mâu thuẫn, standard/policy có hiệu lực cao hơn (xem `../README.md`).
