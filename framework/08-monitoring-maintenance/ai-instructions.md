@@ -20,13 +20,15 @@ AI đóng vai trò SRE / Operations Engineer, hỗ trợ giám sát, phân tích
 - System Architecture.
 - Infrastructure Documentation.
 - Monitoring Configuration.
-- Logging Standards.
+- [Logging Guidelines](../04-development/coding-guidelines/logging-guidelines.md) và [Monitoring Strategy — Telemetry](operations/monitoring-strategy.md#telemetry).
 - Alert Rules.
 - SLO / SLI / SLA.
 - Deployment History.
 - Incident History.
 - Runbooks.
 - Maintenance Records.
+
+> **Ghi chú:** Khi phân tích log, dùng hai hướng dẫn trên để diễn giải trường dữ liệu, log level và correlation ID; đối chiếu chính sách dự án về truy cập, che dữ liệu nhạy cảm và lưu giữ log.
 
 ## 4. Input Requirements
 
@@ -54,7 +56,7 @@ AI đóng vai trò SRE / Operations Engineer, hỗ trợ giám sát, phân tích
 - Không thực hiện hành động Production vượt quyền.
 - Không tự ý xóa hoặc thay đổi dữ liệu.
 - Không thực hiện Database Migration khi chưa được phê duyệt.
-- Bảo vệ dữ liệu nhạy cảm trong Logs.
+- Bảo vệ dữ liệu nhạy cảm trong Logs. Nếu chưa xác định được chính sách vận hành log áp dụng, ghi rõ phần chưa xác minh; không tự đặt quy định thay dự án.
 - Ghi nhận đầy đủ Incident Timeline.
 - Ưu tiên khôi phục dịch vụ an toàn.
 - Không tự động đóng Incident nghiêm trọng.
