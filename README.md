@@ -101,7 +101,7 @@ ai-driven-sdlc/
 │   │   ├── backend/                          # nestjs, nodejs
 │   │   ├── frontend/                         # react, umi-max
 │   │   ├── database/                         # database-design, database-migration, mongodb, postgresql, redis
-│   │   ├── devops/                           # docker, kubernetes, terraform
+│   │   ├── devops/                           # docker, gitlab-ci, kubernetes, terraform
 │   │   └── security/                         # authentication, authorization, owasp
 │   │
 │   ├── agents/                               # Hướng dẫn agent theo vai trò

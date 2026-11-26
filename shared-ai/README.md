@@ -22,7 +22,7 @@ shared-ai/
 │   ├── backend/            # nestjs, nodejs
 │   ├── frontend/           # react, umi-max
 │   ├── database/           # database-design, database-migration, mongodb, postgresql, redis
-│   ├── devops/             # docker, kubernetes, terraform
+│   ├── devops/             # docker, gitlab-ci, kubernetes, terraform
 │   └── security/           # authentication, authorization, owasp
 ├── agents/                 # AGENT.md theo vai trò: business-analyst, solution-architect, developer,
 │                           #   code-reviewer, qa-engineer, devops-engineer

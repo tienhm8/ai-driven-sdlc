@@ -4,7 +4,7 @@ Commands run from the `base-web` checkout with Node 22 and Yarn Classic.
 
 ## What exists
 
-There is **no automated test suite** at the reference revision: no `*.spec.*` or `*.test.*` files, and no test runner or test script in `package.json`. `src/e2e/baseLayout.e2e.js` is browser scaffolding that nothing runs, and CI does not run it. Do not report it as a gate, and do not say a test passed.
+At the `basev4` reference revision (`d3d0e0b1`), there are no unit specs or test runner scripts in `package.json`. `src/e2e/baseLayout.e2e.js` is browser scaffolding without a configured runner; the checked-in GitLab pipeline does not run it. Do not report it as an automated check or a gate.
 
 The evidence available for a frontend change is therefore:
 
@@ -20,6 +20,12 @@ See the Umi Max skill's [verification reference](../../../frontend/umi-max/refer
 
 Record the steps so a reviewer can repeat them. For a list screen: load it, filter, sort, change page, create, edit, delete, and open it with an empty result and with a failing request. For a route or access change: load the URL directly, refresh, and sign in as a user without the permission. Report each step as done or not done.
 
+## Approved direction, not yet installed
+
+- **Vitest** for unit and component tests (`yarn test`, wrapping `vitest run`, once provisioned). Start with pure logic, then configure jsdom and the actual Umi alias and generated module dependencies required by component tests. Use mocks for external services, and verify missing browser APIs only where the components need them.
+- **Playwright** for browser E2E (`yarn e2e`, wrapping `playwright test`, once provisioned). Verify browser setup, app startup, URL, isolated fixtures, and at least one real checked-in test before requiring the job. Do not assume the legacy scaffold will run unchanged.
+- `1group-fe` (`b2f6a017`) provides a Vitest config and setup (`jsdom`, cleanup, browser API mocks), a Playwright dependency and script, and checked-in specs under `e2e/`. No `playwright.config.*` is checked in at that revision, and its GitLab pipeline does not run the suite. Use these as references, not a working E2E configuration for Umi: reuse neither Next.js-specific setup nor unverified alias assumptions. The runner/config/script installation in `base-web` is a separate ticket. See [frontend CI](../../../devops/gitlab-ci/references/frontend-pipeline.md) for adding jobs after it lands.
+
 ## Reporting
 
-Say plainly: "No automated tests exist for this repository; verification was `yarn build` and a manual smoke test of <flow>," and list what you did not exercise. If you add a test runner to a feature branch, that is a separate, approved change and not part of verifying an unrelated task.
+Report the commands and manual steps you actually ran. For a checkout without the runners, mark automated checks `skipped/not available` and state which behavior is still unverified, even if the build passes. Do not mark a required check as passed or substitute a smoke check for it without the applicable approval process.
