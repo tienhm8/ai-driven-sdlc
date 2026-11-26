@@ -19,6 +19,7 @@ test-plan → test-data → test-case → test-execution-report → bug-report �
 | `test-case.md` | Thiết kế test | QA Engineer (soạn), QA review | Metadata, traceability tới AC, preconditions, steps/expected, execution record |
 | `test-execution-report.md` | Sau mỗi cycle thực thi | QA Engineer (soạn), QA Lead (review) | Summary Pass/Fail/Blocked/Skipped/Not Run, execution details, defect summary, limitations, recommendation |
 | `bug-report.md` | Khi Fail được xác nhận | QA Engineer; Developer cập nhật fix | Classification (severity/priority tách riêng), steps, actual/expected, evidence đã redacted, retest |
+| [Ma trận coverage theo requirement/risk](../test-strategy/test-coverage.md#traceability-matrix) | Lập khi thiết kế test, cập nhật sau thực thi | QA Engineer (soạn), QA Lead (review) | Liên kết requirement/risk với test case, kết quả, defect và mức độ bao phủ; lưu ma trận đã điền cùng báo cáo thực thi |
 | `qa-signoff.md` | Trước G5 | QA Lead, Product Owner | Quality summary, open defect & residual risk, coverage gap, recommendation, approval record |
 
 ## Quy tắc sử dụng

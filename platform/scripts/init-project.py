@@ -3,6 +3,7 @@
 
 from pathlib import Path
 import argparse
+from os.path import relpath
 import re
 import shutil
 import sys
@@ -48,6 +49,15 @@ PROJECT_MANAGEMENT_FOLDERS = [
     "approvals",
     "project-closeout",
 ]
+
+PROJECT_MANAGEMENT_REGISTERS = {
+    "change-log.md": "Change Log",
+    "risk-register.md": "Risk Register",
+    "issue-log.md": "Issue Log",
+    "decision-log.md": "Decision Log",
+    "approval-register.md": "Approval Register",
+    "meeting-notes.md": "Meeting Notes",
+}
 
 AI_TOOLS = {
     "claude": ".claude",
@@ -423,6 +433,58 @@ def initialize_late_stage_outputs(framework_dir: Path, project_docs_dir: Path):
                 copy_file_if_missing(example, destination / example.name)
 
 
+def initialize_project_management(framework_dir: Path, project_docs_dir: Path):
+    source = framework_dir / "project-management"
+    pm_dir = project_docs_dir / "project-management"
+    templates = pm_dir / "_templates"
+
+    for folder in PROJECT_MANAGEMENT_FOLDERS:
+        create_directory(pm_dir / folder)
+
+    # Copy the real Gate template rather than the framework's relative pointer.
+    copy_file_if_missing(
+        framework_dir / "templates" / "review" / "approval-record.md",
+        templates / "approval-record-template.md",
+    )
+    copy_templates(source / "templates", templates)
+    copy_file_if_missing(source / "templates" / "project-charter-template.md", pm_dir / "project-charter.md")
+    copy_file_if_missing(source / "workflow.md", pm_dir / "workflow.md")
+    for filename in PROJECT_MANAGEMENT_REGISTERS:
+        copy_file_if_missing(source / filename, pm_dir / filename)
+
+    framework_ref = Path(relpath(framework_dir, pm_dir)).as_posix()
+    manifest_ref = Path(relpath(project_docs_dir.parent / PROJECT_MANIFEST, pm_dir)).as_posix()
+    register_links = "".join(f"- [{title}]({filename})\n" for filename, title in PROJECT_MANAGEMENT_REGISTERS.items())
+    write_if_missing(
+        pm_dir / "README.md",
+        "# Project Management\n\n"
+        "Bắt đầu với [charter nháp](project-charter.md), theo [workflow](workflow.md) "
+        "và dùng [danh mục mẫu](_templates/README.md) khi tạo hồ sơ.\n\n"
+        "## Trạng thái dự án\n\n"
+        "- Trạng thái hiện tại: `proposed`\n"
+        "- Căn cứ phê duyệt (ID/link): Chưa có.\n\n"
+        "PM chỉ cập nhật tại đây sau khi Sponsor và Product Owner cùng phê duyệt: "
+        "`active` sau duyệt charter, `on_hold` khi tạm dừng, trở lại `active` khi tiếp tục, "
+        "hoặc `completed` / `cancelled` sau duyệt closeout. Dẫn tới phê duyệt tương ứng; "
+        "không sửa baseline để cập nhật trạng thái.\n\n"
+        "## Nguồn chuẩn\n\n"
+        f"- [Project manifest]({manifest_ref}): ID, tên và cấu hình platform.\n"
+        "- [Charter](project-charter.md): phạm vi, KPI, baseline và thẩm quyền khi được duyệt.\n"
+        f"- [Gate Policy]({framework_ref}/governance/human-review-gates/gate-policy.md): "
+        "vai trò và tiêu chí Gate; Approval Register chỉ dẫn tới hồ sơ gốc.\n"
+        f"- [ID Conventions]({framework_ref}/standards/metadata/id-conventions.md): chuẩn cấp ID.\n"
+        f"- [Mẫu ADR]({framework_ref}/02-system-design/templates/architecture-decision-record.md) và "
+        "[Dependency Matrix](../03-task-planning/dependency-matrix.md): hồ sơ chuyên môn, "
+        "không lập sổ song song trong PM.\n\n"
+        "## Mẫu hồ sơ\n\n"
+        "Dùng [mẫu trong `_templates/`](_templates/README.md). Lưu báo cáo định kỳ trong "
+        "`project-status/` và báo cáo đóng dự án trong `project-closeout/`.\n\n"
+        "## Sổ theo dõi\n\n"
+        "Thay dòng `No entries` khi ghi mục đầu tiên. Dẫn đến hồ sơ chi tiết theo ID/link.\n\n"
+        f"{register_links}",
+    )
+
+
 def init_project(
     root: Path,
     project_name: str,
@@ -507,28 +569,7 @@ def init_project(
 
         # 8. Project management.
         if include_project_management:
-            pm_dir = docs_dir / "project-management"
-
-            for folder in PROJECT_MANAGEMENT_FOLDERS:
-                create_directory(pm_dir / folder)
-
-            # Seed the canonical approval template first. The project-management
-            # framework copy is a pointer whose relative links do not survive copying.
-            copy_file_if_missing(
-                framework_dir / "templates" / "review" / "approval-record.md",
-                pm_dir / "_templates" / "approval-record-template.md",
-            )
-            copy_templates(
-                framework_dir / "project-management" / "templates",
-                pm_dir / "_templates",
-            )
-
-            write_if_missing(
-                pm_dir / "README.md",
-                "# Project Management\n\n"
-                "Project-level management documents, "
-                "decisions, risks, issues and approvals.\n",
-            )
+            initialize_project_management(framework_dir, docs_dir)
 
         # 9. Project README.
         write_if_missing(

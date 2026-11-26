@@ -17,9 +17,9 @@
 
 | Trường | Giá trị |
 |---|---|
-| Mã User Story | US-001 |
+| Mã User Story | US-0001 |
 | Tiêu đề | [Tiêu đề ngắn gọn, mô tả rõ] |
-| Mã Epic | EPIC-001 |
+| Mã Epic | EPIC-0001 |
 | Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
 | Module | [Tên module] |
 | Độ ưu tiên | Phải có |
@@ -66,8 +66,8 @@
 
 | Mã AC | Mô tả | Độ ưu tiên |
 |---|---|---|
-| AC-001 | [Tiêu chí nghiệm thu] | Cao |
-| AC-002 | [Tiêu chí nghiệm thu] | Cao |
+| AC-0001 | [Tiêu chí nghiệm thu] | Cao |
+| AC-0002 | [Tiêu chí nghiệm thu] | Cao |
 
 Tiêu chí nghiệm thu chi tiết được quản lý trong `../outputs/06-acceptance-criteria/acceptance-criteria.md`.
 

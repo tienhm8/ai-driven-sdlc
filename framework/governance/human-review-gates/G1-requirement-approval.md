@@ -14,5 +14,6 @@ Requirement analysis, scope, User Stories, business rules, Acceptance Criteria, 
 - [ ] NFR/compliance liên quan được nhận diện.
 - [ ] Câu hỏi trọng yếu đã giải quyết hoặc có owner/deadline được chấp nhận.
 
-**Decision:** Approve / Reject / Blocked. Reject thì cập nhật theo phản hồi và gửi lại; AI không tự diễn giải phản hồi thành approval.  
-**Audit:** PO, timestamp, requirement version, decision, comment và source links.
+**Quyết định:** Áp dụng [policy chung về quyết định và trạng thái gate](gate-policy.md#reviewer-decision). AI không tự diễn giải phản hồi về yêu cầu thành approval.
+
+**Bằng chứng riêng của G1:** Tham chiếu nguồn của các yêu cầu đã review.

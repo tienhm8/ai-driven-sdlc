@@ -1,9 +1,11 @@
 """Render repository Markdown as a standalone, script-free HTML page."""
-from html import escape
+from html import escape, unescape
 import re
+from unicodedata import category
 
 import markdown
 from markdown.extensions import Extension
+from markdown.extensions.toc import HTML_PLACEHOLDER_RE, stashedHTML2text
 from markdown.treeprocessors import Treeprocessor
 
 SAFE_SCHEMES = {"http", "https", "mailto"}
@@ -64,8 +66,55 @@ class _SafeLinksExtension(Extension):
         md.treeprocessors.register(_SafeLinks(md), "safe_links", 5)
 
 
+def _heading_slug(text: str) -> str:
+    # Preserve literal hyphens and one hyphen per space, even when punctuation
+    # between two spaces is removed (e.g. "A — B" becomes "a--b").
+    return "".join(
+        "-" if char == " " else char
+        for char in text.lower()
+        if char in " -_" or category(char)[0] in "LMN"
+    )
+
+def _heading_text(element, md) -> str:
+    def decode_stashed(text):
+        return HTML_PLACEHOLDER_RE.sub(
+            lambda match: unescape(stashedHTML2text(match.group(), md, strip_entities=False)),
+            text,
+        )
+
+    if element.tag == "code":
+        # Markdown escapes code text before serialization; undo only that layer.
+        return unescape(element.text or "")
+    return (decode_stashed(element.text or "") + "".join(
+        _heading_text(child, md) + decode_stashed(child.tail or "") for child in element
+    ))
+
+class _HeadingIds(Treeprocessor):
+    def run(self, root):
+        used = set()
+        suffixes = {}
+        for heading in root.iter():
+            if heading.tag not in {"h1", "h2", "h3", "h4", "h5", "h6"}:
+                continue
+            base = _heading_slug(_heading_text(heading, self.md).strip())
+            if not base:
+                continue
+            slug = base
+            suffix = suffixes.get(base, 0)
+            while slug in used:
+                suffix += 1
+                slug = f"{base}-{suffix}"
+            suffixes[base] = suffix
+            used.add(slug)
+            heading.set("id", slug)
+
+class _HeadingIdsExtension(Extension):
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(_HeadingIds(md), "heading_ids", -1)
+
 def render_markdown_page(text: str, *, title: str, path: str, guide_url: str) -> bytes:
     body = markdown.markdown(
-        text, extensions=["tables", "fenced_code", "sane_lists", _NoRawHtml(), _SafeLinksExtension()])
+        text, extensions=["tables", "fenced_code", "sane_lists", _HeadingIdsExtension(),
+                          _NoRawHtml(), _SafeLinksExtension()])
     return PAGE.format(title=escape(title), path=escape(path), guide=escape(guide_url, quote=True),
                        body=body).encode("utf-8")

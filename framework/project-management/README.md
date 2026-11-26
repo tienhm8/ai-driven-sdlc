@@ -1,73 +1,59 @@
 # Project Management
 
-Quản lý hồ sơ điều hành xuyên suốt AI-Driven SDLC: khởi tạo, baseline, theo dõi, thay đổi, rủi ro, issue, quyết định, phê duyệt và đóng dự án.
+Quản lý hồ sơ xuyên suốt SDLC: khởi tạo, baseline, theo dõi, thay đổi, rủi ro, issue, quyết định, phê duyệt và đóng dự án. PM điều phối; người có thẩm quyền ra quyết định. AI có thể soạn nháp nhưng không phê duyệt thay người.
 
-## Cấu trúc
-```
-project-management/
-├── README.md
-├── structure.yml
-├── project-charter.md
-├── project-status.md
-├── workflow.md
-├── change-log.md
-├── risk-register.md
-├── issue-log.md
-├── decision-log.md
-├── approval-register.md
-├── meeting-notes.md
-├── project-closeout.md
-│
-└── templates/
-    ├── README.md
-    ├── project-charter-template.md
-    ├── status-report-template.md
-    ├── change-request-template.md
-    ├── risk-register-template.md
-    ├── issue-log-template.md
-    ├── decision-record-template.md
-    ├── approval-record-template.md
-    ├── meeting-notes-template.md
-    └── closeout-report-template.md
-```
+## Nguồn chuẩn
 
-## Nội dung đã thiết kế
-
-| Thành phần | Chức năng |
+| Nội dung | Nguồn chuẩn |
 |---|---|
-| Project Charter | Khởi tạo và phê duyệt dự án |
-| Structure YAML | Metadata và cấu hình dự án |
-| Project Status | Theo dõi tiến độ, ngân sách, chất lượng |
-| Change Log | Quản lý thay đổi |
-| Risk Register | Quản lý rủi ro |
-| Issue Log | Theo dõi vấn đề |
-| Decision Log | Lưu quyết định |
-| Approval Register | Truy vết phê duyệt G1–G7 |
-| Meeting Notes | Biên bản và action items |
-| Project Closeout | Nghiệm thu và đóng dự án |
-| Workflow | Quy trình quản lý xuyên suốt |
+| ID, tên dự án, cấu hình platform và AI | Manifest `.ai-sdlc/project.yaml` của dự án; xem [ví dụ manifest](#ví-dụ-manifest). Không duy trì thêm `structure.yml`. |
+| Trạng thái vòng đời hiện tại | README PM của dự án, mục **Trạng thái dự án**. PM cập nhật và dẫn tới phê duyệt làm căn cứ; không sửa charter đã duyệt chỉ để đổi trạng thái. |
+| Phạm vi, KPI, baseline và thẩm quyền | Charter đã duyệt hoặc hồ sơ baseline được charter dẫn tới, có phiên bản và bằng chứng phê duyệt. |
+| Human Review Gates | [Gate Policy](../governance/human-review-gates/gate-policy.md) và yêu cầu riêng của từng Gate. [Approval Register](approval-register.md) chỉ dẫn đến hồ sơ review/audit, không cấp quyền. |
+| Quyết định kiến trúc và dependency | [ADR của System Design](../02-system-design/templates/architecture-decision-record.md) và [Dependency Matrix của Task Planning](../03-task-planning/templates/dependency-matrix.md); không lập sổ PM song song. |
+| Định danh | [ID Conventions](../standards/metadata/id-conventions.md). Giữ nguyên ID đã cấp; dùng chuẩn mới cho hồ sơ mới. |
 
-Đặc biệt, đã phân biệt rõ:
-- Risk: sự kiện chưa xảy ra nhưng có khả năng xảy ra.
-- Issue: vấn đề đã thực sự xảy ra.
-- Change: yêu cầu thay đổi baseline.
-- Decision: quyết định được đưa ra.
-- Approval: xác nhận chính thức của người có thẩm quyền.
+## Mẫu hồ sơ
 
-## Vai trò
-Sponsor bảo trợ và quyết định cấp cao; PO chịu trách nhiệm nghiệp vụ; PM điều phối; Tech Lead/Architect quản trị kỹ thuật; QA Lead xác nhận chất lượng; Release Manager phê duyệt sẵn sàng phát hành. AI hỗ trợ soạn thảo/phân tích, không tự phê duyệt Human Review Gate.
+[Danh mục mẫu chuẩn](templates/README.md). Charter, Status và Closeout mỗi loại có một mẫu. Các sổ ở đây là mẫu chỉ mục; chi tiết nằm trong hồ sơ gốc được dẫn bằng ID/link.
 
-## Quy tắc
-- Mỗi project có bộ hồ sơ riêng.
-- ID ổn định: `CHG-###`, `RSK-###`, `ISS-###`, `DEC-###`, `APR-###`, `MTG-YYYYMMDD-##`.
-- Ghi owner, trạng thái, ngày cập nhật, phiên bản và bằng chứng.
-- Không xóa lịch sử đã duyệt; tạo bản ghi mới để thể hiện thay đổi.
-- Dùng ISO 8601; ưu tiên timestamp UTC và ghi rõ timezone.
-- Dùng link tới tài liệu gốc/version thay vì sao chép tùy tiện.
-- Nội dung AI tạo là draft đến khi người có thẩm quyền xác nhận.
+## Khởi tạo và sử dụng
 
-## Liên kết 8 giai đoạn
-G1 PO – yêu cầu; G2 Solution Architect – thiết kế; G3 Tech Lead – sẵn sàng coding; G4 Reviewer/Tech Lead – trước merge; G5 QA Lead/PO – nghiệm thu; G6 Release Manager – production; G7 Incident Commander – sự cố nghiêm trọng. Gate policy chính thức nằm trong `framework/governance/human-review-gates/`.
+Từ gốc repo, dùng Python 3.10 trở lên và cài platform trước khi khởi tạo:
 
-## Khởi tạo
-Điền charter, cấu hình `structure.yml`, thiết lập baseline/milestone, tạo register ban đầu và thực hiện `workflow.md`. Register chưa có mục phải ghi `No entries`, không để trạng thái mơ hồ.
+```bash
+python3 -m pip install -e ./platform
+python3 platform/scripts/init-project.py --name "Project CRM" --slug Project-CRM
+```
+
+Lệnh tạo `projects/Project-CRM/`; bên trong, `docs/project-management/` mặc định gồm:
+
+- `README.md`: ghi trạng thái ban đầu `proposed` và dẫn tới nguồn chuẩn, mẫu hồ sơ.
+- [workflow.md](workflow.md): hướng dẫn quản lý dự án, gồm thủ tục tạm dừng (`on_hold`) và tiếp tục (`active`).
+- `project-charter.md`: bản làm việc `Draft` từ mẫu charter. PM bổ sung scope, KPI, baseline, người có thẩm quyền và ngưỡng escalation trước khi trình duyệt.
+- Các chỉ mục `No entries`: [change](change-log.md), [risk](risk-register.md), [issue](issue-log.md), [decision](decision-log.md), [approval](approval-register.md), [meeting notes](meeting-notes.md). Bỏ dòng `No entries` khi ghi mục đầu tiên, không tạo bản ghi giả.
+- `_templates/`: bản sao các mẫu; tạo báo cáo theo kỳ trong `project-status/`, hồ sơ đóng trong `project-closeout/` và bản ghi chi tiết trong thư mục tương ứng.
+
+Risk là sự kiện có thể xảy ra; issue là vấn đề đã xảy ra. Nếu risk trở thành issue, liên kết hai ID. Báo cáo trạng thái, biên bản họp và closeout chỉ tóm tắt và dẫn về hồ sơ gốc. Biên bản họp không thay phê duyệt.
+
+### Ví dụ manifest
+
+Init tạo `.ai-sdlc/project.yaml` đầy đủ. Ví dụ dưới đây chỉ trích các trường liên quan đến định danh và PM; không dùng đoạn này để thay cả manifest:
+
+```yaml
+project:
+  id: Project-CRM
+  name: Project CRM
+project_management:
+  enabled: true
+  path: docs/project-management
+```
+
+### Bổ sung hồ sơ cho dự án đã khởi tạo
+
+Không chạy lại init trên thư mục dự án cũ: lệnh từ chối nếu dự án đã tồn tại. Các bước sau áp dụng cả khi **không có** `structure.yml`. Thực hiện trong `docs/project-management/` của dự án (hoặc đường dẫn PM đã cấu hình trong manifest):
+
+1. Giữ nguyên hồ sơ đã duyệt và ID đã cấp. Trong `README.md`, thêm ba mục `## Trạng thái dự án`, `## Nguồn chuẩn` và `## Mẫu hồ sơ` để các liên kết trong workflow và register hoạt động. Ghi trạng thái hiện tại và ID/link phê duyệt làm căn cứ từ hồ sơ thực tế; nếu chưa xác minh được, ghi rõ cần xác minh thay vì đặt lại thành `proposed`. Ở hai mục còn lại, dẫn đến manifest, charter, Gate Policy, ID Conventions và danh mục mẫu `_templates/README.md` bằng đường dẫn tính từ README dự án.
+2. Bổ sung `workflow.md` nếu chưa có; nếu đã có, đối chiếu [workflow framework](workflow.md) và tích hợp quy tắc mới vào bản dự án thay vì ghi đè. Nếu chưa có charter, sao chép [mẫu charter](templates/project-charter-template.md) thành `project-charter.md`, điền dữ liệu đã xác minh và trình duyệt theo workflow. Nếu charter đã tồn tại, dùng lại và liên kết đúng phiên bản.
+3. Bổ sung các register còn thiếu bằng các mẫu `No entries` ở trên; nếu đã có dữ liệu, giữ register hoặc liên kết tới nguồn hiện có và không thêm `No entries` giả. Bổ sung từng mẫu còn thiếu từ [danh mục mẫu](templates/README.md) vào `_templates/`. Với `_templates/approval-record-template.md`, dùng nội dung [mẫu approval chung](../templates/review/approval-record.md), không sao chép file chỉ dẫn của framework. Kiểm tra các link từ README, workflow và register sau khi bổ sung.
+4. Nếu từng dùng `structure.yml`, giữ bản cũ để đối chiếu rồi ngừng cập nhật như nguồn song song. Đưa cấu hình platform vào manifest, scope/KPI/baseline/thẩm quyền vào charter hoặc hồ sơ được charter dẫn tới, và trạng thái hiện tại vào README PM.

@@ -16,7 +16,7 @@ Phân biệt sự kiện có bằng chứng, giả định, đề xuất và n�
 Với hệ thống ảnh hưởng người dùng/khách hàng/nhân viên, xác định nhóm chịu tác động, hậu quả lỗi và nguy cơ kết quả bất công/loại trừ. Yêu cầu domain owner đánh giá khi tác động không thể tự xác minh bằng kỹ thuật.
 
 ## Privacy và IP
-Chỉ dùng dữ liệu được phép/cần thiết; tuân thủ license và nguồn gốc dependency/code; không đưa dữ liệu bí mật vào công cụ chưa phê duyệt; kiểm tra output không chứa dữ liệu/mã không được phép.
+Tuân thủ [quy tắc bảo vệ dữ liệu đầu vào](ai-security-policy.md#secret-và-dữ-liệu). Kiểm tra license và nguồn gốc dependency/code; xác minh đầu ra không chứa dữ liệu hoặc mã không được phép sử dụng.
 
 ## Giám sát
 Theo dõi lỗi AI, false positive/negative, sự cố, khiếu nại và tỷ lệ phải sửa output. Đánh giá lại model, prompt, tool và policy khi thay đổi đáng kể.

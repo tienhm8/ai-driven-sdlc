@@ -49,7 +49,7 @@ Handoff to Code Review
 9. **Chạy validation:** formatter, linter, static analysis, type check, build, unit tests và security checks theo pipeline.
 10. **Cập nhật database/API/docs:** tạo migration an toàn, cập nhật contract, changelog và tài liệu kỹ thuật.
 11. **Kiểm tra diff:** xác nhận không có secret, debug code, file ngoài scope, dependency không cần thiết hoặc thay đổi ngoài ý muốn.
-12. **Commit và tạo PR:** commit có ý nghĩa; PR nêu mục tiêu, giải pháp, test evidence, risk và liên kết task/requirement. Mở PR ở trạng thái `Draft` (hoặc tương đương) cho đến khi PR Readiness Check đạt; không yêu cầu review chính thức trước đó.
+12. **Commit và tạo PR:** commit có ý nghĩa; dùng [mẫu PR chuẩn của Stage 05](../05-code-review/templates/pull-request-template.md) để ghi mục tiêu, giải pháp, test evidence, risk và liên kết task/requirement. Mở PR ở trạng thái `Draft` (hoặc tương đương) cho đến khi PR Readiness Check đạt; không yêu cầu review chính thức trước đó.
 13. **PR Readiness Check:** xác nhận đủ điều kiện ở mục 4.10, cập nhật task và bàn giao PR cho Code Review. Không ghi approval G4 ở bước này.
 
 ## 4.5 Input — Đầu vào

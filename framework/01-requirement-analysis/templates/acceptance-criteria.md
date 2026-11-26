@@ -14,7 +14,7 @@
 
 | Trường | Giá trị |
 |---|---|
-| Mã tiêu chí nghiệm thu | AC-001 |
+| Mã tiêu chí nghiệm thu | AC-0001 |
 | User Story / Use Case liên quan (khi áp dụng) | [US/UC ID hoặc N/A theo RTM] |
 | Yêu cầu liên quan | [BRQ ID; FR/NFR ID liên kết trực tiếp nếu không dùng US/UC] |
 | Chức năng / Module | [Tên chức năng] |
@@ -25,7 +25,7 @@
 
 **Hướng dẫn:** Mỗi AC phải kiểm chứng độc lập, truy vết về US/UC/FR/NFR, và xác nhận kết quả quan sát được (Pass/Fail) của luồng chính, thay thế, ngoại lệ trong Use Case mà không sao chép các bước của Use Case. AC đủ cụ thể để Stage 06 sinh Test Case; không tạo ID Test Case tại Stage 01.
 
-### AC-001: [Tên tiêu chí nghiệm thu]
+### AC-0001: [Tên tiêu chí nghiệm thu]
 
 **Mô tả:**
 
@@ -74,15 +74,15 @@
 
 | Mã | Hạng mục | Điều kiện nghiệm thu | Cách đo |
 |---|---|---|---|
-| NFR-AC-001 | Hiệu năng | [Điều kiện] | [Chỉ số] |
-| NFR-AC-002 | Bảo mật | [Điều kiện] | [Chỉ số] |
-| NFR-AC-003 | Tính sẵn sàng | [Điều kiện] | [Chỉ số] |
+| AC-0002 | Hiệu năng | [Điều kiện] | [Chỉ số] |
+| AC-0003 | Bảo mật | [Điều kiện] | [Chỉ số] |
+| AC-0004 | Tính sẵn sàng | [Điều kiện] | [Chỉ số] |
 
 ## 8. Phương pháp kiểm chứng
 
 | Mã AC | Mô tả kiểm chứng | Kết quả mong đợi (Pass/Fail) | Trạng thái xác minh |
 |---|---|---|---|
-| AC-001 | [Cách kiểm thử/xác minh] | [Điều kiện đạt/không đạt] | Chưa kiểm chứng |
+| AC-0001 | [Cách kiểm thử/xác minh] | [Điều kiện đạt/không đạt] | Chưa kiểm chứng |
 
 Test Case cụ thể, lần chạy và bằng chứng thực thi được liên kết ở giai đoạn Testing & QA.
 

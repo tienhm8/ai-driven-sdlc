@@ -24,13 +24,13 @@
 Reviewer ghi kết luận trong phạm vi của mình; phê duyệt chuyên môn bắt buộc phải có bằng chứng theo policy hoặc phạm vi dự án.
 
 ## Quyết định
-- Gate status: Pending / In Review / Approved / Rejected / Blocked / Changes Requested
+- Trạng thái tổng hợp của gate: `awaiting_approval` / `blocked` / `approved` / `exception_authorized` (theo mục Lifecycle trong `framework/governance/human-review-gates/gate-policy.md`).
 - Lý do, điều kiện bắt buộc chưa đóng hoặc blocker / bằng chứng xử lý:
 
 | Approver | Vai trò / thẩm quyền | Quyết định | Timestamp / múi giờ | Phiên bản artifact / review | Bằng chứng |
 |---|---|---|---|---|---|
 
-Quyết định của approver: `Approved / Rejected / Changes Requested / Blocked`. `Pending` và `In Review` là trạng thái, không phải quyết định. Điều kiện bắt buộc chưa đóng chặn approval: dùng `Changes Requested`, không dùng `Conditional` làm quyết định gate. Ghi đầy đủ các approver theo gate policy; G5 cần hai người riêng biệt theo vai trò yêu cầu.
+Ghi riêng quyết định của từng approver: `approved`, `rejected`, `changes_requested` hoặc `blocked`. Khi cần sửa để đáp ứng điều kiện bắt buộc, dùng `changes_requested`, không dùng phê duyệt có điều kiện. G5 cần hai người riêng biệt theo vai trò yêu cầu, cùng duyệt một release candidate (`artifact_sha256`) và cùng gói review đã chốt (`review_context_sha256`). Nếu gói review thay đổi, lấy quyết định mới của cả hai cho gói mới, kể cả khi artifact không đổi.
 
 ## Action không chặn
 Không dùng action mở để che giấu điều kiện gate chưa đáp ứng.
@@ -39,7 +39,7 @@ Không dùng action mở để che giấu điều kiện gate chưa đáp ứng.
 |---|---|---|---|
 
 ## Waiver / ngoại lệ
-Ghi waiver hợp lệ, phạm vi, lý do, rủi ro, giảm thiểu, owner, người có thẩm quyền chấp nhận, bằng chứng và thời hạn. Ngoại lệ tuân theo gate policy, không tự thay thế quyết định approval hoặc xóa quyết định Reject/Blocked hiện hành.
+Ghi waiver hợp lệ, phạm vi, lý do, rủi ro, giảm thiểu, owner, người có thẩm quyền chấp nhận, bằng chứng và thời hạn. Ngoại lệ tuân theo gate policy, không ghi đè quyết định chặn hiện hành.
 
 | Waiver / phạm vi / lý do | Rủi ro / giảm thiểu | Owner | Người chấp nhận / bằng chứng | Hết hạn |
 |---|---|---|---|---|

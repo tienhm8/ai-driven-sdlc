@@ -13,3 +13,5 @@ ai:
   local_resources:
     rules_path: .claude/rules
     skills_path: .claude/skills
+governance:
+  allow_project_override_mandatory_rules: false

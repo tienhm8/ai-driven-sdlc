@@ -1,104 +1,47 @@
 # Platform – Execution & Orchestration Core
 
-## Kiến trúc platform đề xuất
+Platform là lõi điều phối local cho [Project Instance](../README.md): cung cấp CLI để chuẩn bị workspace và API để quản lý trạng thái, review và phê duyệt. Các CLI và API là những điểm vào riêng; chưa có một bộ điều phối tự gọi tất cả các thành phần từ đầu đến cuối.
 
-Platform là lớp thực thi và orchestration trung tâm của mô hình AI-Driven SDLC. Platform nhận `Project Instance`, nạp các tài nguyên và policy phù hợp, sau đó điều phối workflow qua các human approval gate và ghi lại toàn bộ audit trail.
+## Đã triển khai
+
+| Thành phần | Trạng thái | Phạm vi hiện tại |
+|---|---|---|
+| [CLI](scripts/README.md) | Đã có | Khởi tạo Project Instance, kiểm tra workspace, đồng bộ tài nguyên Framework và phục vụ guide local. |
+| [Rule Loader](rule-loader/README.md), [Skill Loader](skill-loader/README.md) | Đã có API | Nạp tài nguyên dùng chung và tài nguyên riêng của project theo cấu hình. Caller gọi loader, không phải Workflow Engine. |
+| [Model Router](model-router/README.md) | Đã có API | Chọn profile tĩnh theo loại task, tính effort theo mức yêu cầu và ngưỡng tối thiểu của rủi ro, rồi trả về các profile dự phòng tương thích. Không đọc autonomy policy của project và không gọi model. |
+| [Workflow Engine](workflow-engine/README.md), [Approval Engine](approval-engine/README.md) | Đã có API | Quản lý trạng thái stage và thực thi gate; ghi các sự kiện như review, quyết định và chuyển stage vào SQLite khi chúng xảy ra. Engine không tự tạo artifact, gọi loader/router/validator hay thực thi hành động bên ngoài. |
+| [Validators](validators/README.md) | Đã có project validator | Kiểm tra manifest, cấu trúc workspace, đường dẫn tài nguyên và approval policy. Chưa xác minh nội dung artifact, chất lượng hay traceability. |
+| [Tool Adapters](tool-adapters/README.md) | Mới có registry/contract | Nhận diện công cụ được cấu hình. Tích hợp xác thực, AI provider, repository, CI/CD và các hệ thống bên ngoài chưa có sẵn. |
+
+## Kiến trúc đích — chưa tích hợp end-to-end
 
 ![Kiến trúc platform đề xuất](../framework/assets/platform-architecture.png)
 
-### Các lớp chính
+Ở kiến trúc đích, lớp tích hợp nhận context từ Project Instance, nạp rule/skill cho stage và task, áp dụng autonomy policy khi chọn model/công cụ, rồi điều phối công việc và thu thập bằng chứng. Validator kiểm tra nội dung artifact và traceability trước khi gửi review tại gate cần thiết. Audit được ghi theo sự kiện trong quá trình thực thi, không phải bước cuối của luồng.
 
-#### Project Instance
+Xem [kiến trúc và ranh giới tin cậy](docs/architecture.md) để biết phần việc thuộc về core và phần do adapter thực hiện. Xem [Framework gate policy](../framework/governance/human-review-gates/gate-policy.md) để biết điều kiện và vai trò G1–G7.
 
-Cấu hình và context riêng của từng project, bao gồm:
-
-- Project config.
-- Project context.
-- Stack và local rules.
-- Local skills.
-- Autonomy policy.
-
-#### Platform – Execution & Orchestration Core
-
-- **Workflow Engine:** điều phối 8 giai đoạn của SDLC theo workflow đã định nghĩa.
-- **Approval Engine:** thực thi Human Review Gates và kiểm soát điều kiện chuyển giai đoạn.
-- **Skill Loader:** nạp các AI capabilities phù hợp với task và stage.
-- **Rule Loader:** nạp engineering rules, project rules và policy liên quan.
-- **Model Router:** chọn model phù hợp dựa trên task, độ phức tạp, policy và yêu cầu chất lượng.
-- **Tool Adapters:** kết nối với các AI tools, repository, CI/CD, testing, monitoring và documentation systems.
-- **Validators:** kiểm tra tính hợp lệ, tính đầy đủ, traceability và policy compliance của input/output.
-- **Execution Context · Policy Enforcement · Audit Trail:** duy trì context trong quá trình thực thi, áp dụng policy và ghi lại bằng chứng/audit trail.
-
-#### Framework + Shared AI Resources
-
-- 8 SDLC Stages.
-- Governance và Human Approval Gates.
-- Standards.
-- Templates.
-- Skills.
-- Rules.
-- Agents.
-- Model Profiles.
-
-#### Execution Targets
-
-Platform có thể thực thi tới các target sau:
-
-- Repositories.
-- AI Coding Tools.
-- CI/CD.
-- Testing.
-- Monitoring.
-- Documentation.
-
-## Luồng xử lý chuẩn
-
-```text
-Project Context
-  → Load Rules & Skills
-  → Select Model
-  → Execute Workflow
-  → Validate
-  → Approval Gate
-  → Continue
-  → Audit
-```
-
-### Nguyên tắc vận hành
-
-1. `Project Context` được xác định trước khi bắt đầu execution.
-2. `Rules & Skills` được load theo project, stage và task hiện tại.
-3. `Model Router` chọn model đáp ứng yêu cầu về capability, quality, latency, cost và autonomy policy.
-4. `Workflow Engine` thực thi các bước và tạo ra artifact/evidence cần thiết.
-5. `Validators` kiểm tra output trước khi cho phép chuyển tiếp.
-6. `Approval Engine` dừng tại các Human Approval Gate bắt buộc.
-7. Chỉ sau khi gate được approve, workflow mới được `Continue` sang bước hoặc stage tiếp theo.
-8. Mọi execution, validation, decision và approval phải được ghi vào `Audit Trail`.
-
-## Cấu trúc thư mục
+## Kiến trúc
 
 ```text
 platform/
 ├── README.md
-│
-├── tool-adapters/
+├── pyproject.toml
+├── requirements.txt
+├── docs/                 # Kiến trúc và ranh giới tin cậy
+├── config-examples/      # Manifest, autonomy policy và approval policy mẫu
+├── src/ai_sdlc_platform/ # Mã Python của platform
+├── tests/                # Test của platform
+├── scripts/              # CLI init, validate, sync và guide
+├── tool-adapters/        # Hướng dẫn thành phần, không phải vị trí mã Python
 ├── skill-loader/
 ├── rule-loader/
 ├── model-router/
 ├── workflow-engine/
 ├── approval-engine/
-├── validators/
-│
-└── scripts/
-    ├── init-project.py
-    ├── validate-project.py
-    └── sync-framework.py
+└── validators/
 ```
 
-Chi tiết về các script xem tại [scripts/README.md](scripts/README.md).
-
-## Tài liệu liên quan
-
-- [Framework README](../framework/README.md)
-- [Platform architecture](docs/architecture.md)
-- [Shared AI resources](../shared-ai/)
+- Để khởi tạo và kiểm tra workspace, xem [hướng dẫn CLI](scripts/README.md).
+- Để thử luồng phê duyệt local, xem [ví dụ G1](workflow-engine/README.md#run-a-local-g1-example).
+- Tài nguyên đầu vào: [Framework](../framework/README.md) và [Shared AI resources](../shared-ai/).

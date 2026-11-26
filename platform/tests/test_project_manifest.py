@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import shutil
 from subprocess import run
 import sys
@@ -8,6 +9,7 @@ from unittest import TestCase
 import yaml
 
 from ai_sdlc_platform.config import PROJECT_MANIFEST, load_project_manifest, resolve_local_resources
+from ai_sdlc_platform.markdown_view import render_markdown_page
 from ai_sdlc_platform.rule_loader import load_rules
 from ai_sdlc_platform.skill_loader import load_skills
 from ai_sdlc_platform.validators.project import validate_project
@@ -22,19 +24,70 @@ class ProjectManifestTests(TestCase):
         self.root = Path(temporary.name)
         self.project = self.root / "projects" / "demo"
 
-    def test_project_management_seeds_canonical_approval(self):
+    def test_project_management_seeds_working_docs_and_canonical_templates(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
         shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))
         framework = self.root / "framework"
         shutil.copytree(PLATFORM.parent / "framework", framework)
         command = [sys.executable, "-B", str(self.root / "platform/scripts/init-project.py"),
-                   "--name", "Demo", "--slug", "demo", "--tools", "claude"]
+                   "--name", "Demo", "--slug", "demo"]
         result = run(command, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
-        target = self.project / "docs/project-management/_templates/approval-record-template.md"
+        pm = self.project / "docs/project-management"
+        pm_source = framework / "project-management"
+        templates = pm / "_templates"
+        self.assertEqual(load_project_manifest(self.project)["project_management"], {
+            "enabled": True, "path": "docs/project-management",
+        })
+        self.assertFalse((pm / "structure.yml").exists())
+        charter = (pm / "project-charter.md").read_text(encoding="utf-8")
+        self.assertIn("0.1 / Draft", charter)
+        self.assertNotIn("Project lifecycle status", charter)
+        self.assertEqual(charter, (templates / "project-charter-template.md").read_text(encoding="utf-8"))
+        workflow = (pm / "workflow.md").read_text(encoding="utf-8")
+        self.assertEqual(workflow, (pm_source / "workflow.md").read_text(encoding="utf-8"))
+        closeout = (templates / "closeout-report-template.md").read_text(encoding="utf-8")
+        for doc in (workflow, closeout):
+            self.assertIn("`cancelled`: có thể đề xuất từ `active` hoặc `on_hold`", doc)
+
+        target = templates / "approval-record-template.md"
         source = framework / "templates/review/approval-record.md"
         self.assertEqual(target.read_bytes(), source.read_bytes())
-        self.assertIn("## Quyết định", target.read_text(encoding="utf-8"))
+        gate_template = target.read_text(encoding="utf-8")
+        self.assertIn("changes_requested", gate_template)
+        self.assertIn("G7 / Other", gate_template)
+        management = (templates / "management-approval-template.md").read_text(encoding="utf-8")
+        self.assertIn("Không dùng để thông qua Human Review Gate", management)
+
+        readme = (pm / "README.md").read_text(encoding="utf-8")
+        self.assertIn("## Trạng thái dự án\n\n- Trạng thái hiện tại: `proposed`", readme)
+        self.assertIn("Căn cứ phê duyệt (ID/link): Chưa có", readme)
+        self.assertIn("`on_hold` khi tạm dừng, trở lại `active` khi tiếp tục", readme)
+        self.assertIn("Tạm dừng (`active` → `on_hold`)", charter)
+        status_template = (templates / "status-report-template.md").read_text(encoding="utf-8")
+        self.assertIn("Sức khỏe tổng thể: Green / Amber / Red", status_template)
+        self.assertNotIn("On Hold", status_template)
+        for name in ("change-log.md", "risk-register.md", "issue-log.md", "decision-log.md",
+                     "approval-register.md", "meeting-notes.md"):
+            with self.subTest(register=name):
+                self.assertIn(f"]({name})", readme)
+                lines = (pm / name).read_text(encoding="utf-8").splitlines()
+                self.assertIn("No entries", lines)
+                self.assertEqual(len([line for line in lines if line.startswith("|")]), 2)
+        for name in ("project-status", "project-closeout"):
+            with self.subTest(directory=name):
+                self.assertEqual(list((pm / name).iterdir()), [])
+        for path in pm.rglob("*.md"):
+            for link in re.findall(r"\]\(([^)#]+)(?:#[^)]*)?\)", path.read_text(encoding="utf-8")):
+                with self.subTest(file=path.name, link=link):
+                    self.assertTrue((path.parent / link).is_file())
+        for root in (pm, pm_source):
+            html = render_markdown_page((root / "README.md").read_text(encoding="utf-8"),
+                                        title="README.md", path="README.md", guide_url="/").decode()
+            for path in root.glob("*.md"):
+                for fragment in re.findall(r"\]\(README\.md#([^)]+)\)", path.read_text(encoding="utf-8")):
+                    with self.subTest(file=path, fragment=fragment):
+                        self.assertIn(f'id="{fragment}"', html)
 
     def test_init_validate_and_load_project_overrides(self):
         shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
@@ -75,7 +128,7 @@ class ProjectManifestTests(TestCase):
         canonical = (framework / "templates/review/approval-record.md").read_text(encoding="utf-8")
         self.assertNotIn("Nếu dùng cho G3", canonical)
         for field in ("Phạm vi được duyệt / phần ngoài phạm vi", "| Approver |",
-                      "`Approved / Rejected / Changes Requested / Blocked`"):
+                      "`approved`, `rejected`, `changes_requested` hoặc `blocked`"):
             self.assertIn(field, approval)
         expected = canonical.replace("- Gate / subject: G1 / G2 / G3 / G4 / G5 / G6 / G7 / Other\n",
                                      "- Gate / subject: G3\n")
@@ -104,7 +157,9 @@ class ProjectManifestTests(TestCase):
         manifest = load_project_manifest(self.project)
         self.assertEqual(manifest["project"], {"id": "demo", "name": display_name, "version": "1.0.0"})
         self.assertEqual(manifest["ai"]["default_tool"], "cursor")
+        self.assertIs(manifest["governance"]["allow_project_override_mandatory_rules"], False)
         self.assertFalse(manifest["project_management"]["enabled"])
+        self.assertFalse((self.project / "docs/project-management").exists())
         validation = run([sys.executable, "-B", str(self.root / "platform/scripts/validate-project.py"),
                           "--project", str(self.project), "--framework", str(framework)],
                          capture_output=True, text=True)
@@ -139,6 +194,75 @@ class ProjectManifestTests(TestCase):
         path = self.project / PROJECT_MANIFEST
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(yaml.safe_dump({"project": {"id": "demo", "name": "Demo"}, **data}), encoding="utf-8")
+
+    def test_mandatory_rule_namespaces_are_protected_by_default(self):
+        shared = self.root / "shared-rules"
+        local = self.project / ".ai-sdlc/local-rules"
+        for root, files in (
+            (shared, {"core/README.md": "shared core", "sdlc/README.md": "shared sdlc",
+                      "engineering/style.md": "shared style"}),
+            (local, {"core/README.md": "local core", "core/README.mdc": "local variant",
+                     "core/local.md": "reserved", "sdlc/README.md": "local sdlc",
+                     "sdlc/README.mdc": "local sdlc variant", "sdlc/local.md": "reserved",
+                     "engineering/style.md": "local style"}),
+        ):
+            for name, text in files.items():
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text, encoding="utf-8")
+
+        def loaded(root=shared):
+            return {item["id"]: (item["scope"], item["content"]) for item in load_rules(root, self.project)}
+
+        key = "allow_project_override_mandatory_rules"
+        for governance in ({}, {key: False}):
+            with self.subTest(governance=governance):
+                self.write_manifest(**({"governance": governance} if governance else {}))
+                self.assertEqual(loaded(), {"core/README.md": ("shared", "shared core"),
+                                            "sdlc/README.md": ("shared", "shared sdlc"),
+                                            "engineering/style.md": ("project", "local style")})
+                self.assertEqual(loaded(None), {"engineering/style.md": ("project", "local style")})
+
+        self.write_manifest(governance={key: True})
+        self.assertEqual(loaded(), {"core/README.md": ("project", "local core"),
+                                    "core/README.mdc": ("project", "local variant"),
+                                    "core/local.md": ("project", "reserved"),
+                                    "sdlc/README.md": ("project", "local sdlc"),
+                                    "sdlc/README.mdc": ("project", "local sdlc variant"),
+                                    "sdlc/local.md": ("project", "reserved"),
+                                    "engineering/style.md": ("project", "local style")})
+
+    def test_validator_warns_only_about_ignored_rules_in_configured_root(self):
+        root = self.project / "custom/rules"
+        names = ("core/README.md", "sdlc/nested/local.mdc", "sdlc/notes.txt", "engineering/style.md")
+        for name in names:
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.touch()
+
+        key = "allow_project_override_mandatory_rules"
+        for governance in ({}, {key: False}, {key: True}):
+            with self.subTest(governance=governance):
+                self.write_manifest(ai={"local_resources": {"rules_path": "custom/rules"}},
+                                    governance=governance)
+                issues = validate_project(self.project)
+                warnings = [item for item in issues if item["code"] == "RESERVED_RULE_IGNORED"]
+                expected = [] if governance.get(key) else [f"custom/rules/{name}" for name in names[:2]]
+                self.assertCountEqual([item["message"].split(" is ignored;")[0] for item in warnings],
+                                      expected)
+                self.assertTrue(all(item["severity"] == "warning" for item in warnings))
+                self.assertIn("VALIDATION_PASSED", {item["code"] for item in issues})
+
+    def test_invalid_mandatory_rule_policy_blocks_validation_and_loading(self):
+        key = "allow_project_override_mandatory_rules"
+        for governance in (None, [], {key: "false"}, {key: None}, {key: 1}):
+            with self.subTest(governance=governance):
+                self.write_manifest(governance=governance)
+                with self.assertRaisesRegex(ValueError, "governance"):
+                    load_rules(None, self.project)
+                codes = {issue["code"] for issue in validate_project(self.project)}
+                self.assertIn("INVALID_RULE_OVERRIDE_POLICY", codes)
+                self.assertNotIn("VALIDATION_PASSED", codes)
 
     def test_custom_paths_and_defaults(self):
         self.write_manifest(ai={"local_resources": {"rules_path": "custom/rules"}})
@@ -193,6 +317,39 @@ class ProjectManifestTests(TestCase):
         policy.write_text("gates: {G6: {approver_roles: [release_manager]}}", encoding="utf-8")
         self.assertIn("VALIDATION_PASSED", {issue["code"] for issue in validate_project(self.project)})
 
+    def test_validator_rejects_a_dangling_approval_policy(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        try:
+            policy.symlink_to("missing-policy.yaml")
+        except (NotImplementedError, OSError) as error:
+            self.skipTest(f"Cannot create policy symlink: {error}")
+        codes = {issue["code"] for issue in validate_project(self.project)}
+        self.assertIn("INVALID_APPROVAL_POLICY", codes)
+        self.assertNotIn("VALIDATION_PASSED", codes)
+
+    def test_validator_rejects_a_directory_in_place_of_approval_policy(self):
+        self.write_manifest()
+        policy = self.project / ".ai-sdlc/approval-policy.yaml"
+        policy.mkdir()
+        issues = validate_project(self.project)
+        issue = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+        self.assertEqual(issue["message"], f"Approval policy must be a regular file: {policy}")
+
+    def test_validator_rejects_symlinked_approval_policy_directory(self):
+        self.write_manifest()
+        config_dir = self.project / ".ai-sdlc"
+        target = self.root / "external-config"
+        config_dir.rename(target)
+        try:
+            config_dir.symlink_to(target, target_is_directory=True)
+        except (NotImplementedError, OSError) as error:
+            self.skipTest(f"Cannot create directory symlink: {error}")
+        issues = validate_project(self.project)
+        issue = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
+        self.assertIn("Approval policy directory must be a real directory", issue["message"])
+        self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
+
     def test_validator_reports_malformed_tagged_approval_policy_values(self):
         self.write_manifest()
         policy = self.project / ".ai-sdlc/approval-policy.yaml"
@@ -204,6 +361,8 @@ class ProjectManifestTests(TestCase):
             ("gates: {G4: {approver_roles: [!!str {=: reviewer, repeated: 1, repeated: 2}]}}",
              "expected a scalar node"),
             ("gates: {G4: &gate {<<: *gate}}", "recursive YAML merge"),
+            ("gates: {G4: {? !!merge [unexpected] : {required: true}}}", "expected YAML merge key"),
+            ("gates: {G4: {? !!merge unexpected : {required: true}}}", "expected YAML merge key"),
         ):
             with self.subTest(contents=contents):
                 policy.write_text(contents, encoding="utf-8")

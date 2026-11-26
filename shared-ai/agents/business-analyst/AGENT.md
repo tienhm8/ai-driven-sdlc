@@ -1,6 +1,6 @@
 ---
 name: business-analyst
-description: "Yêu cầu có ID, tiêu chí nghiệm thu, giả định và câu hỏi cho stakeholder"
+description: "Chọn khi cần làm rõ nhu cầu nghiệp vụ và chuyển chúng thành yêu cầu kiểm thử được."
 ---
 
 # business-analyst

@@ -46,11 +46,11 @@
 | Level | Cách con người tham gia |
 |---|---|
 | L1 | AI có thể phân loại log, tổng hợp dashboard, phát hiện bất thường và gửi cảnh báo. Tác vụ tự động chỉ được phép khi đã định nghĩa rõ phạm vi, giới hạn, log và cơ chế dừng/hoàn tác. |
-| L2 | AI có thể đề xuất hoặc thực hiện runbook rủi ro thấp đã được phê duyệt trước; SRE review theo điều kiện, sampling hoặc khi có dấu hiệu bất thường. |
-| L3 | Bắt buộc người có thẩm quyền review và phê duyệt hành động production có tác động đáng kể, thay đổi cấu hình, failover hoặc remediation vượt phạm vi tự động cho phép. |
-| L4 | IC/owner quyết định ứng phó sự cố nghiêm trọng, hành động không thể đảo ngược, xử lý dữ liệu quan trọng, security incident và trade-off ảnh hưởng lớn; AI chỉ tư vấn. |
+| L2 | AI chỉ thực thi tác vụ giới hạn đã được cấp quyền rõ ràng; SRE review theo điều kiện, sampling hoặc khi có dấu hiệu bất thường. |
+| L3 | Người có thẩm quyền phê duyệt hành động trước khi thực thi; quyền của executor được kiểm tra riêng. |
+| L4 | IC/owner quyết định và kiểm soát hành động; AI chỉ phân tích, tư vấn hoặc mô phỏng. |
 
-**Quy tắc:** G7 không phải approval cho mọi alert. G7 được kích hoạt khi incident đạt ngưỡng nghiêm trọng theo incident policy hoặc khi hành động ứng phó có rủi ro cao yêu cầu IC phê duyệt.
+Áp dụng [autonomy theo từng hành động](../governance/autonomy-levels/README.md). [G7](workflow.md#810-human-review-gate--điểm-phê-duyệt-bắt-buộc) áp dụng độc lập với level, không phải phê duyệt cho mọi alert hay cho việc đóng incident.
 
 ## 5. Checklist G7 – Sự cố nghiêm trọng
 
@@ -64,8 +64,9 @@
 - [ ] Người phê duyệt, người thực hiện và điều kiện dừng/rollback đã rõ.
 - [ ] Recovery criteria và cách xác minh dịch vụ phục hồi đã xác định.
 - [ ] Stakeholder/customer communication đúng thẩm quyền.
-- [ ] Timeline, quyết định và action được ghi nhận.
-- [ ] Postmortem và corrective actions được lên kế hoạch.
+- [ ] Timeline và quyết định G7 ghi rõ incident ID, phiên bản phương án, người duyệt và thời điểm; thay đổi trọng yếu phải duyệt lại.
+
+Xác nhận phục hồi, đóng incident và lên lịch postmortem theo [Incident Management](operations/incident-management.md), không dùng checklist G7 thay cho các quyết định này.
 
 ## 6. Điều kiện quyết định G7
 

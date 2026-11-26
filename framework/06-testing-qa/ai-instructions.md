@@ -105,7 +105,7 @@ Bảng dưới mô tả phạm vi AI ở từng mức của Stage 06.
 | **L1** | Chạy Automated Tests và tổng hợp kết quả. |
 | **L2** | Sinh Test Cases và Test Scripts. |
 | **L3** | Thay đổi Test Strategy hoặc xác nhận Defect quan trọng, cần review. |
-| **L4** | QA Lead / Product Owner quyết định nghiệm thu. |
+| **L4** | QA Lead **và** Product Owner (hai người riêng biệt) phê duyệt cùng release candidate (`artifact_sha256`) và cùng gói review (`review_context_sha256`) tại G5. Nếu gói review thay đổi, cả hai phải phê duyệt lại dù artifact không đổi. |
 
 **Mặc định: L2.**
 

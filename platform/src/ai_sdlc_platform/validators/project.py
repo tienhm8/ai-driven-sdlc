@@ -2,9 +2,12 @@ from pathlib import Path
 
 from yaml import YAMLError
 
-from ..config import PROJECT_MANIFEST, load_project_manifest, resolve_local_resources
+from ..config import (
+    PROJECT_MANIFEST, allow_mandatory_rule_overrides, load_project_manifest, resolve_local_resources,
+)
 from ..constants import STAGES
 from ..governance import load_approver_roles
+from ..rule_loader import is_reserved_rule, rule_files
 
 
 def validate_project(project: Path, framework: Path | None = None):
@@ -31,6 +34,11 @@ def validate_project(project: Path, framework: Path | None = None):
     except OSError as error:
         report("error", "UNREADABLE_MANIFEST", str(error))
     else:
+        allow_override = None
+        try:
+            allow_override = allow_mandatory_rule_overrides(data)
+        except ValueError as error:
+            report("error", "INVALID_RULE_OVERRIDE_POLICY", str(error))
         if not data.get("technology_stack"):
             report("warning", "STACK_UNDEFINED", "technology_stack is not defined")
         try:
@@ -38,9 +46,20 @@ def validate_project(project: Path, framework: Path | None = None):
         except (ValueError, OSError, RuntimeError) as error:
             report("error", "INVALID_LOCAL_RESOURCES", str(error))
         else:
+            project_root = project.resolve()
             for path in paths.values():
                 if not path.is_dir():
-                    report("warning", "OPTIONAL_DIR_MISSING", f"{path.relative_to(project.resolve())} is absent")
+                    report("warning", "OPTIONAL_DIR_MISSING", f"{path.relative_to(project_root)} is absent")
+            if allow_override is False:
+                rules_root = paths["rules"]
+                try:
+                    for path in rule_files(rules_root, project=True):
+                        if is_reserved_rule(path.relative_to(rules_root)):
+                            report("warning", "RESERVED_RULE_IGNORED",
+                                   f"{path.relative_to(project_root).as_posix()} is ignored; "
+                                   "move project-specific rules outside core/ and sdlc/")
+                except (OSError, RuntimeError) as error:
+                    report("error", "INVALID_LOCAL_RESOURCES", str(error))
 
     try:
         load_approver_roles(project)

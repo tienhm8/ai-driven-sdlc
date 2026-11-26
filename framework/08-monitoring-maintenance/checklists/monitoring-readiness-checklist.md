@@ -6,7 +6,7 @@
 - [ ] Log có cấu trúc, có timestamp và tương quan được.
 - [ ] Trace bao phủ critical paths khi áp dụng.
 - [ ] Dashboard có ngữ cảnh service, dependency và release.
-- [ ] Alert có severity, owner, routing và runbook.
+- [ ] Alert có mức ưu tiên, owner, routing và runbook.
 - [ ] Có alert về sức khỏe telemetry pipeline và dữ liệu bị thiếu.
 - [ ] Áp dụng chính sách access, retention, redaction và audit.
 - [ ] Runbook và danh sách liên hệ escalation đã được kiểm thử.

@@ -24,13 +24,13 @@
 
 | Mã | Giả định | Cần xác minh | Chủ sở hữu |
 |---|---|---|---|
-| ASM-001 | | Có | |
+| ASM-0001 | | Có | |
 
 ## 7. Rủi ro đã biết
 
 | Mã | Rủi ro | Tác động | Ghi chú |
 |---|---|---|---|
-| RSK-001 | | | |
+| RISK-0001 | | | |
 
 ## 8. Vấn đề chưa được giải quyết
 

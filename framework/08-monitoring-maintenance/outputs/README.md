@@ -8,13 +8,9 @@ outputs/
 ├── monitoring-report-example.md       # Ví dụ (giả lập)
 ├── incident-report-example.md         # Ví dụ (giả lập)
 └── postmortem-example.md              # Ví dụ (giả lập)
-
-Sản phẩm thực tế (tạo khi vận hành), theo quy ước:
-outputs/<service>/<period>/            # ví dụ: outputs/payments/2026-Q4/
-outputs/<service>/<incident-id>/       # ví dụ: outputs/payments/INC-2026-0042/
 ```
 
-Các file `*-example.md` chỉ minh họa cách điền template, không phải bằng chứng production. Sản phẩm thật được tổ chức theo service và kỳ báo cáo hoặc theo incident ID.
+Framework chỉ giữ hướng dẫn và ví dụ giả lập. Hồ sơ vận hành thực tế lưu trong `docs/08-monitoring-maintenance/outputs/` của project instance.
 
 ## 2. Vai trò từng file
 
@@ -26,9 +22,9 @@ Các file `*-example.md` chỉ minh họa cách điền template, không phải 
 | `postmortem-example.md` | Minh họa postmortem: tách giả thuyết khỏi kết luận, action items có owner và cách xác minh |
 
 ## Quy ước
-- Tổ chức theo service/environment/period hoặc incident ID, ví dụ:
-  `outputs/payments/2026-Q4/monitoring-report.md`
-  `outputs/payments/INC-2026-0042/incident-report.md`
+- Trong project instance, dùng `outputs/<service>/<env>/<period-or-incident-id>/`. Ví dụ:
+  - `outputs/payments/production/2026-Q4/monitoring-report.md`
+  - `outputs/payments/staging/INC-2026-0042/incident-report.md`
 - Không ghi đè lịch sử; tạo version mới và giữ evidence nguồn.
-- Bảo vệ dữ liệu theo access/retention policy.
+- Dẫn link tới bằng chứng nhạy cảm trong kho có kiểm soát truy cập và retention theo policy; không sao chép secret, PII thô, raw logs nhạy cảm hoặc production dump vào repo.
 - File `*-example.md` chỉ minh họa, không phải bằng chứng production.

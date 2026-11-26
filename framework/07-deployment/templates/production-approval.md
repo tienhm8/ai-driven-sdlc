@@ -42,11 +42,14 @@ Phê duyệt chỉ hiệu lực cho đúng artifact digest, canonical target và
 - Ngoại lệ và risk owner:
 
 ## 4. Quyết định
-- [ ] Approved / Go
-- [ ] Rejected / No-Go
-- [ ] Blocked / Deferred
+Release Manager chọn một [quyết định theo gate policy](../../governance/human-review-gates/gate-policy.md#reviewer-decision):
 
-Lý do quyết định:
+- [ ] `approved` — Đồng ý với gói review.
+- [ ] `rejected` — Không chấp nhận gói review.
+- [ ] `changes_requested` — Yêu cầu chỉnh sửa trước khi phê duyệt.
+- [ ] `blocked` — Chưa thể phê duyệt vì còn trở ngại, ví dụ thiếu bằng chứng bắt buộc.
+
+Lý do quyết định (bắt buộc nếu khác `approved`):
 Điều kiện/giới hạn:
 
 Triển khai khẩn cấp vẫn cần quyết định G6 hợp lệ, không phải một loại quyết định riêng. Nếu dùng ngoại lệ theo [gate policy](../../governance/human-review-gates/gate-policy.md#ngoại-lệ), ghi tham chiếu ngoại lệ đã duyệt và thời điểm hết hiệu lực (kèm múi giờ). Không thực thi sau khi ngoại lệ hết hạn.
