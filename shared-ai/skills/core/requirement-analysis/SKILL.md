@@ -13,4 +13,4 @@ description: "Phân tích nhu cầu và tiêu chí nghiệm thu."
 
 ## Bàn giao
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Dùng [quy ước ID](../../../../framework/standards/metadata/id-conventions.md) để liên kết yêu cầu, user story và tiêu chí nghiệm thu. Đối chiếu [bộ đầu ra Stage 01](../../../../framework/01-requirement-analysis/outputs/README.md) cho phạm vi task; ghi liên kết tới tài liệu và ma trận truy vết, mục còn thiếu và câu hỏi cần người phụ trách quyết định. Không tự phê duyệt G1.
