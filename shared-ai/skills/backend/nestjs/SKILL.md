@@ -27,4 +27,8 @@ For a small change following an existing feature, start here and in that feature
 | Change JWT, Keycloak SSO, role checks, or data-partition scope | [Authentication and data partition](references/authentication.md); add `authentication` or `authorization` for changes to those mechanisms |
 | Change gRPC, custom TCP, or internal HTTP | [Microservice transports](references/microservice-transports.md); add `microservices` if service boundaries, ownership, or a cross-service contract change |
 | Write tests or need a DI mock | [Testing](references/testing.md) or [repository-token Jest example](examples/testing-example.md) |
-| Touch queues/cron, files/import, settings/batch jobs, or health/telemetry | [Backend module map](references/backend-module-map.md) to locate the owning module and decide which existing skill or source is applicable |
+| Change a Bull queue or processor, push notification, topic subscription, or scheduled job | [Jobs, notifications, and scheduling](references/jobs-and-notifications.md) |
+| Change file upload/download, object storage, or bulk import | [Files and imports](references/files-and-imports.md) |
+| Change settings, sequences, generated codes, or a bulk data operation | [Settings, sequences, and batch data](references/settings-and-batch-data.md) |
+| Change health checks, logging, or tracing | [Health, logging, and tracing](references/health-and-observability.md) |
+| Unsure which module owns a capability | [Backend module map](references/backend-module-map.md) |
