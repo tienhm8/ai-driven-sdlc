@@ -9,7 +9,7 @@
 
 ## Items
 | ID | Problem/opportunity | Evidence | Category | Priority | Impact | Effort | Owner | Due date | Dependency | Verification | Status |
-|---|---|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|---|---|---|
 | | | | Prevent/Detect/Mitigate/Recover/Capacity/Security | | | | | | | | |
 
 ## Prioritization

@@ -12,7 +12,7 @@ outputs/
 └── development-handover-template.md       # Gói bàn giao sang 05 Code Review
 ```
 
-Lưu theo task/release, ví dụ `outputs/TASK-123/`, gồm bản instance của các template trên cùng với tài liệu kỹ thuật được cập nhật.
+Lưu theo task/release, ví dụ `outputs/TASK-0123/`, gồm bản instance của các template trên cùng với tài liệu kỹ thuật được cập nhật.
 
 Luồng bàn giao: `implementation-summary` và `test-evidence` là đầu vào của `development-handover`; cả ba cùng được kiểm tra trong [handover checklist](../checklists/handover-checklist.md), nơi ghi kết quả PR Readiness Check trước khi chuyển sang 05.
 

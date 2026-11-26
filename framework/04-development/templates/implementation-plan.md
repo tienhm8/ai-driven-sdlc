@@ -21,7 +21,7 @@
 | Regression | | | |
 
 ## Đánh giá tác động
-API contract; DB/migration; cấu hình/secret; bảo mật/quyền riêng tư; hiệu năng/concurrency; tương thích; observability/logging:
+API contract; DB/migration; cấu hình/secret/feature flag; bảo mật/quyền riêng tư; hiệu năng/concurrency; tương thích; observability/logging. Nếu có thay đổi cần hoàn tác, ghi cách rollback/tắt tính năng và lưu ý an toàn dữ liệu khi migrate:
 
 ## Dependency và rủi ro
 | Hạng mục | Tác động | Biện pháp giảm thiểu | Owner |

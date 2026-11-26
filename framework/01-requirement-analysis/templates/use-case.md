@@ -14,11 +14,11 @@
 
 | Trường | Giá trị |
 |---|---|
-| Mã Use Case | UC-001 |
+| Mã Use Case | UC-0001 |
 | Tên Use Case | [Tên Use Case] |
 | Yêu cầu nghiệp vụ liên quan | BRQ-0001 |
-| User Story liên quan | US-001 |
-| Tiêu chí nghiệm thu liên quan | AC-001 |
+| User Story liên quan | US-0001 |
+| Tiêu chí nghiệm thu liên quan | AC-0001 |
 | Module | [Tên module] |
 | Độ ưu tiên | Cao |
 
@@ -133,7 +133,7 @@ Tham chiếu NFR ID trong `../outputs/04-non-functional-requirements/non-functio
 
 | Use Case liên quan | Quan hệ | Mô tả |
 |---|---|---|
-| UC-002 | Include / Extend / Generalization | [Mô tả] |
+| UC-0002 | Include / Extend / Generalization | [Mô tả] |
 
 ## 15. Ánh xạ tiêu chí nghiệm thu
 
