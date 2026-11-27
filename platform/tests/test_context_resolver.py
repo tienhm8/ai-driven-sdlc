@@ -204,22 +204,22 @@ class ContextResolverTests(TestCase):
         self.assertEqual(result["blockers"][0]["code"], "UNSAFE_SCOPE")
 
     def test_scoped_rules_mandatory_names_and_collisions(self):
-        self.local("local-rules/core/ai-usage-flow.mdc", "ignored\n")
-        self.local("local-rules/catalog.mdc", "---\nscope: {repos: [be], paths: ['src/catalog/**'], "
+        self.local("rules/core/ai-usage-flow.mdc", "ignored\n")
+        self.local("rules/catalog.mdc", "---\nscope: {repos: [be], paths: ['src/catalog/**'], "
                    "tasks: [code-generation]}\n---\nbody\n")
         be = self.resolve()
         self.assertIn("catalog", self.selected(be, "rules"))
         self.assertNotIn("catalog", self.selected(self.resolve(self.fe), "rules"))
         self.assertEqual(self.selected(be, "rules")["core/ai-usage-flow"]["source"], "shared")
         self.assertNotIn("project", {rule["source"] for rule in be["rules"] if rule["reason"] == "mandatory"})
-        duplicate = self.local("local-rules/catalog.md", "Duplicate extension\n")
+        duplicate = self.local("rules/catalog.md", "Duplicate extension\n")
         self.assertIn("collision", self.resolve()["blockers"][0]["message"])
         duplicate.unlink()
-        self.local("local-rules/renamed.md", "---\nid: core/ai-usage-flow\n---\nbody\n")
+        self.local("rules/renamed.md", "---\nid: core/ai-usage-flow\n---\nbody\n")
         self.assertIn("collision", self.resolve()["blockers"][0]["message"])
 
     def test_explicit_conflict_and_resource_escape_block_explanation(self):
-        rule = self.local("local-rules/strict.md", "---\nconflicts: [core/ai-usage-flow]\n---\nbody\n")
+        rule = self.local("rules/strict.md", "---\nconflicts: [core/ai-usage-flow]\n---\nbody\n")
         self.assertIn("Unresolved rule conflict", self.resolve()["blockers"][0]["message"])
         rule.unlink()
         (rule.parent / "escape").symlink_to(self.root / "be", target_is_directory=True)
@@ -233,7 +233,7 @@ class ContextResolverTests(TestCase):
         ref = self.shared / "skills/backend/nestjs/references/dto-validation.md"
         ref.write_bytes(b"\xff")
         self.assertEqual(self.resolve()["status"], "resolved")
-        self.local("local-skills/nestjs/SKILL.md", "---\nname: nestjs\ndescription: Duplicate\n---\nbody\n")
+        self.local("skills/nestjs/SKILL.md", "---\nname: nestjs\ndescription: Duplicate\n---\nbody\n")
         self.assertIn("Duplicate skill ID", self.resolve()["blockers"][0]["message"])
 
     def test_materialization_reads_only_selected_body_and_references(self):

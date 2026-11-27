@@ -9,8 +9,8 @@ from .manifest_schema import parse_manifest_text, validate_manifest_schema
 PROJECT_MANIFEST = Path(".ai-sdlc/project.yaml")
 PROJECT_ID_PATTERN = r"[A-Za-z0-9][A-Za-z0-9_-]*"
 DEFAULT_LOCAL_RESOURCES = {
-    "rules": ".ai-sdlc/local-rules",
-    "skills": ".ai-sdlc/local-skills",
+    "rules": ".ai-sdlc/rules",
+    "skills": ".ai-sdlc/skills",
 }
 
 

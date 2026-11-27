@@ -195,7 +195,7 @@ class ProjectManifestTests(TestCase):
 
     def test_mandatory_rule_namespaces_are_protected_by_default(self):
         shared = self.root / "shared-rules"
-        local = self.project / ".ai-sdlc/local-rules"
+        local = self.project / ".ai-sdlc/rules"
         for root, files in (
             (shared, {"core/README.md": "shared core", "sdlc/README.md": "shared sdlc",
                       "engineering/style.md": "shared style"}),
@@ -266,7 +266,7 @@ class ProjectManifestTests(TestCase):
         self.write_manifest(ai={"local_resources": {"rules_path": "custom/rules"}})
         paths = resolve_local_resources(self.project, load_project_manifest(self.project))
         self.assertEqual(paths["rules"], self.project / "custom/rules")
-        self.assertEqual(paths["skills"], self.project / ".ai-sdlc/local-skills")
+        self.assertEqual(paths["skills"], self.project / ".ai-sdlc/skills")
         skill = paths["skills"] / "local/SKILL.md"
         skill.parent.mkdir(parents=True)
         skill.write_text("local", encoding="utf-8")
