@@ -42,8 +42,11 @@ class Checkout:
         env = {key: value for key, value in os.environ.items() if not key.startswith("GIT_")}
         env.update(GIT_NO_REPLACE_OBJECTS="1", GIT_NO_LAZY_FETCH="1", GIT_OPTIONAL_LOCKS="0", GIT_ALLOW_PROTOCOL="",
                    GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull, GIT_TERMINAL_PROMPT="0")
-        result = subprocess.run(["git", "-C", str(self.root), *args], env=env, capture_output=True,
-                                timeout=10, check=False)
+        # Global/system config is ignored on purpose, so a checkout owned by another uid (container,
+        # CI runner, shared workspace) would be rejected as "dubious ownership". The path comes from
+        # trusted workspace config and is verified as a worktree root, so trust exactly that path.
+        result = subprocess.run(["git", "-c", f"safe.directory={self.root}", "-C", str(self.root), *args],
+                                env=env, capture_output=True, timeout=10, check=False)
         return result.stdout if result.returncode == 0 else None
 
     def read_blob(self, name: str) -> str | None:

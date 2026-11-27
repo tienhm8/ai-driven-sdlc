@@ -259,7 +259,10 @@ class ManagedModelRunner:
             except Exception:
                 return stop("manual", "AUDIT_UNAVAILABLE_AFTER_DISPATCH")
             if settlement_error:
-                return stop("manual", settlement_error)
+                # The attempt already ran and was paid for. Keep a verified reply so the caller does not
+                # have to dispatch (and pay) again; status stays manual until the cost is reconciled.
+                keep = reply.content if reply.status == "ok" and not mismatch and not incomplete else None
+                return stop("manual", settlement_error, keep)
             if mismatch:
                 return stop("manual", "OBSERVED_ROUTE_MISMATCH")
             if incomplete:

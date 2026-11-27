@@ -55,7 +55,9 @@ class BudgetLedger:
         self.project = project.resolve(strict=True)
         if not self.project.is_dir():
             raise invalid("Project Instance must be a directory")
-        self.state_dir = Path(os.path.abspath(state_dir))
+        # Resolve the operator-supplied root once, as governance state does. Everything below it
+        # (per-project directory, database and sidecars) is still checked for symlinks.
+        self.state_dir = Path(state_dir).expanduser().resolve()
         self.path = self.state_dir / sha256(os.fsencode(self.project)).hexdigest() / "cost" / "budget.sqlite3"
         self._check_location()
 
@@ -312,7 +314,18 @@ class BudgetLedger:
         conn.execute("INSERT INTO usage_receipts VALUES (?,?,?,?)", (*identity, encoded))
         self._event(conn, item, "usage-reconciled" if existing else "usage-imported",
                     provider=provider, account=account, source_event=key, basis=data["basis"], usd=usd_text(micros))
-        linked = conn.execute("SELECT quote FROM reservations WHERE settled=?", (_json(identity),)).fetchone()
+        linked = conn.execute("SELECT id,quote,status FROM reservations WHERE settled=?", (_json(identity),)).fetchone()
+        if linked is None and data.get("run_id") and data.get("attempt") and data["unit"] == "request":
+            # An imported event for a dispatched attempt closes its pending reservation, so
+            # reconciling by import does not leave the Story at incomplete coverage forever.
+            linked = conn.execute(
+                "SELECT id,quote,status FROM reservations WHERE run=? AND attempt=? AND item=? AND status='pending' "
+                "AND settled IS NULL", (data["run_id"], data["attempt"], item)).fetchone()
+            if linked is not None:
+                conn.execute("UPDATE reservations SET settled=? WHERE id=?", (_json(identity), linked["id"]))
+        if linked is not None and linked["status"] == "pending" and micros is not None:
+            conn.execute("UPDATE reservations SET status='settled' WHERE id=?", (linked["id"],))
+            self._event(conn, item, "settled", reservation_id=linked["id"])
         if linked is not None and micros is not None and micros > linked["quote"]:
             self._hold_managed_scope(conn, item)
         return True

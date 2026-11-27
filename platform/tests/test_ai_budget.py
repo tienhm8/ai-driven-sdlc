@@ -256,3 +256,48 @@ class BudgetLedgerTests(TestCase):
         self.assertEqual(denied.reason, "BUDGET_INCOMPLETE_COVERAGE")
         self.assertEqual([a["budget_status"] for a in result.attempts], ["settled", "pending"])
         self.assertEqual(self.ledger.report("US-0001")["spent"]["reported"], "1.000000")
+        # The paid reply must not be thrown away just because its cost is unreconciled.
+        self.assertEqual(result.status, "manual")
+        self.assertEqual(result.content, "synthetic")
+        self.assertIsNone(denied.content)
+
+    def test_import_reconciles_a_pending_reservation_instead_of_leaving_it_open(self):
+        self.approve("US-0001", "10")
+        reservation = self.reserve("1")
+        unknown = usage("late", run_id="attempt-run", attempt=1, tool="claude", basis="unmeasured")
+        self.assertEqual(self.ledger.settle(reservation, usage=unknown), "pending")
+        report = self.ledger.report("US-0001")
+        self.assertEqual((report["status"], report["reserved"]), ("incomplete-coverage", "1.000000"))
+        # The operator later reconciles the same event through the normal import path.
+        self.ledger.import_usage([usage("late", run_id="attempt-run", attempt=1, tool="claude",
+                                        basis="billed", amount="0.5")])
+        report = self.ledger.report("US-0001")
+        self.assertEqual((report["status"], report["reserved"], report["remaining"]),
+                         ("ready", "0.000000", "9.500000"))
+        self.assertEqual(report["coverage"]["pending_attempts"], 0)
+        self.assertEqual(self.ledger.pending("US-0001"), [])
+        self.reserve("1", attempt=2)
+
+    def test_import_does_not_close_the_reservation_of_another_attempt(self):
+        self.approve("US-0001", "10")
+        reservation = self.reserve("1")
+        self.ledger.settle(reservation)
+        self.ledger.import_usage([usage("other", run_id="attempt-run", attempt=2, amount="0.5")])
+        self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 1)
+
+    def test_state_directory_may_be_reached_through_a_symlink(self):
+        real = self.root / "real-state"
+        real.mkdir()
+        link = self.root / "state-link"
+        link.symlink_to(real, target_is_directory=True)
+        ledger = BudgetLedger(self.project, link)
+        ledger.register_item("US-9000")
+        self.assertEqual(ledger.report("US-9000")["work_item_id"], "US-9000")
+        self.assertTrue(str(ledger.path).startswith(str(real.resolve())))
+        # A symlink inside the per-project state tree is still refused.
+        entry = ledger.path.parent
+        moved = entry.with_name("cost-real")
+        entry.rename(moved)
+        entry.symlink_to(moved, target_is_directory=True)
+        with self.assertRaisesRegex(BudgetError, "symlinks"):
+            BudgetLedger(self.project, link).report("US-9000")

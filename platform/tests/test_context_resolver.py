@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import unittest.mock
 from unittest import TestCase, skipUnless
 from unittest.mock import Mock
 
@@ -196,6 +197,26 @@ class ContextResolverTests(TestCase):
         self.assertEqual(result["stack"]["nestjs"], {"declared": "11.2.7", "observed": "11.2.8"})
         self.assertNotIn("nestjs", self.selected(result, "skills"))
         self.assertEqual(result["warnings"][0]["code"], "STACK_VERSION_MISMATCH")
+
+    def test_checkout_verification_trusts_only_the_registered_path(self):
+        # Global/system Git config is ignored, so a checkout owned by another uid would be rejected as
+        # "dubious ownership". The registered path is therefore trusted explicitly, and only that path.
+        from ai_sdlc_platform.context_workspace import Checkout
+        calls = []
+        real = subprocess.run
+
+        def spy(command, **kwargs):
+            calls.append(command)
+            return real(command, **kwargs)
+
+        with unittest.mock.patch("ai_sdlc_platform.context_workspace.subprocess.run", spy):
+            Checkout(self.root / "be", self.request.revision).observed_versions({"nestjs": "11.2.7"})
+        self.assertTrue(calls)
+        expected = f"safe.directory={(self.root / 'be').resolve()}"
+        for command in calls:
+            self.assertEqual(command[:4], ["git", "-c", expected, "-C"], command)
+            self.assertEqual(command[4], str((self.root / "be").resolve()))
+        self.assertEqual(self.resolve()["status"], "resolved")
 
     def test_scope_cannot_cross_a_committed_symlink(self):
         (self.root / "be/src/catalog/linked").symlink_to(self.root / "fe", target_is_directory=True)
