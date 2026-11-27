@@ -28,3 +28,10 @@ governance.sqlite3-*
 .DS_Store
 .claude/settings.local.json
 .claude/worktrees/
+# Project instruction files and per-tool skill copies (generated locally, not committed)
+/CLAUDE.md
+/AGENTS.md
+/.claude/skills/
+/.cursorrules
+/.cursor/rules/
+/.github/copilot-instructions.md

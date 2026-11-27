@@ -1,16 +1,16 @@
 ---
 name: docker
-description: "Đóng gói ứng dụng bằng Docker."
+description: "Package an application with Docker."
 ---
 
 # docker
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Dùng multi-stage, base image đã kiểm chứng, user không phải root và .dockerignore; không đưa secret vào build layer.
-3. Build và smoke test cục bộ; kiểm tra startup/shutdown và kích thước image.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Use multi-stage builds, a verified base image, a non-root user, and a .dockerignore; keep secrets out of build layers.
+3. Build and smoke test locally; check startup, shutdown, and image size.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

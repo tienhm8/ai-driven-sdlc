@@ -1,7 +1,7 @@
 # Rules: sdlc
 
-`sdlc/` là nhóm rule bắt buộc được [rule loader bảo vệ mặc định](../../../platform/rule-loader/README.md), cùng với `core/`.
+`sdlc/` is a mandatory rule group that the [rule loader protects by default](../../../platform/rule-loader/README.md), together with `core/`.
 
-- Xác định giai đoạn từ [Framework](../../../framework/README.md). Đọc workflow, checklist và human review của giai đoạn; không đoán ánh xạ gate.
-- Liên kết yêu cầu → thay đổi → bằng chứng kiểm thử → quyết định review; khi yêu cầu đổi, cập nhật liên kết.
-- Theo [Governance](../../../framework/governance/README.md), ghi trạng thái gate thực tế và người phê duyệt; thiếu phê duyệt thì đánh dấu chờ thay vì đi tiếp.
+- Identify the stage from the [Framework](../../../framework/README.md). Read the stage's workflow, checklist, and human review; do not guess the gate mapping.
+- Link requirement → change → test evidence → review decision; when a requirement changes, update the links.
+- Under [Governance](../../../framework/governance/README.md), record the actual gate status and the approver; if approval is missing, mark the work as waiting instead of moving on.

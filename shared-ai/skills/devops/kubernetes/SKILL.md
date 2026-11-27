@@ -1,16 +1,16 @@
 ---
 name: kubernetes
-description: "Chuẩn bị manifest hoặc rollout Kubernetes."
+description: "Prepare Kubernetes manifests or a rollout."
 ---
 
 # kubernetes
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Khai báo requests/limits, probes đúng nghĩa, quyền tối thiểu và strategy rollout; kiểm tra namespace và context trước thao tác.
-3. Render/dry-run ở môi trường được duyệt; ghi tiêu chí health và rollback.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Declare requests and limits, correctly scoped probes, least privilege, and a rollout strategy; check the namespace and context before acting.
+3. Render or dry-run in an approved environment; record health criteria and rollback.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

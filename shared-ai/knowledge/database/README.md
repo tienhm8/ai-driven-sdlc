@@ -4,7 +4,7 @@ Chỉ mục tra cứu theo câu hỏi; không chép lại standards hay checklis
 
 | Câu hỏi | Đọc chuẩn | Dùng skill |
 |---|---|---|
-| Chọn mô hình và thiết kế schema thế nào? | [Database](../../../framework/standards/architecture/database-standards.md) | [database-design](../../skills/database/database-design/SKILL.md), [postgresql](../../skills/database/postgresql/SKILL.md), [mysql](../../skills/database/mysql/SKILL.md), [mongodb](../../skills/database/mongodb/SKILL.md), [redis](../../skills/database/redis/SKILL.md) |
+| Chọn mô hình và thiết kế schema thế nào? | [Database](../../../framework/standards/architecture/database-standards.md) | [database-design](../../skills/database/database-design/SKILL.md), [postgresql](../../skills/database/postgresql/SKILL.md), [mongodb](../../skills/database/mongodb/SKILL.md), [redis](../../skills/database/redis/SKILL.md) |
 | Thay đổi schema an toàn thế nào? | [Database](../../../framework/standards/architecture/database-standards.md) | [database-migration](../../skills/database/database-migration/SKILL.md) |
 
 **Gợi ý:** thử backup/restore trên bản dữ liệu không nhạy cảm; ghi RPO, RTO và thời gian phục hồi đo được. Review transaction, khóa, chỉ mục và retention theo truy vấn thực tế.

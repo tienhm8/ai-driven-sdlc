@@ -1,15 +1,20 @@
+schema_version: 1
 project:
   id: CRM
   name: Project CRM
 framework:
   version: "1.0.0"
 technology_stack:
-  backend: dotnet
-  frontend: react
-  database: postgresql
+  repositories:
+    be: {nestjs: "11.2.7"}
+    fe: {umi-max: "4.4.6", react: "19.2.3", antd: "5.24.2"}
 ai:
   tools: [claude]
   default_tool: claude
+  context_policy: default
+  routing_policy: default
+  # budget_policy: approved-story-budget
+  # Tool bindings are optional declarations, not proof of capability.
   local_resources:
     rules_path: .claude/rules
     skills_path: .claude/skills

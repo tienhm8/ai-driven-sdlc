@@ -1,16 +1,16 @@
 ---
 name: terraform
-description: "Thay đổi hạ tầng bằng Terraform."
+description: "Change infrastructure with Terraform."
 ---
 
 # terraform
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Khóa version, review backend/state và plan; kiểm tra tài nguyên bị replace và dữ liệu nhạy cảm trong state.
-3. Chạy fmt/validate, review plan; không apply khi chưa có phê duyệt.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Pin versions and review the backend, state, and plan; check for replaced resources and sensitive data in state.
+3. Run fmt and validate and review the plan; do not apply without approval.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

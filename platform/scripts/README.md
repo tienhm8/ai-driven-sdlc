@@ -9,6 +9,8 @@
 | `sync-framework.py` | Cập nhật template và tài nguyên theo phiên bản Framework mới, không ghi đè tài liệu dự án đã phát sinh. Tham số: `--framework`, `--project` (bắt buộc), `--apply`, `--overwrite`. |
 | `build-guide.py` | Nhúng `framework/guide/guide-data.yml` vào `framework/guide/index.html`. Tham số: `--check` để kiểm tra index đã cập nhật chưa. |
 | `guide-server.py` | Chạy server local, chỉ đọc, phục vụ guide và tiến độ dự án. Tham số: `--port` (mặc định `8765`), `--state-dir`. |
+| `resolve-context.py` | Xem rule, skill, reference và route dự kiến cho một Story/repo/revision. Chỉ đọc; không gọi model, không cấp quyền hoặc ghi gate. Xem [hướng dẫn cấu hình và chạy](../docs/context-resolution.md). |
+| `ai-budget.py` | Ghi hạn mức và chi phí theo Story/Feature, đối soát usage và xuất báo cáo JSON/CSV. Không gọi provider. Xem [hướng dẫn ngân sách](../docs/ai-budget.md). |
 
 > **Nguyên tắc:** `init-project.py` không sinh source code Backend/Frontend. Các repository code được tạo riêng theo công nghệ và quy trình khởi tạo tương ứng. Script này chỉ chịu trách nhiệm tạo workspace, cấu trúc tài liệu và cấu hình AI-Driven SDLC.
 

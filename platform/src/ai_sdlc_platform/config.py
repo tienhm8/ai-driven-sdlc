@@ -3,19 +3,21 @@ import re
 
 import yaml
 
+from .manifest_schema import parse_manifest_text, validate_manifest_schema
+
 
 PROJECT_MANIFEST = Path(".ai-sdlc/project.yaml")
 PROJECT_ID_PATTERN = r"[A-Za-z0-9][A-Za-z0-9_-]*"
 DEFAULT_LOCAL_RESOURCES = {
-    "rules": ".ai-sdlc/local-rules",
-    "skills": ".ai-sdlc/local-skills",
+    "rules": ".ai-sdlc/rules",
+    "skills": ".ai-sdlc/skills",
 }
 
 
 def load_project_manifest(project_root: Path) -> dict:
     """Load the canonical project manifest and validate its core fields."""
     manifest = project_root / PROJECT_MANIFEST
-    data = yaml.safe_load(manifest.read_text(encoding="utf-8"))
+    data = parse_manifest_text(manifest.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
         raise ValueError("Project manifest must be a YAML mapping")
     project = data.get("project")
@@ -29,6 +31,7 @@ def load_project_manifest(project_root: Path) -> dict:
         raise ValueError("project.name must be a nonempty string")
     if not isinstance(data.get("technology_stack", {}), dict):
         raise ValueError("technology_stack must be a mapping")
+    validate_manifest_schema(data)
     return data
 
 

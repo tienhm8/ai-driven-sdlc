@@ -1,0 +1,10 @@
+# GitLab CI evidence for G4
+
+Open when preparing or reviewing CI evidence for a merge request. The [G4 policy](../../../../../framework/governance/human-review-gates/G4-code-approval.md) and the repository's required checks control the decision; this reference describes how to record evidence.
+
+1. Identify the MR and the exact base and head SHAs under review. Record the tested SHA and pipeline type. A merged-results pipeline may test a synthetic merge commit: if policy accepts it, link its evidence back to the actual MR head and target revision. A successful run for an earlier head does not cover a pushed revision.
+2. For each required check, record pipeline/job link, command or check name, result, and report or log link. Record missing, skipped, pending/manual, canceled, and failed checks as such. A green pipeline can include skipped or allowed-to-fail jobs; inspect individual required jobs. Do not substitute a publish or smoke job for a different required check without the framework's applicable approval or exception process.
+3. For test reports, configure the runner first and use the actual JUnit XML output under `artifacts:reports:junit` (file, glob, or list). Use `artifacts:when: always` where ordinary output artifacts or logs must remain available on test failure. JUnit publication does not determine job status: propagate the test command's nonzero exit code. Do not create placeholder reports or collect environment files, credentials, or real user data. See [GitLab unit test reports](https://docs.gitlab.com/ci/testing/unit_test_reports/).
+4. Put the evidence in the [Stage 05 review report](../../../../../framework/05-code-review/templates/review-report.md). Record approval only when the authorized human decision exists; CI does not authorize merge or deploy. Record the verified merge result separately.
+
+Example evidence line (illustrative, not a real check): `MR !42 | base <base-sha> | head <head-sha> | tested <tested-sha> | pipeline <link> | test:unit <job-link> | npm test -- --ci | failed | <report-link>`.

@@ -9,6 +9,7 @@ from unittest import TestCase
 import yaml
 
 from ai_sdlc_platform.config import PROJECT_MANIFEST, load_project_manifest, resolve_local_resources
+from ai_sdlc_platform.manifest_schema import ai_policy_ids
 from ai_sdlc_platform.markdown_view import render_markdown_page
 from ai_sdlc_platform.rule_loader import load_rules
 from ai_sdlc_platform.skill_loader import load_skills
@@ -36,9 +37,7 @@ class ProjectManifestTests(TestCase):
         pm = self.project / "docs/project-management"
         pm_source = framework / "project-management"
         templates = pm / "_templates"
-        self.assertEqual(load_project_manifest(self.project)["project_management"], {
-            "enabled": True, "path": "docs/project-management",
-        })
+        self.assertNotIn("project_management", load_project_manifest(self.project))
         self.assertFalse((pm / "structure.yml").exists())
         charter = (pm / "project-charter.md").read_text(encoding="utf-8")
         self.assertIn("0.1 / Draft", charter)
@@ -155,10 +154,9 @@ class ProjectManifestTests(TestCase):
             self.assertEqual((ra_target / relative).read_bytes(), expected.read_bytes())
         self.assertFalse((self.project / "config.yml").exists())
         manifest = load_project_manifest(self.project)
-        self.assertEqual(manifest["project"], {"id": "demo", "name": display_name, "version": "1.0.0"})
+        self.assertEqual(manifest["project"], {"id": "demo", "name": display_name})
         self.assertEqual(manifest["ai"]["default_tool"], "cursor")
         self.assertIs(manifest["governance"]["allow_project_override_mandatory_rules"], False)
-        self.assertFalse(manifest["project_management"]["enabled"])
         self.assertFalse((self.project / "docs/project-management").exists())
         validation = run([sys.executable, "-B", str(self.root / "platform/scripts/validate-project.py"),
                           "--project", str(self.project), "--framework", str(framework)],
@@ -197,7 +195,7 @@ class ProjectManifestTests(TestCase):
 
     def test_mandatory_rule_namespaces_are_protected_by_default(self):
         shared = self.root / "shared-rules"
-        local = self.project / ".ai-sdlc/local-rules"
+        local = self.project / ".ai-sdlc/rules"
         for root, files in (
             (shared, {"core/README.md": "shared core", "sdlc/README.md": "shared sdlc",
                       "engineering/style.md": "shared style"}),
@@ -268,7 +266,7 @@ class ProjectManifestTests(TestCase):
         self.write_manifest(ai={"local_resources": {"rules_path": "custom/rules"}})
         paths = resolve_local_resources(self.project, load_project_manifest(self.project))
         self.assertEqual(paths["rules"], self.project / "custom/rules")
-        self.assertEqual(paths["skills"], self.project / ".ai-sdlc/local-skills")
+        self.assertEqual(paths["skills"], self.project / ".ai-sdlc/skills")
         skill = paths["skills"] / "local/SKILL.md"
         skill.parent.mkdir(parents=True)
         skill.write_text("local", encoding="utf-8")
@@ -414,6 +412,86 @@ class ProjectManifestTests(TestCase):
                 invalid = next(issue for issue in issues if issue["code"] == "INVALID_APPROVAL_POLICY")
                 self.assertIn(f"duplicate key {key!r}", invalid["message"])
                 self.assertNotIn("VALIDATION_PASSED", {issue["code"] for issue in issues})
+
+    def versioned(self, **data):
+        self.write_manifest(schema_version=1, **data)
+        return load_project_manifest(self.project)
+
+    def test_versioned_manifest_accepts_full_schema(self):
+        data = self.versioned(
+            technology_stack={"repositories": {"api": {"dotnet": "8.0.100"}}},
+            ai={"routing_policy": "default", "context_policy": "default", "default_profile": "balanced",
+                "budget_policy": "std", "tool_bindings": {"claude": {"balanced": {
+                    "model": "m", "effort": {"low": "low", "high": "max"}}}}})
+        self.assertEqual(ai_policy_ids(data), {"routing_policy": "default", "context_policy": "default"})
+        self.assertEqual(ai_policy_ids({}), {"routing_policy": "default", "context_policy": "default"})
+
+    def test_versioned_manifest_rejects_invalid_schema(self):
+        bad = [
+            {"schema_version": 2},
+            {"schema_version": True},
+            {"schema_version": 1.0},
+            {"technology_stack": {"repositories": []}},
+            {"technology_stack": {"repositories": {"api": {"dotnet": 8}}}},
+            {"technology_stack": {"repositories": {"api": {"dotnet": "latest"}}}},
+            {"technology_stack": {"repositories": {"bad alias": {"dotnet": "8"}}}},
+            {"ai": {"routing_policy": ""}},
+            {"ai": {"budget_policy": {"amount": 5}}},
+            {"ai": {"tool_bindings": {"claude": {"p": {"model": ""}}}}},
+            {"ai": {"tool_bindings": {"claude": {"p": {"model": "m", "effort": {"extreme": "x"}}}}}},
+            {"ai": {"tool_bindings": {"claude": {"p": {"model": "m", "extra": 1}}}}},
+        ]
+        for extra in bad:
+            with self.subTest(extra=extra):
+                data = {"schema_version": 1, **extra}
+                self.write_manifest(**data)
+                with self.assertRaises(ValueError):
+                    load_project_manifest(self.project)
+                codes = {i["code"] for i in validate_project(self.project)}
+                self.assertIn("INVALID_METADATA", codes)
+
+    def test_versioned_manifest_rejects_duplicate_keys_but_legacy_allows(self):
+        path = self.project / PROJECT_MANIFEST
+        path.parent.mkdir(parents=True)
+        body = "project: {id: demo, name: Demo}\nai: {tools: [a]}\nai: {tools: [b]}\n"
+        path.write_text(body, encoding="utf-8")
+        self.assertEqual(load_project_manifest(self.project)["ai"], {"tools": ["b"]})
+        path.write_text("schema_version: 1\n" + body, encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "Duplicate YAML key"):
+            load_project_manifest(self.project)
+
+    def test_legacy_manifest_ignores_new_fields_and_empty_versioned_stack_warns(self):
+        self.write_manifest(ai={"routing_policy": 7}, technology_stack={"repositories": 3})
+        load_project_manifest(self.project)
+        self.write_manifest(schema_version=1, technology_stack={"repositories": {}})
+        codes = {i["code"] for i in validate_project(self.project)}
+        self.assertIn("STACK_UNDEFINED", codes)
+
+    def test_init_scaffolds_versioned_manifest_that_validates(self):
+        shutil.copytree(PLATFORM / "scripts", self.root / "platform/scripts")
+        shutil.copytree(PLATFORM / "src", self.root / "platform/src", ignore=shutil.ignore_patterns("__pycache__"))
+        shutil.copytree(PLATFORM.parent / "framework", self.root / "framework")
+        result = run([sys.executable, "-B", str(self.root / "platform/scripts/init-project.py"),
+                      "--name", "Demo", "--slug", "demo"], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        data = load_project_manifest(self.project)
+        self.assertEqual(data["schema_version"], 1)
+        self.assertEqual(data["technology_stack"], {"repositories": {}})
+        self.assertEqual(ai_policy_ids(data), {"routing_policy": "default", "context_policy": "default"})
+        self.assertNotIn("project_management", data)
+        self.assertEqual(data["ai"]["default_tool"], "claude")
+        manifest = self.project / PROJECT_MANIFEST
+        contents = manifest.read_bytes() + b"\n# local customization\n"
+        manifest.write_bytes(contents)
+        rerun = run(result.args, capture_output=True, text=True)
+        self.assertEqual(rerun.returncode, 1, rerun.stderr)
+        self.assertIn("Project already exists", rerun.stdout + rerun.stderr)
+        self.assertEqual(manifest.read_bytes(), contents)
+
+    def test_example_manifest_is_valid(self):
+        self.project.joinpath(".ai-sdlc").mkdir(parents=True)
+        shutil.copy(PLATFORM / "config-examples/project.yaml", self.project / PROJECT_MANIFEST)
+        self.assertEqual(load_project_manifest(self.project)["schema_version"], 1)
 
     def test_legacy_project_gets_migration_hint(self):
         self.project.mkdir(parents=True)

@@ -72,6 +72,17 @@ class FrameworkSyncTests(unittest.TestCase):
         self.assertEqual(self.target.read_text(), "v1")
         self.assertEqual(self.manifest.read_text(), before)
 
+    def test_sync_never_changes_project_yaml(self):
+        project_yaml = self.proj / ".ai-sdlc/project.yaml"
+        project_yaml.parent.mkdir()
+        contents = b"schema_version: 1\nproject: {id: demo, name: Demo}\n# customization\n"
+        project_yaml.write_bytes(contents)
+        for options in ({}, {"apply": True}, {"apply": True, "overwrite": True}):
+            with self.subTest(options=options):
+                self.src.write_text(str(options))
+                self.run_sync(**options)
+                self.assertEqual(project_yaml.read_bytes(), contents)
+
     def test_apply_preserves_existing_manifest_mode_and_uses_private_default(self):
         self.src.write_text("source")
         self.run_sync(apply=True)

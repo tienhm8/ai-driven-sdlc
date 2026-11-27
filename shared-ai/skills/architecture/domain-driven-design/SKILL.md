@@ -1,16 +1,16 @@
 ---
 name: domain-driven-design
-description: "Mô hình hóa domain phức tạp."
+description: "Model a complex domain."
 ---
 
 # domain-driven-design
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Chốt ubiquitous language, bounded context và aggregate dựa vào invariant; tránh dùng entity chung qua context.
-3. Kiểm chứng invariant tại aggregate; ghi mapping và quyền sở hữu qua ranh giới.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Settle the ubiquitous language, bounded contexts, and aggregates based on invariants; avoid sharing entities across contexts.
+3. Verify invariants at the aggregate; record the mapping and ownership across boundaries.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

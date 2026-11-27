@@ -1,16 +1,16 @@
 ---
 name: database-design
-description: "Thiết kế schema từ bất biến và truy vấn."
+description: "Design a schema from invariants and queries."
 ---
 
 # database-design
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Mô tả cardinality, khóa và constraints; chọn index theo lọc/sắp xếp, tính chi phí ghi và retention.
-3. Review bằng dữ liệu đại diện và query plan; ghi trade-off.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Describe cardinality, keys, and constraints; choose indexes from filters and sorts, accounting for write cost and retention.
+3. Review with representative data and the query plan; record the trade-offs.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

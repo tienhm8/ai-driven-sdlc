@@ -1,4 +1,4 @@
-# Mẫu module theo feature
+# Feature module template
 
 ```ts
 import { Module } from '@nestjs/common';
@@ -12,4 +12,4 @@ import { FeatureService } from './feature.service';
 export class FeatureModule {}
 ```
 
-Đổi `Feature` bằng tên nghiệp vụ và tạo controller/service theo convention. Thêm `imports` cho module sở hữu dependency; chỉ thêm `exports` nếu có consumer. Dùng [ví dụ đầy đủ](../../examples/module-example.md) để kiểm tra cách wiring.
+Replace `Feature` with the business name and create the controller and service following the conventions. Add `imports` for the module that owns each dependency; add `exports` only if there is a consumer. Use the [full example](../../examples/module-example.md) to check the wiring.

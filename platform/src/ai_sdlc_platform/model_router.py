@@ -43,6 +43,7 @@ class ModelRouter:
         self.levels = levels
         self.risk_floors = _mapping(effort, "risk_floors")
         fallback = _policy(root, "fallback-policy.yaml")
+        self._fallback_policy = fallback
         self.fallbacks = _mapping(fallback, "fallbacks")
         self.max_fallbacks = fallback.get("max_fallbacks")
         if type(self.max_fallbacks) is not int or self.max_fallbacks < 0:
@@ -79,6 +80,23 @@ class ModelRouter:
         return {**profile, "required_capabilities": list(profile["required_capabilities"]),
                 "task_type": task_type, "profile_id": profile_id, "effort": effective,
                 "fallback": candidates[:self.max_fallbacks]}
+
+    def profile_capabilities(self, profile_id: str) -> frozenset[str]:
+        return frozenset(self._capabilities(profile_id))
+
+    def attempt_limits(self) -> tuple[int, int, frozenset[str]]:
+        """Stricter v1 contract for execution; the static route API stays compatible."""
+        policy = self._fallback_policy
+        retries = policy.get("max_retries")
+        retryable, non_retryable = policy.get("retryable"), policy.get("non_retryable")
+        if (type(retries) is not int or not 0 <= retries <= 1 or self.max_fallbacks > 1
+                or not _names(retryable) or not set(retryable) <= {"rate_limited", "temporarily_unavailable"}
+                or not _names(non_retryable) or set(retryable).intersection(non_retryable)
+                or any(policy.get(key) is not True for key in ("require_same_approved_data_policy",
+                                                               "require_same_or_higher_effort",
+                                                               "require_capability_superset"))):
+            raise RoutingError("Invalid managed attempt policy")
+        return retries, self.max_fallbacks, frozenset(retryable)
 
     def _higher_effort(self, minimum: str, requested: str) -> str:
         if requested not in self.levels:

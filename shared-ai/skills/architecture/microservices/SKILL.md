@@ -1,16 +1,16 @@
 ---
 name: microservices
-description: "Đánh giá hoặc thiết kế ranh giới service."
+description: "Evaluate or design service boundaries."
 ---
 
 # microservices
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Chỉ tách khi có nhu cầu triển khai hoặc mở rộng độc lập; định nghĩa owner dữ liệu, contract và timeout; thiết kế retry có giới hạn và idempotency.
-3. Thử downstream lỗi; bàn giao contract, quan sát và phương án tương thích trong rollout.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Split only when independent deployment or scaling is needed; define data ownership, contracts, and timeouts; design bounded retries and idempotency.
+3. Test a failing downstream; hand over the contract, observability, and a compatibility plan for the rollout.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.
