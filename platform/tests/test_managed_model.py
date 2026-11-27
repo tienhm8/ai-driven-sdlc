@@ -205,5 +205,16 @@ class ManagedModelTests(TestCase):
         self.assertEqual(self.run_task().reason, "AUDIT_UNAVAILABLE")
         self.first.assert_not_called()
         self.audit.side_effect = [None, RuntimeError("no sink")]
-        self.assertEqual(self.run_task().reason, "AUDIT_UNAVAILABLE_AFTER_DISPATCH")
+        result = self.run_task()
+        self.assertEqual(result.reason, "AUDIT_UNAVAILABLE_AFTER_DISPATCH")
         self.first.assert_called_once()
+        # The reply was already paid for: keep it, but never present it as completed output.
+        self.assertEqual((result.status, result.content, result.unresolved_content), ("manual", "answer", True))
+
+    def test_unverified_route_never_keeps_content(self):
+        self.audit.side_effect = [None, RuntimeError("no sink")]
+        self.first.return_value = ToolReply("ok", "answer", Observation("unexpected", "native-small"))
+        result = self.run_task()
+        self.assertEqual(result.status, "manual")
+        self.assertIsNone(result.content)
+        self.assertFalse(result.unresolved_content)

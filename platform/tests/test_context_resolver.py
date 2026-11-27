@@ -5,15 +5,15 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import unittest.mock
 from unittest import TestCase, skipUnless
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import yaml
 
 from ai_sdlc_platform.approval_engine import VerifiedApprover
 from ai_sdlc_platform.constants import STAGES
 from ai_sdlc_platform.context_resolver import ContextRequest, load_selected_context, resolve_context
+from ai_sdlc_platform.context_workspace import Checkout
 from ai_sdlc_platform.managed_model import ManagedModelRunner, Observation, ToolReply
 from ai_sdlc_platform.tool_adapters import ToolAdapterRegistry
 from ai_sdlc_platform.workflow_engine import WorkflowEngine
@@ -198,10 +198,10 @@ class ContextResolverTests(TestCase):
         self.assertNotIn("nestjs", self.selected(result, "skills"))
         self.assertEqual(result["warnings"][0]["code"], "STACK_VERSION_MISMATCH")
 
-    def test_checkout_verification_trusts_only_the_registered_path(self):
+    def test_checkout_verification_trusts_only_the_registered_path_and_disables_repo_hooks(self):
         # Global/system Git config is ignored, so a checkout owned by another uid would be rejected as
-        # "dubious ownership". The registered path is therefore trusted explicitly, and only that path.
-        from ai_sdlc_platform.context_workspace import Checkout
+        # "dubious ownership". Trusting the path does not vouch for `.git/config`, so code-running and
+        # network settings are forced off on every call.
         calls = []
         real = subprocess.run
 
@@ -209,14 +209,30 @@ class ContextResolverTests(TestCase):
             calls.append(command)
             return real(command, **kwargs)
 
-        with unittest.mock.patch("ai_sdlc_platform.context_workspace.subprocess.run", spy):
-            Checkout(self.root / "be", self.request.revision).observed_versions({"nestjs": "11.2.7"})
+        root = (self.root / "be").resolve()
+        with patch("ai_sdlc_platform.context_workspace.subprocess.run", spy):
+            Checkout(root, self.request.revision).observed_versions({"nestjs": "11.2.7"})
         self.assertTrue(calls)
-        expected = f"safe.directory={(self.root / 'be').resolve()}"
         for command in calls:
-            self.assertEqual(command[:4], ["git", "-c", expected, "-C"], command)
-            self.assertEqual(command[4], str((self.root / "be").resolve()))
+            settings = {command[i + 1] for i, arg in enumerate(command) if arg == "-c"}
+            self.assertIn(f"safe.directory={root}", settings)
+            self.assertEqual({s for s in settings if s.startswith("safe.directory=")}, {f"safe.directory={root}"})
+            for required in ("core.fsmonitor=false", "core.hooksPath=/dev/null", "protocol.allow=never"):
+                self.assertIn(required, settings)
         self.assertEqual(self.resolve()["status"], "resolved")
+
+    def test_repo_local_git_config_cannot_run_code_during_checkout_verification(self):
+        marker = self.root / "hook-ran"
+        hook = self.root / "evil.sh"
+        hook.write_text(f"#!/bin/sh\ntouch {marker}\n")
+        hook.chmod(0o755)
+        # An fsmonitor command in repo-local config runs on status/index operations if honored.
+        self.git("be", "config", "core.fsmonitor", str(hook))
+        self.git("be", "config", "core.hooksPath", str(self.root))
+        self.git("be", "config", "protocol.allow", "always")
+        result = self.resolve()
+        self.assertEqual(result["status"], "resolved", result["blockers"])
+        self.assertFalse(marker.exists())
 
     def test_scope_cannot_cross_a_committed_symlink(self):
         (self.root / "be/src/catalog/linked").symlink_to(self.root / "fe", target_is_directory=True)

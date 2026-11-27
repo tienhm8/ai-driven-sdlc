@@ -58,10 +58,45 @@ class BudgetLedger:
         # Resolve the operator-supplied root once, as governance state does. Everything below it
         # (per-project directory, database and sidecars) is still checked for symlinks.
         self.state_dir = Path(state_dir).expanduser().resolve()
+        self._require_root_private()
         self.path = self.state_dir / sha256(os.fsencode(self.project)).hexdigest() / "cost" / "budget.sqlite3"
         self._check_location()
 
+    def _require_root_private(self):
+        """The resolved root may be reached through a symlink, but it must not be swappable by another user.
+
+        Every existing ancestor is checked too: a root owned by the operator inside a world-writable directory
+        could otherwise be renamed or replaced by another user. Sticky directories (such as /tmp) are accepted.
+        """
+        euid = os.geteuid()
+        for directory in self.state_dir.parents:
+            try:
+                stat = directory.stat()
+            except FileNotFoundError:
+                continue
+            sticky = stat.st_mode & 0o1000
+            if not S_ISDIR(stat.st_mode) or stat.st_uid not in (0, euid) or (stat.st_mode & 0o022 and not sticky):
+                raise invalid("Budget state root must sit under directories the operator controls, not writable by others")
+        try:
+            stat = self.state_dir.stat()
+        except FileNotFoundError:
+            return  # created on first write, with private permissions
+        if not S_ISDIR(stat.st_mode) or stat.st_uid != euid or stat.st_mode & 0o022:
+            raise invalid("Budget state root must be a directory owned by the operator and not writable by others")
+
+    def _create_private_tree(self):
+        """Create every missing directory from the first existing ancestor down to the database, as 0700."""
+        missing = []
+        probe = self.path.parent
+        while not probe.exists():  # climbs past missing root levels, so a multi-level root is created too
+            missing.append(probe)
+            probe = probe.parent
+        for directory in reversed(missing):
+            directory.mkdir(mode=0o700, exist_ok=True)
+            directory.chmod(0o700)  # mkdir's mode is masked by the umask; make the result explicit
+
     def _check_location(self):
+        self._require_root_private()
         for suffix in ("", "-journal", "-wal", "-shm"):
             entry = self.path.with_name(self.path.name + suffix)
             if entry.resolve() != entry or entry.is_relative_to(self.project):
@@ -77,7 +112,7 @@ class BudgetLedger:
     def _db(self, *, write=False):
         self._check_location()
         if write:
-            self.path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+            self._create_private_tree()
             self._check_location()
             # The private directory protects the database and SQLite sidecars.
             self._require_private(self.path.parent, S_ISDIR)
@@ -270,7 +305,7 @@ class BudgetLedger:
             return [{"event": row["event"], "at": row["at"], **json.loads(row["data"])} for row in conn.execute(
                 "SELECT * FROM history WHERE item=? ORDER BY id", (item_id,))]
 
-    def _ingest(self, conn, data, micros):
+    def _ingest(self, conn, data, micros, *, link_pending=False):
         item, provider, account, key, session = (data[k] for k in ("work_item_id", "provider", "account", "event_id", "session_id"))
         self._row(conn, item)
         encoded = _json(data)
@@ -315,13 +350,16 @@ class BudgetLedger:
         self._event(conn, item, "usage-reconciled" if existing else "usage-imported",
                     provider=provider, account=account, source_event=key, basis=data["basis"], usd=usd_text(micros))
         linked = conn.execute("SELECT id,quote,status FROM reservations WHERE settled=?", (_json(identity),)).fetchone()
-        if linked is None and data.get("run_id") and data.get("attempt") and data["unit"] == "request":
-            # An imported event for a dispatched attempt closes its pending reservation, so
-            # reconciling by import does not leave the Story at incomplete coverage forever.
-            linked = conn.execute(
-                "SELECT id,quote,status FROM reservations WHERE run=? AND attempt=? AND item=? AND status='pending' "
-                "AND settled IS NULL", (data["run_id"], data["attempt"], item)).fetchone()
-            if linked is not None:
+        if linked is None and link_pending and data.get("run_id") and data.get("attempt") and data["unit"] == "request":
+            # Only an operator import may close a pending reservation by run and attempt. settle() already holds
+            # the reservation it is settling, and must not have it closed (and its history written) underneath it.
+            # The provider and tool must match the dispatched attempt so an unrelated or mislabeled record with
+            # the same run and attempt cannot clear the pending/incomplete-coverage gate.
+            candidate = conn.execute(
+                "SELECT id,quote,status,metadata FROM reservations WHERE run=? AND attempt=? AND item=? "
+                "AND status='pending' AND settled IS NULL", (data["run_id"], data["attempt"], item)).fetchone()
+            if candidate is not None and self._same_dispatch(json.loads(candidate["metadata"]), data):
+                linked = candidate
                 conn.execute("UPDATE reservations SET settled=? WHERE id=?", (_json(identity), linked["id"]))
         if linked is not None and linked["status"] == "pending" and micros is not None:
             conn.execute("UPDATE reservations SET status='settled' WHERE id=?", (linked["id"],))
@@ -330,19 +368,33 @@ class BudgetLedger:
             self._hold_managed_scope(conn, item)
         return True
 
+    @staticmethod
+    def _same_dispatch(reservation, data):
+        """Repo/stage/task must match the dispatched attempt. `tool` is optional on invoices, so it is compared only
+        when the record carries it. The provider (always present on a record) must match when the reservation
+        recorded one; reservations made without a configured provider cannot be checked on it."""
+        tool = data.get("tool")
+        if tool is not None and tool != reservation.get("tool"):
+            return False
+        if "provider" in reservation and data.get("provider") != reservation["provider"]:
+            return False
+        return all(data.get(key) == reservation.get(key) for key in ("repo", "stage", "task"))
+
     def import_usage(self, records):
         if not isinstance(records, list) or not records or len(records) > 10_000:
             raise invalid("Import requires an array of 1–10000 usage records")
         inputs = [normalize_usage(raw) for raw in records]
         with self._db(write=True) as conn:
-            return sum(self._ingest(conn, data, micros) for data, micros in inputs)
+            return sum(self._ingest(conn, data, micros, link_pending=True) for data, micros in inputs)
 
-    def reserve(self, item_id, quote_usd, *, run_id, attempt, repo, stage, task, tool):
+    def reserve(self, item_id, quote_usd, *, run_id, attempt, repo, stage, task, tool, provider=None):
         quote = usd_micros(quote_usd, positive=True)
         if type(attempt) is not int or not 1 <= attempt <= 1_000_000_000:
             raise invalid("Invalid attempt number")
         fields = {k: identifier(v, k) for k, v in (("run_id", run_id), ("repo", repo), ("stage", stage),
                                                    ("task", task), ("tool", tool))}
+        if provider is not None:  # operator-configured provider of the dispatch; checked on import and settlement
+            fields["provider"] = identifier(provider, "provider")
         with self._db(write=True) as conn:
             row = self._row(conn, item_id)
             scopes = [row] + ([self._row(conn, row["parent"])] if row["parent"] else [])

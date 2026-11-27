@@ -6,7 +6,16 @@ import re
 import shlex
 import subprocess
 
-COMMIT_ID = re.compile(r"(?:[a-f0-9]{40}|[a-f0-9]{64})")
+# Read-only object access never needs hooks, filters, pagers, external diff/textconv or network protocols.
+# This list is defense in depth, not a complete guarantee. Filter and textconv settings in .git/config are not
+# run here only because blob reads do not go through attributes; do not treat this list as exhaustive.
+_HARDENED_CONFIG = tuple(arg for setting in (
+    "core.fsmonitor=false", "core.hooksPath=/dev/null", "core.pager=cat", "core.sshCommand=false",
+    "core.askPass=false", "core.attributesFile=/dev/null", "core.alternateRefsCommand=false",
+    "protocol.allow=never", "diff.external=", "credential.helper=", "include.path=/dev/null",
+    "uploadpack.packObjectsHook=", "gc.auto=0", "maintenance.auto=false",
+) for arg in ("-c", setting))
+COMMIT_ID =re.compile(r"(?:[a-f0-9]{40}|[a-f0-9]{64})")
 PACKAGES = {"nestjs": "@nestjs/core", "umi-max": "@umijs/max", "react": "react", "antd": "antd"}
 
 
@@ -43,9 +52,11 @@ class Checkout:
         env.update(GIT_NO_REPLACE_OBJECTS="1", GIT_NO_LAZY_FETCH="1", GIT_OPTIONAL_LOCKS="0", GIT_ALLOW_PROTOCOL="",
                    GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull, GIT_TERMINAL_PROMPT="0")
         # Global/system config is ignored on purpose, so a checkout owned by another uid (container,
-        # CI runner, shared workspace) would be rejected as "dubious ownership". The path comes from
-        # trusted workspace config and is verified as a worktree root, so trust exactly that path.
-        result = subprocess.run(["git", "-c", f"safe.directory={self.root}", "-C", str(self.root), *args],
+        # CI runner, shared workspace) would be rejected as "dubious ownership". Trusting the registered
+        # path vouches for the path only, not for what is inside `.git`: a different owner can still edit
+        # `.git/config`. Every call here only reads objects, so the repo-local settings that can run code
+        # or reach beyond the object store are forced off on the command line, which overrides repo config.
+        result = subprocess.run(["git", *_HARDENED_CONFIG, "-c", f"safe.directory={self.root}", "-C", str(self.root), *args],
                                 env=env, capture_output=True, timeout=10, check=False)
         return result.stdout if result.returncode == 0 else None
 

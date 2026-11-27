@@ -259,7 +259,9 @@ class BudgetLedgerTests(TestCase):
         # The paid reply must not be thrown away just because its cost is unreconciled.
         self.assertEqual(result.status, "manual")
         self.assertEqual(result.content, "synthetic")
+        self.assertTrue(result.unresolved_content)
         self.assertIsNone(denied.content)
+        self.assertFalse(denied.unresolved_content)
 
     def test_import_reconciles_a_pending_reservation_instead_of_leaving_it_open(self):
         self.approve("US-0001", "10")
@@ -285,9 +287,80 @@ class BudgetLedgerTests(TestCase):
         self.ledger.import_usage([usage("other", run_id="attempt-run", attempt=2, amount="0.5")])
         self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 1)
 
+    def test_import_needs_the_same_tool_to_close_a_pending_reservation(self):
+        self.approve("US-0001", "10")
+        reservation = self.reserve("1")
+        self.ledger.settle(reservation)
+        for wrong in ({"tool": "other-tool"}, {"repo": "fe"}, {"stage": STAGES[1]}, {"task": "testing"}):
+            with self.subTest(wrong=wrong):
+                event = "mislabeled-" + "-".join(wrong)
+                record = usage(event, run_id="attempt-run", attempt=1, **{"tool": "claude", **wrong})
+                self.ledger.import_usage([record])
+                self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 1)
+        # A record without a tool (common on provider invoices) closes the pending dispatch.
+        self.ledger.import_usage([usage("untooled", run_id="attempt-run", attempt=1)])
+        self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 0)
+
+    def test_import_needs_the_configured_provider_to_close_a_pending_reservation(self):
+        self.approve("US-0001", "10")
+        reservation = self.ledger.reserve("US-0001", "1", run_id="attempt-run", attempt=1, repo="be", stage=STAGES[0],
+                                          task="documentation", tool="claude", provider="fixture")
+        self.ledger.settle(reservation)
+        self.ledger.import_usage([usage("wrong", run_id="attempt-run", attempt=1, provider="other")])
+        self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 1)
+        self.ledger.import_usage([usage("right", run_id="attempt-run", attempt=1)])
+        self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 0)
+
+    def test_settlement_cannot_override_the_configured_provider(self):
+        self.approve("US-0001", "10")
+        reservation = self.ledger.reserve("US-0001", "1", run_id="attempt-run", attempt=1, repo="be", stage=STAGES[0],
+                                          task="documentation", tool="claude", provider="fixture")
+        with self.assertRaises(BudgetError):
+            self.ledger.settle(reservation, usage=usage("s", run_id="attempt-run", attempt=1, provider="other"))
+
+    def test_adapter_maps_tool_to_provider_for_reservations(self):
+        self.approve("US-0001", "10")
+        budget = LedgerAttemptBudget(self.ledger, policies={}, providers={"claude": "fixture"})
+        self.assertEqual(budget.providers["claude"], "fixture")
+
+    def test_state_root_with_missing_intermediate_levels_is_created_private(self):
+        nested = self.root / "a" / "b" / "state"
+        ledger = BudgetLedger(self.project, nested)
+        ledger.register_item("US-9100")
+        self.assertEqual(ledger.report("US-9100")["work_item_id"], "US-9100")
+        for level in (self.root / "a", self.root / "a" / "b", nested):
+            self.assertEqual(level.stat().st_mode & 0o777, 0o700)
+
+    def test_ancestor_writable_by_others_is_refused_even_if_root_is_private(self):
+        open_parent = self.root / "open-parent"
+        open_parent.mkdir(mode=0o700)
+        open_parent.chmod(0o777)
+        private_root = open_parent / "state"
+        private_root.mkdir(mode=0o700)
+        with self.assertRaisesRegex(BudgetError, "not writable by others"):
+            BudgetLedger(self.project, private_root)
+
+    def test_settle_after_pending_writes_one_settlement_and_one_hold(self):
+        self.approve("US-0001", "10")
+        reservation = self.reserve("1")
+        self.assertEqual(self.ledger.settle(reservation), "pending")
+        record = usage("over", run_id="attempt-run", attempt=1, tool="claude", amount="3")
+        self.assertEqual(self.ledger.settle(reservation, usage=record), "settled")
+        events = [e["event"] for e in self.ledger.history("US-0001")]
+        self.assertEqual(events.count("settled"), 1)
+        self.assertEqual(events.count("review-hold"), 1)
+        self.assertEqual(self.ledger.report("US-0001")["status"], "review-required")
+
+    def test_state_root_must_not_be_writable_by_other_users(self):
+        shared = self.root / "shared-state"
+        shared.mkdir()
+        shared.chmod(0o777)
+        with self.assertRaisesRegex(BudgetError, "not writable by others"):
+            BudgetLedger(self.project, shared)
+
     def test_state_directory_may_be_reached_through_a_symlink(self):
         real = self.root / "real-state"
-        real.mkdir()
+        real.mkdir(mode=0o700)
         link = self.root / "state-link"
         link.symlink_to(real, target_is_directory=True)
         ledger = BudgetLedger(self.project, link)

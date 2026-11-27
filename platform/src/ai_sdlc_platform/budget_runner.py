@@ -10,8 +10,11 @@ from .managed_model import Attempt
 
 class LedgerAttemptBudget:
     def __init__(self, ledger: BudgetLedger, *, workspaces: tuple[Path, ...] = (),
-                 policies: Mapping[str, Callable[[Attempt], str | None]]):
+                 policies: Mapping[str, Callable[[Attempt], str | None]], providers: Mapping[str, str] | None = None):
         self.ledger = ledger
+        # Trusted operator mapping of tool -> accounting provider; routes carry no provider of their own.
+        self.providers = MappingProxyType({identifier(tool, "tool"): identifier(provider, "provider")
+                                           for tool, provider in (providers or {}).items()})
         self.policies = MappingProxyType({identifier(key, "budget policy"): quote for key, quote in policies.items()})
         if any(not callable(quote) for quote in self.policies.values()):
             raise BudgetError("BUDGET_POLICY_INVALID", "Budget quote policies must be callable")
@@ -29,7 +32,8 @@ class LedgerAttemptBudget:
             raise BudgetError("BUDGET_QUOTE_MISSING", "No cost projection for this attempt")
         request = attempt.request
         return self.ledger.reserve(request.work_item_id, amount, run_id=attempt.run_id, attempt=attempt.number,
-                                   repo=request.repo, stage=request.stage, task=request.task, tool=attempt.route.tool)
+                                   repo=request.repo, stage=request.stage, task=request.task, tool=attempt.route.tool,
+                                   provider=self.providers.get(attempt.route.tool))
 
     def settle(self, reservation: str, *, usage: dict | None = None, not_dispatched: bool = False,
                budget_cutoff: bool = False) -> str:

@@ -63,10 +63,20 @@ class AttemptBudget(Protocol):
 
 @dataclass(frozen=True)
 class ManagedResult:
+    """`content` is usable output only when `status == "completed"`.
+
+    On a `manual` result, content (if any) is a reply that was already paid for but whose cost, audit or route
+    is not yet resolved. It is kept so the caller does not dispatch and pay again, and is advisory until the
+    operator resolves `reason`; `unresolved_content` says so explicitly.
+    """
     status: str
     reason: str
     attempts: tuple[dict, ...]
     content: str | None = None
+
+    @property
+    def unresolved_content(self) -> bool:
+        return self.content is not None and self.status != "completed"
 
 
 _STATUSES = {"ok", "rate_limited", "temporarily_unavailable", "refusal", "permission_denied",
@@ -254,14 +264,14 @@ class ManagedModelRunner:
                 elif event["budget_status"] != "settled" and settlement_error is None:
                     settlement_error = "BUDGET_SETTLEMENT_FAILED"
             attempts.append(event)
+            # The attempt already ran and was paid for. Keep a verified reply on every post-dispatch failure so
+            # the caller does not dispatch (and pay) again; the status stays manual until it is resolved.
+            keep = reply.content if reply.status == "ok" and not mismatch and not incomplete else None
             try:
                 self.audit(dict(event))
             except Exception:
-                return stop("manual", "AUDIT_UNAVAILABLE_AFTER_DISPATCH")
+                return stop("manual", "AUDIT_UNAVAILABLE_AFTER_DISPATCH", keep)
             if settlement_error:
-                # The attempt already ran and was paid for. Keep a verified reply so the caller does not
-                # have to dispatch (and pay) again; status stays manual until the cost is reconciled.
-                keep = reply.content if reply.status == "ok" and not mismatch and not incomplete else None
                 return stop("manual", settlement_error, keep)
             if mismatch:
                 return stop("manual", "OBSERVED_ROUTE_MISMATCH")
