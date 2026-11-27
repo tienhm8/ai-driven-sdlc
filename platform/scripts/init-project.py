@@ -12,6 +12,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ai_sdlc_platform.config import PROJECT_ID_PATTERN, PROJECT_MANIFEST
+from ai_sdlc_platform.manifest_schema import AI_POLICY_DEFAULTS, MANIFEST_SCHEMA_VERSION
 from ai_sdlc_platform.constants import STAGES
 
 SYSTEM_DESIGN_OUTPUT_FOLDERS = [
@@ -137,12 +138,14 @@ def generate_config(
     default_tool = tools[0]
     tool_dir = AI_TOOLS[default_tool]
     return yaml.safe_dump({
+        "schema_version": MANIFEST_SCHEMA_VERSION,
         "project": {"id": slug, "name": project_name, "version": "1.0.0"},
         "framework": {"name": "AI-Driven-SDLC", "version": "1.0.0"},
-        "technology_stack": {},
+        "technology_stack": {"repositories": {}},
         "ai": {
             "tools": tools,
             "default_tool": default_tool,
+            **AI_POLICY_DEFAULTS,
             "shared_resources": {
                 "rules": ["core", "sdlc", "engineering"],
                 "skills": ["architecture", "backend", "frontend", "database", "devops", "security"],
