@@ -43,6 +43,9 @@ class ManagedModelTests(TestCase):
         self.second = Mock(return_value=ToolReply("ok", "other answer", Observation("other-model", "compact")))
         self.audit = Mock()
         self.wait = Mock()
+        self.attempt_budget = Mock()
+        self.attempt_budget.reserve.return_value = "fixture-reservation"
+        self.attempt_budget.settle.return_value = "settled"
 
     def save_manifest(self):
         self.manifest.write_text(yaml.safe_dump({"schema_version": 1, "project": {"id": "demo", "name": "Demo"},
@@ -56,11 +59,16 @@ class ManagedModelTests(TestCase):
                                              "data_policy": data_policy, "capability_evidence": "evidence:v1",
                                              "allow_uncontrolled_routine_effort": allow_default}}}}), encoding="utf-8")
 
-    def runner(self):
+    def runner(self, *, with_ledger=True):
         return ManagedModelRunner(self.project, ROOT / "framework", SHARED, {}, self.root / "state",
                                   adapters=self.registry, transports={"claude": self.first, "second": self.second},
                                   authorize_scope=self.scope, allow_data=self.data, allow_budget=self.budget,
-                                  audit=self.audit, wait=self.wait)
+                                  audit=self.audit, wait=self.wait, budget=self.attempt_budget if with_ledger else None)
+
+    def test_declared_ledger_policy_cannot_fall_back_to_boolean_preflight(self):
+        result = self.runner(with_ledger=False).run(self.request, b"synthetic")
+        self.assertEqual((result.status, result.reason), ("blocked", "BUDGET_LEDGER_NOT_CONFIGURED"))
+        self.first.assert_not_called()
 
     def run_task(self, request=None, payload=b"fixture private input"):
         return self.runner().run(request or self.request, payload)

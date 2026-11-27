@@ -4,7 +4,8 @@ No transport is bundled or discovered from the project. A transport must send at
 most one request per invocation: no tools, implicit retries, or provider fallback.
 """
 from collections.abc import Callable, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Protocol
 from hashlib import sha256
 import math
 from pathlib import Path
@@ -14,6 +15,7 @@ from uuid import uuid4
 
 from yaml import YAMLError
 
+from .budget_usage import BudgetError
 from .config import load_project_manifest
 from .context_resolver import ContextRequest, effective_risk, resolve_context
 from .manifest_schema import ai_policy_ids
@@ -49,6 +51,14 @@ class ToolReply:
     observed: Observation = Observation()
     safe_to_repeat: bool = False
     retry_after_seconds: float | None = None
+    usage: dict | None = field(default=None, repr=False)
+
+
+class AttemptBudget(Protocol):
+    def reserve(self, attempt: Attempt) -> str: ...
+
+    def settle(self, reservation: str, *, usage: dict | None = None, not_dispatched: bool = False,
+               budget_cutoff: bool = False) -> str: ...
 
 
 @dataclass(frozen=True)
@@ -73,7 +83,7 @@ class ManagedModelRunner:
                  adapters: ToolAdapterRegistry, transports: Mapping[str, Callable[[BoundRoute, bytes], ToolReply]],
                  authorize_scope: Callable[[Attempt], bool], allow_data: Callable[[Attempt, bytes], bool],
                  allow_budget: Callable[[Attempt], bool], audit: Callable[[dict], None],
-                 wait: Callable[[float], None] = sleep):
+                 wait: Callable[[float], None] = sleep, budget: AttemptBudget | None = None):
         self.project = project.resolve()
         self.framework = framework
         self.shared = shared
@@ -84,6 +94,7 @@ class ManagedModelRunner:
         self.authorize_scope = authorize_scope
         self.allow_data = allow_data
         self.allow_budget = allow_budget
+        self.budget = budget
         self.audit = audit
         self.wait = wait
         self._check_registry_location()
@@ -151,6 +162,8 @@ class ManagedModelRunner:
                 return stop("manual" if exc.code == "NO_APPROVED_FALLBACK" else "blocked", exc.code)
             except (OSError, ValueError, RuntimeError, YAMLError):
                 return stop("blocked", "ROUTING_POLICY_UNAVAILABLE")
+            if budget_policy is not None and self.budget is None:
+                return stop("blocked", "BUDGET_LEDGER_NOT_CONFIGURED")
             if cause == "retry" and (not max_retries or previous_status not in retryable):
                 return stop("manual", "RETRY_NO_LONGER_ALLOWED")
             if cause == "fallback" and previous_status not in retryable:
@@ -176,19 +189,36 @@ class ManagedModelRunner:
                     allowed = False
                 if not allowed:
                     return stop("blocked", reason)
+            reservation = None
+            if self.budget is not None:
+                try:
+                    reservation = self.budget.reserve(attempt)
+                except BudgetError as error:
+                    return stop("blocked", error.code)
+                except Exception:
+                    return stop("blocked", "BUDGET_STATE_UNAVAILABLE")
+                if not isinstance(reservation, str) or not reservation:
+                    return stop("blocked", "BUDGET_STATE_UNAVAILABLE")
             try:
                 self.audit({**event, "status": "preflight_passed"})
             except Exception:
+                if reservation is not None:
+                    try:
+                        self.budget.settle(reservation, not_dispatched=True)
+                    except Exception:
+                        return stop("blocked", "BUDGET_RESERVATION_UNRESOLVED")
                 return stop("blocked", "AUDIT_UNAVAILABLE")
             try:
                 reply = transport(bound, payload)
             except Exception:
                 # Unknown outcomes can already have incurred cost. Do not retry them.
                 reply = ToolReply("unknown_error")
-            if (not isinstance(reply, ToolReply) or not isinstance(reply.status, str)
-                    or reply.status not in _STATUSES or not isinstance(reply.observed, Observation)
-                    or (reply.status == "ok" and not isinstance(reply.content, str))):
+            if not isinstance(reply, ToolReply):
                 reply = ToolReply("unknown_error")
+            elif (not isinstance(reply.status, str) or reply.status not in _STATUSES
+                  or not isinstance(reply.observed, Observation)
+                  or (reply.status == "ok" and not isinstance(reply.content, str))):
+                reply = ToolReply("unknown_error", usage=reply.usage)
             observed_model = _observed_id(reply.observed.model)
             observed_effort = _observed_id(reply.observed.native_effort)
             level = bound.planned_effort if observed_effort is not None and observed_effort == bound.native_effort else None
@@ -201,11 +231,35 @@ class ManagedModelRunner:
             event.update(effective_model=observed_model, effective_effort=level, effective_native_effort=observed_effort,
                          observation="mismatch" if mismatch else "verified" if verified else "unverified",
                          status=status)
+            settlement_error = None
+            if reservation is not None:
+                cutoff = reply.status == "budget_exceeded"
+                usage = reply.usage
+                if isinstance(usage, dict):
+                    usage = {k: v for k, v in usage.items() if k not in {"model", "effort", "status"}}
+                    usage["status"] = status
+                    for key, observed in (("model", observed_model), ("effort", observed_effort)):
+                        if observed is not None:
+                            usage[key] = observed
+                try:
+                    event["budget_status"] = self.budget.settle(reservation, usage=usage, budget_cutoff=cutoff)
+                except Exception:
+                    try:
+                        event["budget_status"] = self.budget.settle(reservation, budget_cutoff=cutoff)
+                    except Exception:
+                        event["budget_status"] = "unresolved"
+                    settlement_error = "BUDGET_SETTLEMENT_FAILED"
+                if event["budget_status"] == "pending" and settlement_error is None:
+                    settlement_error = "BUDGET_USAGE_PENDING"
+                elif event["budget_status"] != "settled" and settlement_error is None:
+                    settlement_error = "BUDGET_SETTLEMENT_FAILED"
             attempts.append(event)
             try:
                 self.audit(dict(event))
             except Exception:
                 return stop("manual", "AUDIT_UNAVAILABLE_AFTER_DISPATCH")
+            if settlement_error:
+                return stop("manual", settlement_error)
             if mismatch:
                 return stop("manual", "OBSERVED_ROUTE_MISMATCH")
             if incomplete:
