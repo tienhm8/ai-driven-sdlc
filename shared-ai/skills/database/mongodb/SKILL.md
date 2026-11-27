@@ -1,16 +1,16 @@
 ---
 name: mongodb
-description: "Thiết kế hoặc sửa truy vấn MongoDB."
+description: "Design or modify MongoDB queries."
 ---
 
 # mongodb
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Chọn embed/reference dựa vào kích thước và update; đặt index cho filter/sort; cân nhắc atomicity từng document.
-3. Kiểm tra explain và tăng trưởng document với dữ liệu đại diện.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Choose embedding or referencing based on size and updates; add indexes for filters and sorts; consider per-document atomicity.
+3. Check explain output and document growth with representative data.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

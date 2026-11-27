@@ -23,8 +23,10 @@ AI đóng vai trò DevOps Engineer / Release Engineer, hỗ trợ chuẩn bị v
 - Infrastructure Architecture.
 - Environment Configuration.
 - Security Standards.
-- Deployment Standards.
+- [Pipeline Guidelines](ci-cd/pipeline-guidelines.md) và [Deployment Strategy](ci-cd/deployment-strategy.md).
 - Previous Release Records.
+
+> **Ghi chú:** Dùng hai hướng dẫn trên để đối chiếu pipeline, artifact, rollout và rollback với quy định của môi trường đích.
 
 ## 4. Input Requirements
 

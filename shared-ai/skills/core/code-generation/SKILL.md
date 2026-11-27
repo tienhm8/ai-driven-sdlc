@@ -1,16 +1,16 @@
 ---
 name: code-generation
-description: "Sinh mã từ task và thiết kế đã duyệt."
+description: "Generate code from an approved task and design."
 ---
 
 # code-generation
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Tìm contract và convention, chọn thay đổi nhỏ, cập nhật call site và xử lý lỗi tại biên.
-3. Kiểm thử hành vi mới và tương thích; báo diff và lệnh đã chạy.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Find the contract and conventions, choose a small change, update call sites, and handle errors at the boundary.
+3. Test the new behavior and compatibility; report the diff and the commands you ran.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

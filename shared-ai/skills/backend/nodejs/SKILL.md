@@ -1,16 +1,16 @@
 ---
 name: nodejs
-description: "Phát triển dịch vụ Node.js."
+description: "Develop Node.js services."
 ---
 
 # nodejs
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Giữ runtime theo repo; không chặn event loop với I/O đồng bộ; đặt timeout/cancellation ở I/O, dọn kết nối khi shutdown.
-3. Chạy lệnh dự án; kiểm tra lỗi async, shutdown và dữ liệu sai.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Keep the runtime the repo uses; do not block the event loop with synchronous I/O; set timeouts and cancellation on I/O and clean up connections on shutdown.
+3. Run the project's commands; check async errors, shutdown, and bad data.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

@@ -1,4 +1,4 @@
-# Mẫu service theo use case
+# Use-case service template
 
 ```ts
 import { Inject, Injectable } from '@nestjs/common';
@@ -19,4 +19,4 @@ export class FeatureService {
 }
 ```
 
-Đăng ký provider token bằng adapter thật; lấy `tenantId` từ quyền đã xác minh, không tin tenant tự khai từ request. Nếu use case cần điều kiện quyền khác (owner, role hoặc action), kiểm tra trước khi trả dữ liệu. Kiểm thử với hai tenant giả.
+Register the provider token with the real adapter. Take `tenantId` from verified permissions; do not trust a tenant the request claims for itself. If the use case needs other permission conditions (owner, role, or action), check them before returning data. Test with two fake tenants.

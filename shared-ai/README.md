@@ -16,13 +16,13 @@ Tài nguyên AI dùng chung cho các dự án áp dụng [SDLC Framework](../fra
 ```
 shared-ai/
 ├── rules/                  # Ràng buộc chung: core/, sdlc/, engineering/
-├── skills/                 # SKILL.md theo nhóm kỹ thuật (32 skill)
+├── skills/                 # SKILL.md theo nhóm
 │   ├── core/               # code-generation, code-review, documentation, requirement-analysis, system-design, testing
 │   ├── architecture/       # clean-architecture, domain-driven-design, microservices, monolith
-│   ├── backend/            # dotnet, laravel, nestjs, nodejs, spring-boot
-│   ├── frontend/           # angular, nextjs, react, vue
-│   ├── database/           # database-design, database-migration, mongodb, mysql, postgresql, redis
-│   ├── devops/             # docker, github-actions, kubernetes, terraform
+│   ├── backend/            # nestjs, nodejs
+│   ├── frontend/           # react, umi-max
+│   ├── database/           # database-design, database-migration, mongodb, postgresql, redis
+│   ├── devops/             # docker, gitlab-ci, kubernetes, terraform
 │   └── security/           # authentication, authorization, owasp
 ├── agents/                 # AGENT.md theo vai trò: business-analyst, solution-architect, developer,
 │                           #   code-reviewer, qa-engineer, devops-engineer
@@ -30,6 +30,8 @@ shared-ai/
 ├── knowledge/              # Tài liệu tra cứu: architecture, database, security, devops
 └── tool-configs/           # Hướng dẫn tích hợp theo công cụ: claude-code, codex, cursor, github-copilot, generic
 ```
+
+Danh mục skill kỹ thuật hiện tập trung vào hai codebase NestJS và Umi Max/React. Chỉ thêm công nghệ khi có nhu cầu thực tế; phạm vi danh mục skill không giới hạn quy trình, tiêu chuẩn hay governance của Framework.
 
 Ranh giới: `rules/` và `agents/` là hướng dẫn, không cấp quyền thực thi. Loader và ánh xạ model/tool chạy ở `platform/`; khi chưa có loader, dùng `tool-configs/` để tích hợp thủ công.
 

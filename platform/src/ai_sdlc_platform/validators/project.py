@@ -39,7 +39,10 @@ def validate_project(project: Path, framework: Path | None = None):
             allow_override = allow_mandatory_rule_overrides(data)
         except ValueError as error:
             report("error", "INVALID_RULE_OVERRIDE_POLICY", str(error))
-        if not data.get("technology_stack"):
+        stack = data.get("technology_stack")
+        if "schema_version" in data and isinstance(stack, dict):
+            stack = {k: v for k, v in stack.items() if k != "repositories" or v}
+        if not stack:
             report("warning", "STACK_UNDEFINED", "technology_stack is not defined")
         try:
             paths = resolve_local_resources(project, data)

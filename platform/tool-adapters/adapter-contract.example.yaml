@@ -5,3 +5,14 @@ security:
   allowed_operations: []
   timeout_seconds: 120
   require_human_approval_for: [write_repository, create_pull_request, deploy]
+# Example only. Nothing is enabled, and the model and evidence IDs are synthetic.
+routing:
+  default_model: fixture-model
+  models:
+    fixture-model:
+      profiles: [routine, implementation]
+      capabilities: [text, code]
+      data_policy: approved-internal-inference
+      capability_evidence: evidence:fixture-v1
+      effort: {low: native-low, medium: native-medium}
+      allow_uncontrolled_routine_effort: false

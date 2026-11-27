@@ -1,16 +1,16 @@
 ---
 name: system-design
-description: "Thiết kế luồng và thành phần hệ thống."
+description: "Design system flows and components."
 ---
 
 # system-design
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Ghi ràng buộc và quality attributes; so sánh phương án; vẽ hoặc mô tả dữ liệu qua ranh giới và failure modes.
-3. Ghi ADR, interface, SLO dự kiến và cách kiểm chứng vào hồ sơ thiết kế phù hợp.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Record constraints and quality attributes; compare options; draw or describe data across boundaries and failure modes.
+3. Record ADRs, interfaces, expected SLOs, and how they will be verified in the appropriate design documents.
 
-## Bàn giao
+## Handover
 
-Đối chiếu [đầu ra Stage 02](../../../../framework/02-system-design/outputs/README.md) và cập nhật [chỉ mục gói thiết kế](../../../../framework/02-system-design/outputs/design-package-index.md): dẫn tới các thành phần áp dụng, nêu phần thiếu hoặc không áp dụng và lý do. Ghi quyết định, bằng chứng và điểm chưa xác minh; trình gói cho người có thẩm quyền G2, không tự phê duyệt.
+Check the [Stage 02 outputs](../../../../framework/02-system-design/outputs/README.md) and update the [design package index](../../../../framework/02-system-design/outputs/design-package-index.md): link to the applicable components and state what is missing or not applicable and why. Record decisions, evidence, and anything not verified; submit the package to the person with G2 authority and do not approve it yourself.

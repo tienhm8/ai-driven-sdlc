@@ -1,16 +1,16 @@
 ---
 name: clean-architecture
-description: "Tách logic nghiệp vụ khỏi infrastructure."
+description: "Separate business logic from infrastructure."
 ---
 
 # clean-architecture
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Giữ dependency hướng vào trong; định nghĩa port tại phía use case, adapter tại biên, wiring ở composition root.
-3. Kiểm thử use case không cần framework và kiểm tra import không đảo chiều.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Keep dependencies pointing inward; define ports on the use-case side, adapters at the boundary, and wiring in the composition root.
+3. Test use cases without the framework and check that imports do not reverse direction.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.
