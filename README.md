@@ -71,6 +71,13 @@ Nếu Review không đạt thì quay lại Execute. Output của stage này là 
 
 Chi tiết đầy đủ: [Quy trình dùng AI](shared-ai/rules/core/ai-usage-flow.md).
 
+**Lưu ý khi dùng AI Tool:** cần tạo **project instruction file** (file hướng dẫn cấp dự án) để công cụ nạp flow và rule. Ví dụ với Claude Code:
+
+- `CLAUDE.md` ở root, trỏ tới [ai-usage-flow.md](shared-ai/rules/core/ai-usage-flow.md).
+- Chép hoặc symlink các skill cần dùng từ `shared-ai/skills/` vào `.claude/skills/`.
+
+Các file này được tạo cục bộ theo từng máy và đã được khai báo trong `.gitignore`, nên không commit lên repository.
+
 ## Kiến trúc
 
 ```
