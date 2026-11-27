@@ -49,16 +49,6 @@ python3 platform/scripts/resolve-context.py \
 
 The resolver always selects shared mandatory `core`/`sdlc` rules and the framework's workflow, human-review and AI instructions for the chosen stage before applicable engineering and local rules. Local rules can declare a canonical `id`, `scope`, and known `conflicts` in YAML frontmatter. Scope fields are optional (`repos`, `paths`, `tasks`, `stages`); configured fields are combined with AND and each field accepts any listed value. Path patterns use case-sensitive shell-style matching against the paths actually supplied, not against an expanded directory listing. Existing `.mdc` rules with tool-native `globs` or `alwaysApply` need an explicit resolver `scope`. A rule without scope is unscoped. Mandatory IDs/namespaces cannot be claimed by local rules. Duplicate IDs (including `.md` vs `.mdc`) and active declared conflicts block the preview. Textual contradictions still need human review; a renamed document or skill never becomes a governance override.
 
-```markdown
----
-id: catalog-api
-scope:
-  repos: [be]
-  paths: ['src/modules/catalog', 'src/modules/catalog/**']
-  tasks: [code-generation, code-review]
----
-
-Keep request validation at the controller boundary.
-```
+For NestJS and Umi Max projects, start with the [opt-in BE/FE rule examples](../config-examples/local-rules/README.md). Copy only the rules that fit the project into its configured local rules directory and adjust the aliases and paths. The examples are not loaded by default.
 
 Skill selection reads `SKILL.md` frontmatter first and uses the pilot stack/task/focus triggers, not descriptions as instructions. Use `--focus` for the actual surface: for example `dto`, `query`, `di`, `table`, `request`, `route`, `component`, `auth`, `authorization`, `migration` or `ci`. Project-local skills may opt in with the same `scope` fields; a duplicate shared skill ID blocks rather than shadowing the shared skill. Explain lists resource paths without reading bodies or expanding references. A local consumer can use `load_selected_context` to read just the selected bodies and references in order. It never follows links recursively or grants execution authority. See the [existing loader contracts](../rule-loader/README.md) for the legacy APIs.
