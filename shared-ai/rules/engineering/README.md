@@ -5,3 +5,4 @@
 - Add tests for changed behavior, including error cases; run the project's commands and record exactly which tests were skipped.
 
 - [git-workflow.md](git-workflow.md): branching (Gitflow), commit message format, and git limits for AI-assisted work.
+- [pull-request.md](pull-request.md): what a PR must state before review (scope, impact, evidence, rollback).
