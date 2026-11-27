@@ -1,16 +1,16 @@
 ---
 name: database-migration
-description: "Thay đổi schema hoặc backfill an toàn."
+description: "Change a schema or backfill safely."
 ---
 
 # database-migration
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Thiết kế expand → backfill lặp lại được → chuyển traffic → contract ở release sau; ước lượng lock và đặt điều kiện dừng.
-3. Thử trên môi trường cô lập, xác nhận ứng dụng cũ/mới và kế hoạch phục hồi.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Design expand → repeatable backfill → shift traffic → contract in a later release; estimate locks and set stop conditions.
+3. Test in an isolated environment, and confirm old and new application versions and the recovery plan.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

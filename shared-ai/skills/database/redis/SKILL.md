@@ -1,16 +1,16 @@
 ---
 name: redis
-description: "Dùng Redis cho cache hoặc dữ liệu ngắn hạn."
+description: "Use Redis for caching or short-lived data."
 ---
 
 # redis
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Đặt TTL, giới hạn dung lượng và chính sách eviction; xác định cache invalidation và hành vi khi Redis lỗi.
-3. Kiểm tra expiry, cache miss, phục hồi và không coi cache là nguồn chuẩn nếu chưa có thiết kế durability.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Set TTLs, size limits, and an eviction policy; define cache invalidation and behavior when Redis fails.
+3. Test expiry, cache misses, and recovery; do not treat the cache as the source of truth without a durability design.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

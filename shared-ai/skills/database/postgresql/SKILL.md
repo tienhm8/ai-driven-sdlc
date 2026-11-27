@@ -1,16 +1,16 @@
 ---
 name: postgresql
-description: "Thiết kế hoặc tối ưu PostgreSQL."
+description: "Design or tune PostgreSQL."
 ---
 
 # postgresql
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Đưa invariant vào constraints; đánh giá index theo truy vấn, nợ vacuum và khóa DDL; tách index concurrently khỏi transaction khi cần.
-3. So sánh query plan trên staging; kiểm tra contention và migration tương thích.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Put invariants in constraints; evaluate indexes against queries, vacuum debt, and DDL locks; keep concurrent index builds outside a transaction when needed.
+3. Compare query plans on staging; check contention and migration compatibility.
 
-## Bàn giao
+## Handover
 
-Nêu quyết định, bằng chứng đã kiểm tra và điểm chưa xác minh; chuyển mục cần phê duyệt cho người phụ trách.
+Report the decision, the evidence checked, and anything not verified; pass items that need approval to the responsible person.

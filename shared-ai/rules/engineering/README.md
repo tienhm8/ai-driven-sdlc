@@ -1,5 +1,5 @@
 # Rules: engineering
 
-- Ưu tiên thay đổi nhỏ, tương thích; không chỉnh ngoài phạm vi. Kiểm tra chuẩn hiện hành tại [Standards](../../../framework/standards/README.md).
-- Kiểm tra dữ liệu ở biên, quyền ở máy chủ, lỗi không lộ dữ liệu, và rollback cho thay đổi liên quan trạng thái.
-- Thêm kiểm thử cho hành vi đổi, kể cả trường hợp lỗi; chạy lệnh dự án và ghi chính xác bài kiểm tra bị bỏ qua.
+- Prefer small, compatible changes; do not edit outside the scope. Check the current standards at [Standards](../../../framework/standards/README.md).
+- Validate data at the boundary, enforce permissions on the server, keep errors from leaking data, and plan rollback for state-changing work.
+- Add tests for changed behavior, including error cases; run the project's commands and record exactly which tests were skipped.

@@ -1,16 +1,16 @@
 ---
 name: requirement-analysis
-description: "Phân tích nhu cầu và tiêu chí nghiệm thu."
+description: "Analyze needs and acceptance criteria."
 ---
 
 # requirement-analysis
 
-## Cách thực hiện
+## How to proceed
 
-1. Đọc task, stack, conventions và phạm vi đã duyệt trước khi làm.
-2. Tách nhu cầu khỏi giải pháp; xác định tác nhân, phạm vi, quy tắc và ngoại lệ; gắn ID ổn định.
-3. Mỗi yêu cầu có tiêu chí Given/When/Then hoặc phép đo và câu hỏi còn mở.
+1. Read the task, stack, conventions, and approved scope before starting.
+2. Separate the need from the solution; identify actors, scope, rules, and exceptions; assign stable IDs.
+3. Give every requirement Given/When/Then criteria or a measurement, plus any open questions.
 
-## Bàn giao
+## Handover
 
-Dùng [quy ước ID](../../../../framework/standards/metadata/id-conventions.md) để liên kết yêu cầu, user story và tiêu chí nghiệm thu. Đối chiếu [bộ đầu ra Stage 01](../../../../framework/01-requirement-analysis/outputs/README.md) cho phạm vi task; ghi liên kết tới tài liệu và ma trận truy vết, mục còn thiếu và câu hỏi cần người phụ trách quyết định. Không tự phê duyệt G1.
+Use the [ID conventions](../../../../framework/standards/metadata/id-conventions.md) to link requirements, user stories, and acceptance criteria. Check the [Stage 01 output set](../../../../framework/01-requirement-analysis/outputs/README.md) for the task's scope; record links to the documents and the traceability matrix, what is missing, and questions the responsible person must decide. Do not approve G1 yourself.
