@@ -5,6 +5,8 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
+import pwd
+import grp
 import sqlite3
 from stat import S_ISDIR, S_ISREG
 from uuid import uuid4
@@ -75,7 +77,8 @@ class BudgetLedger:
             except FileNotFoundError:
                 continue
             sticky = stat.st_mode & 0o1000
-            if not S_ISDIR(stat.st_mode) or stat.st_uid not in (0, euid) or (stat.st_mode & 0o022 and not sticky):
+            writable_by_others = bool(stat.st_mode & 0o002) or bool(stat.st_mode & 0o020 and not self._private_group(stat.st_gid))
+            if not S_ISDIR(stat.st_mode) or stat.st_uid not in (0, euid) or (writable_by_others and not sticky):
                 raise invalid("Budget state root must sit under directories the operator controls, not writable by others")
         try:
             stat = self.state_dir.stat()
@@ -83,6 +86,18 @@ class BudgetLedger:
             return  # created on first write, with private permissions
         if not S_ISDIR(stat.st_mode) or stat.st_uid != euid or stat.st_mode & 0o022:
             raise invalid("Budget state root must be a directory owned by the operator and not writable by others")
+
+    @staticmethod
+    def _private_group(gid):
+        """True when the operator is the only member of this group (e.g. a per-user primary group), so group-write
+        on a parent directory gives no one else access. Unknown groups are treated as shared."""
+        try:
+            operator = pwd.getpwuid(os.geteuid()).pw_name
+            members = set(grp.getgrgid(gid).gr_mem)
+            primary = {entry.pw_name for entry in pwd.getpwall() if entry.pw_gid == gid}
+        except (KeyError, OSError):
+            return False
+        return (members | primary) <= {operator}
 
     def _create_private_tree(self):
         """Create every missing directory from the first existing ancestor down to the database, as 0700."""
@@ -350,7 +365,10 @@ class BudgetLedger:
         self._event(conn, item, "usage-reconciled" if existing else "usage-imported",
                     provider=provider, account=account, source_event=key, basis=data["basis"], usd=usd_text(micros))
         linked = conn.execute("SELECT id,quote,status FROM reservations WHERE settled=?", (_json(identity),)).fetchone()
-        if linked is None and link_pending and data.get("run_id") and data.get("attempt") and data["unit"] == "request":
+        # A record without an amount (unmeasured) must not claim the reservation: it cannot settle it, and the
+        # claim would block the later billed record, whose event ID differs, from ever closing it.
+        if (linked is None and link_pending and micros is not None and data.get("run_id") and data.get("attempt")
+                and data["unit"] == "request"):
             # Only an operator import may close a pending reservation by run and attempt. settle() already holds
             # the reservation it is settling, and must not have it closed (and its history written) underneath it.
             # The provider and tool must match the dispatched attempt so an unrelated or mislabeled record with

@@ -323,6 +323,26 @@ class BudgetLedgerTests(TestCase):
         budget = LedgerAttemptBudget(self.ledger, policies={}, providers={"claude": "fixture"})
         self.assertEqual(budget.providers["claude"], "fixture")
 
+    def test_ancestor_group_writable_by_only_the_operator_is_accepted(self):
+        parent = self.root / "group-parent"
+        parent.mkdir(mode=0o700)
+        parent.chmod(0o775)
+        with patch.object(BudgetLedger, "_private_group", return_value=True):
+            ledger = BudgetLedger(self.project, parent / "state")
+            ledger.register_item("US-9200")
+        with patch.object(BudgetLedger, "_private_group", return_value=False):
+            with self.assertRaisesRegex(BudgetError, "not writable by others"):
+                BudgetLedger(self.project, parent / "state")
+
+    def test_unmeasured_import_does_not_block_a_later_billed_import(self):
+        self.approve("US-0001", "10")
+        reservation = self.reserve("1")
+        self.ledger.settle(reservation)
+        self.ledger.import_usage([usage("stray", run_id="attempt-run", attempt=1, basis="unmeasured")])
+        self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 1)
+        self.ledger.import_usage([usage("invoice", run_id="attempt-run", attempt=1, basis="billed", amount="0.5")])
+        self.assertEqual(self.ledger.report("US-0001")["coverage"]["pending_attempts"], 0)
+
     def test_state_root_with_missing_intermediate_levels_is_created_private(self):
         nested = self.root / "a" / "b" / "state"
         ledger = BudgetLedger(self.project, nested)
