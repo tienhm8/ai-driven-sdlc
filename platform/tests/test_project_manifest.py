@@ -37,9 +37,7 @@ class ProjectManifestTests(TestCase):
         pm = self.project / "docs/project-management"
         pm_source = framework / "project-management"
         templates = pm / "_templates"
-        self.assertEqual(load_project_manifest(self.project)["project_management"], {
-            "enabled": True, "path": "docs/project-management",
-        })
+        self.assertNotIn("project_management", load_project_manifest(self.project))
         self.assertFalse((pm / "structure.yml").exists())
         charter = (pm / "project-charter.md").read_text(encoding="utf-8")
         self.assertIn("0.1 / Draft", charter)
@@ -156,10 +154,9 @@ class ProjectManifestTests(TestCase):
             self.assertEqual((ra_target / relative).read_bytes(), expected.read_bytes())
         self.assertFalse((self.project / "config.yml").exists())
         manifest = load_project_manifest(self.project)
-        self.assertEqual(manifest["project"], {"id": "demo", "name": display_name, "version": "1.0.0"})
+        self.assertEqual(manifest["project"], {"id": "demo", "name": display_name})
         self.assertEqual(manifest["ai"]["default_tool"], "cursor")
         self.assertIs(manifest["governance"]["allow_project_override_mandatory_rules"], False)
-        self.assertFalse(manifest["project_management"]["enabled"])
         self.assertFalse((self.project / "docs/project-management").exists())
         validation = run([sys.executable, "-B", str(self.root / "platform/scripts/validate-project.py"),
                           "--project", str(self.project), "--framework", str(framework)],
@@ -481,7 +478,7 @@ class ProjectManifestTests(TestCase):
         self.assertEqual(data["schema_version"], 1)
         self.assertEqual(data["technology_stack"], {"repositories": {}})
         self.assertEqual(ai_policy_ids(data), {"routing_policy": "default", "context_policy": "default"})
-        self.assertIn("project_management", data)
+        self.assertNotIn("project_management", data)
         self.assertEqual(data["ai"]["default_tool"], "claude")
         manifest = self.project / PROJECT_MANIFEST
         contents = manifest.read_bytes() + b"\n# local customization\n"

@@ -139,38 +139,16 @@ def generate_config(
     tool_dir = AI_TOOLS[default_tool]
     return yaml.safe_dump({
         "schema_version": MANIFEST_SCHEMA_VERSION,
-        "project": {"id": slug, "name": project_name, "version": "1.0.0"},
-        "framework": {"name": "AI-Driven-SDLC", "version": "1.0.0"},
+        "project": {"id": slug, "name": project_name},
+        "framework": {"version": "1.0.0"},
         "technology_stack": {"repositories": {}},
         "ai": {
             "tools": tools,
             "default_tool": default_tool,
             **AI_POLICY_DEFAULTS,
-            "shared_resources": {
-                "rules": ["core", "sdlc", "engineering"],
-                "skills": ["architecture", "backend", "frontend", "database", "devops", "security"],
-            },
             "local_resources": {"rules_path": f"{tool_dir}/rules", "skills_path": f"{tool_dir}/skills"},
         },
-        "autonomy": {
-            "default_level": "L2",
-            "stages": {
-                "requirement_analysis": "L2",
-                "system_design": "L3",
-                "task_planning": "L2",
-                "development": "L2",
-                "code_review": "L3",
-                "testing_qa": "L2",
-                "deployment": "L3",
-                "monitoring_maintenance": "L2",
-            },
-        },
-        "project_management": {"enabled": include_project_management, "path": "docs/project-management"},
-        "governance": {
-            "require_human_approval": True,
-            "enforce_review_gates": True,
-            "allow_project_override_mandatory_rules": False,
-        },
+        "governance": {"allow_project_override_mandatory_rules": False},
     }, sort_keys=False, allow_unicode=True)
 
 
