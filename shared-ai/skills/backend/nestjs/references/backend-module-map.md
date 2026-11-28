@@ -10,6 +10,6 @@ Use this index when a task touches an existing capability outside the everyday R
 | Audit, push, subscriptions, queues, schedules | `audit-log`, `notification`, `one-signal`, `topic`, `redis`, `cron-manager` (note: two cron-manager modules exist, one under `src/cron-manager/` and one under `src/modules/cron-manager/`; `DefaultModules` registers the former) | [Jobs, notifications, and scheduling](jobs-and-notifications.md) |
 | Upload, object storage, imports | `file`, `minio`, `import-session`; import flows in `user`/`setting` | [Files and imports](files-and-imports.md) |
 | System settings, sequences, generated codes, batch changes | `setting`, `increment`, `quy-tac-ma`, `data-process` | [Settings, sequences, and batch data](settings-and-batch-data.md) |
-| Health, logging, tracing | `health`, `base-logger`, telemetry in `microservice` | [Health, logging, and tracing](health-and-observability.md) |
+| Health, logging, tracing | `health`, telemetry in `microservice` (`base-logger` is not registered) | [Health, logging, and tracing](health-and-observability.md); feature logging in [logging with Observer](logging-observer.md) |
 
 This is an index into the actual source and the references above. Do not load unrelated references or create a skill per module; add a focused reference only when real tasks need more than the source and the existing reference.

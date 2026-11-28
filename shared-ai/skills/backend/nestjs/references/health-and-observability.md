@@ -10,7 +10,10 @@ Open when changing health endpoints, logging, or tracing. Paths are relative to 
 
 ## Logging
 
-`BaseLoggerModule` exists in the source, but its registration in `DefaultModules` (`config/module/config.ts`) is commented out, and the `nestjs-pino` logger is commented out in `main.ts`. Do not describe it as active or add code that depends on it without enabling it deliberately. Use the Nest `Logger` as the existing services do, with levels matching severity, and keep tokens, credentials, and personal data out of log lines.
+New code logs through `@aisoft/backend-observer`: `@Operation` on state-changing handlers and an `@Observer`-injected `TelemetryFacade` in services. See [logging with Observer](logging-observer.md). Do not add new Nest `Logger` or `console` calls; existing ones stay until that code is changed.
+
+- `BaseLoggerModule` exists in the source, but its registration in `DefaultModules` (`config/module/config.ts`) is commented out, and the `nestjs-pino` logger is commented out in `main.ts`. Do not enable it: Observer manages its own Pino instance and writes JSON to stdout.
+- Application-level Observer configuration (`service.name`, `level`, `actorResolver`, `redaction`, OTLP logs) lives where `TelemetryModule.forRootAsync` is registered. `actorResolver` returns only `{ id }`; see [data safety](logging-observer.md#data-safety). If logs are shipped through both stdout and OTLP, deduplicate them in the collector. Call `app.enableShutdownHooks()` so pending records flush on shutdown.
 
 ## Tracing
 
