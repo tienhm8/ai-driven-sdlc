@@ -20,3 +20,16 @@ ai:
     skills_path: .claude/skills
 governance:
   allow_project_override_mandatory_rules: false
+# Optional. Omit for the standard gated flow.
+# See framework/governance/delivery-modes/README.md.
+# delivery:
+#   mode: prototype_first
+#   decision_ref: DEC-0002
+#   prototype_first:
+#     sources:
+#       prototype: docs/inputs/prototype.html
+#       srs: docs/inputs/srs.xlsx
+#       ui_base: fe
+#     deferred_gates: [G1, G2, G3]
+#     ux_improvements: apply_and_record
+#     merge_policy: after_g4

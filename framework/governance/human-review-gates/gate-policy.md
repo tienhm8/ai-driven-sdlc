@@ -13,6 +13,8 @@ Gate là điểm kiểm soát bắt buộc trước bước chuyển hoặc hàn
 | G6 | Trước production | Release Manager | Có release approval, kiểm tra an toàn và rollback plan |
 | G7 | Khi xử lý incident nghiêm trọng | Incident Commander | Phương án ứng phó được đánh giá và phê duyệt |
 
+Thời điểm chặn của G1/G2/G3 phụ thuộc [chế độ triển khai](../delivery-modes/README.md) của project. Ở `prototype_first`, ba gate này duyệt song song với coding nhưng phải `Approved` trước G5; điều kiện và approver không đổi.
+
 ## Quy tắc
 1. Lưu approver, timestamp, artifact version, decision và evidence.
 2. Chỉ người có vai trò và thẩm quyền phù hợp mới được ghi quyết định tại Gate bắt buộc; AI không được phê duyệt. Người được ghi nhận là tác giả của artifact đang được review không được ghi quyết định cho lần review đó, kể cả khi có vai trò approver phù hợp.

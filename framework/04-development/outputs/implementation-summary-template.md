@@ -10,6 +10,19 @@
 - Cách tiếp cận kỹ thuật:
 - Component/file đã thay đổi:
 
+## Chế độ prototype-first (nếu áp dụng)
+| Decision ref | Prototype / SRS (phiên bản) | Base frontend (commit) | Trạng thái G1 / G2 / G3 khi code |
+|---|---|---|---|
+| | | | |
+
+**Đề xuất cải tiến UX:**
+
+| Màn / thao tác | Prototype | Cải tiến | Lý do | Đã áp dụng? | Xác nhận PO |
+|---|---|---|---|---|---|
+| | | | | | |
+
+Câu hỏi mở và giả định đang chờ (ID):
+
 ## Ánh xạ AC
 | AC ID | Tham chiếu triển khai | Evidence xác minh | Trạng thái (Met / Not met / Partial) |
 |---|---|---|---|

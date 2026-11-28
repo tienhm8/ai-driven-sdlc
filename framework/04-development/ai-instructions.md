@@ -125,6 +125,8 @@ Trước từng hành động, xác định level theo rủi ro và kiểm tra q
 
 **Trước khi coding**, dùng [development readiness checklist](checklists/development-readiness.md) để xác minh G1/G2/G3 và DoR. Thiếu hoặc mâu thuẫn → `Blocked`, trừ ngoại lệ hợp lệ được ghi nhận theo checklist. AI không tự phê duyệt hoặc nới điều kiện này.
 
+**Chế độ prototype-first:** đọc `delivery` trong `.ai-sdlc/project.yaml`. Nếu là `prototype_first`, code theo [quy định prototype-first](../governance/delivery-modes/prototype-first.md): giao diện theo base frontend, thao tác theo prototype (kèm đề xuất cải tiến UX), chức năng theo SRS hoặc prototype khi không có SRS. Ghi phát sinh vào hồ sơ của giai đoạn tương ứng. AI không tự bật chế độ này và không coi hồ sơ đang trình là đã duyệt.
+
 **Trước khi bàn giao sang 05**, AI hỗ trợ đối chiếu [PR Readiness Check](workflow.md#410-pr-readiness-check--bàn-giao-04--05), không tự xác nhận bàn giao hay phê duyệt G4.
 
 **Gate G4** áp dụng trước khi merge Pull Request. Điều kiện G4:
