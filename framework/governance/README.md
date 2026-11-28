@@ -8,6 +8,7 @@
 - `autonomy-levels/`: hướng dẫn vận hành chi tiết L1–L4.
 - `human-review-gates/`: chính sách chung và tiêu chí G1–G7.
 - `audit-policy/`: audit trail, quyền truy cập, retention và disposition.
+- `delivery-modes/`: [chế độ triển khai](delivery-modes/README.md) quy định thời điểm G1/G2/G3 chặn coding (`standard` hoặc `prototype_first`).
 
 ## Thứ tự ưu tiên
 1. Pháp luật và nghĩa vụ hợp đồng áp dụng.

@@ -31,6 +31,7 @@ Handoff to Code Review
 ## 4.3 Entry Criteria — Điều kiện bắt đầu
 
 - [Development readiness checklist](checklists/development-readiness.md) = `Ready`: G1/G2/G3 đã `Approved` cho đúng phiên bản, task thuộc phạm vi bản ghi G3 và đạt DoR. Đây là xác minh, không phê duyệt lại; thiếu/mâu thuẫn → `Blocked` trừ ngoại lệ hợp lệ.
+- Nếu project bật [`prototype_first`](../governance/delivery-modes/prototype-first.md), các gate trong `deferred_gates` không chặn bắt đầu coding; dùng mục *Chế độ prototype-first* của checklist thay cho phần gate tương ứng.
 - Có design/API/data contract và coding guidelines.
 - Repository, branch strategy, CI checks và môi trường phát triển sẵn sàng.
 - Developer/AI agent được cấp quyền tối thiểu cần thiết.

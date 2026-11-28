@@ -9,7 +9,7 @@ from unittest import TestCase
 import yaml
 
 from ai_sdlc_platform.config import PROJECT_MANIFEST, load_project_manifest, resolve_local_resources
-from ai_sdlc_platform.manifest_schema import ai_policy_ids
+from ai_sdlc_platform.manifest_schema import ai_policy_ids, delivery_mode, validate_manifest_schema
 from ai_sdlc_platform.markdown_view import render_markdown_page
 from ai_sdlc_platform.rule_loader import load_rules
 from ai_sdlc_platform.skill_loader import load_skills
@@ -449,6 +449,49 @@ class ProjectManifestTests(TestCase):
                     load_project_manifest(self.project)
                 codes = {i["code"] for i in validate_project(self.project)}
                 self.assertIn("INVALID_METADATA", codes)
+
+    def test_delivery_mode_defaults_to_standard_and_accepts_prototype_first(self):
+        self.assertEqual(delivery_mode(self.versioned()), "standard")
+        self.assertEqual(delivery_mode(self.versioned(delivery={"mode": "standard"})), "standard")
+        data = self.versioned(
+            technology_stack={"repositories": {"fe": {"react": "19.2.3"}}},
+            delivery={"mode": "prototype_first", "decision_ref": "DEC-0002", "prototype_first": {
+                "sources": {"prototype": "docs/inputs/proto.html", "ui_base": "fe"},
+                "deferred_gates": ["G1", "G2"], "ux_improvements": "propose_only",
+                "merge_policy": "after_deferred_gates"}})
+        self.assertEqual(delivery_mode(data), "prototype_first")
+        self.versioned(delivery={"mode": "prototype_first", "decision_ref": "DEC-1",
+                                 "prototype_first": {"sources": {"srs": "srs.xlsx"}}})
+
+    def test_delivery_rejects_invalid_prototype_first(self):
+        def pf(**options):
+            return {"mode": "prototype_first", "decision_ref": "DEC-1",
+                    "prototype_first": {"sources": {"srs": "srs.xlsx"}, **options}}
+        bad = [
+            {"mode": "fast"},
+            {"mode": "standard", "extra": 1},
+            {"mode": "prototype_first", "prototype_first": {"sources": {"srs": "s"}}},
+            {"mode": "prototype_first", "decision_ref": "DEC-1"},
+            pf(sources={"ui_base": "fe"}),
+            pf(sources={"srs": "../outside.xlsx"}),
+            pf(sources={"srs": "/abs.xlsx"}),
+            pf(sources={"srs": "s", "ui_base": "missing"}),
+            pf(deferred_gates=["G4"]),
+            pf(deferred_gates=[]),
+            pf(deferred_gates=["G1", "G1"]),
+            pf(ux_improvements="auto"),
+            pf(merge_policy="never"),
+            pf(skip_gates=True),
+        ]
+        for delivery in bad:
+            with self.subTest(delivery=delivery):
+                self.write_manifest(schema_version=1, delivery=delivery)
+                with self.assertRaises(ValueError):
+                    load_project_manifest(self.project)
+
+    def test_config_example_validates(self):
+        example = yaml.safe_load((PLATFORM / "config-examples/project.yaml").read_text(encoding="utf-8"))
+        validate_manifest_schema(example)
 
     def test_versioned_manifest_rejects_duplicate_keys_but_legacy_allows(self):
         path = self.project / PROJECT_MANIFEST
