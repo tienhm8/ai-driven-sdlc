@@ -17,6 +17,14 @@ Use for a diff in the backend. Check only the items the diff touches. Detail for
 - Known failures map to the project's error codes; unexpected failures do not leak stack traces or database errors. ([DTO validation](../../../backend/nestjs/references/dto-validation.md), [exceptions](../../../backend/nestjs/references/exception-handling.md))
 - Logs and queue payloads contain no tokens, passwords, or personal data.
 
+## Logging (Observer)
+- Every state-changing handler has `@Operation({ action })`; a job, processor, cron, or gRPC/TCP handler that writes data opens `operation.run`. Read-only endpoints have none, and internal steps do not open extra operations. ([logging with Observer](../../../backend/nestjs/references/logging-observer.md))
+- New code adds no Nest `Logger`, `console.*`, or separate Pino instance. Services inject `TelemetryFacade` with `@Observer({ module, service })`, both names set.
+- Action, business event, and span names follow the convention (`customer.activate`, `customer.activated`) and contain no IDs or user input.
+- `data`, `message`, `actor`, and span attributes carry IDs, not personal data or secrets; `actorResolver` returns only `{ id }`. Redaction paths are static.
+- No `catch` that only logs and rethrows; operation or trace IDs are not passed as method parameters; builders are not stored in shared state.
+- A provider that gained `@Observer` has a passing DI check and its spec still builds.
+
 ## Persistence, jobs, and files
 - A multi-step write uses the module's transaction at the use-case boundary and aborts on failure; a transaction is not assumed to span Redis or remote calls.
 - A queue job is safe to run twice; the producer and processor use the same job name; retry settings are intentional. Scheduled jobs use the cron-leader guard. ([jobs](../../../backend/nestjs/references/jobs-and-notifications.md))
